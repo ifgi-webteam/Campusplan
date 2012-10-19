@@ -71,8 +71,7 @@ SELECT DISTINCT * WHERE {
  				$name = $fb->name->value;
  				$url = $fb->org->value;
  				
- 				// data-ajax="false" for all links to pages with maps - otherwise, the map doesn't load!
- 				echo '<li><a href="orgdetails.php?org_uri='.$url.'&org_title='.urlencode($name).'" data-ajax="false">'.$name.'</a></li>
+ 				echo '<li><a href="orgdetails.php?org_uri='.$url.'&org_title='.urlencode($name).'">'.$name.'</a></li>
  				';
  			}
  		

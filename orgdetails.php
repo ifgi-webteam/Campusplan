@@ -107,7 +107,7 @@ function addMapCode($orgDetails){
 	 	
 	 	// computes a route from currentLat/Lng to destLat/Lng
 	 	// possible modes: bicycle, foot, car
-	 	// languages: de, en (more supported? check http://developers.cloudmade.com/wiki/navengine/Documentation)
+	 	// languages: de, en (more? check http://developers.cloudmade.com/wiki/navengine/Documentation)
 	 	function computeRoute(currentLat, currentLng, destLat, destLng, mode, lang){
 	 		$.mobile.showPageLoadingMsg();
 	 		$.ajax({
