@@ -3,10 +3,12 @@
 	// load the additional CSS, we're gonna show a map:
 	$leaftletCSS = true;
 	
-	require_once("head.php");
+	require_once("functions.php");
 	
 	$org_uri   = $_GET["org_uri"]; 
 	$org_title = urldecode($_GET["org_title"]);
+	
+	getHead("$org_title");
 ?>
 
 <body> 
@@ -31,16 +33,15 @@
 
 		</div><!--/content-primary -->		
 		
-		<?php getMenu("fachbereiche.php"); ?> 	
+		<?php getMenu(); ?> 	
 
 	</div><!-- /content -->		
+<?php addMapCode($orgDetails); ?>
 </div><!-- /page -->
 
-<?php addMapCode($orgDetails); ?>
+<?php 
+getFoot();
 
-</body>
-</html>
-<?php
 
 // generates the Leaflet JS Code
 function addMapCode($orgDetails){
@@ -216,7 +217,7 @@ function addMapCode($orgDetails){
 	// now make sure the page also shows the things we have inserted:
 	echo"
 	<script>
-		$('#page').trigger('create');
+		$('#map').trigger('create');
 	</script>
 	";
 }
@@ -226,33 +227,38 @@ function addMapCode($orgDetails){
 function getOrgDetails($org, $lang = "de"){
 	
 	$query = "
-	
-	prefix foaf: <http://xmlns.com/foaf/0.1/> 
-	prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> 
-	prefix vcard: <http://www.w3.org/2006/vcard/ns#>
-	prefix lodum: <http://vocab.lodum.de/helper/>
-	prefix ogc: <http://www.opengis.net/ont/OGC-GeoSPARQL/1.0/>
-	prefix xsd: <http://www.w3.org/2001/XMLSchema#> 
-	
-	SELECT ?name ?homepage ?address ?buildingname ?lat ?long ?wkt WHERE {
-	  
-	  <".$org."> foaf:name ?name.
-	  
-	  OPTIONAL { <".$org."> foaf:homepage ?homepage . }
-	  
-	  OPTIONAL { <".$org."> vcard:adr ?address . 
-	  	FILTER ( datatype(?address) = xsd:string )
-	  }
-	  
-	  OPTIONAL { <".$org."> lodum:building ?building . 
-	             ?building foaf:name ?buildingname ;
-	                       geo:lat ?lat ;
-	                       geo:long ?long .
-	             
-	             OPTIONAL { ?building ogc:hasGeometry ?geometry .
-	                        ?geometry ogc:asWKT ?wkt . }           
-	           }                                                                                                                       .
-	}
+
+prefix foaf: <http://xmlns.com/foaf/0.1/> 
+prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> 
+prefix vcard: <http://www.w3.org/2006/vcard/ns#>
+prefix lodum: <http://vocab.lodum.de/helper/>
+prefix ogc: <http://www.opengis.net/ont/OGC-GeoSPARQL/1.0/>
+prefix xsd: <http://www.w3.org/2001/XMLSchema#> 
+
+SELECT DISTINCT ?name ?homepage ?address ?buildingname ?lat ?long ?wkt WHERE {
+  
+  <".$org."> foaf:name ?name.
+  
+  OPTIONAL { <".$org."> foaf:homepage ?homepage . }
+  
+  OPTIONAL { <".$org."> vcard:adr ?address . 
+  	FILTER ( datatype(?address) = xsd:string )
+  }
+  
+  OPTIONAL { <".$org."> lodum:building ?building . 
+             ?building foaf:name ?buildingname ; 
+                       
+     OPTIONAL { ?building geo:lat ?lat ; 
+                              geo:long ?long . }
+             
+     OPTIONAL { ?building vcard:address ?buildingAddress . } 
+         
+         OPTIONAL { ?building ogc:hasGeometry ?geometry .
+                        ?geometry ogc:asWKT ?wkt . } 
+         
+  }                                                                                                                       
+}
+
 	";
 	$orgDetails = sparql_get($query);	
 	

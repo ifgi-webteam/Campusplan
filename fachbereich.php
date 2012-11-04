@@ -1,8 +1,12 @@
 <?php 
-	require_once("head.php");
+	require_once("functions.php");
+
 	$fb_title = $_GET["fb_title"];
 	$fb_desc  = $_GET["fb_desc"]; 
 	$fb_uri   = $_GET["fb_uri"]; 
+
+	getHead($fb_title);
+
 ?>
 
 <body> 

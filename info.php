@@ -1,4 +1,7 @@
-<?php require_once("head.php"); ?>
+<?php 
+	require_once("functions.php");
+	getHead("Info");
+?>
 
 <body> 
 
@@ -31,7 +34,7 @@
 				
 		</div><!--/content-primary -->		
 		
-		<?php getMenu("info.php"); ?> 	
+		<?php getMenu(); ?> 	
 		
 	</div><!-- /content -->		
 </div><!-- /page -->

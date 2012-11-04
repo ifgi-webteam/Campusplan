@@ -1,0 +1,7 @@
+Server setup
+
+host: giv-app.uni-muenster.de
+alias: app.uni-muenster.de
+
+user: appadmin
+pass: QQZ12süü

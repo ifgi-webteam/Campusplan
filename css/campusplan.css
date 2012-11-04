@@ -40,7 +40,7 @@ body { background: #dddddd; }
 	color: #a21412;
 }
 
-h2 { margin:1.2em 0 .4em 0; }
+h2 { margin:0 0 .4em 0; font-size: 1em; }
 p code { font-size:1.2em; font-weight:bold; } 
 h4 code {font-size:1.2em; font-weight:bold; }
 
@@ -279,7 +279,7 @@ dd h4 { margin:15px 0 0 0; }
 	.type-home .ui-content,
 	.type-interior .ui-content {
 		padding: 0;
-		background: url(../images/px-ccc.gif) 50% 0 repeat-y;
+		/* background: url(../images/px-ccc.gif) 50% 0 repeat-y; */
 	}
 	.ui-popup-container .ui-content {
 		padding: 15px;
@@ -1883,6 +1883,7 @@ a.ui-link-inherit {
 /* unset box shadow in browsers that don't do it right
 -----------------------------------------------------------------------------------------------------------*/
 
+
 .ui-mobile-nosupport-boxshadow * {
 	-moz-box-shadow: none !important;
 	-webkit-box-shadow: none !important;
@@ -1898,14 +1899,14 @@ a.ui-link-inherit {
 
 /* dynamically resizable icons on the start page */
 img.frontimg{
-	max-width: 49%;
+	max-width: 50%;
     height: auto;
     vertical-align: top;
     float: left;
 }
 
 img.frontimg-s{
-	max-width: 24.5%;
+	max-width: 25%;
     height: auto;
     vertical-align: top;
     float: left;
@@ -1914,15 +1915,28 @@ img.frontimg-s{
 img.logoimg{
 	max-width: 39%;
     height: auto;
-    margin: 5%;
+    margin: 2% 5% 0 5%;
+    float: right;
+}
+
+/* menu images */
+img.menuimg{
+	max-width: 50%;
+    height: auto;
+    vertical-align: top;
+    float: left;
+}
+
+img.menu-logo{
+	max-width: 40%;
+    height: auto;
+    vertical-align: top;
+    float: right;
+    margin: 5% 5% 0 5%;
 }
 
 form.ui-listview-filter{
 	margin-top: 0;
-}
-
-h2{
-	margin-top: 0
 }
 
 div#map { 
@@ -1931,3 +1945,24 @@ div#map {
 	height: 100%; 
 	
 }
+
+/* Wrap long items in lists*/
+.ui-li .ui-btn-text a.ui-link-inherit .ui-li-heading p.ui-li-desc {
+	white-space: normal !important;
+}
+
+ div.start-menu{
+ 	margin: -15px;
+ }
+
+ img.fixed-button{
+ 	max-width: 15%;
+ 	hight: auto;
+ }
+
+ div.fixed-home{
+ 	position: fixed;
+ 	top: 0;
+ 	left: 10%;
+ 	z-index: 1000;
+ }

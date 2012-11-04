@@ -1,8 +1,11 @@
-<?php require_once("head.php"); ?>
+<?php 
+	require_once("functions.php");
+	getHead("Fachbereiche");
+?>
 
 <body> 
 
-<div data-role="page" class="type-interior">
+<div data-role="page" class="type-interior" id="page">
 
 	<?php getHeader("Fachbereiche", "home"); ?>
 
@@ -20,14 +23,15 @@
 
 		</div><!--/content-primary -->		
 		
-		<?php getMenu("fachbereiche.php"); ?> 	
+		<?php getMenu(); ?> 	
 
 	</div><!-- /content -->		
 </div><!-- /page -->
 
-</body>
-</html>
+
 <?php
+
+getFoot();
 
 // loads all university departments in $lang (currently supported: de, en (TODO!))
 

@@ -1,0 +1,611 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"tu",
+				"turtles"
+			],
+			[
+				"new",
+				"newContainerMetadata"
+			],
+			[
+				"inde",
+				"indexOf"
+			],
+			[
+				"m",
+				"mismatch"
+			],
+			[
+				"val",
+				"val"
+			],
+			[
+				"leng",
+				"length"
+			],
+			[
+				"te",
+				"template"
+			],
+			[
+				"data",
+				"datacontainers"
+			],
+			[
+				"datacon",
+				"datacontainers"
+			],
+			[
+				"cell",
+				"cellContent"
+			],
+			[
+				"add",
+				"addClass"
+			],
+			[
+				"emerg",
+				"emergency"
+			],
+			[
+				"control-",
+				"control-group"
+			],
+			[
+				"this",
+				"thisTerm"
+			],
+			[
+				"pre",
+				"predicate"
+			],
+			[
+				"table-",
+				"table-fixed-header"
+			],
+			[
+				"look",
+				"lookUpTerms"
+			],
+			[
+				"loo",
+				"lookUpTerms"
+			],
+			[
+				"num",
+				"numCells"
+			],
+			[
+				"tr",
+				"trans"
+			],
+			[
+				"json",
+				"json_encode"
+			],
+			[
+				"show",
+				"showInstructions"
+			],
+			[
+				"mod",
+				"modal"
+			],
+			[
+				"prev",
+				"previewTable"
+			],
+			[
+				"length",
+				"length-2"
+			],
+			[
+				"predi",
+				"predicateCounter"
+			],
+			[
+				"tem",
+				"templateCounter"
+			],
+			[
+				"nam",
+				"names"
+			],
+			[
+				"l",
+				"log"
+			],
+			[
+				"strs",
+				"str_split"
+			],
+			[
+				"error",
+				"error_log"
+			],
+			[
+				"file",
+				"filename"
+			],
+			[
+				"eror",
+				"error_log"
+			],
+			[
+				"tri",
+				"triple"
+			],
+			[
+				"con",
+				"container"
+			],
+			[
+				"sli",
+				"slideUp"
+			],
+			[
+				"str_re",
+				"str_replace"
+			],
+			[
+				"file_",
+				"file_get_contents"
+			],
+			[
+				"shi",
+				"shiftedLookup"
+			],
+			[
+				"sample",
+				"samplerow"
+			],
+			[
+				"sam",
+				"samplerow"
+			],
+			[
+				"sp",
+				"split"
+			],
+			[
+				"last",
+				"lastselected"
+			],
+			[
+				"remove",
+				"removeClass"
+			],
+			[
+				"hxla",
+				"hxlatorrow"
+			],
+			[
+				"index",
+				"indexOf"
+			],
+			[
+				"hxlator",
+				"hxlatorrow"
+			],
+			[
+				"re",
+				"remove"
+			],
+			[
+				"enab",
+				"enableRowSelection"
+			],
+			[
+				"font",
+				"font-size"
+			],
+			[
+				"miss",
+				"missingProps"
+			],
+			[
+				"alert",
+				"alert-error"
+			],
+			[
+				"has",
+				"hasClass"
+			],
+			[
+				"fon",
+				"font-size"
+			],
+			[
+				"i",
+				"important"
+			],
+			[
+				"in",
+				"inline"
+			],
+			[
+				"le",
+				"legend"
+			],
+			[
+				"sess",
+				"session_destroy"
+			],
+			[
+				"im",
+				"important"
+			],
+			[
+				"backgr",
+				"background-repeat"
+			],
+			[
+				"r",
+				"right"
+			],
+			[
+				"backg",
+				"background-position"
+			],
+			[
+				"lo",
+				"log"
+			],
+			[
+				"rem",
+				"removeClass"
+			],
+			[
+				"data-c",
+				"data-cellid"
+			],
+			[
+				"pro",
+				"props"
+			],
+			[
+				"ck",
+				"checked"
+			],
+			[
+				"cl",
+				"click"
+			],
+			[
+				"se",
+				"selecta"
+			],
+			[
+				"len",
+				"length"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 291.0,
+		"selected_items":
+		[
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"package",
+				"Package Control: List Packages"
+			],
+			[
+				"packa",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 453.0
+	},
+	"console":
+	{
+		"height": 0.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/carsten/Websites/HXLator/js/table-fixed-header.js",
+		"/Users/carsten/Websites/HXLator/properties4class.php",
+		"/Users/carsten/Websites/HXLator/contact.php",
+		"/Users/carsten/Websites/HXLator/less/hxlator.less",
+		"/Users/carsten/Websites/HXLator/less/datepicker.less",
+		"/Users/carsten/Websites/HXLator/guide.php",
+		"/Users/carsten/Desktop/bigdata.txt",
+		"/Users/carsten/Desktop/joy.txt",
+		"/Users/carsten/Websites/HXLator/less/variables.less",
+		"/Users/carsten/Websites/HXLator/css/hxlator.css",
+		"/Users/carsten/Websites/HXLator/container-submit.php",
+		"/Users/carsten/Websites/HXLator/classpills.php",
+		"/Users/carsten/Websites/HXLator/cheatsheet.html",
+		"/Users/carsten/Websites/HXLator/approve.php",
+		"/Users/carsten/Websites/HXLator/Classes/EasyRdf.php",
+		"/Users/carsten/Websites/HXLator/js/cheatsheet.html",
+		"/Users/carsten/Websites/HXLator/less/utilities.less",
+		"/Users/carsten/Websites/HXLator/less/sprites.less",
+		"/Users/carsten/Websites/HXLator/less/mixins.less",
+		"/Users/carsten/Library/Application Support/Sublime Text 2/Packages/User/Preferences.sublime-settings",
+		"/Users/carsten/Websites/HXLator/container-approve.php",
+		"/Users/carsten/Websites/HXLator/submit.php",
+		"/Users/carsten/Websites/HXLator/functions.php",
+		"/Users/carsten/Websites/HXLator/hxlate.php",
+		"/Users/carsten/Websites/HXLator/store-mapping.php",
+		"/Applications/MAMP/logs/php_error.log",
+		"/Users/carsten/Websites/HXLator/container-delete.php",
+		"/Users/carsten/Websites/HXLator/js/hxlator.js",
+		"/Users/carsten/Websites/HXLator/Classes/PHPExcel/Shared/JAMA/CHANGELOG.TXT",
+		"/Users/carsten/Websites/HXLator/index.php",
+		"/Users/carsten/Websites/HXLator/manage.php",
+		"/Users/carsten/Desktop/bfa-hxlated.ttl",
+		"/Users/carsten/Websites/HXLator/.gitignore",
+		"/Users/carsten/Websites/HXLator/MappingTemplate.json",
+		"/Users/carsten/Library/Caches/com.binarynights.ForkLift2/#0/index.php",
+		"/Users/carsten/Websites/HXLator/users-clear.txt",
+		"/Users/carsten/Websites/HXLator/login.php",
+		"/Users/carsten/Websites/HXLator/generate-password.php",
+		"/Users/carsten/Websites/HXLator/users.txt",
+		"/Users/carsten/Websites/HXLator/salt.txt",
+		"/Users/carsten/Websites/HXLator/img/glyphicons-halflings-white.png",
+		"/Users/carsten/Desktop/marker.png",
+		"/Users/carsten/Desktop/   .command",
+		"/Users/carsten/Library/Application Support/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
+		"/Users/carsten/Desktop/bla"
+	],
+	"find":
+	{
+		"height": 37.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			"/Users/carsten/Websites/HXLator",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"$.each($mapping.datacontainers, function($t, $templates){",
+			"$mapping.da",
+			"updatet",
+			"console",
+			"#storeMapping",
+			"don\\'t worry",
+			"peek",
+			"generateRDF",
+			"HXL Preview",
+			"No data available in table",
+			"$mapping.templates",
+			"popover",
+			"should refer t",
+			"source",
+			"hxlprop",
+			".removeClass('sele",
+			"storemapp",
+			"conso",
+			"sring",
+			"indexOf",
+			"ctrl",
+			"event.altkey",
+			"ctrl",
+			"CTRL",
+			"disabled",
+			"hxlprop",
+			"removeClass",
+			"no matching results found",
+			"no matchoing",
+			"console.log",
+			"addLookupTerm",
+			"generateFinalRDF",
+			"$final",
+			"generatefin",
+			"delete",
+			"generateR",
+			"native",
+			"@lookup",
+			"closed",
+			"storemapp",
+			"CTRL-K",
+			"popover",
+			"table",
+			"turtle",
+			"lookUpM",
+			"js",
+			"lookUpModal",
+			"to the",
+			"showH",
+			"hideHan",
+			"active",
+			"turtl",
+			"ctrl",
+			"Hover",
+			"agegro",
+			"console.log",
+			"console.",
+			"first",
+			"rdf:type",
+			"$term",
+			"?\n",
+			"lookUpM",
+			"highlight",
+			"$missing",
+			"hidden",
+			"lead",
+			"lookupmodal",
+			"auto",
+			"red",
+			"mix",
+			"mappingMod",
+			"1",
+			"step",
+			"build",
+			"You can either",
+			"keep doing",
+			"pick a cell",
+			"query",
+			"\">\n",
+			"worry",
+			"go back",
+			"icon-chevron-up",
+			"consol",
+			"undefin",
+			"lookup",
+			"GET",
+			"triples",
+			"storeMapping",
+			"Store mapping",
+			"js",
+			"lookUpModal",
+			"jquery",
+			"scroll",
+			"hxlPreview",
+			"hxlating",
+			"delete",
+			"submit.php",
+			"sparqlQuery",
+			"jquery",
+			"sparqlQuery",
+			"loader",
+			"pull",
+			"datacontainer",
+			"..",
+			"mix",
+			"modal",
+			"preview",
+			"();\n",
+			"new Obje",
+			"object",
+			"samplero",
+			"stack",
+			"lookUpModal",
+			"lookup",
+			"highl",
+			"index",
+			"@looku",
+			"$.each",
+			"$each",
+			"$seach",
+			"checkProperties",
+			"done?",
+			"console.log",
+			"modal",
+			"report_category",
+			"pick a cell",
+			"@uri",
+			"Camp"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"$miss.term",
+			"$pass",
+			"$user",
+			"  UNION { ?uri hxl:"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 36.0
+	},
+	"input":
+	{
+		"height": 35.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 66.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"sp",
+				"less/sprites.less"
+			],
+			[
+				"mi",
+				"less/mixins.less"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 212.0,
+	"status_bar_visible": true
+}

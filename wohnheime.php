@@ -1,4 +1,7 @@
-<?php require_once("head.php"); ?>
+<?php 
+	require_once("functions.php");
+	getHead("Wohnheime");
+?>
 
 <body> 
 
@@ -51,7 +54,7 @@ SELECT DISTINCT * WHERE {
 
 		// only start if there are any results:
 		if($fbs->results->bindings){
-			echo '<ul data-role="listview" data-inset="true">
+			echo '<ul data-role="listview" data-inset="false">
 			';  
 			
 			foreach ($fbs->results->bindings as $fb) {

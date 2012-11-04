@@ -1,7 +1,6 @@
 <?php 
-	// load the additional CSS, we're gonna show a map:
-	$leaftletCSS = true;	
-	require_once("head.php");
+	require_once("functions.php");
+	getHead("ULB Katalog");
 ?>
 
 <body> 
@@ -13,15 +12,14 @@
 	<div data-role="content">
 		
 		<div class="content-primary">  
-			<iframe src="http://www.ulb.uni-muenster.de/ULB/katalog" width="100%" height="100%" frameborder="no">
+			<iframe src="http://www.ulb.uni-muenster.de/ULB/katalog" width="100%" height="100%" style="min-height: 500px" frameborder="no">
             <p>Ihr Browser untersützt offenbar keine iFrames. <a href="http://www.ulb.uni-muenster.de/ULB/katalog">Direkt zum ULB Katalog</a>.</p>
         </iframe> 
 		</div><!--/content-primary -->		
 		
-		<?php getMenu("ulb.php"); ?> 	
+		<?php getMenu(); ?> 	
 
 	</div><!-- /content -->		
 </div><!-- /page -->
 
-</body>
-</html>
+<?php getFoot(); ?>

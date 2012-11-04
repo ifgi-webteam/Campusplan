@@ -1,5 +1,6 @@
 <?php 
-	require_once("head.php");
+	require_once("functions.php");
+	getHead("Mensen");
 ?>
 
 <body> 
@@ -18,14 +19,14 @@
 
 		</div><!--/content-primary -->		
 		
-		<?php getMenu("mensen.php"); ?> 	
+		<?php getMenu(); ?> 	
 
 	</div><!-- /content -->
 </div><!-- /page -->
 
-</body>
-</html>
 <?php
+
+getFoot();
 
 
 function getFood(){

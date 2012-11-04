@@ -1,10 +1,11 @@
 <?php 
-	require_once("head.php");
+	require_once("functions.php");
+	getHead("Uni A-Z");
 ?>
 
 <body> 
 
-<div data-role="page" class="type-interior">
+<div data-role="page" class="type-interior" id="page">
 
 	<?php getHeader("Uni A-Z", "home"); ?>
 
@@ -29,9 +30,9 @@
 	</div><!-- /content -->
 </div><!-- /page -->
 
-</body>
-</html>
 <?php
+
+getFoot();
 
 function searchForm($value){
 	echo '<form><input type="search" name="search" id="search-basic" value="'.$value.'" /><input type="submit" value="Einrichtung suchen" /></form>';
@@ -119,7 +120,7 @@ function listOrgs($orgs, $template){
 				$name = $fb->name->value;
 			$orga = $fb->orga->value;
  			
- 			echo '<li><a href="orgdetails.php?org_uri='.$orga.'&org_title='.urlencode($name).'" data-ajax="false">'.$name.'</a></li>';
+ 			echo '<li><a href="orgdetails.php?org_uri='.$orga.'&org_title='.urlencode($name).'" style="white-space: normal !important">'.$name.'</a></li>';
  		}
  		
  		echo '</ul>';

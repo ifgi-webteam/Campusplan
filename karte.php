@@ -1,7 +1,8 @@
 <?php 
 	// load the additional CSS, we're gonna show a map:
 	$leaftletCSS = true;	
-	require_once("head.php");
+	require_once("functions.php");
+	getHead("Karte");
 ?>
 
 <body> 
@@ -160,11 +161,10 @@
 
 	</div><!--/content-primary -->		
 		
-	<?php getMenu("karte.php"); ?> 	
+	<?php getMenu(); ?> 	
 
 	</div><!-- /content -->		
 </div><!-- /page -->
 
-</body>
-</html>
+<?php getFoot(); ?>
 
