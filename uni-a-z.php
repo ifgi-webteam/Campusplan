@@ -64,14 +64,14 @@ SELECT DISTINCT ?orga ?name WHERE {
 	Graph <http://data.uni-muenster.de/context/uniaz/> {
           ?orga a ?type ; 
 	            foaf:name ?name .
-	
+	  BIND(lcase(?name) as ?lname) .
 	  FILTER langMatches(lang(?name),'DE') .
 	  FILTER (STRSTARTS(?name, '".$letter."')) .
 	  FILTER (STRLEN(?name) > 0) .
 	  FILTER regex(str(?orga),'uniaz') . 
     }
            
-} ORDER BY ?name
+} ORDER BY ?lname
 ");
 	
 	listOrgs($orgs, $letter);
@@ -91,14 +91,15 @@ SELECT DISTINCT ?orga ?name WHERE {
 	Graph <http://data.uni-muenster.de/context/uniaz/> {
           ?orga a ?type ; 
 	            foaf:name ?name .
-	
+	  
+	  BIND(lcase(?name) as ?lname) .
 	  FILTER langMatches(lang(?name),'DE') .
 	  FILTER regex(?name, '".$searchterm."', 'i' ) .
 	  FILTER (STRLEN(?name) > 0) .
 	  FILTER regex(str(?orga),'uniaz') . 
     }
            
-} ORDER BY ?name
+} ORDER BY ?lname
 ");
 	
 	listOrgs($orgs, $searchterm);

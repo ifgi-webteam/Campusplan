@@ -54,10 +54,11 @@ SELECT DISTINCT * WHERE {
   GRAPH <http://data.uni-muenster.de/context/uniaz/>{
     ?org aiiso:part_of <".$fb_uri."> ;
          foaf:name ?name .
+    BIND(lcase(?name) as ?lname) .
     FILTER langMatches(lang(?name),'".$lang."') .
     FILTER regex(str(?org),'uniaz') .
   }
-} ORDER BY ?name
+} ORDER BY ?lname
 
 ");
 	
