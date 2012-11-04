@@ -1,6 +1,6 @@
 <?php 
 	require_once("functions.php");
-	getHead("WWU CampusPlan");
+	getHead("CampusPlan");
 ?>
 
 <body> 
