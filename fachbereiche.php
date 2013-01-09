@@ -13,6 +13,8 @@
 		
 		<div class="content-primary">
 
+			<h2>Fachbereiche</h2>
+
 		<?php 
 			if(isset($_GET['lang'])){
 				getFBs($_GET['lang']);			 

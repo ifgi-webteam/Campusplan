@@ -31,7 +31,8 @@ function sparql_get($query){
 function getMenu(){
 ?>
 
-<div class="content-secondary"><a href="uni-a-z.php"><img src="images/front-az.png" class="menuimg" /></a><a href="mensen.php"><img src="images/front-mensen.png" class="menuimg" /></a><a href="ulb.php"><img src="images/front-ulb.png" class="menuimg" /></a><a href="karte.php"><img src="images/front-karte.png" class="menuimg" /></a><a href="wohnheime.php"><img src="images/front-wohnheime.png" class="menuimg" /></a><a href="fachbereiche.php"><img src="images/front-fachbereiche.png" class="menuimg" /></a><a href="info.php"><img src="images/front-info.png" class="menuimg" /></a><br />
+<div class="content-secondary"><a href="uni-a-z.php"><img src="images/front-az.png" class="menuimg" /></a><a href="mensen.php"><img src="images/front-mensen.png" class="menuimg" /></a><a href="ulb.php"><img src="images/front-ulb.png" class="menuimg" /></a><a href="karte.php"><img src="images/front-karte.png" class="menuimg" /></a><a href="favoriten.php"><img src="images/front-favoriten.png" class="menuimg" /></a><a href="fachbereiche.php"><img src="images/front-fachbereiche.png" class="menuimg" /></a><a href="hoersaele.php"><img src="images/front-hoersaele.png" class="menuimg" /></a><a href="wohnheime.php"><img src="images/front-wohnheime.png" class="menuimg" /></a><a href="info.php"><img src="images/front-info.png" class="menuimg" /></a>
+<br />
 
 		<a href="http://www.uni-muenster.de"><img src="images/wwu-full.png" class="menu-logo" /></a>
 		<a href="http://ifgi.uni-muenster.de"><img src="images/ifgi.png" class="menu-logo" /></a>

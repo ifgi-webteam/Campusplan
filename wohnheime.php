@@ -13,6 +13,8 @@
 		
 		<div class="content-primary">
 
+		<h2>Wohnheime</h2>
+
 		<?php 
 			if(isset($_GET['lang'])){
 				getFBs($_GET['lang']);			 
@@ -23,7 +25,7 @@
 
 		</div><!--/content-primary -->		
 		
-		<?php getMenu("wohnheime.php"); ?> 	
+		<?php getMenu(); ?> 	
 
 	</div><!-- /content -->		
 </div><!-- /page -->
