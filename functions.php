@@ -47,13 +47,14 @@ function getHead($title = 'WWU CampusPlan'){
 	<link href="css/campusplan.css" rel="stylesheet" media="screen">
     <link href="css/responsive.css" rel="stylesheet" media="screen">
 
-    <script defer src="js/jquery.min.js"></script>
-    <script defer src="js/jquery.cookie.js"></script>  
-    <script defer src="js/bootstrap.min.js"></script>
-    <script defer src="js/jquery.scrollto.min.js"></script>
-    <script defer src="js/jquery.history.js"></script>
-    <script defer src="js/ajaxify-html5.js"></script>  
-	<script defer src="js/campusplan.js"></script>  
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.cookie.js"></script>  
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.scrollto.min.js"></script>
+    <script src="js/jquery.history.js"></script>
+    <script src="js/ajaxify-html5.js"></script>
+    <script src="js/leaflet.js"></script>  
+	<script src="js/campusplan.js"></script>  
 	
 </head> 
 
@@ -79,6 +80,8 @@ function getHead($title = 'WWU CampusPlan'){
 function getFoot(){
 ?>	
 	</div>
+	<div class="container hidden-phone"><a href="http://www.uni-muenster.de"><img src="img/wwu-full.png" class="logoimgs pull-right" /></a>
+			<a href="http://ifgi.uni-muenster.de"><img src="img/ifgi.png" class="logoimgs pull-right" /></a></div>
 </body>
 </html>
 

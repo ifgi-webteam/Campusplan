@@ -11,11 +11,8 @@
 	getHead("$org_title");
 ?>
 
-<div data-role="page" class="type-interior" id="page">		
-
-	<div data-role="content">
-		
-		<div class="content-primary">
+<div class="container">
+		<div class="row">
 		
 		<?php 
 			if(!isset($_GET['lang'])){
@@ -27,11 +24,9 @@
 			$orgDetails = getOrgDetails($org_uri, $lang);				
 		?>	
 
-		</div><!--/content-primary -->		
-				
-	</div><!-- /content -->		
+		</div>				
+	</div>
 <?php addMapCode($orgDetails); ?>
-</div><!-- /page -->
 
 <?php 
 getFoot();
@@ -44,24 +39,19 @@ function addMapCode($orgDetails){
 	
 	if(isset($orgDetails->wkt->value) || (isset($orgDetails->lat->value) && isset($orgDetails->long->value))){
 	
-	// spit out the JS code the works for buildings with and without WKT 
+	// spit out the JS code that works for buildings with and without WKT 
 	
 	echo"
-	<script src='js/leaflet.js'></script>
 	<script>
 	
 	 // wait until the page is loaded:
-	 $( '#page' ).live( 'pageinit', function(event){
-	 	
+	 $(function(event){
 	 	var cloudmadeAPIkey = '5e0536536c2a4b008d05d5a4becac5a3';
-	 	
-	 	// first remove and add the map div - jQuery mobile issue:
-	 	$('#map').remove();
-	 	$('#themap').append('<div id=\"map\"></div>');
 	 	
 	 	var map = new L.Map('map', {
 	 		zoomControl: false
 	 	});
+
 	 	var mapquestUrl = 'http://{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png',
 	 	subDomains = ['otile1','otile2','otile3','otile4'],
 	 	mapquestAttrib = '';
@@ -266,31 +256,33 @@ SELECT DISTINCT ?name ?homepage ?address ?buildingname ?lat ?long ?wkt WHERE {
 			
 			$thisOrg = $orgDetails->results->bindings[0];			
 			
-			echo '<h2>'.$thisOrg->name->value.'</h2>';
+			echo '<h1>'.$thisOrg->name->value.'</h1>';
 			
-			echo '<ul data-role="listview" data-inset="true">
-					<li id="themap"></li>
-				</u>
+			echo '<div id="map" style="height: 300px"></div>
 				
-				<ul data-role="listview" data-inset="true" id="instructions"></ul>
-								
-				<ul data-role="listview" data-inset="true" id="orgdetails">
-					<li>';
+				<span id="instructions"></span>
+				
+
+				<p class="lead">
+				';
 				
 				if(isset($thisOrg->buildingname->value)){
-					echo '<h3>'.$thisOrg->address->value.'</h3>';
-				}else{
-					echo $thisOrg->address->value;					
+					echo '<strong>'.$thisOrg->buildingname->value.'</strong><br />';
 				}
 				
-				echo '</li>
-					<li><a href="" id="route">Wegbeschreibung</a></li> 
+				echo $thisOrg->address->value.'<br />';
+				echo '<a href="'.$thisOrg->homepage->value.'">'.$thisOrg->homepage->value.'</a>';
+				
+				
+				echo '</p>
+
+					<p class="lead"><a href="" id="route">Wegbeschreibung</a></p> 
 					';
 // http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2?language=de&itdLPxx_hideNavigationBar=1&itdLPxx_transpCompany=stwms&sessionID=0&requestID=0&language=de&useRealtime=1&place_origin=MS&type_origin=address&name_origin=Hubertistraße+12&place_destination=MS&type_destination=address&name_destination='.urlencode($thisOrg->address->value).'
 			 		
-			 	 echo '	<li><a href="'.$thisOrg->homepage->value.'">Website</a></li>
-			'; 		
- 			echo '</ul>
+			 	 
+				
+ 			echo '</li></ul>
  			'; 
  			
  			echo '
