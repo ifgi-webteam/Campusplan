@@ -3,8 +3,6 @@
 	getHead("Info");
 ?>
 
-<body> 
-
 <div data-role="page" class="type-interior">
 
 	<?php getHeader("Info", "home"); ?>
@@ -27,8 +25,8 @@
 
 			<p>Die Icons stammen von <a href="http://iconmonstr.com/">Iconmonstr</a> (Creative Commons Lizenz) und <a href="http://thenounproject.com/">The Noun Project</a> (Public Domain).</p>
 			
-			<a href="http://www.uni-muenster.de"><img src="images/wwu-full.png" class="logoimg" /></a>
-			<a href="http://ifgi.uni-muenster.de"><img src="images/ifgi.png" class="logoimg" /></a>
+			<a href="http://www.uni-muenster.de"><img src="img/wwu-full.png" class="logoimg" /></a>
+			<a href="http://ifgi.uni-muenster.de"><img src="img/ifgi.png" class="logoimg" /></a>
 
 						
 				

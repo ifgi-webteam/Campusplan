@@ -2,40 +2,38 @@
 	require_once("functions.php");
 	getHead("Uni A-Z");
 ?>
+ 
+	<div class="container">
+		<div class="row">
+			<?php 
+			if(isset($_GET['search'])){
+				getSearchList($_GET['search']);
+			}else if(isset($_GET['letter'])){		
+				getLetterList($_GET['letter']);
+			}else{
+				getAZList();
+			} 
+			?>
+		</div>	
 
-<body> 
-
-<div data-role="page" class="type-interior" id="page">
-
-	<?php getHeader("Uni A-Z", "home"); ?>
-
-	<div data-role="content">
-		
-		<div class="content-primary">
-		
-		<?php 
-		if(isset($_GET['search'])){
-			getSearchList($_GET['search']);
-		}else if(isset($_GET['letter'])){		
-			getLetterList($_GET['letter']);
-		}else{
-			getAZList();
-		} 
-		?>	
-
-		</div><!--/content-primary -->		
-		
-		<?php getMenu("uni-a-z.php"); ?> 	
-
-	</div><!-- /content -->
-</div><!-- /page -->
-
+	</div><!--/container -->		
+			
 <?php
 
 getFoot();
 
 function searchForm($value){
-	echo '<form><input type="search" name="search" id="search-basic" value="'.$value.'" /><input type="submit" value="Einrichtung suchen" /></form>';
+	echo '
+		<h1>Uni A-Z</h1>
+		<p class="lead">Durchsuche das Einrichtungsverzeichnis der WWU, oder klicke dich durch den alphabetischen Index.</p>
+		<form action="uni-a-z.php">
+			<div class="input-append">
+	  			<input class="searchfield" name="search" placeholder="Suche..." id="appendedInputButton" type="text">
+	  			<button class="btn btn-large" type="submit"><i class="icon-search"></i></button>
+			</div>
+		</form>
+	';
+	// echo '<form><input type="search" name="search" id="search-basic" value="'.$value.'" /><input type="submit" value="Einrichtung suchen" /></form>';
 }
 
 function getAZList(){
@@ -43,11 +41,9 @@ function getAZList(){
 	searchForm('');
 
 	$az = array("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z");
-	echo '<ul data-role="listview" data-inset="true" data-theme="d" data-filter-theme="g" data-divider-theme="a">';
 	foreach ($az as $letter) {
-		echo '<li><a href="uni-a-z.php?letter='.$letter.'">'.$letter.'</a></li>';
+		echo '<a class="btn btn-large btn-letter" href="uni-a-z.php?letter='.$letter.'">'.$letter.'</a> ';
 	}
-	echo '</ul>';
 }
 
 
@@ -109,22 +105,16 @@ SELECT DISTINCT ?orga ?name WHERE {
 function listOrgs($orgs, $template){
 	// only start if there are any results:
 	if($orgs->results->bindings){
-		echo '<h2 style="margin-top: 0">Einrichtungen: <em>'.$template.'</em></h2>';
-		echo '<ul data-role="listview" data-inset="true" data-theme="d" data-filter="true" data-filter-placeholder="Ergebnisse durchsuchen"  data-filter-theme="g" data-divider-theme="a">
-		';  
-		// data-filter="true" data-filter-placeholder="Suche...">
-		//';
+		echo '<h2>Einrichtungen mit <strong>'.$template.'</strong></h2>';
 		
-
-			foreach ($orgs->results->bindings as $fb) {
+		foreach ($orgs->results->bindings as $fb) {
 				
-				$name = $fb->name->value;
+			$name = $fb->name->value;
 			$orga = $fb->orga->value;
  			
- 			echo '<li><a href="orgdetails.php?org_uri='.$orga.'&org_title='.urlencode($name).'" style="white-space: normal !important">'.$name.'</a></li>';
+ 			echo '<h4><a class="btn btn-org" href="orgdetails.php?org_uri='.$orga.'&org_title='.urlencode($name).'">'.$name.'</a></h4>';
  		}
- 		
- 		echo '</ul>';
+ 		 		
  	} else {
 
  		searchForm($searchterm);

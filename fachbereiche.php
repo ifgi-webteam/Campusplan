@@ -3,11 +3,7 @@
 	getHead("Fachbereiche");
 ?>
 
-<body> 
-
 <div data-role="page" class="type-interior" id="page">
-
-	<?php getHeader("Fachbereiche", "home"); ?>
 
 	<div data-role="content">
 		
@@ -25,8 +21,6 @@
 
 		</div><!--/content-primary -->		
 		
-		<?php getMenu(); ?> 	
-
 	</div><!-- /content -->		
 </div><!-- /page -->
 

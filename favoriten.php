@@ -7,8 +7,6 @@
 
 <div data-role="page" class="type-interior" id="page">
 
-	<?php getHeader("Favoriten", "home"); ?>
-
 	<div data-role="content">
 		
 		<div class="content-primary">

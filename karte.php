@@ -17,8 +17,6 @@
 		$lang = $_GET['lang'];
 	}
 
-	getHeader("Karte", "home");  ?>
-
 	<div data-role="content">
 		
 		<div class="content-primary map-content">

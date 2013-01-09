@@ -11,11 +11,7 @@
 	getHead("$org_title");
 ?>
 
-<body> 
-
 <div data-role="page" class="type-interior" id="page">		
-
-	<?php getHeader($org_title, "back"); ?>
 
 	<div data-role="content">
 		
@@ -32,9 +28,7 @@
 		?>	
 
 		</div><!--/content-primary -->		
-		
-		<?php getMenu(); ?> 	
-
+				
 	</div><!-- /content -->		
 <?php addMapCode($orgDetails); ?>
 </div><!-- /page -->
@@ -80,8 +74,8 @@ function addMapCode($orgDetails){
 	 	function onLocationFound(e) {
 	 	    var marker = new L.Marker(e.latlng);
 	 	    map.addLayer(marker);
-	 	    // marker.bindPopup('<a id=\"bikeroute\"><img src=\"images/bike.png\" width=\"50px\" height=\"50px\" /></a> <a id=\"walkroute\"><img src=\"images/walk.png\" width=\"50px\" height=\"50px\" /></a> <a id=\"busroute\" href=\"http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2?language=de&itdLPxx_hideNavigationBar=1&itdLPxx_transpCompany=stwms&sessionID=0&requestID=0&language=de&useRealtime=1&place_origin=MS&type_origin=address&name_origin=Hubertistraße+12&place_destination=MS&type_destination=address&name_destination='.orgAddress.'\"><img src=\"images/bus.png\" width=\"50px\" height=\"50px\" /></a>  <a id=\"carroute\"><img src=\"images/car.png\" width=\"50px\" height=\"50px\" /></a>.').openPopup();
-	 	    marker.bindPopup('<a id=\"bikeroute\"><img src=\"images/bike.png\" width=\"50px\" height=\"50px\" /></a> <a id=\"walkroute\"><img src=\"images/walk.png\" width=\"50px\" height=\"50px\" /></a> <a id=\"carroute\"><img src=\"images/car.png\" width=\"50px\" height=\"50px\" /></a>.').openPopup();
+	 	    // marker.bindPopup('<a id=\"bikeroute\"><img src=\"img/bike.png\" width=\"50px\" height=\"50px\" /></a> <a id=\"walkroute\"><img src=\"img/walk.png\" width=\"50px\" height=\"50px\" /></a> <a id=\"busroute\" href=\"http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2?language=de&itdLPxx_hideNavigationBar=1&itdLPxx_transpCompany=stwms&sessionID=0&requestID=0&language=de&useRealtime=1&place_origin=MS&type_origin=address&name_origin=Hubertistraße+12&place_destination=MS&type_destination=address&name_destination='.orgAddress.'\"><img src=\"img/bus.png\" width=\"50px\" height=\"50px\" /></a>  <a id=\"carroute\"><img src=\"img/car.png\" width=\"50px\" height=\"50px\" /></a>.').openPopup();
+	 	    marker.bindPopup('<a id=\"bikeroute\"><img src=\"img/bike.png\" width=\"50px\" height=\"50px\" /></a> <a id=\"walkroute\"><img src=\"img/walk.png\" width=\"50px\" height=\"50px\" /></a> <a id=\"carroute\"><img src=\"img/car.png\" width=\"50px\" height=\"50px\" /></a>.').openPopup();
 
 	 	    $('#bikeroute').click(function(){
 	 	    	computeRoute(e.latlng.lat, e.latlng.lng, destlat, destlng, \"bicycle\", \"de\");

@@ -3,8 +3,6 @@
 	getHead("Wohnheime");
 ?>
 
-<body> 
-
 <div data-role="page" class="type-interior">
 
 	<?php getHeader("Wohnheime", "home"); ?>

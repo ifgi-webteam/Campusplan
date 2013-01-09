@@ -12,9 +12,7 @@
 <body> 
 
 <div data-role="page" class="type-interior">		
-
-	<?php getHeader($fb_title, "back"); ?>
-
+	
 	<div data-role="content">
 		
 		<div class="content-primary">
@@ -32,8 +30,7 @@
 
 		</div><!--/content-primary -->		
 		
-		<?php getMenu("fachbereiche.php"); ?> 	
-
+		
 	</div><!-- /content -->		
 </div><!-- /page -->
 
