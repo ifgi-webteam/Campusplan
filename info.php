@@ -23,6 +23,6 @@
 		
 	</div><!-- /content -->		
 </div><!-- /page -->
-
+<a href="https://github.com/lodum/Campusplan"><img style="position: absolute; top: 0; right: 0; border: 0;" src="img/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
 </body>
 </html>
