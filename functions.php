@@ -36,7 +36,7 @@ function getHead($showmenu = true){
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 
-	<title><?php echo $title ?></title> 
+	<title>WWU Campusplan</title> 
 
 	<link rel="apple-touch-icon" href="img/start.png"/>
 	

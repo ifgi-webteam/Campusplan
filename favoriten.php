@@ -1,24 +1,15 @@
 <?php 
 	require_once("functions.php");
-	getHead("Fachbereiche");
+	getHead();
 ?>
 
 <body> 
 
-<div data-role="page" class="type-interior" id="page">
-
-	<div data-role="content">
-		
-		<div class="content-primary">
-
-		<?php getFavorites(); ?>	
-
-		</div><!--/content-primary -->		
-		
-		<?php getMenu(); ?> 	
-
-	</div><!-- /content -->		
-</div><!-- /page -->
+<div class="container">
+	<div class="row">
+		<?php getFavorites(); ?>			
+	</div>
+</div>
 
 
 <?php
@@ -29,10 +20,7 @@ getFoot();
 
 function getFavorites(){
 	
-	echo '<h3>Favoriten</h3>
-	';
-	echo '<ul data-role="listview" data-inset="true">
-			';  
+	echo '<h1>Favoriten</h1>';
 	
 	$zero = true;		
 	foreach ($_COOKIE as $key => $value) {
@@ -41,17 +29,13 @@ function getFavorites(){
 			$key = substr($key, 9);
 			$key = str_replace('_', ' ', $key);
 			$value = substr($value, strrpos($value, 'orgdetails.php'));
-			echo '<li><a href="'.$value.'&org_title='.$key.'" style="white-space: normal !important">'.$key.'</a></li>
-';		
+			echo '<h4><a class="btn btn-org" href="'.$value.'&org_title='.$key.'" style="white-space: normal !important">'.$key.'</a></h4>';		
 		}
 	} 					
 	if($zero){
-		echo '<li>Du kannst Seiten zu den Favoriten hinzufügen, indem Du den &#9733; oben auf der Seite antippst.</li>';
+		echo '<p class="lead">Du kannst Seiten zu den Favoriten hinzufügen, indem Du den &#9733; oben auf der Seite antippst.</p>';
 	}	 				
- 		
- 	echo '</ul>
- 	';
- 	
+ 		 	
 }
 
 ?>

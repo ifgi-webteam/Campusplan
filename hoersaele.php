@@ -3,35 +3,25 @@
 	getHead("Hörsäle");
 ?>
 
-<body> 
-
-<div data-role="page" class="type-interior">
-
-	<?php getHeader("Hörsäle", "home"); ?>
-
-	<div data-role="content">
+<div class="container">
+		<div class="row">
 		
-		<div class="content-primary">
-
-		<h2>Hörsäle</h2>
 		<?php 
 			getLectureHalls();			 			
-		?>	
+		?>			
 
-		</div><!--/content-primary -->		
-		
-		<?php getMenu("fachbereiche.php"); ?> 	
+	</div>
+</div>
 
-	</div><!-- /content -->		
-</div><!-- /page -->
-
-</body>
-</html>
 <?php
+
+getFoot();
 
 // loads all university lecture halls
 
 function getLectureHalls(){
+	
+	echo '<h1>Hörsäle</h1>';
 	
 	$hoersaele = sparql_get("
 
@@ -62,8 +52,6 @@ SELECT DISTINCT * WHERE {
 
 		// only start if there are any results:
 		if($hoersaele->results->bindings){
-			echo '<ul data-role="listview" data-inset="true">
-			';  
 			
 			$prevtitle = '';
 
@@ -85,13 +73,13 @@ SELECT DISTINCT * WHERE {
 
  				// skip duplicates
  				if($title != $prevtitle){
- 				 	echo '<li><a href="orgdetails.php?org_uri='.$url.'&org_title='.$title.'"><h3>'.$title.'</h3><p><b>'.$building.'</b>, '.$address.' ('.$floor.')</p></a></li>
+ 				 	echo '<h4><a class="btn btn-large" href="orgdetails.php?org_uri='.$url.'&org_title='.$title.'">'.$title.'<br /><span class="desc">'.$building.', '.$address.' ('.$floor.')</span></a></h4>
  				';}
 
  				$prevtitle = $title;
  			}
  		
- 			echo '</ul>';
+ 			
  		}
  	}
 
