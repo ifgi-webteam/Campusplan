@@ -1,16 +1,11 @@
 <?php 
 	require_once("functions.php");
-	getHead("Fachbereiche");
+	getHead();
 ?>
 
-<div data-role="page" class="type-interior" id="page">
-
-	<div data-role="content">
-		
-		<div class="content-primary">
-
-			<h2>Fachbereiche</h2>
-
+	<div class="container">
+		<div class="row">
+			
 		<?php 
 			if(isset($_GET['lang'])){
 				getFBs($_GET['lang']);			 
@@ -19,10 +14,9 @@
 			}
 		?>	
 
-		</div><!--/content-primary -->		
-		
-	</div><!-- /content -->		
-</div><!-- /page -->
+		</div>	
+
+	</div><!--/container -->
 
 
 <?php
@@ -33,6 +27,8 @@ getFoot();
 
 function getFBs($lang = "de"){
 	
+	echo '<h1>Fachbereiche</h1>';
+
 	$fbs = sparql_get("
 
 
@@ -57,8 +53,6 @@ SELECT DISTINCT * WHERE {
 
 		// only start if there are any results:
 		if($fbs->results->bindings){
-			echo '<ul data-role="listview" data-inset="true">
-			';  
 			
 			foreach ($fbs->results->bindings as $fb) {
  				
@@ -69,12 +63,10 @@ SELECT DISTINCT * WHERE {
  				$desc  = substr($name, 17);
  				$title = str_replace("Fachbereich 0", "Fachbereich ", $title);
  				$url   = $fb->fb->value;
- 				 				
- 				echo '<li><a href="fachbereich.php?fb_uri='.$url.'&fb_title='.$title.'&fb_desc='.$desc.'"><h3>'.$title.'</h3><p>'.$desc.'</p></a></li>
- 				';
+ 				echo '<h4><a class="btn btn-org" href="orgdetails.php?org_uri='.$url.'&org_title='.$title.'">'.$title.'<br /><span class="desc">'.$desc.'</span></a></h4>';		
+ 				//echo '<li><a href="fachbereich.php?fb_uri='.$url.'&fb_title='.$title.'&fb_desc='.$desc.'"><h3>'.$title.'</h3><p>'.$desc.'</p></a></li>';
  			}
- 		
- 			echo '</ul>';
+ 		 			
  		}
  	}
 
