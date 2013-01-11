@@ -1,23 +1,13 @@
 <?php 
 	require_once("functions.php");
-	getHead("Info");
+	getHead();
 ?>
 
-<div data-role="page" class="type-interior">
-
-	<?php getHeader("Info", "home"); ?>
-
-	<div data-role="content">
-		
-		<div class="content-primary">
-
-			
-			<ul data-role="listview" data-inset="true" data-divider-theme="a">
-				<li data-role="list-divider">Campus Plan</li>
-				<li data-icon="info">Web App Version 1.0 beta</li>
-				<li><a href="mailto:campusplan-support@uni-muenster.de?&amp;subject=Campus%20Plan%20Web%20App%20Feedback">Feedback</a></li>
-				</li>
-			</ul>
+<div class="container">
+		<div class="row">
+						
+			<h1>WWU Campusplan</h1>
+			<p class="lead">Web App Version 1.0 beta <a class="btn btn-info" style="margin-left: 20px" href="mailto:campusplan-support@uni-muenster.de?&amp;subject=Campus%20Plan%20Web%20App%20Feedback">Feedback</a></p>
 
 			<h2>Copyright Hinweise</h2>
 			
@@ -29,10 +19,7 @@
 			<a href="http://ifgi.uni-muenster.de"><img src="img/ifgi.png" class="logoimg" /></a>
 
 						
-				
-		</div><!--/content-primary -->		
-		
-		<?php getMenu(); ?> 	
+
 		
 	</div><!-- /content -->		
 </div><!-- /page -->
