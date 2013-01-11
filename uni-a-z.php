@@ -105,7 +105,7 @@ SELECT DISTINCT ?orga ?name WHERE {
 function listOrgs($orgs, $template){
 	// only start if there are any results:
 	if($orgs->results->bindings){
-		echo '<h2>Einrichtungen mit <strong>'.$template.'</strong></h2>';
+		echo '<h2>Einrichtungen mit <em>'.$template.'</em></h2>';
 		
 		foreach ($orgs->results->bindings as $fb) {
 				

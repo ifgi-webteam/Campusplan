@@ -60,7 +60,9 @@ function getHead($showmenu = true){
 
 <body> 
 
-	<div id="content" <?php if($showmenu){ ?>class="content"<?php } ?>>
+	<div id="content"> 
+
+		<div <?php if($showmenu){ ?>class="content"<?php } ?>>
 
 		<?php if($showmenu){ ?><div class="navbar navbar-inverse navbar-fixed-top visible-phone"><!-- phone displays -->
 			<div class="navbar-inner">
@@ -81,12 +83,13 @@ function getHead($showmenu = true){
 
 function getFoot($showlogos = true){
 ?>	
-	</div>
+	
 	<?php if($showlogos){ ?>
 		<div class="container hidden-phone"><a href="http://www.uni-muenster.de"><img src="img/wwu-full.png" class="logoimgs pull-right" /></a>
 			<a href="http://ifgi.uni-muenster.de"><img src="img/ifgi.png" class="logoimgs pull-right" /></a></div>
 	<?php } ?>
 	
+	</div> <!-- class=content -->
 </body>
 </html>
 
