@@ -1,13 +1,10 @@
 <?php 
-	// load the additional CSS, we're gonna show a map:
-	$leaftletCSS = true;	
 	require_once("functions.php");
-	getHead("Karte");
+	getHead();
 ?>
 
-<body> 
-
-<div data-role="page" class="type-interior" id="mapPage">		
+<div class="container">
+		<div class="row">
 
 	<?php 
 
@@ -17,14 +14,12 @@
 		$lang = $_GET['lang'];
 	}
 
-	<div data-role="content">
-		
-		<div class="content-primary map-content">
+	?>
 
-		<div id="map"></div>
+	<div id="map"></div>
 
 	<script>
-	 
+ 
 	 // wait until the page is loaded:
 	 // $( document ).delegate("#mapPage", "pagecreate", function() {
   	$("#mapPage").live("pageshow",function(event, ui) {	
@@ -142,7 +137,7 @@
 			echo "
 			var circle = new L.Circle(new L.LatLng(".$building->lat->value.", ".$building->long->value."), 10, circleOptions);
 			
-			circle.bindPopup(\"<b>".$building->address->value."</b>\");
+			// circle.bindPopup(\"<b>".$building->address->value."</b>\");
 			map.addLayer(circle);
 			";	
 		}	
@@ -155,12 +150,6 @@
 		
 	</script>
 	
-
-
-	</div><!--/content-primary -->		
-		
-	<?php getMenu(); ?> 	
-
 	</div><!-- /content -->		
 </div><!-- /page -->
 
