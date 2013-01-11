@@ -5,21 +5,16 @@
 	$fb_desc  = $_GET["fb_desc"]; 
 	$fb_uri   = $_GET["fb_uri"]; 
 
-	getHead($fb_title);
-
+getHead();
 ?>
 
-<body> 
-
-<div data-role="page" class="type-interior">		
-	
-	<div data-role="content">
-		
-		<div class="content-primary">
+<div class="container">
+		<div class="row">
 
 		<?php 
-		
-			echo '<h2>'.$fb_desc.'</h2>';
+			
+			echo '<h1>'.$fb_title.'</h1>';
+			echo '<p class="lead">'.$fb_desc.'</p>';
 		
 			if(isset($_GET['lang'])){
 				getFBorgs($fb_uri, $fb_title, $fb_desc, $_GET['lang']);			 
@@ -28,15 +23,13 @@
 			}
 		?>	
 
-		</div><!--/content-primary -->		
-		
-		
-	</div><!-- /content -->		
-</div><!-- /page -->
+		</div>	
 
-</body>
-</html>
+	</div><!--/container -->
+
 <?php
+
+getFoot();
 
 // loads all suborganisations of the given department
 
@@ -65,19 +58,15 @@ SELECT DISTINCT * WHERE {
 
 		// only start if there are any results:
 		if($fbs->results->bindings){
-			echo '<ul data-role="listview" data-inset="true">
-			';  
-			
 			foreach ($fbs->results->bindings as $fb) {
  				
  				$name = $fb->name->value;
  				$url = $fb->org->value;
  				
- 				echo '<li><a href="orgdetails.php?org_uri='.$url.'&org_title='.urlencode($name).'">'.$name.'</a></li>
- 				';
+ 				echo '<h4><a class="btn btn-org" href="orgdetails.php?org_uri='.$url.'&org_title='.urlencode($name).'">'.$name.'</a></h4>';
+ 				
  			}
- 		
- 			echo '</ul>';
+ 		 			
  		}
  	}
 

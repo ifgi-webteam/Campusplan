@@ -16,7 +16,7 @@
 			?>
 		</div>	
 
-	</div><!--/container -->		
+	</div><!--/container -->
 			
 <?php
 
