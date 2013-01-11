@@ -26,7 +26,7 @@ function sparql_get($query){
    return $resobj;
 }
 
-function getHead($title = 'WWU CampusPlan'){
+function getHead($showmenu = true){
 ?>
 
 <!DOCTYPE html> 
@@ -60,28 +60,33 @@ function getHead($title = 'WWU CampusPlan'){
 
 <body> 
 
-	<div id="content">
+	<div id="content" <?php if($showmenu){ ?>class="content"<?php } ?>>
 
-		<div class="navbar navbar-inverse navbar-fixed-top visible-phone"><!-- phone displays -->
-			  <div class="navbar-inner">
+		<?php if($showmenu){ ?><div class="navbar navbar-inverse navbar-fixed-top visible-phone"><!-- phone displays -->
+			<div class="navbar-inner">
 			    <div class="container-fluid">          
-			      <a class="brand" href="index.php"><img src="img/wwu-white-s.png" class="navbarlogo"> WWU CampusPlan</a>          
+			    	<a class="brand" href="index.php"><img src="img/wwu-white-s.png" class="navbarlogo"> WWU CampusPlan</a>          
 			    </div>
-			  </div>
-			</div><div class="navbar navbar-inverse navbar-fixed-top hidden-phone"><!-- tablets & desktop -->
-			  			<a href="uni-a-z.php"><img src="img/front-az.png" class="menuimgs" /></a><a href="mensen.php"><img src="img/front-mensen.png" class="menuimgs" /></a><a href="ulb.php"><img src="img/front-ulb.png" class="menuimgs" /></a><a href="karte.php"><img src="img/front-karte.png" class="menuimgs" /></a><a href="favoriten.php"><img src="img/front-favoriten.png" class="menuimgs" /></a><a href="fachbereiche.php"><img src="img/front-fachbereiche.png" class="menuimgs" /></a><a href="hoersaele.php"><img src="img/front-hoersaele.png" class="menuimgs" /></a><a href="wohnheime.php"><img src="img/front-wohnheime.png" class="menuimgs" /></a><a href="info.php"><img src="img/front-info.png" class="menuimgs" /></a>  	
 			</div>
+		</div>
+		<div class="navbar navbar-inverse navbar-fixed-bottom hidden-phone"><!-- tablets & desktop -->
+			<a href="uni-a-z.php"><img src="img/front-az.png" class="menuimgs" /></a><a href="mensen.php"><img src="img/front-mensen.png" class="menuimgs" /></a><a href="ulb.php"><img src="img/front-ulb.png" class="menuimgs" /></a><a href="karte.php"><img src="img/front-karte.png" class="menuimgs" /></a><a href="favoriten.php"><img src="img/front-favoriten.png" class="menuimgs" /></a><a href="fachbereiche.php"><img src="img/front-fachbereiche.png" class="menuimgs" /></a><a href="hoersaele.php"><img src="img/front-hoersaele.png" class="menuimgs" /></a><a href="wohnheime.php"><img src="img/front-wohnheime.png" class="menuimgs" /></a><a href="info.php"><img src="img/front-info.png" class="menuimgs" /></a>  	
+		</div>
 
 <?php	
+} //end if showMenu
 }
 
 
 
-function getFoot(){
+function getFoot($showlogos = true){
 ?>	
 	</div>
-	<div class="container hidden-phone"><a href="http://www.uni-muenster.de"><img src="img/wwu-full.png" class="logoimgs pull-right" /></a>
+	<?php if($showlogos){ ?>
+		<div class="container hidden-phone"><a href="http://www.uni-muenster.de"><img src="img/wwu-full.png" class="logoimgs pull-right" /></a>
 			<a href="http://ifgi.uni-muenster.de"><img src="img/ifgi.png" class="logoimgs pull-right" /></a></div>
+	<?php } ?>
+	
 </body>
 </html>
 

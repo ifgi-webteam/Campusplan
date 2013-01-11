@@ -1,6 +1,6 @@
 <?php 
 	require_once("functions.php");
-	getHead();	
+	getHead(false);	
 ?>
 
 		
@@ -13,4 +13,4 @@
 		
 		</div>
 					
-<?php getFoot(); ?>
+<?php getFoot(false); ?>
