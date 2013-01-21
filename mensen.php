@@ -59,34 +59,36 @@ SELECT DISTINCT ?name ?start ?minPrice ?maxPrice ?mensa ?mensaname WHERE {
 
  			foreach ($food->results->bindings as $menu) {
  				
- 				if($weekays <= count($weekdays)){
- 					// create a new list for each day of the week:
+ 				
+				// create a new list for each day of the week:
  				$day = substr($menu->start->value, 0, 10);
 
  				if(!$header){
- 					echo '<h1>Mensaplan für die Woche vom '.date('j. F Y', strtotime($menu->start->value)).'</h1>';
- 					//echo '<h1>Mensa für die Woche vom '.$menu->start->value.'</h1>';
-					$header = true;
+ 					echo '<h1>Mensaplan für die Woche vom '.date('j. F Y', strtotime($menu->start->value)).'</h1>
+ 					';
+ 					$header = true;
  				}
 
  				if($day !== $tag){
- 					
- 					echo '<h2 id="'.$day.'">'.$weekdays[$weekday++].'</h2>
- 					<ul>';
- 					$tag = $day;
+					if($weekday < count($weekdays)){ 					
+ 						echo '<hr />
+ 						<h2 id="'.$day.'">'.$weekdays[$weekday++].'</h2>';
+ 						$tag = $day;
+ 					}else{
+ 						$weekday++;
+ 					}
  				}
- 				
-				// break the list down by mensa:
-				if($menu->mensa->value !== $mns){
-					echo '<h3><a href="orgdetails.php?org_uri='.$menu->mensa->value.'" data-ajax="false">'.$menu->mensaname->value.'</a></h3>';
-					$mns = $menu->mensa->value;
-				}
 
-				echo '<li>'.$menu->name->value.' <span class="ui-li-count ui-btn-up-c ui-btn-corner-all" style="margin-top: -16px">'.$menu->minPrice->value.'€<br/>'.$menu->maxPrice->value.'€</span></li>';
+	 			if($weekday <= count($weekdays)){	
+					// break the list down by mensa:
+					if($menu->mensa->value !== $mns){
+						echo '<h3><a href="orgdetails.php?org_uri='.$menu->mensa->value.'" data-ajax="false">'.$menu->mensaname->value.'</a></h3>';
+						$mns = $menu->mensa->value;
+					}
+
+					echo '<p>'.$menu->name->value.' <span class="ui-li-count ui-btn-up-c ui-btn-corner-all" style="margin-top: -16px">'.$menu->minPrice->value.'€<br/>'.$menu->maxPrice->value.'€</span></p>';
  				} 								
- 			} 
-
- 			echo '</ul>';		 		
+ 			}  			
  		}
  	}
 
