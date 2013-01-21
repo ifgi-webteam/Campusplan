@@ -1,40 +1,32 @@
 <?php 
 	require_once("functions.php");
-	getHead("Wohnheime");
+	getHead();
 ?>
 
-<div data-role="page" class="type-interior">
-
-	<?php getHeader("Wohnheime", "home"); ?>
-
-	<div data-role="content">
-		
-		<div class="content-primary">
-
-		<h2>Wohnheime</h2>
+	<div class="container">
+		<div class="row">
+	
+		<h1>Wohnheime</h1>
 
 		<?php 
 			if(isset($_GET['lang'])){
-				getFBs($_GET['lang']);			 
+				getDorms($_GET['lang']);			 
 			} else {
-				getFBs();
+				getDorms();
 			}
 		?>	
 
-		</div><!--/content-primary -->		
-		
-		<?php getMenu(); ?> 	
+		</div>	
 
-	</div><!-- /content -->		
-</div><!-- /page -->
+	</div><!--/container -->
 
-</body>
-</html>
+
 <?php
 
-// loads all university departments in $lang (currently supported: de, en (TODO!))
+getFoot();
+// loads all dorms in $lang (currently supported: de, en (TODO!))
 
-function getFBs($lang = "de"){
+function getDorms($lang = "de"){
 	
 	$fbs = sparql_get("
 
@@ -54,8 +46,6 @@ SELECT DISTINCT * WHERE {
 
 		// only start if there are any results:
 		if($fbs->results->bindings){
-			echo '<ul data-role="listview" data-inset="false">
-			';  
 			
 			foreach ($fbs->results->bindings as $fb) {
  				
@@ -67,11 +57,9 @@ SELECT DISTINCT * WHERE {
  				$name = str_replace("Internationales", "Int.", $name);
  				$url   = $fb->fb->value;
  				 				
- 				echo '<li><a href="orgdetails.php?org_uri='.$url.'&org_title='.urlencode($name).'" data-ajax="false">'.$name.'</a></li>
- 				';
- 			}
- 		
- 			echo '</ul>';
+ 				//echo '<li><a href="orgdetails.php?org_uri='.$url.'&org_title='.urlencode($name).'" data-ajax="false">'.$name.'</a></li>';
+ 				echo '<h4><a class="btn btn-org" href="orgdetails.php?org_uri='.$url.'&org_title='.urlencode($name).'">'.$name.'</a></h4>';
+ 			} 		 		
  		}
  	}
 

@@ -135,11 +135,12 @@
 			
 		} else if(isset($building->lat->value) && isset($building->long->value)){  //handle orgs that only have lat/lon
 			echo "
-			var circle = new L.Circle(new L.LatLng(".$building->lat->value.", ".$building->long->value."), 10, circleOptions);
+			var circle = new L.Circle(new L.LatLng(".$building->lat->value.", ".$building->long->value."), 10, circleOptions); 
+			";
 			
 			// circle.bindPopup(\"<b>".$building->address->value."</b>\");
-			map.addLayer(circle);
-			";	
+			// map.addLayer(circle);
+			// ";	
 		}	
 	}	
 	

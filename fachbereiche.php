@@ -63,8 +63,7 @@ SELECT DISTINCT * WHERE {
  				$desc  = substr($name, 17);
  				$title = str_replace("Fachbereich 0", "Fachbereich ", $title);
  				$url   = $fb->fb->value;
- 				echo '<h4><a class="btn btn-org" href="orgdetails.php?org_uri='.$url.'&org_title='.$title.'">'.$title.'<br /><span class="desc">'.$desc.'</span></a></h4>';		
- 				//echo '<li><a href="fachbereich.php?fb_uri='.$url.'&fb_title='.$title.'&fb_desc='.$desc.'"><h3>'.$title.'</h3><p>'.$desc.'</p></a></li>';
+ 				echo '<h4><a class="btn btn-org" href="orgdetails.php?org_uri='.$url.'&org_title='.$title.'">'.$title.'<br /><span class="desc">'.$desc.'</span></a></h4>'; 				
  			}
  		 			
  		}
