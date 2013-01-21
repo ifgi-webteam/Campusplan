@@ -64,15 +64,16 @@ SELECT DISTINCT ?name ?start ?minPrice ?maxPrice ?mensa ?mensaname WHERE {
  				$day = substr($menu->start->value, 0, 10);
 
  				if(!$header){
- 					echo '<h1>Mensaplan für die Woche vom '.date('j. F Y', strtotime($menu->start->value)).'</h1>
+ 					echo '<h1>Mensaplan für die Woche vom '.date('j. F Y', strtotime($menu->start->value)).'</h1><hr />
  					';
  					$header = true;
  				}
 
  				if($day !== $tag){
 					if($weekday < count($weekdays)){ 					
- 						echo '<hr />
- 						<h2 id="'.$day.'">'.$weekdays[$weekday++].'</h2>';
+ 						echo '</tbody></table>
+ 						<h2 id="'.$day.'">'.$weekdays[$weekday++].'</h2>
+ 						<table class="table table-bordered table-striped">';
  						$tag = $day;
  					}else{
  						$weekday++;
@@ -82,13 +83,15 @@ SELECT DISTINCT ?name ?start ?minPrice ?maxPrice ?mensa ?mensaname WHERE {
 	 			if($weekday <= count($weekdays)){	
 					// break the list down by mensa:
 					if($menu->mensa->value !== $mns){
-						echo '<h3><a href="orgdetails.php?org_uri='.$menu->mensa->value.'" data-ajax="false">'.$menu->mensaname->value.'</a></h3>';
+						echo '<thead><tr><td><a href="orgdetails.php?org_uri='.$menu->mensa->value.'" data-ajax="false">'.$menu->mensaname->value.'</a></td></tr></thead><tbody>';
 						$mns = $menu->mensa->value;
 					}
 
-					echo '<p>'.$menu->name->value.' <span class="ui-li-count ui-btn-up-c ui-btn-corner-all" style="margin-top: -16px">'.$menu->minPrice->value.'€<br/>'.$menu->maxPrice->value.'€</span></p>';
+					echo '<tr><td>'.$menu->name->value.' <span class="pull-right">'.$menu->minPrice->value.'€ | '.$menu->maxPrice->value.'€</span></td></tr>';
  				} 								
- 			}  			
+ 			}  
+
+ 			echo '</tbody></table>';	
  		}
  	}
 
