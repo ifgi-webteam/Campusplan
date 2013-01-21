@@ -1,28 +1,23 @@
 <?php 
 	require_once("functions.php");
-	getHead("Mensen");
+	getHead();
 ?>
 
-<body> 
-
-<div data-role="page" class="type-interior">
-
-	<?php getHeader("Mensen", "home"); ?>
-
-	<div data-role="content">
-		
-		<div class="content-primary">
-		
+	<div class="container">
+		<div class="row">
+			
 		<?php 
-			getFood();			 
+			if(isset($_GET['lang'])){
+				getFood($_GET['lang']);			 
+			} else {
+				getFood();
+			}
 		?>	
 
-		</div><!--/content-primary -->		
-		
-		<?php getMenu(); ?> 	
+		</div>	
 
-	</div><!-- /content -->
-</div><!-- /page -->
+	</div><!--/container -->
+
 
 <?php
 
@@ -31,17 +26,13 @@ getFoot();
 
 function getFood(){
 	
-	$time = strtotime('monday this week');
-	$date = date('Y-m-d', $time);
-	$datetime = $date.'T00:00:00Z';
-	
-	
 	$food = sparql_get('
 prefix xsd: <http://www.w3.org/2001/XMLSchema#> 
 prefix gr: <http://purl.org/goodrelations/v1#>
 prefix foaf: <http://xmlns.com/foaf/0.1/> 
 
 SELECT DISTINCT ?name ?start ?minPrice ?maxPrice ?mensa ?mensaname WHERE {
+    
   ?menu a gr:Offering ;
         gr:availabilityStarts ?start ;
         gr:name ?name ;
@@ -49,19 +40,17 @@ SELECT DISTINCT ?name ?start ?minPrice ?maxPrice ?mensa ?mensaname WHERE {
   ?priceSpec gr:hasMinCurrencyValue ?minPrice ;
              gr:hasMaxCurrencyValue ?maxPrice .
   ?mensa gr:offers ?menu ;
-         foaf:name ?mensaname .
-  FILTER (?start > "'.$datetime.'"^^xsd:dateTime) .
-} ORDER BY ?start ?mensa 
-');
+         foaf:name ?mensaname .  
+} ORDER BY DESC(?start) ?mensa LIMIT 70
+'); // The LIMIT might have to be increased if we add more Mensas!
 	
 	if( !isset($food) ) {
-		print "<li>Fehler beim Abruf der Mensadaten.</li>";
+		echo '<div class="alert alert-error">Fehler beim Abruf der Mensadaten.</div>';
 	}else{		
 
 		// only start if there are any results:
 		if($food->results->bindings){
-			echo '<h2>Angebote in den Mensen für die Woche vom '.date('d.m.Y', $time).'</h2>';
-			
+			$header = false;
 			
 			$mns = 'none';
 			$tag = 'none';
@@ -69,25 +58,32 @@ SELECT DISTINCT ?name ?start ?minPrice ?maxPrice ?mensa ?mensaname WHERE {
 			$weekday = 0;
 
  			foreach ($food->results->bindings as $menu) {
- 				// create a new list for each day of the week:
+ 				
+ 				if($weekays <= count($weekdays)){
+ 					// create a new list for each day of the week:
  				$day = substr($menu->start->value, 0, 10);
+
+ 				if(!$header){
+ 					echo '<h1>Mensaplan für die Woche vom '.date('j. F Y', strtotime($menu->start->value)).'</h1>';
+ 					//echo '<h1>Mensa für die Woche vom '.$menu->start->value.'</h1>';
+					$header = true;
+ 				}
+
  				if($day !== $tag){
- 					if($tag !== 'none'){
- 						echo '</ul>';
- 					}
- 					echo '<h3 id="'.$day.'">'.$weekdays[$weekday++].'</h3>';
- 					echo '<ul data-theme="g" data-role="listview" data-inset="true" data-theme="d" data-filter-theme="g" data-divider-theme="a">';
+ 					
+ 					echo '<h2 id="'.$day.'">'.$weekdays[$weekday++].'</h2>
+ 					<ul>';
  					$tag = $day;
  				}
  				
 				// break the list down by mensa:
 				if($menu->mensa->value !== $mns){
-					echo '<li><a href="orgdetails.php?org_uri='.$menu->mensa->value.'" data-ajax="false">'.$menu->mensaname->value.'</a></li>';
+					echo '<h3><a href="orgdetails.php?org_uri='.$menu->mensa->value.'" data-ajax="false">'.$menu->mensaname->value.'</a></h3>';
 					$mns = $menu->mensa->value;
 				}
 
 				echo '<li>'.$menu->name->value.' <span class="ui-li-count ui-btn-up-c ui-btn-corner-all" style="margin-top: -16px">'.$menu->minPrice->value.'€<br/>'.$menu->maxPrice->value.'€</span></li>';
-				
+ 				} 								
  			} 
 
  			echo '</ul>';		 		
