@@ -4,9 +4,9 @@
 ?>
 
 	<div class="container">
-		<div class="row">
-	
-		<h1>Wohnheime</h1>
+		<div class="row-fluid">
+			<h1>Wohnheime</h1>
+		</div>
 
 		<?php 
 			if(isset($_GET['lang'])){
@@ -14,9 +14,7 @@
 			} else {
 				getDorms();
 			}
-		?>	
-
-		</div>	
+		?>			
 
 	</div><!--/container -->
 
@@ -41,12 +39,15 @@ SELECT DISTINCT * WHERE {
 ");
 	
 	if( !isset($fbs) ) {
-		print "<li>Fehler beim Abruf der Wohnheimdaten.</li>";
+		print '<p class="alert alert-error">Fehler beim Abruf der Wohnheimdaten.</p>';
 	}else{		
 
 		// only start if there are any results:
 		if($fbs->results->bindings){
 			
+			echo '<div class="row-fluid">';
+			$other = false;
+
 			foreach ($fbs->results->bindings as $fb) {
  				
  				// TODO: English!
@@ -57,9 +58,17 @@ SELECT DISTINCT * WHERE {
  				$name = str_replace("Internationales", "Int.", $name);
  				$url   = $fb->fb->value;
  				 				
- 				//echo '<li><a href="orgdetails.php?org_uri='.$url.'&org_title='.urlencode($name).'" data-ajax="false">'.$name.'</a></li>';
- 				echo '<h4><a class="btn btn-org" href="orgdetails.php?org_uri='.$url.'&org_title='.urlencode($name).'">'.$name.'</a></h4>';
- 			} 		 		
+ 				echo '<div class="span6"><h4><a class="btn btn-org" href="orgdetails.php?org_uri='.$url.'&org_title='.urlencode($name).'">'.$name.'</a></h4></div>';
+
+ 				if($other){
+ 					echo '</div><div class="row-fluid">';
+ 				}
+
+ 				$other = !$other;
+	
+ 			} 	
+
+ 			echo '</div>';	 		
  		}
  	}
 
