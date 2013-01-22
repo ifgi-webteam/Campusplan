@@ -83,7 +83,7 @@ function getHead($showmenu = true){
 
 
 
-function getFoot($showlogos = true){
+function getFoot($showlogos = false){
 ?>	
 	
 	<?php if($showlogos){ ?>
@@ -97,4 +97,16 @@ function getFoot($showlogos = true){
 
 <?php	
 }
+
+
+
+function endsWith($haystack, $needle) {
+    $length = strlen($needle);
+    if ($length == 0) {
+        return true;
+    }
+
+    return (substr($haystack, -$length) === $needle);
+}
+
 ?>

@@ -12,7 +12,6 @@
 ?>
 
 <div class="container">
-		<div class="row">
 		
 		<?php 
 			if(!isset($_GET['lang'])){
@@ -24,7 +23,6 @@
 			$orgDetails = getOrgDetails($org_uri, $lang);				
 		?>	
 
-		</div>				
 	</div>
 <?php addMapCode($orgDetails); ?>
 
@@ -46,6 +44,9 @@ function addMapCode($orgDetails){
 	
 	 // wait until the page is loaded:
 	 $(function(event){
+
+	 	$('#map').show();
+
 	 	var cloudmadeAPIkey = '5e0536536c2a4b008d05d5a4becac5a3';
 	 	
 	 	var map = new L.Map('map', {
@@ -184,6 +185,8 @@ function addMapCode($orgDetails){
 		echo"			
 		// fixes the problem where some map tiles are not shown initally:
 		L.Util.requestAnimFrame(map.invalidateSize,map,!1,map._container);
+
+		$('div.leaflet-control-attribution').hide();
 	});	
 	</script>
 		";
@@ -192,18 +195,9 @@ function addMapCode($orgDetails){
 	}else{ // no map
 		
 	echo"	
-	<script>
-		$('#map').remove();
-	</script>
+		$('#map').hide();	
 	";	
-	}
-	
-	// now make sure the page also shows the things we have inserted:
-	echo"
-	<script>
-		$('#map').trigger('create');
-	</script>
-	";
+	}	
 }
 
 // loads the details for this organization
@@ -247,8 +241,7 @@ SELECT DISTINCT ?name ?homepage ?address ?buildingname ?lat ?long ?wkt WHERE {
 	$orgDetails = sparql_get($query);	
 	
 	if( !isset($orgDetails) ) {
-		print "<li>Fehler beim Abruf der Informationen über diese Organisation:</li>";
-		echo "<p><strong>Anfrage</strong>: ".$query."</p>";
+		print '<p class="alert alert-error">Fehler beim Abruf der Informationen über diese Organisation:</li>';		
 	}else{		
 
 		// only start if there are any results:
@@ -256,9 +249,13 @@ SELECT DISTINCT ?name ?homepage ?address ?buildingname ?lat ?long ?wkt WHERE {
 			
 			$thisOrg = $orgDetails->results->bindings[0];			
 			
-			echo '<div id="map" style="height: 300px"></div>
-				
-				<h1>'.$thisOrg->name->value.'</h1>
+			$orgName = $thisOrg->name->value;
+
+			if(endsWith($orgName, " Institut für")){
+				$orgName = "Institut für ".substr($orgName, 0, -13);
+			}
+
+			echo '<div class="row-fluid"><div class="span12"><h1>'.$orgName.'</h1>
 						
 
 				<span id="instructions"></span>
@@ -267,12 +264,18 @@ SELECT DISTINCT ?name ?homepage ?address ?buildingname ?lat ?long ?wkt WHERE {
 				<p class="lead">
 				';
 				
-				if(isset($thisOrg->buildingname->value)){
-					echo '<strong>'.$thisOrg->buildingname->value.'</strong><br />';
+				// if(isset($thisOrg->buildingname->value)){
+				// 	echo '<strong>'.$thisOrg->buildingname->value.'</strong><br />';
+				// }
+
+				// remove http:// and trailing slash from the website for display:
+				$www = str_replace('http://', '', $thisOrg->homepage->value);
+				if(endsWith($www, '/')){
+					$www = substr($www, 0, -1);
 				}
-				
-				echo $thisOrg->address->value.'<br />';
-				echo '<a href="'.$thisOrg->homepage->value.'">'.$thisOrg->homepage->value.'</a>';
+
+				echo $thisOrg->address->value.'<br />
+				Website: <a href="'.$thisOrg->homepage->value.'">'.$www.'</a>';
 				
 				
 				echo '</p>
@@ -283,13 +286,9 @@ SELECT DISTINCT ?name ?homepage ?address ?buildingname ?lat ?long ?wkt WHERE {
 			 		
 			 	 
 				
- 			echo '</li></ul>
- 			'; 
- 			
- 			echo '
- 					
- 				  
- 			';
+ 			echo '</div>
+ 			</div>
+ 			';  			 			
  			
  			return $thisOrg;
  		}
