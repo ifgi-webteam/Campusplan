@@ -58,21 +58,36 @@ SELECT DISTINCT ?name ?start ?minPrice ?maxPrice ?mensa ?mensaname WHERE {
 			$weekday = 0;
 
  			foreach ($food->results->bindings as $menu) {
- 				
+ 				$other = false;
  				
 				// create a new list for each day of the week:
  				$day = substr($menu->start->value, 0, 10);
 
  				if(!$header){
- 					echo '<h1>Mensaplan für die Woche vom '.date('j. F Y', strtotime($menu->start->value)).'</h1><hr />
+ 					echo '<div class="container"><div class="row-fluid"><div class="span12"><h1>Mensaplan für die Woche vom '.date('j. F Y', strtotime($menu->start->value)).'</h1><hr /></div></div>
  					';
  					$header = true;
  				}
 
  				if($day !== $tag){
 					if($weekday < count($weekdays)){ 					
- 						echo '</tbody></table>
- 						<h2 id="'.$day.'">'.$weekdays[$weekday++].'</h2>
+ 						echo '</tbody></table>';
+ 						// close the span6 div - but only if we have opened it before!
+ 						if ($tag !== 'none'){
+ 							echo '</div>';
+ 						}
+ 						// close the row-fluid div after every other span6 div
+ 						if($other){
+ 							echo '</div>';
+ 						}
+
+ 						$other = !$other;
+
+ 						echo '<div class="row-fluid"><div class="span6"';
+ 						if($other){ // move the right column a bit 
+ 							echo ' style="padding-right: 10px"';
+ 						}
+ 						echo '><h2 id="'.$day.'">'.$weekdays[$weekday++].'</h2>
  						<table class="table table-bordered table-striped">';
  						$tag = $day;
  					}else{
@@ -91,7 +106,7 @@ SELECT DISTINCT ?name ?start ?minPrice ?maxPrice ?mensa ?mensaname WHERE {
  				} 								
  			}  
 
- 			echo '</tbody></table>';	
+ 			echo '</tbody></table></div></div>';	
  		}
  	}
 
