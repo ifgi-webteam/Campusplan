@@ -3,7 +3,7 @@
 	getHead();
 ?>
 
-<div class="container">
+	<div class="container">
 		<div class="row">
 						
 			<h1>WWU Campusplan</h1>
@@ -20,6 +20,7 @@
 			<div class="container hidden-phone"><a href="http://www.uni-muenster.de"><img src="img/wwu-full.png" class="logoimgs pull-right" /></a>
 			<a href="http://ifgi.uni-muenster.de"><img src="img/ifgi.png" class="logoimgs pull-right" /></a></div>	
 		</div> <!-- row -->
-	</div> <!-- content -->
+	</div> <!-- container -->
+</div> <!-- content -->
 </body>
 </html>

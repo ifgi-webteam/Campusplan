@@ -34,18 +34,42 @@
 // -----------------------------------------------------
 
 /* dynamically resizable icons on the start page */
-img.frontimg{
-	max-width: 50%;
-    height: auto;
-    vertical-align: top;
-    float: left;
+/* Define a mixin first */
+.dynamicons (@iconwidth: 33.333%) {
+  
+	img.frontimg{
+		max-width: @iconwidth;
+	    height: auto;
+	    vertical-align: top;
+	    float: left;
+	}
+
+	img.frontimg-s{
+		max-width: @iconwidth / 2;
+	    height: auto;
+	    vertical-align: top;
+	    float: left;
+	}
 }
 
-img.frontimg-s{
-	max-width: 25%;
-    height: auto;
-    vertical-align: top;
-    float: left;
+/* Smartphones (landscape) ----------- */
+@media only screen and (min-width : 321px) {
+	.dynamicons()
+}
+
+/* Smartphones (portrait) ----------- */
+@media (max-width : 320px) {
+	.dynamicons(50%)
+}
+
+/* tablets (landscape) ----------- */
+@media  (min-width : 769px) and (orientation : landscape) {
+	.dynamicons()
+}
+
+/* tablets (portrait) ----------- */
+@media only screen and (min-device-width : 768px) and (orientation : portrait) {
+	.dynamicons(50%)
 }
 
 img.logoimg{
