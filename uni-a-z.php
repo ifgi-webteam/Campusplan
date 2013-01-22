@@ -4,7 +4,7 @@
 ?>
  
 	<div class="container">
-		<div class="row">
+		
 			<?php 
 			if(isset($_GET['search'])){
 				getSearchList($_GET['search']);
@@ -14,8 +14,7 @@
 				getAZList();
 			} 
 			?>
-		</div>	
-
+		
 	</div><!--/container -->
 			
 <?php
@@ -24,14 +23,18 @@ getFoot();
 
 function searchForm($value){
 	echo '
-		<h1>Uni A-Z</h1>
-		<p class="lead">Durchsuche das Einrichtungsverzeichnis der WWU, oder klicke dich durch den alphabetischen Index.</p>
-		<form action="uni-a-z.php">
-			<div class="input-append">
-	  			<input class="searchfield" name="search" placeholder="Suche..." id="appendedInputButton" type="text">
-	  			<button class="btn btn-large" type="submit"><i class="icon-search"></i></button>
+		<div class="row-fluid">
+			<div class="span12">
+				<h1>Uni A-Z</h1>
+				<p class="lead">Das Einrichtungsverzeichnis der WWU.</p>
+				<form action="uni-a-z.php">
+					<div class="input-append">
+		  				<input class="searchfield" name="search" placeholder="Suche..." id="appendedInputButton" type="text">
+		  				<button class="btn btn-large" type="submit"><i class="icon-search"></i></button>
+					</div>
+				</form>		
 			</div>
-		</form>
+		</div>
 	';
 	// echo '<form><input type="search" name="search" id="search-basic" value="'.$value.'" /><input type="submit" value="Einrichtung suchen" /></form>';
 }
@@ -39,11 +42,13 @@ function searchForm($value){
 function getAZList(){
 
 	searchForm('');
-
+	echo '<p class="lead">... oder nach Anfangsbuchstabe:</p>';
+	echo '<p class="az">';
 	$az = array("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z");
 	foreach ($az as $letter) {
 		echo '<a class="btn btn-large btn-letter" href="uni-a-z.php?letter='.$letter.'">'.$letter.'</a> ';
 	}
+	echo '</p>';
 }
 
 
@@ -112,14 +117,14 @@ function listOrgs($orgs, $template){
 			$name = $fb->name->value;
 			$orga = $fb->orga->value;
  			
- 			echo '<h4><a class="btn btn-org" href="orgdetails.php?org_uri='.$orga.'&org_title='.urlencode($name).'">'.$name.'</a></h4>';
+ 			echo '<a class="btn btn-org" href="orgdetails.php?org_uri='.$orga.'&org_title='.urlencode($name).'">'.$name.'</a>';
  		}
  		 		
  	} else {
 
- 		searchForm($searchterm);
-	
-		print "<h3>Keine Einrichtungen mit <em>".$template."</em> gefunden.</h3>";
+ 		print "<h3>Keine Einrichtungen mit <em>".$template."</em> gefunden.</h3>";
+
+ 		getAZList();
 
  	}
  	
