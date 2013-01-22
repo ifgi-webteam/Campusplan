@@ -75,9 +75,11 @@ function getHead($showmenu = true){
 			<a href="uni-a-z.php"><img src="img/front-az.png" class="menuimgs" /></a><a href="mensen.php"><img src="img/front-mensen.png" class="menuimgs" /></a><a href="ulb.php"><img src="img/front-ulb.png" class="menuimgs" /></a><a href="karte.php"><img src="img/front-karte.png" class="menuimgs" /></a><a href="favoriten.php"><img src="img/front-favoriten.png" class="menuimgs" /></a><a href="fachbereiche.php"><img src="img/front-fachbereiche.png" class="menuimgs" /></a><a href="hoersaele.php"><img src="img/front-hoersaele.png" class="menuimgs" /></a><a href="wohnheime.php"><img src="img/front-wohnheime.png" class="menuimgs" /></a><a href="info.php"><img src="img/front-info.png" class="menuimgs" /></a>  	
 		</div>
 
-<?php	
-} //end if showMenu
-}
+<?php	} //end if showMenu ?>
+	
+	<div id="map"></div>
+
+<?php } // end getHead
 
 
 

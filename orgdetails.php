@@ -256,10 +256,11 @@ SELECT DISTINCT ?name ?homepage ?address ?buildingname ?lat ?long ?wkt WHERE {
 			
 			$thisOrg = $orgDetails->results->bindings[0];			
 			
-			echo '<h1>'.$thisOrg->name->value.'</h1>';
-			
 			echo '<div id="map" style="height: 300px"></div>
 				
+				<h1>'.$thisOrg->name->value.'</h1>
+						
+
 				<span id="instructions"></span>
 				
 

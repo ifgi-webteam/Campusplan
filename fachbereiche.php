@@ -4,7 +4,6 @@
 ?>
 
 	<div class="container">
-		<div class="row">
 			
 		<?php 
 			if(isset($_GET['lang'])){
@@ -14,8 +13,7 @@
 			}
 		?>	
 
-		</div>	
-
+		
 	</div><!--/container -->
 
 
@@ -27,7 +25,11 @@ getFoot();
 
 function getFBs($lang = "de"){
 	
-	echo '<h1>Fachbereiche</h1>';
+	echo '<div class="row-fluid">
+		<h1>Fachbereiche</h1>
+		</div>
+		<div class="row-fluid">
+		';
 
 	$fbs = sparql_get("
 
@@ -54,6 +56,8 @@ SELECT DISTINCT * WHERE {
 		// only start if there are any results:
 		if($fbs->results->bindings){
 			
+			$other = false;
+			
 			foreach ($fbs->results->bindings as $fb) {
  				
  				// TODO: English!
@@ -63,11 +67,20 @@ SELECT DISTINCT * WHERE {
  				$desc  = substr($name, 17);
  				$title = str_replace("Fachbereich 0", "Fachbereich ", $title);
  				$url   = $fb->fb->value;
- 				echo '<h4><a class="btn btn-org" href="orgdetails.php?org_uri='.$url.'&org_title='.$title.'">'.$title.'<br /><span class="desc">'.$desc.'</span></a></h4>'; 				
+ 				echo '<div class="span6"><h4><a class="btn btn-org" href="orgdetails.php?org_uri='.$url.'&org_title='.$title.'">'.$title.'<br /><span class="desc">'.$desc.'</span></a></h4></div>';
+
+ 				// start a new row after every other FB
+ 				if($other){
+ 					echo '</div><div class="row-fluid">';
+ 				} 				
+
+ 				$other = !$other;
  			}
  		 			
  		}
  	}
+
+ 	echo '</div>';
 
 }
 

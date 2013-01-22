@@ -3,21 +3,13 @@
 	getHead();
 ?>
 
-	<div class="container">
-		<div class="row">
-			
 		<?php 
 			if(isset($_GET['lang'])){
 				getFood($_GET['lang']);			 
 			} else {
 				getFood();
 			}
-		?>	
-
-		</div>	
-
-	</div><!--/container -->
-
+		?>		
 
 <?php
 
