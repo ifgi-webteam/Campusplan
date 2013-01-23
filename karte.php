@@ -17,18 +17,12 @@
 	 		zoomControl: false
 	 	});
 	 	
-	 	var mapquestUrl = 'http://{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png',
-	 	subDomains = ['otile1','otile2','otile3','otile4'],
-	 	mapquestAttrib = '';
+	 	var proxyUrl = 'tiles.php?z={z}&x={x}&y={y}';
 	 	
-	 	var mapquest = new L.TileLayer(mapquestUrl, {
-	 		maxZoom: 18, 
-	 		attribution: mapquestAttrib, 
-	 		subdomains: subDomains
-	 	});
+	 	var osm = new L.TileLayer(proxyUrl);
 	 	
 	 	var center = new L.LatLng(51.9663, 7.6099); 
-	 	map.setView(center, 14).addLayer(mapquest);
+	 	map.setView(center, 14).addLayer(osm);
 	 	
 
 		// fixes the problem where some map tiles are not shown initally:
