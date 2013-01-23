@@ -190,11 +190,6 @@ function addMapCode($orgDetails){
 		";
 
 
-	}else{ // no map
-		
-	echo"	
-		$('#map').hide();	
-	";	
 	}	
 }
 
@@ -211,7 +206,7 @@ prefix lodum: <http://vocab.lodum.de/helper/>
 prefix ogc: <http://www.opengis.net/ont/OGC-GeoSPARQL/1.0/>
 prefix xsd: <http://www.w3.org/2001/XMLSchema#> 
 
-SELECT DISTINCT ?name ?homepage ?address ?buildingname ?lat ?long ?wkt WHERE {
+SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?lat ?long ?wkt WHERE {
   
   <".$org."> foaf:name ?name.
   
@@ -221,18 +216,24 @@ SELECT DISTINCT ?name ?homepage ?address ?buildingname ?lat ?long ?wkt WHERE {
   	FILTER ( datatype(?address) = xsd:string )
   }
   
-  OPTIONAL { <".$org."> lodum:building ?building . 
-             ?building foaf:name ?buildingname ; 
+  OPTIONAL { <".$org."> lodum:building ?building .              
                        
      OPTIONAL { ?building geo:lat ?lat ; 
                               geo:long ?long . }
              
-     OPTIONAL { ?building vcard:address ?buildingAddress . } 
+     OPTIONAL { ?building vcard:adr ?buildingAddress . 
+
+     			?buildingAddress vcard:street-address ?street ;
+     			    vcard:postal-code ?zip ;
+     			    vcard:region ?city .     			
+     } 
          
-         OPTIONAL { ?building ogc:hasGeometry ?geometry .
-                        ?geometry ogc:asWKT ?wkt . } 
+     OPTIONAL { ?building ogc:hasGeometry ?geometry .
+                          ?geometry ogc:asWKT ?wkt . } 
          
-  }                                                                                                                       
+  }   
+  
+  FILTER langMatches(lang(?name),'".$lang."') . 
 }
 
 	";
@@ -262,14 +263,11 @@ SELECT DISTINCT ?name ?homepage ?address ?buildingname ?lat ?long ?wkt WHERE {
 				<p class="lead">
 				';
 				
-				// if(isset($thisOrg->buildingname->value)){
-				// 	echo '<strong>'.$thisOrg->buildingname->value.'</strong><br />';
-				// }
-
 				
-
 				if(isset($thisOrg->address->value)){
 					echo $thisOrg->address->value.'<br />';
+				} else if(isset($thisOrg->street->value) && isset($thisOrg->zip->value) && isset($thisOrg->city->value)) {
+					echo $thisOrg->street->value.', '.$thisOrg->zip->value.' '.$thisOrg->city->value.'<br />';
 				}
 				if(isset($thisOrg->homepage->value)){
 

@@ -44,7 +44,6 @@ SELECT DISTINCT * WHERE {
      lodum:departmentNo ?no.   
   FILTER langMatches(lang(?name),'".$lang."') . 
   FILTER regex(?name,' - ') . 
-  FILTER regex(str(?fb),'uniaz') . 
 } ORDER BY ?no
 
 ");
@@ -57,7 +56,7 @@ SELECT DISTINCT * WHERE {
 		if($fbs->results->bindings){
 			
 			$other = false;
-			
+
 			foreach ($fbs->results->bindings as $fb) {
  				
  				// TODO: English!
