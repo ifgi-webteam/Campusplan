@@ -4,13 +4,9 @@
 ?>
 
 <div class="container">
-		<div class="row">
-		
 		<?php 
 			getLectureHalls();			 			
 		?>			
-
-	</div>
 </div>
 
 <?php
@@ -21,7 +17,7 @@ getFoot();
 
 function getLectureHalls(){
 	
-	echo '<h1>Hörsäle</h1>';
+	echo '<div class="row-fluid"><h1>Hörsäle</h1></div>';
 	
 	$hoersaele = sparql_get("
 
@@ -47,13 +43,16 @@ SELECT DISTINCT * WHERE {
 ");
 	
 	if( !isset($hoersaele) ) {
-		print "<li>Fehler beim Abruf der Hörsaaldaten.</li>";
+		print '<p class="alert alert-error">Fehler beim Abruf der Hörsaaldaten.</li>';
 	}else{		
 
 		// only start if there are any results:
 		if($hoersaele->results->bindings){
 			
 			$prevtitle = '';
+			$other = false;
+
+			echo '<div class="row-fluid">';
 
 			foreach ($hoersaele->results->bindings as $hs) {
  				
@@ -73,13 +72,21 @@ SELECT DISTINCT * WHERE {
 
  				// skip duplicates
  				if($title != $prevtitle){
- 				 	echo '<h4><a class="btn btn-large" href="orgdetails.php?org_uri='.$url.'&org_title='.$title.'">'.$title.'<br /><span class="desc">'.$building.', '.$address.' ('.$floor.')</span></a></h4>
- 				';}
+ 				 	echo '<div class="span6"><a class="btn btn-org" href="orgdetails.php?org_uri='.$url.'&org_title='.$title.'"><b>'.$title.'</b><br /><span class="desc">'.$building.', '.$address.' ('.$floor.')</span></a></div>
+ 						';
+
+ 					if($other){
+ 						echo '</div><div class="row-fluid">';
+ 					}
+
+ 					$other = !$other;
+
+ 				}
 
  				$prevtitle = $title;
  			}
  		
- 			
+ 			echo '</div></div>';
  		}
  	}
 
