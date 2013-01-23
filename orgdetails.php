@@ -268,15 +268,20 @@ SELECT DISTINCT ?name ?homepage ?address ?buildingname ?lat ?long ?wkt WHERE {
 				// 	echo '<strong>'.$thisOrg->buildingname->value.'</strong><br />';
 				// }
 
-				// remove http:// and trailing slash from the website for display:
-				$www = str_replace('http://', '', $thisOrg->homepage->value);
-				if(endsWith($www, '/')){
-					$www = substr($www, 0, -1);
-				}
-
-				echo $thisOrg->address->value.'<br />
-				Website: <a href="'.$thisOrg->homepage->value.'">'.$www.'</a>';
 				
+
+				if(isset($thisOrg->address->value)){
+					echo $thisOrg->address->value.'<br />';
+				}
+				if(isset($thisOrg->homepage->value)){
+
+					// remove http:// and trailing slash from the website for display:
+					$www = str_replace('http://', '', $thisOrg->homepage->value);
+					if(endsWith($www, '/')){
+						$www = substr($www, 0, -1);
+					}
+					echo 'Website: <a href="'.$thisOrg->homepage->value.'">'.$www.'</a>';
+				}
 				
 				echo '</p>
 
