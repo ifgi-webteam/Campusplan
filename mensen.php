@@ -29,6 +29,8 @@ SELECT DISTINCT ?name ?start ?minPrice ?maxPrice ?mensa ?mensaname WHERE {
         gr:availabilityStarts ?start ;
         gr:name ?name ;
         gr:hasPriceSpecification ?priceSpec .
+  ?priceSpec gr:hasMinCurrencyValue ?minPrice ;
+             gr:hasMaxCurrencyValue ?maxPrice .
   ?mensa gr:offers ?menu ;
          foaf:name ?mensaname .  
 } ORDER BY DESC(?start) ?mensa LIMIT 70
