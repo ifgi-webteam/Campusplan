@@ -1,41 +1,21 @@
 <?php 
 	require_once("functions.php");
 	getHead();
-?>
-
-<div class="container">
-		<div class="row">
-
-	<?php 
-
-	if(!isset($_GET['lang'])){
-		$lang = 'de';
-	} else {
-		$lang = $_GET['lang'];
-	}
-
-	?>
-
-	<div id="map"></div>
+?>	
 
 	<script>
  
 	 // wait until the page is loaded:
 	 // $( document ).delegate("#mapPage", "pagecreate", function() {
-  	$("#mapPage").live("pageshow",function(event, ui) {	
+  	// wait until the page is loaded:
+	 $(function(event){
 
-  		// make sure we start with a fresh map div (otherwise, we'll get errors if we come back to this page):
-	 	try {
-  			var map = new L.Map('map', {
-	 			zoomControl: false
-	 		});
-  		} catch(err) {
-  			$('#map').remove();
-  			$('div.content-primary').append('<div id="map"></div>');
-  			var map = new L.Map('map', {
-	 			zoomControl: false
-	 		});
-  		}
+	 	$('#map').addClass('mapFullScreen');
+	 	$('#map').show();
+
+	 	var map = new L.Map('map', {
+	 		zoomControl: false
+	 	});
 	 	
 	 	var mapquestUrl = 'http://{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png',
 	 	subDomains = ['otile1','otile2','otile3','otile4'],

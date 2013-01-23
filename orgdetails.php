@@ -47,8 +47,6 @@ function addMapCode($orgDetails){
 
 	 	$('#map').show();
 
-	 	var cloudmadeAPIkey = '5e0536536c2a4b008d05d5a4becac5a3';
-	 	
 	 	var map = new L.Map('map', {
 	 		zoomControl: false
 	 	});

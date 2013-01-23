@@ -168,15 +168,25 @@ div#map{
 
 /* Smartphones (landscape) */
 @media (min-width : 321px) {
+	
 	div#map{
 		height: 150px;
+	}
+
+	div.mapFullScreen{
+		height: 270px !important;
 	}
 }
 
 /* Smartphones (portrait) */
 @media (max-width : 320px) {
+	
 	div#map{
 		height: 220px;
+	}
+
+	div.mapFullScreen{
+		height: 640px !important;
 	}
 }
 
@@ -185,12 +195,18 @@ div#map{
 	div#map{
 		height: 350px;
 	}
+	div.mapFullScreen{
+		height: 654px !important;
+	}
 }
 
 /* tablets (portrait) */
 @media (min-width : 768px) and (orientation : portrait) {
 	div#map{
-		height: 600px;
+		height: 900px;
+	}
+	div.mapFullScreen{
+		height: 939px !important;
 	}
 }
 
