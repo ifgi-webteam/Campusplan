@@ -24,6 +24,7 @@
 		?>	
 
 	</div>
+
 <?php addMapCode($orgDetails); ?>
 
 <?php 
@@ -190,7 +191,15 @@ function addMapCode($orgDetails){
 		";
 
 
-	}	
+	} else { // no lat/lon nor WKT - show notification that we don't have a map for this one:
+		echo "
+			<script>
+				$(function(event){
+					$('#orgInfo').append('<p class=\"lead alert\">Für diese Einrichtung steht leider keine Karte/Navigation zur Verfügung.</a>');
+				});				
+			</script>
+		";		
+	}
 }
 
 // loads the details for this organization
@@ -254,7 +263,7 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 				$orgName = "Institut für ".substr($orgName, 0, -13);
 			}
 
-			echo '<div class="row-fluid"><div class="span12"><h1>'.$orgName.'</h1>
+			echo '<div class="row-fluid"><div class="span12" id="orgInfo"><h1>'.$orgName.'</h1>
 						
 
 				<span id="instructions"></span>
@@ -269,22 +278,23 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 				} else if(isset($thisOrg->street->value) && isset($thisOrg->zip->value) && isset($thisOrg->city->value)) {
 					echo $thisOrg->street->value.', '.$thisOrg->zip->value.' '.$thisOrg->city->value.'<br />';
 				}
+				
 				if(isset($thisOrg->homepage->value)){
 
 					// remove http:// and trailing slash from the website for display:
 					$www = str_replace('http://', '', $thisOrg->homepage->value);
-					if(endsWith($www, '/')){
-						$www = substr($www, 0, -1);
-					}
+					if ( endsWith($www, '/') ) { $www = substr($www, 0, -1); }
+
 					echo 'Website: <a href="'.$thisOrg->homepage->value.'">'.$www.'</a>';
 				}
 				
-				echo '</p>
+				echo '</p>';
 
-					<p class="lead"><a href="" id="route">Wegbeschreibung</a></p> 
-					';
+					if(isset($orgDetails->wkt->value) || (isset($orgDetails->lat->value) && isset($orgDetails->long->value))){
+						echo '<p class="lead"><a href="" id="route">Wegbeschreibung</a></p> 
+						';
 // http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2?language=de&itdLPxx_hideNavigationBar=1&itdLPxx_transpCompany=stwms&sessionID=0&requestID=0&language=de&useRealtime=1&place_origin=MS&type_origin=address&name_origin=Hubertistraße+12&place_destination=MS&type_destination=address&name_destination='.urlencode($thisOrg->address->value).'
-			 		
+			 			}
 			 	 
 				
  			echo '</div>
