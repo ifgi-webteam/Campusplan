@@ -278,6 +278,8 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 				} else if(isset($thisOrg->street->value) && isset($thisOrg->zip->value) && isset($thisOrg->city->value)) {
 					echo $thisOrg->street->value.', '.$thisOrg->zip->value.' '.$thisOrg->city->value.'<br />';
 				}
+
+				echo '</p>';
 				
 				if(isset($thisOrg->homepage->value)){
 
@@ -285,16 +287,19 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 					$www = str_replace('http://', '', $thisOrg->homepage->value);
 					if ( endsWith($www, '/') ) { $www = substr($www, 0, -1); }
 
-					echo 'Website: <a href="'.$thisOrg->homepage->value.'">'.$www.'</a>';
+					echo '<p class="lead hidden-phone"><a href="'.$thisOrg->homepage->value.'">'.$www.'</a></p>
+					<a class="btn btn-info btn-phone visible-phone" style="margin-top: 10px" href="'.$thisOrg->homepage->value.'">Website</a>';
 				}
 				
-				echo '</p>';
-
-					if(isset($orgDetails->wkt->value) || (isset($orgDetails->lat->value) && isset($orgDetails->long->value))){
-						echo '<p class="lead"><a href="" id="route">Wegbeschreibung</a></p> 
+				
+					if(isset($thisOrg->wkt->value) || (isset($thisOrg->lat->value) && isset($thisOrg->long->value))){
+						echo '<a href="#" class="lead hidden-phone" id="route">Navigation</a><a class="btn btn-info btn-phone btn-phone-right visible-phone" href="#" id="route">Navigation</a>
 						';
 // http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2?language=de&itdLPxx_hideNavigationBar=1&itdLPxx_transpCompany=stwms&sessionID=0&requestID=0&language=de&useRealtime=1&place_origin=MS&type_origin=address&name_origin=Hubertistraße+12&place_destination=MS&type_destination=address&name_destination='.urlencode($thisOrg->address->value).'
-			 			}
+			 		}
+
+			 	
+
 			 	 
 				
  			echo '</div>
