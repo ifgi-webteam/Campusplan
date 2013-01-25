@@ -287,7 +287,7 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 					$www = str_replace('http://', '', $thisOrg->homepage->value);
 					if ( endsWith($www, '/') ) { $www = substr($www, 0, -1); }
 
-					echo '<p class="lead hidden-phone"><a href="'.$thisOrg->homepage->value.'">'.$www.'</a></p>
+					echo '<p class="lead hidden-phone">Website: <a href="'.$thisOrg->homepage->value.'">'.$www.'</a></p>
 					<a class="btn btn-info btn-phone visible-phone" style="margin-top: 10px" href="'.$thisOrg->homepage->value.'">Website</a>';
 				}
 				
