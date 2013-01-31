@@ -195,7 +195,7 @@ function addMapCode($orgDetails){
 		echo "
 			<script>
 				$(function(event){
-					$('#orgInfo').append('<p class=\"lead alert\">Für diese Einrichtung steht leider keine Karte/Navigation zur Verfügung.</a>');
+					$('#address').after('<p class=\"lead alert\">Für diese Einrichtung steht leider keine Karte/Navigation zur Verfügung.</p>');
 				});				
 			</script>
 		";		
@@ -269,7 +269,7 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 				<span id="instructions"></span>
 				
 
-				<p class="lead">
+				<p class="lead" id="address">
 				';
 				
 				
@@ -288,7 +288,7 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 					if ( endsWith($www, '/') ) { $www = substr($www, 0, -1); }
 
 					echo '<p class="lead hidden-phone">Website: <a href="'.$thisOrg->homepage->value.'">'.$www.'</a></p>
-					<a class="btn btn-info btn-phone visible-phone" style="margin-top: 10px" href="'.$thisOrg->homepage->value.'">Website</a>';
+					<p class="visible-phone"><a class="btn btn-info btn-phone" style="margin-top: 10px" href="'.$thisOrg->homepage->value.'">Website</a>';
 				}
 				
 				
