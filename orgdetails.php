@@ -263,7 +263,7 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 				$orgName = "Institut für ".substr($orgName, 0, -13);
 			}
 
-			echo '<div class="row-fluid"><div class="span12" id="orgInfo"><h1>'.$orgName.'</h1>
+			echo '<div class="row-fluid"><div class="span12" id="orgInfo"><h1><span id="favorite">&#9733;</span>'.$orgName.'</h1>
 						
 
 				<span id="instructions"></span>
@@ -288,7 +288,7 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 					if ( endsWith($www, '/') ) { $www = substr($www, 0, -1); }
 
 					echo '<p class="lead hidden-phone">Website: <a href="'.$thisOrg->homepage->value.'">'.$www.'</a></p>
-					<p class="visible-phone"><a class="btn btn-info btn-phone" style="margin-top: 10px" href="'.$thisOrg->homepage->value.'">Website</a>';
+					<p class="visible-phone"><a class="btn btn-info btn-phone" href="'.$thisOrg->homepage->value.'">Website</a>';
 				}
 				
 				
