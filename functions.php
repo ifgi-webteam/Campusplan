@@ -66,8 +66,7 @@ function getHead($showmenu = true){
 
 		<?php if($showmenu){ ?><div class="navbar navbar-inverse navbar-fixed-top visible-phone"><!-- phone displays -->
 			<div class="navbar-inner">
-			    <div class="container-fluid">          
-			    	<a class="brand" href="index.php"><img src="img/wwu-white-s.png" class="navbarlogo"> WWU CampusPlan</a>          
+			    <div class="container-fluid"> <a href="#" id="forward"><img src="img/forward.png" class="historybutton forward" /></a> <a href="#" id="back"><img src="img/back.png" class="historybutton" /></a> <a class="brand" href="index.php"><img src="img/wwu-white-s.png" class="navbarlogo"> CampusPlan</a>    
 			    </div>
 			</div>
 		</div>
@@ -92,6 +91,19 @@ function getFoot($showlogos = false){
 	<?php } ?>
 	
 	</div> <!-- class=content -->
+
+	<script type="text/javascript">
+		$('#back').click(function(){
+			event.preventDefault();
+			history.back();
+		});
+
+		$('#forward').click(function(){
+			event.preventDefault();
+			history.forward();
+		});
+	</script>
+
 </body>
 </html>
 
