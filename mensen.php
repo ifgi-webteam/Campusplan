@@ -18,6 +18,11 @@ getFoot();
 
 function getFood(){
 	
+
+	$time = strtotime('monday this week');  	
+	$date = date('Y-m-d', $time);  	
+	$datetime = $date.'T00:00:00Z';
+
 	$food = sparql_get('
 prefix xsd: <http://www.w3.org/2001/XMLSchema#> 
 prefix gr: <http://purl.org/goodrelations/v1#>
@@ -33,8 +38,9 @@ SELECT DISTINCT ?name ?start ?minPrice ?maxPrice ?mensa ?mensaname WHERE {
              gr:hasMaxCurrencyValue ?maxPrice .
   ?mensa gr:offers ?menu ;
          foaf:name ?mensaname .  
-} ORDER BY DESC(?start) ?mensa LIMIT 70
-'); // The LIMIT might have to be increased if we add more Mensas!
+  FILTER (?start > "'.$datetime.'"^^xsd:dateTime) .
+} ORDER BY MONTH(?start) DAY(?start) LCASE(?mensaname) 
+');
 	
 	if( !isset($food) ) {
 		echo '<div class="alert alert-error">Fehler beim Abruf der Mensadaten.</div>';
