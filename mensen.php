@@ -18,6 +18,7 @@ getFoot();
 
 function getFood(){
 	
+	setlocale("LC_TIME", "de_DE");
 
 	$time = strtotime('monday this week');  	
 	$date = date('Y-m-d', $time);  	
@@ -62,7 +63,12 @@ SELECT DISTINCT ?name ?start ?minPrice ?maxPrice ?mensa ?mensaname WHERE {
  				$day = substr($menu->start->value, 0, 10);
 
  				if(!$header){
- 					echo '<div class="container"><div class="row-fluid"><div class="span12"><h1>Mensaplan für die Woche vom '.date('j. F Y', strtotime($menu->start->value)).'</h1><hr /></div></div>
+ 					echo '<div class="container"><div class="row-fluid">
+ 					<div class="span12">
+ 					<h1>Mensaplan für die Woche vom '.strftime('%e. %B %Y', strtotime($menu->start->value)).'</h1>
+ 					<hr />
+ 					</div>
+ 					</div>
  					';
  					$header = true;
  				}
