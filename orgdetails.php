@@ -42,8 +42,26 @@ function addMapCode($orgDetails){
 	echo"
 	<script>
 	
-	 // wait until the page is loaded:
-	 $(function(event){
+	function error(msg){
+		alert(msg); // TODO: Make this a bit nicer
+	}
+
+	// wait until the page is loaded:
+	$(function(event){
+
+	 	// enable the navigation button:
+	 	$('.route').click(function(){
+	 		
+	 		// get position via HTML5 geolocation API
+	 		if (navigator.geolocation) {
+ 				navigator.geolocation.getCurrentPosition(showNavigation, error);
+			} else {
+				// todo - link to google maps only with destination, user has to put in start
+			} 
+
+	 		
+	 	});
+
 
 	 	$('#map').show();
 
@@ -267,14 +285,44 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 				<p class="lead" id="address">
 				';
 				
-				
+				$dest = '';
+
+				// use the coords as destination for the navigation
+				if((isset($thisOrg->lat->value) && isset($thisOrg->long->value))){
+					$dest = $thisOrg->lat->value.','.$thisOrg->long->value;
+				}
+
+
+				// ... or the address
 				if(isset($thisOrg->address->value)){
+					$dest = urlencode($thisOrg->address->value);
 					echo $thisOrg->address->value.'<br />';
 				} else if(isset($thisOrg->street->value) && isset($thisOrg->zip->value) && isset($thisOrg->city->value)) {
+					$dest = urlencode($thisOrg->street->value.', '.$thisOrg->zip->value.' '.$thisOrg->city->value);
 					echo $thisOrg->street->value.', '.$thisOrg->zip->value.' '.$thisOrg->city->value.'<br />';
 				}
 
-				echo '</p>';
+				
+				echo "</p>
+					
+					<script>
+						function showNavigation(position) {
+			  
+						  // add the following parameters to the URI in case we want to distinguish the 
+					      // different routing options inside the web app at some point:
+		
+						  // dirflg=r: rail / public transport
+						  // dirflg=w: walk
+						  // default: car
+		
+						  var uri = 'https://maps.google.com/maps?saddr='+position.coords.latitude+','+position.coords.longitude+'&daddr=".$dest."&hl=de&ie=UTF8&ttype=now&dirflg=w&noexp=0&noal=0&sort=def&mra=ltm&t=m&start=0';
+						  
+						  location.href = uri;
+		
+						}
+					</script>
+				
+				";
 				
 				if(isset($thisOrg->homepage->value)){
 
@@ -288,9 +336,8 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 				
 				
 					if(isset($thisOrg->wkt->value) || (isset($thisOrg->lat->value) && isset($thisOrg->long->value))){
-						echo '<a href="#" class="lead hidden-phone" id="route">Navigation</a><a class="btn btn-info btn-phone btn-phone-right visible-phone" href="#" id="route">Navigation</a>
+						echo '<a href="#" class="lead hidden-phone route">Navigation</a><a class="btn btn-info btn-phone btn-phone-right visible-phone route" href="#">Navigation</a>
 						';
-// http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2?language=de&itdLPxx_hideNavigationBar=1&itdLPxx_transpCompany=stwms&sessionID=0&requestID=0&language=de&useRealtime=1&place_origin=MS&type_origin=address&name_origin=Hubertistraße+12&place_destination=MS&type_destination=address&name_destination='.urlencode($thisOrg->address->value).'
 			 		}
 
 			 	
@@ -307,4 +354,4 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 
 }
 
-?>
+?>  
