@@ -68,11 +68,12 @@ function addMapCode($orgDetails){
 	 	var map = new L.Map('map', {
 	 		zoomControl: false
 	 	});
-
-	 	var mapquestUrl = 'http://{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png',
-	 	subDomains = ['otile1','otile2','otile3','otile4'],
-	 	mapquestAttrib = '';
-	 	var mapquest = new L.TileLayer(mapquestUrl, {maxZoom: 18, attribution: mapquestAttrib, subdomains: subDomains});
+	 	
+	 	var osm = new L.TileLayer('tiles.php?z={z}&x={x}&y={y}', {
+            attribution: ''
+		});
+	 	
+	 	map.setView([51.9663, 7.6099], 14).addLayer(osm);
 	 	
 	 	map.on('locationfound', onLocationFound);	 		 	
 	 	
@@ -81,24 +82,6 @@ function addMapCode($orgDetails){
 	 	function onLocationFound(e) {
 	 	    var marker = new L.Marker(e.latlng);
 	 	    map.addLayer(marker);
-	 	    // marker.bindPopup('<a id=\"bikeroute\"><img src=\"img/bike.png\" width=\"50px\" height=\"50px\" /></a> <a id=\"walkroute\"><img src=\"img/walk.png\" width=\"50px\" height=\"50px\" /></a> <a id=\"busroute\" href=\"http://efa.vrr.de/vrr/XSLT_TRIP_REQUEST2?language=de&itdLPxx_hideNavigationBar=1&itdLPxx_transpCompany=stwms&sessionID=0&requestID=0&language=de&useRealtime=1&place_origin=MS&type_origin=address&name_origin=Hubertistraße+12&place_destination=MS&type_destination=address&name_destination='.orgAddress.'\"><img src=\"img/bus.png\" width=\"50px\" height=\"50px\" /></a>  <a id=\"carroute\"><img src=\"img/car.png\" width=\"50px\" height=\"50px\" /></a>.').openPopup();
-	 	    marker.bindPopup('<a id=\"bikeroute\"><img src=\"img/bike.png\" width=\"50px\" height=\"50px\" /></a> <a id=\"walkroute\"><img src=\"img/walk.png\" width=\"50px\" height=\"50px\" /></a> <a id=\"carroute\"><img src=\"img/car.png\" width=\"50px\" height=\"50px\" /></a>.').openPopup();
-
-	 	    $('#bikeroute').click(function(){
-	 	    	computeRoute(e.latlng.lat, e.latlng.lng, destlat, destlng, \"bicycle\", \"de\");
-	 	    	marker.closePopup();
-	 	    });
-			$('#walkroute').click(function(){
-	 	    	computeRoute(e.latlng.lat, e.latlng.lng, destlat, destlng, \"foot\", \"de\");
-	 	    	marker.closePopup();
-	 	    });
-			$('#carroute').click(function(){
-	 	    	computeRoute(e.latlng.lat, e.latlng.lng, destlat, destlng, \"car\", \"de\");
-	 	    	marker.closePopup();
-	 	    });
-
-
-			$('#route').unbind();
 	 	}
 	 	
 	 	// listen to clicks on the 'Wegbschreibung' button
@@ -166,7 +149,7 @@ function addMapCode($orgDetails){
 		var center = new L.LatLng(" .$y. ", ".$x.");
 		destlat =  " .$y. ";
 		destlng =  " .$x. ";
-		map.setView(center, 17).addLayer(mapquest);
+		map.setView(center, 17);
 		var geojsonLayer = new L.GeoJSON();
 		
 		geojsonLayer.on('featureparse', function (e) {
@@ -187,7 +170,7 @@ function addMapCode($orgDetails){
 		var center = new L.LatLng(".$orgDetails->lat->value.", ".$orgDetails->long->value.");
 		destlat =  " .$orgDetails->lat->value. ";
 		destlng =  " .$orgDetails->long->value. ";
-		map.setView(center, 17).addLayer(mapquest);
+		map.setView(center, 17);
 	
 		var marker = new L.Marker(center);
 		marker.bindPopup(\"<b>".$orgDetails->buildingname->value."</b></br>".$orgDetails->address->value."\").openPopup();
@@ -208,7 +191,7 @@ function addMapCode($orgDetails){
 		echo "
 			<script>
 				$(function(event){
-					$('#address').after('<p class=\"lead alert\">Für diese Einrichtung steht leider keine Karte/Navigation zur Verfügung.</p>');
+					$('#address').after('<p class=\"lead alert\">Für diese Einrichtung steht leider keine Karte / Navigation zur Verfügung.</p>');
 				});				
 			</script>
 		";		
@@ -316,7 +299,7 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 						  // default: car
 		
 						  var uri = 'https://maps.google.com/maps?saddr='+position.coords.latitude+','+position.coords.longitude+'&daddr=".$dest."&hl=de&ie=UTF8&ttype=now&dirflg=w&noexp=0&noal=0&sort=def&mra=ltm&t=m&start=0';
-						  
+
 						  location.href = uri;
 		
 						}
