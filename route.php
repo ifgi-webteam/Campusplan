@@ -7,8 +7,6 @@
 
 	$url = 'http://routes.cloudmade.com/'.$cloudmadekey.'/api/0.3/'.$_GET["coords"].'/'.$_GET["mode"].'.js?lang='.$_GET["lang"];
 
-	error_log($url);
-
 	header('Content-type: application/json; charset=utf-8');
 	echo file_get_contents($url);
 	

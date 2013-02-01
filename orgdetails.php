@@ -52,9 +52,17 @@ function addMapCode($orgDetails){
 	 	// enable the navigation button:
 	 	$('.route').click(function(){
 	 		
+	 		var id = $(this).attr('id');
+
 	 		// get position via HTML5 geolocation API
 	 		if (navigator.geolocation) {
- 				navigator.geolocation.getCurrentPosition(showNavigation, error);
+	 			if(id == 'bus'){
+	 				navigator.geolocation.getCurrentPosition(showBusRoute, error);
+	 			} else {
+	 				navigator.geolocation.getCurrentPosition(function(position){
+	 					showRoute(position, id, map);	 					
+	 				}, error);
+	 			}
 			} else {
 				// todo - link to google maps only with destination, user has to put in start
 			} 
@@ -83,12 +91,6 @@ function addMapCode($orgDetails){
 	 	    var marker = new L.Marker(e.latlng);
 	 	    map.addLayer(marker);
 	 	}
-	 	
-	 	// listen to clicks on the 'Wegbschreibung' button
-	 	$('#route').click(function() {
-	 		map.locate({setView: true});
-	 		$(window).scrollTop($('#themap').position().top);
-	 	});
 	 	
 	 	// computes a route from currentLat/Lng to destLat/Lng
 	 	// possible modes: bicycle, foot, car
@@ -173,7 +175,6 @@ function addMapCode($orgDetails){
 		map.setView(center, 17);
 	
 		var marker = new L.Marker(center);
-		marker.bindPopup(\"<b>".$orgDetails->buildingname->value."</b></br>".$orgDetails->address->value."\").openPopup();
 		map.addLayer(marker);	
 		";	
 	}
@@ -269,6 +270,7 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 				';
 				
 				$dest = '';
+				$destAddr = '';
 
 				// use the coords as destination for the navigation
 				if((isset($thisOrg->lat->value) && isset($thisOrg->long->value))){
@@ -278,18 +280,29 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 
 				// ... or the address
 				if(isset($thisOrg->address->value)){
-					$dest = urlencode($thisOrg->address->value);
-					echo $thisOrg->address->value.'<br />';
+					$destAddr = urlencode($thisOrg->address->value);
+					echo $thisOrg->address->value.' ';
 				} else if(isset($thisOrg->street->value) && isset($thisOrg->zip->value) && isset($thisOrg->city->value)) {
-					$dest = urlencode($thisOrg->street->value.', '.$thisOrg->zip->value.' '.$thisOrg->city->value);
-					echo $thisOrg->street->value.', '.$thisOrg->zip->value.' '.$thisOrg->city->value.'<br />';
+					$destAddr = urlencode($thisOrg->street->value.', '.$thisOrg->zip->value.' '.$thisOrg->city->value);
+					echo $thisOrg->street->value.', '.$thisOrg->zip->value.' '.$thisOrg->city->value.' ';
+				}
+
+				if(isset($thisOrg->homepage->value)){
+
+					// remove http:// and trailing slash from the website for display:
+					$www = str_replace('http://', '', $thisOrg->homepage->value);
+					if ( endsWith($www, '/') ) { $www = substr($www, 0, -1); }
+
+					echo '<a class="btn visible-phone" style="float:right; margin-left: 20px" href="'.$thisOrg->homepage->value.'">Website</a><p class="lead hidden-phone">Website: <a href="'.$thisOrg->homepage->value.'">'.$www.'</a></p>
+					<p class="visible-phone">';
 				}
 
 				
 				echo "</p>
 					
 					<script>
-						function showNavigation(position) {
+						// forward to google maps for public transport options
+						function showBusRoute(position) {
 			  
 						  // add the following parameters to the URI in case we want to distinguish the 
 					      // different routing options inside the web app at some point:
@@ -298,30 +311,66 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 						  // dirflg=w: walk
 						  // default: car
 		
-						  var uri = 'https://maps.google.com/maps?saddr='+position.coords.latitude+','+position.coords.longitude+'&daddr=".$dest."&hl=de&ie=UTF8&ttype=now&dirflg=w&noexp=0&noal=0&sort=def&mra=ltm&t=m&start=0';
+						  var uri = 'https://maps.google.com/maps?saddr='+position.coords.latitude+','+position.coords.longitude+'&daddr=";
+						  
+						  if($destAddr != ''){ echo $destAddr; } else { echo $dest; }
+
+						  echo "&hl=de&ie=UTF8&ttype=now&dirflg=r&noexp=0&noal=0&sort=def&mra=ltm&t=m&start=0';
 
 						  location.href = uri;
+		
+						}
+
+						// all other routing requests:
+						function showRoute(position, mode, map) {
+			  			  
+						  
+						  var url = 'route.php?coords='+position.coords.latitude+','+position.coords.longitude+',".$dest."&mode='+mode+'&lang=de';
+
+						  console.log(url);
+
+						  $.ajax({
+					 		    url: url,	   
+					 		    success: function(json) {
+					 			    
+					 		    	console.log(json);
+
+					 			    var polyline = L.polyline(json.route_geometry, {color: 'red'});
+					 			    map.addLayer(polyline);
+
+									// zoom the map to the polyline
+									map.fitBounds(polyline.getBounds());
+					 		    	
+					 		        // show instructions:
+					 		        $.each(json.route_instructions, function(i){
+					 		        	var thisInstruction = json.route_instructions[i];
+					 		        	$('#instructions').append('<li class=\"ui-li ui-li-static ui-body-c ui-corner-top\">' + (i+1) + '. ' + thisInstruction[0] + ' (' + thisInstruction[4] + ')</li>');
+					 		        })
+					 		        
+					 		        
+					 		    }	   
+					 		});						  
 		
 						}
 					</script>
 				
 				";
 				
-				if(isset($thisOrg->homepage->value)){
-
-					// remove http:// and trailing slash from the website for display:
-					$www = str_replace('http://', '', $thisOrg->homepage->value);
-					if ( endsWith($www, '/') ) { $www = substr($www, 0, -1); }
-
-					echo '<p class="lead hidden-phone">Website: <a href="'.$thisOrg->homepage->value.'">'.$www.'</a></p>
-					<p class="visible-phone"><a class="btn btn-info btn-phone" href="'.$thisOrg->homepage->value.'">Website</a>';
-				}
+				
 				
 				
 					if(isset($thisOrg->wkt->value) || (isset($thisOrg->lat->value) && isset($thisOrg->long->value))){
-						echo '<a href="#" class="lead hidden-phone route">Navigation</a><a class="btn btn-info btn-phone btn-phone-right visible-phone route" href="#">Navigation</a>
-						';
-			 		}
+						// echo '<a href="#" class="lead hidden-phone route">Navigation</a><a class="btn btn-info btn-phone btn-phone-right visible-phone route" href="#">Navigation</a>
+						// '; ?>
+						<div class="btn-group" style="width: 100%">
+  							<button class="btn btn-warning"><img src="img/route.png" style="height: 1.3em" /></button>
+  							<button class="btn route" id="bicycle">Fahrrad</button>
+  							<button class="btn route" id="foot">Zufuß</button>
+  							<button class="btn route" id="car">Auto</button>
+  							<button class="btn route" id="bus">ÖPNV (<img src="img/google.png" style="height: 1.3em" />)</button>
+						</div>
+					<?php
+			 		} //end if
 
 			 	
 
