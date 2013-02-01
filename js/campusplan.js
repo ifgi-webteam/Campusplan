@@ -8,27 +8,29 @@ function hideAddressBar(){
 }
 
 // enable "starring" pages (adding to cookies)
-$(function(event){
-	// make star blue if cookie is already set:
-	if($.cookie('bookmark-'+$('title').html()) == $(location).attr('href')){
-		$("span#favorite").addClass("activecookie");
-	}
+// the cookies added here will be shown on the favorites page (read and displayed via php)
+$( document ).ready(function(){ // TODO: we might have to change this with ajaxify
 
+	var cookie        = encodeURIComponent($(location).attr('href')) ;
+	var value         = $('span#title').html() ;
+	var cookieOptions = { expires: 1000 , path: '/' } ;
+
+	// make star blue if cookie is already set:
+	if($.cookie(cookie) != undefined){
+		$("span#favorite").addClass("activecookie");
+		console.log("cookie found");
+	}
 
 	$('span#favorite').unbind();
 	$('span#favorite').click(function(){
-		var cookie = 'bookmark-'+$('title').html();
-		var value = $(location).attr('href');
-
+		
 		// toggle cookie and star image
-		if($.removeCookie(cookie)){
+		if($.removeCookie(cookie, cookieOptions)){
 			// "unstar" page
-			$("span#favorite").removeClass("activecookie");
-			console.log('cookie entfernt');
+			$("span#favorite").removeClass("activecookie");			
 		}else{
-			$.cookie(cookie, value, { expires: 1000 });
+			$.cookie(cookie, value, cookieOptions);
 			$("span#favorite").addClass("activecookie");
-			console.log('cookie hinzugefügt');
 		}			
 	});
 });

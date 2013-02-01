@@ -1,5 +1,6 @@
 <?php 
 	require_once("functions.php");
+	dontCache();
 	getHead();
 ?>
 
@@ -16,19 +17,17 @@
 
 getFoot();
 
-// loads all university departments in $lang (currently supported: de, en (TODO!))
-
 function getFavorites(){
 	
 	echo '<h1>Favoriten</h1>';
 	
 	
-	foreach ($_COOKIE as $key => $value) {
-		if(strpos($key, 'bookmark-') === 0){
-			$key = substr($key, 9);
-			$key = str_replace('_', ' ', $key);
-			$value = substr($value, strrpos($value, 'orgdetails.php'));
-			echo '<h4><a class="btn btn-org" href="'.$value.'&org_title='.$key.'" style="white-space: normal !important">'.$key.'</a></h4>';		
+	foreach ($_COOKIE as $url => $title) {
+		if(strpos($url, 'http') === 0){
+			$url = urldecode($url);
+			$url = str_replace('orgdetails_php', 'orgdetails.php', $url);
+			$url = str_replace('data_uni-muenster_de', 'data.uni-muenster.de', $url);
+			echo '<h4><a class="btn btn-org" href="'.$url.'" style="white-space: normal !important">'.$title.'</a></h4>';		
 		}
 	} 					
 	

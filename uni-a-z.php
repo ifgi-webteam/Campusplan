@@ -117,7 +117,7 @@ function listOrgs($orgs, $template){
 			$name = $fb->name->value;
 			$orga = $fb->orga->value;
  			
- 			echo '<a class="btn btn-org" href="orgdetails.php?org_uri='.$orga.'&org_title='.urlencode($name).'">'.$name.'</a>';
+ 			echo '<a class="btn btn-org" href="orgdetails.php?org_uri='.$orga.'">'.$name.'</a>';
  		}
  		 		
  	} else {

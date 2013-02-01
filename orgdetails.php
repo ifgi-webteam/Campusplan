@@ -6,9 +6,8 @@
 	require_once("functions.php");
 	
 	$org_uri   = $_GET["org_uri"]; 
-	$org_title = urldecode($_GET["org_title"]);
 	
-	getHead("$org_title");
+	getHead();
 ?>
 
 <div class="container">
@@ -143,11 +142,7 @@ function addMapCode($orgDetails){
 	
 		
 		// let's add some info details to the geojson; they will be shown in the popup bubble:
-		$json_geometry = '{"properties": {
-				"name": "'.$orgDetails->buildingname->value.'",
-				"amenity": "building",
-		        "popupContent": "<b>'.$orgDetails->buildingname->value.'</b></br>'.$orgDetails->address->value.'"
-		    },'.substr($json_geometry, 1); 
+		$json_geometry = '{'.substr($json_geometry, 1); 
 	echo "	
 		
 		var center = new L.LatLng(" .$y. ", ".$x.");
@@ -263,7 +258,7 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 				$orgName = "Institut für ".substr($orgName, 0, -13);
 			}
 
-			echo '<div class="row-fluid"><div class="span12" id="orgInfo"><h1><span id="favorite">&#9733;</span>'.$orgName.'</h1>
+			echo '<div class="row-fluid"><div class="span12" id="orgInfo"><h1><span id="favorite">&#9733;</span><span id="title">'.$orgName.'</span></h1>
 						
 
 				<span id="instructions"></span>

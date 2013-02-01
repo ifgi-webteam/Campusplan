@@ -2,6 +2,15 @@
 
 // This file contains some generic functions used across most pages of the campus plan app. 
 
+
+// function to keep client from caching the page; required e.g. for the favorites page, 
+// which needs to be re-rendedered each time it is visited
+function dontCache(){
+	header('Cache-Control: no-cache, no-store, must-revalidate'); // HTTP 1.1.
+	header('Pragma: no-cache'); // HTTP 1.0.
+	header('Expires: 0'); // Proxies.
+}
+
 // returns the results of the query as a PHP object
 function sparql_get($query){
  
@@ -26,7 +35,7 @@ function sparql_get($query){
    return $resobj;
 }
 
-function getHead($showmenu = true){
+function getHead($showmenu = true){	
 ?>
 
 <!DOCTYPE html> 
@@ -35,6 +44,7 @@ function getHead($showmenu = true){
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
 
 	<title>WWU Campusplan</title> 
 
