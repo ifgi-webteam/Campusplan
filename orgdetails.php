@@ -51,7 +51,12 @@ function addMapCode($orgDetails){
 
 	 	// enable the navigation button:
 	 	$('.route').click(function(){
-	 		
+
+	 		$('.route').each(function(){
+	 			$(this).removeClass('btn-info');
+	 		});
+	
+			$(this).addClass('btn-info')
 	 		var id = $(this).attr('id');
 
 	 		// get position via HTML5 geolocation API
@@ -60,11 +65,11 @@ function addMapCode($orgDetails){
 	 				navigator.geolocation.getCurrentPosition(showBusRoute, error);
 	 			} else {
 	 				navigator.geolocation.getCurrentPosition(function(position){
-	 					showRoute(position, id, map);	 					
+	 					showRoute(position, id, map, layerGroup);	 					
 	 				}, error);
 	 			}
 			} else {
-				// todo - link to google maps only with destination, user has to put in start
+				alert('Ihr Gerät scheint die HTML5 Geolocation API nicht zu unterstützen.');// todo - link to google maps only with destination, user has to put in start
 			} 
 
 	 		
@@ -76,6 +81,8 @@ function addMapCode($orgDetails){
 	 	var map = new L.Map('map', {
 	 		zoomControl: false
 	 	});
+
+		var layerGroup = new L.LayerGroup();
 	 	
 	 	var osm = new L.TileLayer('tiles.php?z={z}&x={x}&y={y}', {
             attribution: ''
@@ -90,38 +97,7 @@ function addMapCode($orgDetails){
 	 	function onLocationFound(e) {
 	 	    var marker = new L.Marker(e.latlng);
 	 	    map.addLayer(marker);
-	 	}
-	 	
-	 	// computes a route from currentLat/Lng to destLat/Lng
-	 	// possible modes: bicycle, foot, car
-	 	// languages: de, en (more? check http://developers.cloudmade.com/wiki/navengine/Documentation)
-	 	function computeRoute(currentLat, currentLng, destLat, destLng, mode, lang){
-	 		$.mobile.showPageLoadingMsg();
-	 		$.ajax({
-	 		    dataType: 'jsonp',
-	 		    url: 'http://routes.cloudmade.com/' + cloudmadeAPIkey+'/api/0.3/'+currentLat+',' + currentLng + ',' + destLat + ',' + destLng + '/' + mode +'.js?lang=' + lang,	   
-	 		    data: { 
-	 		    	lang: lang 
-	 		    }, 
-	 		    success: function(json) {
-	 			    
-	 			    var polyline = L.polyline(json.route_geometry, {color: 'red'}).addTo(map);
-
-					// zoom the map to the polyline
-					map.fitBounds(polyline.getBounds());
-	 		    	
-	 		        // show instructions:
-	 		        $.each(json.route_instructions, function(i){
-	 		        	var thisInstruction = json.route_instructions[i];
-	 		        	$('#instructions').append('<li class=\"ui-li ui-li-static ui-body-c ui-corner-top\">' + (i+1) + '. ' + thisInstruction[0] + ' (' + thisInstruction[4] + ')</li>');
-	 		        })
-	 		        
-	 		        $('#page').trigger('create');
-	 		        $.mobile.hidePageLoadingMsg();
-	 		    }	   
-	 		});
-	 	}
-	 	
+	 	}	 	
 	";
 	
 	
@@ -260,11 +236,8 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 				$orgName = "Institut für ".substr($orgName, 0, -13);
 			}
 
-			echo '<div class="row-fluid"><div class="span12" id="orgInfo"><h1><span id="favorite">&#9733;</span><span id="title">'.$orgName.'</span></h1>
+			echo '<div class="row-fluid"><div class="span12" id="orgInfo"><h1><span id="favorite">&#9733;</span><span id="title">'.$orgName.'</span><a class="btn btn-small visible-phone pull-right" style="float:right; margin-left: 20px" href="'.$thisOrg->homepage->value.'">Website</a></h1>
 						
-
-				<span id="instructions"></span>
-				
 
 				<p class="lead" id="address">
 				';
@@ -293,13 +266,13 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 					$www = str_replace('http://', '', $thisOrg->homepage->value);
 					if ( endsWith($www, '/') ) { $www = substr($www, 0, -1); }
 
-					echo '<a class="btn visible-phone" style="float:right; margin-left: 20px" href="'.$thisOrg->homepage->value.'">Website</a><p class="lead hidden-phone">Website: <a href="'.$thisOrg->homepage->value.'">'.$www.'</a></p>
-					<p class="visible-phone">';
+					echo '<p class="lead hidden-phone">Website: <a href="'.$thisOrg->homepage->value.'">'.$www.'</a></p>
+					';
 				}
 
 				
-				echo "</p>
-					
+				echo "
+
 					<script>
 						// forward to google maps for public transport options
 						function showBusRoute(position) {
@@ -322,13 +295,13 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 						}
 
 						// all other routing requests:
-						function showRoute(position, mode, map) {
+						function showRoute(position, mode, map, layerGroup) {
 			  			  
 						  
 						  var url = 'route.php?coords='+position.coords.latitude+','+position.coords.longitude+',".$dest."&mode='+mode+'&lang=de';
 
-						  console.log(url);
-
+						  $('#navlogo').hide();
+						  $('#navloader').show();
 						  $.ajax({
 					 		    url: url,	   
 					 		    success: function(json) {
@@ -336,17 +309,40 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 					 		    	console.log(json);
 
 					 			    var polyline = L.polyline(json.route_geometry, {color: 'red'});
-					 			    map.addLayer(polyline);
+					 			    
+					 			    map.removeLayer(layerGroup);
+					 			    layerGroup.clearLayers();
+					 			    layerGroup.addLayer(polyline);
+					 			    map.addLayer(layerGroup);
 
 									// zoom the map to the polyline
 									map.fitBounds(polyline.getBounds());
 					 		    	
 					 		        // show instructions:
+					 		        $('#instructions').empty();
+					 		        
+					 		        // headline: distance / duration:
+					 		        var distance = json.route_summary.total_distance/1000;
+									distance = Math.round(10*distance)/10;
+									
+									var time = json.route_summary.total_time/60;
+									time = Math.round(time);
+
+					 		        $('#instructions').append('<h4>'+distance+'km | '+time+'min</h4>');
+					 		        
+					 		        $('#instructions').append('<table class=\"table table-striped table-bordered\" id=\"instructionsTable\">');
+  
+  									var j = 0;
 					 		        $.each(json.route_instructions, function(i){
 					 		        	var thisInstruction = json.route_instructions[i];
-					 		        	$('#instructions').append('<li class=\"ui-li ui-li-static ui-body-c ui-corner-top\">' + (i+1) + '. ' + thisInstruction[0] + ' (' + thisInstruction[4] + ')</li>');
-					 		        })
-					 		        
+					 		        	$('#instructionsTable').append('<tr><td>' + (i+1) + '</td><td>' + thisInstruction[0] +'<span class=\"pull-right\">' + thisInstruction[4] + '</span></td></tr>');
+					 		        	j++;
+					 		        });
+									
+									$('#instructionsTable').append('<tr><td>' + (j+1) + '</td><td><strong>Du hast dein Ziel erreicht.</strong></td></tr>');
+
+									$('#navloader').hide();
+						  			$('#navlogo').show();
 					 		        
 					 		    }	   
 					 		});						  
@@ -362,13 +358,16 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 					if(isset($thisOrg->wkt->value) || (isset($thisOrg->lat->value) && isset($thisOrg->long->value))){
 						// echo '<a href="#" class="lead hidden-phone route">Navigation</a><a class="btn btn-info btn-phone btn-phone-right visible-phone route" href="#">Navigation</a>
 						// '; ?>
-						<div class="btn-group" style="width: 100%">
-  							<button class="btn btn-warning"><img src="img/route.png" style="height: 1.3em" /></button>
-  							<button class="btn route" id="bicycle">Fahrrad</button>
+						<div class="btn-group" id="navbuttons" style="width: 100%">
+  							<button class="btn btn-warning" style="padding: 2px 10px 2px 10px"><img src="img/route.png" id="navlogo" style="height: 24px; width: 24px" /><img src="img/loader.gif" style="height: 24px; width: 24px; display: none" id="navloader" /></button>
+  							<button class="btn route" id="bicycle">Rad</button>
   							<button class="btn route" id="foot">Zufuß</button>
   							<button class="btn route" id="car">Auto</button>
-  							<button class="btn route" id="bus">ÖPNV (<img src="img/google.png" style="height: 1.3em" />)</button>
+  							<button class="btn route" id="bus">Bus</button>  							
 						</div>
+
+						<div class="container" id="instructions"></div>
+				
 					<?php
 			 		} //end if
 
