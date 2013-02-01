@@ -22,7 +22,7 @@
 			<div class="span6">		
 				<p class="lead">Copyright Hinweise</p>
 				
-				<p>Kartendaten &copy; <a href="http://openstreetmap.org">OpenStreetMap</a>. Die daraus erstellten Kacheln werden von <a href="http://www.mapquest.com/">MapQuest</a> zur Verfügung gestellt. Daten und Kacheln stehen unter einer <a href="http://creativecommons.org/licenses/by-sa/2.0/">Creative Commons Lizenz</a>. Die Navigation für Radfahrer, Fußgänger und Autos wird von <a href="http://cloudmade.com/">Cloudmade</a> zur Verfügung gestellt.</p>
+				<p>Kartendaten &copy; <a href="http://openstreetmap.org">OpenStreetMap</a>. Die Navigation für Radfahrer, Fußgänger und Autos wird von <a href="http://cloudmade.com/">Cloudmade</a> zur Verfügung gestellt.</p>
 
 				<p>Die App basiert auf offenen Daten, die im Rahmen der <a href="http://lodum.de">Linked Open Data University of Münster</a> Initiative auf <a href="http://data.uni-muenster.de">data.uni-muenster.de</a> zur Verfügung gestellt werden.</p>
 

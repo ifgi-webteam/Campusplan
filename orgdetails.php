@@ -306,9 +306,7 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 					 		    url: url,	   
 					 		    success: function(json) {
 					 			    
-					 		    	console.log(json);
-
-					 			    var polyline = L.polyline(json.route_geometry, {color: 'red'});
+					 		    	var polyline = L.polyline(json.route_geometry, {color: 'red'});
 					 			    
 					 			    map.removeLayer(layerGroup);
 					 			    layerGroup.clearLayers();

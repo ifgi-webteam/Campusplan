@@ -26,7 +26,7 @@ function getFavorites(){
 		if(strpos($url, 'http') === 0){
 			$url = urldecode($url);
 			$url = str_replace('orgdetails_php', 'orgdetails.php', $url);
-			$url = str_replace('data_uni-muenster_de', 'data.uni-muenster.de', $url);
+			$url = str_replace('_uni-muenster_de', '.uni-muenster.de', $url);			
 			echo '<h4><a class="btn btn-org" href="'.$url.'" style="white-space: normal !important">'.$title.'</a></h4>';		
 		}
 	} 					
