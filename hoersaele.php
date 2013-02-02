@@ -50,9 +50,9 @@ SELECT DISTINCT * WHERE {
 		if($hoersaele->results->bindings){
 			
 			$prevtitle = '';
-			$other = false;
-
-			echo '<div class="row-fluid">';
+			
+			echo '<div class="row-fluid">
+			<div class="btn-group btn-group-vertical">';
 
 			foreach ($hoersaele->results->bindings as $hs) {
  				
@@ -72,14 +72,9 @@ SELECT DISTINCT * WHERE {
 
  				// skip duplicates
  				if($title != $prevtitle){
- 				 	echo '<div class="span6"><a class="btn btn-org" href="orgdetails.php?org_uri='.$url.'&org_title='.$title.'"><b>'.$title.'</b><br /><span class="desc">'.$building.', '.$address.' ('.$floor.')</span></a></div>
- 						';
-
- 					if($other){
- 						echo '</div><div class="row-fluid">';
- 					}
-
- 					$other = !$other;
+ 					echo '<a class="btn btn-large btn-stacked" href="orgdetails.php?org_uri='.$url.'">'.$title.'<br /><small>'.$building.', '.$address.' ('.$floor.')</small></a>';		
+ 				 	//echo '<div class="span6"><a class="btn btn-org" href="orgdetails.php?org_uri='.$url.'&org_title='.$title.'"><b>'.$title.'</b><br /><span class="desc">'.$building.', '.$address.' ('.$floor.')</span></a></div>
+ 					//	'; 					
 
  				}
 

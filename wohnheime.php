@@ -45,30 +45,24 @@ SELECT DISTINCT * WHERE {
 		// only start if there are any results:
 		if($fbs->results->bindings){
 			
-			echo '<div class="row-fluid">';
-			$other = false;
-
+			echo '<div class="row-fluid">
+			<div class="btn-group btn-group-vertical">';
+			
 			foreach ($fbs->results->bindings as $fb) {
  				
  				// TODO: English!
  				
  				$name  = $fb->name->value;
- 				$name = str_replace("Wohnanlage ", "", $name);
- 				$name = str_replace("Studentenwohnheim ", "", $name);
+ 				$name = str_replace("Wohnanlage ", "<span class='hidden-phone'>Wohnanlage </span>", $name);
+ 				$name = str_replace("Studentenwohnheim ", "<span class='hidden-phone'>Studentenwohnheim </span>", $name);
  				$name = str_replace("Internationales", "Int.", $name);
  				$url   = $fb->fb->value;
- 				 				
- 				echo '<div class="span6"><h4><a class="btn btn-org" href="orgdetails.php?org_uri='.$url.'&org_title='.urlencode($name).'">'.$name.'</a></h4></div>';
-
- 				if($other){
- 					echo '</div><div class="row-fluid">';
- 				}
-
- 				$other = !$other;
+ 				
+ 				echo '<a class="btn btn-large btn-stacked" href="orgdetails.php?org_uri='.$url.'">'.$name.'</a>';				 				
 	
  			} 	
 
- 			echo '</div>';	 		
+ 			echo '</div></div>';	 		
  		}
  	}
 

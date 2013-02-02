@@ -60,9 +60,9 @@ function getHead($showmenu = true){
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery.cookie.js"></script>  
     <script src="js/bootstrap.min.js"></script>
-    <!-- <script src="js/jquery.scrollto.min.js"></script>
+    <script src="js/jquery.scrollto.min.js"></script>
     <script src="js/jquery.history.js"></script>
-    <script src="js/ajaxify-html5.js"></script> -->
+    <script src="js/ajaxify-html5.js"></script>
     <script src="js/leaflet.js"></script>  
 	<script src="js/campusplan.js"></script>  
 	
@@ -101,19 +101,7 @@ function getFoot($showlogos = false){
 	<?php } ?>
 	
 	</div> <!-- class=content -->
-
-	<script type="text/javascript">
-		$('#back').click(function(){
-			event.preventDefault();
-			history.back();
-		});
-
-		$('#forward').click(function(){
-			event.preventDefault();
-			history.forward();
-		});
-	</script>
-
+	
 </body>
 </html>
 

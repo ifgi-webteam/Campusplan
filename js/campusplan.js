@@ -11,6 +11,28 @@ function hideAddressBar(){
 // the cookies added here will be shown on the favorites page (read and displayed via php)
 $( document ).ready(function(){ // TODO: we might have to change this with ajaxify
 
+	
+    // Prepare History object à la history.js:
+
+    var History = window.History; // Note: We are using a capital H instead of a lower h
+    if ( !History.enabled ) {
+         // History.js is disabled for this browser.
+         // This is because we can optionally choose to support HTML4 browsers or not.
+        return false;
+    }
+
+   	$('#back').click(function(){
+		event.preventDefault();
+		console.log("back");
+		History.back();
+	});
+
+	$('#forward').click(function(){
+		event.preventDefault();
+		console.log("forward");
+		History.forward();
+	});	    
+	
 	var cookie        = encodeURIComponent($(location).attr('href')) ;
 	var value         = $('span#title').html() ;
 	var cookieOptions = { expires: 1000 , path: '/' } ;
@@ -19,7 +41,7 @@ $( document ).ready(function(){ // TODO: we might have to change this with ajaxi
 	if($.cookie(cookie) != undefined){
 		$("a#favorite").addClass("btn-info");
 		console.log("cookie found");
-	}
+	}	
 
 	$('a#favorite').unbind();
 	$('a#favorite').click(function(){
