@@ -29,7 +29,7 @@ function getFBs($lang = "de"){
 		<h1>Fachbereiche</h1>
 		</div>
 		<div class="row-fluid">
-		<div class="btn-group btn-group-vertical">
+		<div class="btn-group btn-group-vertical" style="width: 100%">
 		';
 
 	$fbs = sparql_get("
@@ -63,7 +63,7 @@ SELECT DISTINCT * WHERE {
  				$desc  = substr($name, 17);
  				$title = str_replace("Fachbereich 0", "Fachbereich ", $title);
  				$url   = $fb->fb->value;
- 				echo '<a class="btn btn-large btn-stacked internal" href="orgdetails.php?org_uri='.$url.'">'.$title.'<br /><small>'.$desc.'</small></a>'; 				 				
+ 				echo '<a class="btn btn-large btn-stacked internal" href="orgdetails.php?org_uri='.$url.'">'.$title.'<br class="visible-phone" /><span class="hidden-phone" style="margin-left:30px">&nbsp;</span><small>'.$desc.'</small></a>'; 				 				
  			}
  		 			
  		}

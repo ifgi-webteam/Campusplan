@@ -85,15 +85,15 @@ SELECT DISTINCT ?name ?start ?minPrice ?maxPrice ?mensa ?mensaname WHERE {
  							echo '</div>';
  						}
 
- 						$other = !$other;
-
  						echo '<div class="row-fluid"><div class="span6"';
- 						if($other){ // move the right column a bit 
- 							echo ' style="padding-right: 10px"';
+ 						if(!$other){ // move the right column a bit 
+ 							echo ' style="padding-right: 20px"';
  						}
  						echo '><h2 id="'.$day.'">'.$weekdays[$weekday++].'</h2>
  						<table class="table table-bordered table-striped">';
  						$tag = $day;
+ 						$other = !$other;
+
  					}else{
  						$weekday++;
  					}
