@@ -48,7 +48,8 @@ function getHead($showmenu = true){
 
 	<title>Campusplan</title> 
 
-	<link rel="apple-touch-icon" href="img/start.png"/>
+	<link rel="apple-touch-icon" href="img/start.png" />
+	<link rel="apple-touch-startup-image" href="img/start.png" />
 	
 	<link rel="stylesheet" href="css/leaflet.css" />
 	<!--[if lte IE 8]>
