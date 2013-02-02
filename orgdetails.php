@@ -236,10 +236,28 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 				$orgName = "Institut für ".substr($orgName, 0, -13);
 			}
 
-			echo '<div class="row-fluid"><div class="span12" id="orgInfo"><h1><span id="favorite">&#9733;</span><span id="title">'.$orgName.'</span><a class="btn btn-small visible-phone pull-right" style="float:right; margin-left: 20px" href="'.$thisOrg->homepage->value.'">Website</a></h1>
+			echo '<div class="row-fluid"><div class="span12" id="orgInfo"><h1><span id="title">'.$orgName.'</span></h1>
 						
 
-				<p class="lead" id="address">
+				<div class="btn-group btn-group-vertical" style="float:right">';
+
+				
+				if(isset($thisOrg->homepage->value)){
+
+					// remove http:// and trailing slash from the website for display:
+					$www = str_replace('http://', '', $thisOrg->homepage->value);
+					if ( endsWith($www, '/') ) { $www = substr($www, 0, -1); }
+
+					echo ' <a class="btn btn-small" style="width: 59px" href="'.$thisOrg->homepage->value.'"><i class="icon-globe"></i> Website</a>
+					';
+				}
+				
+					// Bookmark Button:
+					echo '<a id="favorite" class="btn btn-small" style="width:59px"><i class="icon-star"></i> Merken</a>					
+
+				</div>
+
+				<p class="lead" id="address"><span style="margin-right: 20px">
 				';
 				
 				$dest = '';
@@ -254,22 +272,17 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 				// ... or the address
 				if(isset($thisOrg->address->value)){
 					$destAddr = urlencode($thisOrg->address->value);
-					echo $thisOrg->address->value.' ';
+					echo $thisOrg->address->value.'</span>';
 				} else if(isset($thisOrg->street->value) && isset($thisOrg->zip->value) && isset($thisOrg->city->value)) {
 					$destAddr = urlencode($thisOrg->street->value.', '.$thisOrg->zip->value.' '.$thisOrg->city->value);
-					echo $thisOrg->street->value.', '.$thisOrg->zip->value.' '.$thisOrg->city->value.' ';
+					echo $thisOrg->street->value.', '.$thisOrg->zip->value.' '.$thisOrg->city->value.'</span>';
 				}
 
-				if(isset($thisOrg->homepage->value)){
+				?>
 
-					// remove http:// and trailing slash from the website for display:
-					$www = str_replace('http://', '', $thisOrg->homepage->value);
-					if ( endsWith($www, '/') ) { $www = substr($www, 0, -1); }
+				</p>				
 
-					echo '<p class="lead hidden-phone">Website: <a href="'.$thisOrg->homepage->value.'">'.$www.'</a></p>
-					';
-				}
-
+				<?php
 				
 				echo "
 
@@ -326,18 +339,18 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 									var time = json.route_summary.total_time/60;
 									time = Math.round(time);
 
-					 		        $('#instructions').append('<h4>'+distance+'km | '+time+'min</h4>');
+					 		        $('#instructions').append('<h4>Deine Route: '+distance+'km, '+time+'min</h4>');
 					 		        
 					 		        $('#instructions').append('<table class=\"table table-striped table-bordered\" id=\"instructionsTable\">');
   
   									var j = 0;
 					 		        $.each(json.route_instructions, function(i){
 					 		        	var thisInstruction = json.route_instructions[i];
-					 		        	$('#instructionsTable').append('<tr><td>' + (i+1) + '</td><td>' + thisInstruction[0] +'<span class=\"pull-right\">' + thisInstruction[4] + '</span></td></tr>');
+					 		        	$('#instructionsTable').append('<tr><td>' + (i+1) + '</td><td>' + thisInstruction[0] +'</td><td>' + thisInstruction[4] + '</td></tr>');
 					 		        	j++;
 					 		        });
 									
-									$('#instructionsTable').append('<tr><td>' + (j+1) + '</td><td><strong>Du hast dein Ziel erreicht.</strong></td></tr>');
+									$('#instructionsTable').append('<tr><td>' + (j+1) + '</td><td><strong>Du hast dein Ziel erreicht.</strong></td><td><i class=\"icon-flag\"></i></td></tr>');
 
 									$('#navloader').hide();
 						  			$('#navlogo').show();
@@ -354,14 +367,17 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 				
 				
 					if(isset($thisOrg->wkt->value) || (isset($thisOrg->lat->value) && isset($thisOrg->long->value))){
-						// echo '<a href="#" class="lead hidden-phone route">Navigation</a><a class="btn btn-info btn-phone btn-phone-right visible-phone route" href="#">Navigation</a>
-						// '; ?>
-						<div class="btn-group" id="navbuttons" style="width: 100%">
-  							<button class="btn btn-warning" style="padding: 2px 10px 2px 10px"><img src="img/route.png" id="navlogo" style="height: 24px; width: 24px" /><img src="img/loader.gif" style="height: 24px; width: 24px; display: none" id="navloader" /></button>
-  							<button class="btn route" id="bicycle">Rad</button>
-  							<button class="btn route" id="foot">Zufuß</button>
-  							<button class="btn route" id="car">Auto</button>
-  							<button class="btn route" id="bus">Bus</button>  							
+						?>
+						
+						<div class="btn-toolbar" style="text-align: center">
+							<div class="btn-group" id="navbuttons">
+	  							<button class="btn btn-warning" style="padding: 2px 5px 2px 5px"><img src="img/route.png" id="navlogo" style="height: 24px; width: 24px" /><img src="img/loader.gif" style="height: 24px; width: 24px; display: none" id="navloader" /><span class="hidden-phone" style="color: black"> Wegbeschreibung </button>
+	  							<button class="btn route" id="bicycle"><span class="visible-phone">Rad</span><span class="hidden-phone">Per Fahrrad</button>
+	  							<button class="btn route" id="foot">Zufuß</button>
+	  							<button class="btn route" id="car"><span class="visible-phone">Auto</span><span class="hidden-phone">Mit dem Auto</button>
+	  							<button class="btn route" id="bus"><span class="visible-phone">Bus</span><span class="hidden-phone">Mit dem Bus (öffnet Google Maps)</button>  							
+							</div>
+
 						</div>
 
 						<div class="container" id="instructions"></div>

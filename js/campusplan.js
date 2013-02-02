@@ -17,20 +17,20 @@ $( document ).ready(function(){ // TODO: we might have to change this with ajaxi
 
 	// make star blue if cookie is already set:
 	if($.cookie(cookie) != undefined){
-		$("span#favorite").addClass("activecookie");
+		$("a#favorite").addClass("btn-info");
 		console.log("cookie found");
 	}
 
-	$('span#favorite').unbind();
-	$('span#favorite').click(function(){
+	$('a#favorite').unbind();
+	$('a#favorite').click(function(){
 		
 		// toggle cookie and star image
 		if($.removeCookie(cookie, cookieOptions)){
 			// "unstar" page
-			$("span#favorite").removeClass("activecookie");			
+			$("a#favorite").removeClass("btn-info");			
 		}else{
 			$.cookie(cookie, value, cookieOptions);
-			$("span#favorite").addClass("activecookie");
+			$("a#favorite").addClass("btn-info");
 		}			
 	});
 });
