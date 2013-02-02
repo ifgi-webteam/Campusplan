@@ -374,7 +374,7 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 						
 						<div class="btn-toolbar" style="text-align: center">
 							<div class="btn-group" id="navbuttons">
-	  							<button class="btn btn-warning" style="padding: 2px 5px 2px 5px"><img src="img/route.png" id="navlogo" style="height: 24px; width: 24px" /><img src="img/loader.gif" style="height: 24px; width: 24px; display: none" id="navloader" /><span class="hidden-phone" style="color: black"> Wegbeschreibung </button>
+	  							<button class="btn btn-warning"><img src="img/route.png" id="navlogo" style="height: 24px; width: 24px; margin: -4px 0 -2px -2px"  /><img src="img/loader.gif" style="height: 24px; width: 24px; ; margin: -4px 0 -2px -2px; display: none" id="navloader" /><span class="hidden-phone" style="color: black"> Wegbeschreibung </button>
 	  							<button class="btn route" id="bicycle"><span class="visible-phone">Rad</span><span class="hidden-phone">Per Fahrrad</button>
 	  							<button class="btn route" id="foot">Zufuß</button>
 	  							<button class="btn route" id="car"><span class="visible-phone">Auto</span><span class="hidden-phone">Mit dem Auto</button>
