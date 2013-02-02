@@ -12,7 +12,7 @@
 	$file = 'routes/'.$_GET['coords'].'-'.$_GET['mode'].'-'.$_GET['lang'].'.json';
     $route = null;
     $tries = 0;
-    if (!is_file($file) || filemtime($file) < time()-(86400*30)) {
+    if (!is_file($file)) { // check if the route has already been cached
 		
 		$route = file_get_contents($url);
  
@@ -22,11 +22,11 @@
 			fclose($fp);
 		}		
 		
-	} else {
+	} else { 
 		$route = file_get_contents($file);
 	}
 
 	header('Content-type: application/json; charset=utf-8');
-	echo file_get_contents($url);
+	echo $route;
 	
 ?>

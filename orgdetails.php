@@ -310,8 +310,8 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 						// all other routing requests:
 						function showRoute(position, mode, map, layerGroup) {
 			  			  
-						  
-						  var url = 'route.php?coords='+position.coords.latitude+','+position.coords.longitude+',".$dest."&mode='+mode+'&lang=de';
+						  // we round the current position to 4 digits (a couple of meters) to avoid unnecessary requests to the routing service:
+						  var url = 'route.php?coords='+(Math.round(10000*position.coords.latitude)/10000)+','+(Math.round(10000*position.coords.longitude)/10000)+',".$dest."&mode='+mode+'&lang=de';
 
 						  $('#navlogo').hide();
 						  $('#navloader').show();
