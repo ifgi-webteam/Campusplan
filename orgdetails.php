@@ -47,7 +47,7 @@ function addMapCode($orgDetails){
 	}
 
 	// wait until the page is loaded:
-	$(function(event){
+	function runPageCode(map, layerGroup){
 
 	 	// enable the navigation button:
 	 	$('.route').click(function(){
@@ -78,26 +78,11 @@ function addMapCode($orgDetails){
 
 	 	$('#map').show();
 
-	 	var map = new L.Map('map', {
-	 		zoomControl: false
-	 	});
-
-		var layerGroup = new L.LayerGroup();
 	 	
-	 	var osm = new L.TileLayer('tiles.php?z={z}&x={x}&y={y}', {
-            attribution: ''
-		});
 	 	
-	 	map.setView([51.9663, 7.6099], 14).addLayer(osm);
-	 	
-	 	map.on('locationfound', onLocationFound);	 		 	
 	 	
 	 	var destlat, destlng ; // we'll assign these later
-	 	
-	 	function onLocationFound(e) {
-	 	    var marker = new L.Marker(e.latlng);
-	 	    map.addLayer(marker);
-	 	}	 	
+	 		 		 	
 	";
 	
 	
@@ -159,7 +144,7 @@ function addMapCode($orgDetails){
 		L.Util.requestAnimFrame(map.invalidateSize,map,!1,map._container);
 
 		$('div.leaflet-control-attribution').hide();
-	});	
+	}	
 	</script>
 		";
 
@@ -335,11 +320,8 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 					 		        // headline: distance / duration:
 					 		        var distance = json.route_summary.total_distance/1000;
 									distance = Math.round(10*distance)/10;
-									
-									var time = json.route_summary.total_time/60;
-									time = Math.round(time);
-
-					 		        $('#instructions').append('<h4>Deine Route: '+distance+'km, '+time+'min</h4>');
+																		
+					 		        $('#instructions').append('<h4>Entfernung: '+distance+'km</h4>');
 					 		        
 					 		        $('#instructions').append('<table class=\"table table-striped table-bordered\" id=\"instructionsTable\">');
   

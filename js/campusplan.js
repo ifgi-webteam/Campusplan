@@ -11,15 +11,21 @@ function hideAddressBar(){
 // the cookies added here will be shown on the favorites page (read and displayed via php)
 $( document ).ready(function(){ // TODO: we might have to change this with ajaxify
 
-	
-    // Prepare History object à la history.js:
+	var map = new L.Map('map', {
+		zoomControl: false
+	});
 
+	var layerGroup = new L.LayerGroup();
+ 	
+ 	var osm = new L.TileLayer('tiles.php?z={z}&x={x}&y={y}', {
+        attribution: ''
+	});
+ 	
+ 	map.setView([51.9663, 7.6099], 14).addLayer(osm);
+
+
+    // Prepare History object à la history.js:
     var History = window.History; // Note: We are using a capital H instead of a lower h
-    if ( !History.enabled ) {
-         // History.js is disabled for this browser.
-         // This is because we can optionally choose to support HTML4 browsers or not.
-        return false;
-    }
 
    	$('#back').click(function(){
 		event.preventDefault();
@@ -39,8 +45,7 @@ $( document ).ready(function(){ // TODO: we might have to change this with ajaxi
 
 	// make star blue if cookie is already set:
 	if($.cookie(cookie) != undefined){
-		$("a#favorite").addClass("btn-info");
-		console.log("cookie found");
+		$("a#favorite").addClass("btn-info");		
 	}	
 
 	$('a#favorite').unbind();
@@ -55,4 +60,6 @@ $( document ).ready(function(){ // TODO: we might have to change this with ajaxi
 			$("a#favorite").addClass("btn-info");
 		}			
 	});
+
+	runPageCode(map, layerGroup);
 });
