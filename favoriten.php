@@ -19,21 +19,22 @@ getFoot();
 
 function getFavorites(){
 	
-	echo '<h1>Favoriten</h1>';
-	
+	?>
+	<h1>Favoriten</h1>
+	<div class="btn-group btn-group-vertical">
+	<?php
 	
 	foreach ($_COOKIE as $url => $title) {
 		if(strpos($url, 'http') === 0){
 			$url = urldecode($url);
 			$url = str_replace('orgdetails_php', 'orgdetails.php', $url);
 			$url = str_replace('_uni-muenster_de', '.uni-muenster.de', $url);			
-			echo '<h4><a class="btn btn-org" href="'.$url.'" style="white-space: normal !important">'.$title.'</a></h4>';		
+			echo '<a class="btn btn-large" href="'.$url.'" style="text-align: left; white-space: normal !important">'.$title.'</a>';		
 		}
 	} 					
 	
+	?>
+	</div>
+	<p class="lead" style="margin-top: 15px">Du kannst Seiten zu den Favoriten hinzufügen, indem Du den <a class="btn btn-small" style="width:59px"><i class="icon-star"></i> Merken</a> Button auf der jeweiligen Seite antippst.</p>
 
-	echo '<p class="lead">Du kannst Seiten zu den Favoriten hinzufügen, indem Du den &#9733; oben auf der jeweiligen Seite antippst.</p>';
-		 	
-}
-
-?>
+<?php } ?>
