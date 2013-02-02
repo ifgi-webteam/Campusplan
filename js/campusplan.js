@@ -9,28 +9,26 @@ function hideAddressBar(){
 
 // enable "starring" pages (adding to cookies)
 // the cookies added here will be shown on the favorites page (read and displayed via php)
-$( document ).ready(function(){ // TODO: we might have to change this with ajaxify
+$( document ).ready(function(){
 
-	
-    // Prepare History object à la history.js:
-
-    var History = window.History; // Note: We are using a capital H instead of a lower h
-    if ( !History.enabled ) {
-         // History.js is disabled for this browser.
-         // This is because we can optionally choose to support HTML4 browsers or not.
+	// make sure all pages are loaded via JS to enable webapp home screen installation:
+	$(function() {
+      $('a').click(function() {
+        document.location = $(this).attr('href');
         return false;
-    }
+      });
+    });
 
    	$('#back').click(function(){
 		event.preventDefault();
 		console.log("back");
-		History.back();
+		history.back();
 	});
 
 	$('#forward').click(function(){
 		event.preventDefault();
 		console.log("forward");
-		History.forward();
+		history.forward();
 	});	    
 	
 	var cookie        = encodeURIComponent($(location).attr('href')) ;

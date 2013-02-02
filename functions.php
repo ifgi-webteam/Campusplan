@@ -46,7 +46,7 @@ function getHead($showmenu = true){
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
 
-	<title>WWU Campusplan</title> 
+	<title>Campusplan</title> 
 
 	<link rel="apple-touch-icon" href="img/start.png"/>
 	
@@ -59,10 +59,7 @@ function getHead($showmenu = true){
 
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery.cookie.js"></script>  
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/jquery.scrollto.min.js"></script>
-    <script src="js/jquery.history.js"></script>
-    <script src="js/ajaxify-html5.js"></script>
+    <script src="js/bootstrap.min.js"></script>    
     <script src="js/leaflet.js"></script>  
 	<script src="js/campusplan.js"></script>  
 	
