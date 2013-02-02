@@ -339,10 +339,7 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 					 		        var distance = json.route_summary.total_distance/1000;
 									distance = Math.round(10*distance)/10;
 									
-									var time = json.route_summary.total_time/60;
-									time = Math.round(time);
-
-					 		        $('#instructions').append('<h4>Deine Route: '+distance+'km, '+time+'min</h4>');
+									$('#instructions').append('<h4>Deine Route: '+distance+'km</h4>');
 					 		        
 					 		        $('#instructions').append('<table class=\"table table-striped table-bordered\" id=\"instructionsTable\">');
   
