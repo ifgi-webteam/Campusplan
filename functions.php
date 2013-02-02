@@ -46,7 +46,7 @@ function getHead($showmenu = true){
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
 
-	<title>Campusplan</title> 
+	<title>WWU Campusplan</title> 
 
 	<link rel="apple-touch-icon" href="img/start.png"/>
 	
@@ -55,7 +55,17 @@ function getHead($showmenu = true){
 		<link rel="stylesheet" href="css/leaflet.ie.css" />
 	<![endif]-->
 	<link href="css/campusplan.css" rel="stylesheet" media="screen">
-    <link href="css/responsive.css" rel="stylesheet" media="screen">    
+    <link href="css/responsive.css" rel="stylesheet" media="screen">
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/jquery.cookie.js"></script>  
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.scrollto.min.js"></script>
+    <script src="js/jquery.history.js"></script>
+    <script src="js/ajaxify-html5.js"></script>
+    <script src="js/leaflet.js"></script>  
+	<script src="js/campusplan.js"></script>  
+	
 </head> 
 
 <body> 
@@ -91,14 +101,7 @@ function getFoot($showlogos = false){
 	<?php } ?>
 	
 	</div> <!-- class=content -->
-<script src="js/jquery.min.js"></script>
-<script src="js/jquery.cookie.js"></script>  
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery.scrollto.min.js"></script>
-<script src="js/jquery.history.js"></script>
-<script src="js/ajaxify-html5.js"></script>
-<script src="js/leaflet.js"></script>  
-<script src="js/campusplan.js"></script>  
+	
 </body>
 </html>
 
