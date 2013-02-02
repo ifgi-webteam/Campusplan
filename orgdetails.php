@@ -239,7 +239,7 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 			echo '<div class="row-fluid"><div class="span12" id="orgInfo"><h1><span id="title">'.$orgName.'</span></h1>
 						
 
-				<div class="btn-group btn-group-vertical" style="float:right">';
+				<div class="btn-group btn-group-vertical" style="float:right; margin-bottom: 15px">';
 
 				
 				if(isset($thisOrg->homepage->value)){
@@ -248,12 +248,12 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 					$www = str_replace('http://', '', $thisOrg->homepage->value);
 					if ( endsWith($www, '/') ) { $www = substr($www, 0, -1); }
 
-					echo ' <a class="btn btn-small" style="width: 59px" href="'.$thisOrg->homepage->value.'"><i class="icon-globe"></i> Website</a>
+					echo ' <a class="btn" style="width: 70px" href="'.$thisOrg->homepage->value.'"><i class="icon-globe"></i> Website</a>
 					';
 				}
 				
 					// Bookmark Button:
-					echo '<a id="favorite" class="btn btn-small" style="width:59px"><i class="icon-star"></i> Merken</a>					
+					echo '<a id="favorite" class="btn" style="width:70px"><i class="icon-star"></i> Merken</a>					
 
 				</div>
 

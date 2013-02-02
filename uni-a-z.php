@@ -110,15 +110,19 @@ SELECT DISTINCT ?orga ?name WHERE {
 function listOrgs($orgs, $template){
 	// only start if there are any results:
 	if($orgs->results->bindings){
-		echo '<h2>Einrichtungen mit <em>'.$template.'</em></h2>';
+		echo '<h2>Einrichtungen mit <em>'.$template.'</em></h2>
+
+		<div class="btn-group btn-group-vertical">';
 		
 		foreach ($orgs->results->bindings as $fb) {
 				
 			$name = $fb->name->value;
 			$orga = $fb->orga->value;
  			
- 			echo '<a class="btn btn-org" href="orgdetails.php?org_uri='.$orga.'">'.$name.'</a>';
+ 			echo '<a class="btn btn-large btn-stacked" href="orgdetails.php?org_uri='.$orga.'">'.$name.'</a>';
  		}
+
+ 		echo '</div>';
  		 		
  	} else {
 
