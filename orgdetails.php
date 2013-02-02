@@ -253,7 +253,7 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 				}
 				
 					// Bookmark Button:
-					echo '<a id="favorite" class="btn" style="width:70px"><i class="icon-star"></i> Merken</a>					
+					echo '<button id="favorite" class="btn" style="width:96px"><i class="icon-star"></i> Merken</button>					
 
 				</div>
 

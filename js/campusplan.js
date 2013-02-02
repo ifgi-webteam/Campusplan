@@ -37,20 +37,19 @@ $( document ).ready(function(){
 
 	// make star blue if cookie is already set:
 	if($.cookie(cookie) != undefined){
-		$("a#favorite").addClass("btn-info");
-		console.log("cookie found");
+		$("button#favorite").addClass("btn-info");		
 	}	
 
-	$('a#favorite').unbind();
-	$('a#favorite').click(function(){
+	$('button#favorite').unbind();
+	$('button#favorite').click(function(){
 		
 		// toggle cookie and star image
 		if($.removeCookie(cookie, cookieOptions)){
 			// "unstar" page
-			$("a#favorite").removeClass("btn-info");			
+			$("button#favorite").removeClass("btn-info");			
 		}else{
 			$.cookie(cookie, value, cookieOptions);
-			$("a#favorite").addClass("btn-info");
+			$("button#favorite").addClass("btn-info");
 		}			
 	});
 });
