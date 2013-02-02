@@ -102,7 +102,7 @@ SELECT DISTINCT ?name ?start ?minPrice ?maxPrice ?mensa ?mensaname WHERE {
 	 			if($weekday <= count($weekdays)){	
 					// break the list down by mensa:
 					if($menu->mensa->value !== $mns){
-						echo '<thead><tr><td><a href="orgdetails.php?org_uri='.$menu->mensa->value.'" data-ajax="false">'.$menu->mensaname->value.'</a></td></tr></thead><tbody>';
+						echo '<thead><tr><td><a class="internal" href="orgdetails.php?org_uri='.$menu->mensa->value.'">'.$menu->mensaname->value.'</a></td></tr></thead><tbody>';
 						$mns = $menu->mensa->value;
 					}
 

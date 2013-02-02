@@ -46,7 +46,7 @@ function getAZList(){
 	echo '<p class="az">';
 	$az = array("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z");
 	foreach ($az as $letter) {
-		echo '<a class="btn btn-large btn-letter" href="uni-a-z.php?letter='.$letter.'">'.$letter.'</a> ';
+		echo '<a class="btn btn-large btn-letter internal" href="uni-a-z.php?letter='.$letter.'">'.$letter.'</a> ';
 	}
 	echo '</p>';
 }
@@ -119,7 +119,7 @@ function listOrgs($orgs, $template){
 			$name = $fb->name->value;
 			$orga = $fb->orga->value;
  			
- 			echo '<a class="btn btn-large btn-stacked" href="orgdetails.php?org_uri='.$orga.'">'.$name.'</a>';
+ 			echo '<a class="btn btn-large btn-stacked internal" href="orgdetails.php?org_uri='.$orga.'">'.$name.'</a>';
  		}
 
  		echo '</div>';

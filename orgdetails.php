@@ -248,7 +248,7 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 					$www = str_replace('http://', '', $thisOrg->homepage->value);
 					if ( endsWith($www, '/') ) { $www = substr($www, 0, -1); }
 
-					echo ' <a class="btn" style="width: 70px" href="'.$thisOrg->homepage->value.'"><i class="icon-globe"></i> Website</a>
+					echo ' <a class="btn" style="width: 70px" href="'.$thisOrg->homepage->value.'" target="_blank"><i class="icon-globe"></i> Website</a>
 					';
 				}
 				
@@ -303,8 +303,11 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 
 						  echo "&hl=de&ie=UTF8&ttype=now&dirflg=r&noexp=0&noal=0&sort=def&mra=ltm&t=m&start=0';
 
-						  location.href = uri;
-		
+						  window.open(
+  							uri,
+  							'_blank' // <- open in a new window.
+						  );
+						  
 						}
 
 						// all other routing requests:

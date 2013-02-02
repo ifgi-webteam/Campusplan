@@ -63,7 +63,7 @@ SELECT DISTINCT * WHERE {
  				$name = $fb->name->value;
  				$url = $fb->org->value;
  				
- 				echo '<h4><a class="btn btn-org" href="orgdetails.php?org_uri='.$url.'&org_title='.urlencode($name).'">'.$name.'</a></h4>';
+ 				echo '<h4><a class="btn btn-org internal" href="orgdetails.php?org_uri='.$url.'&org_title='.urlencode($name).'">'.$name.'</a></h4>';
  				
  			}
  		 			

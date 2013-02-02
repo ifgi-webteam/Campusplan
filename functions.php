@@ -73,12 +73,12 @@ function getHead($showmenu = true){
 
 		<?php if($showmenu){ ?><div class="navbar navbar-inverse navbar-fixed-top visible-phone"><!-- phone displays -->
 			<div class="navbar-inner">
-			    <div class="container-fluid"> <a href="#" id="forward"><img src="img/forward.png" class="historybutton forward" /></a> <a href="#" id="back"><img src="img/back.png" class="historybutton" /></a> <a class="brand" href="index.php"><img src="img/wwu-white-s.png" class="navbarlogo"> CampusPlan</a>    
+			    <div class="container-fluid"> <a href="#" id="forward"><img src="img/forward.png" class="historybutton forward" /></a> <a href="#" id="back"><img src="img/back.png" class="historybutton" /></a> <a class="brand internal" href="index.php"><img src="img/wwu-white-s.png" class="navbarlogo"> CampusPlan</a>    
 			    </div>
 			</div>
 		</div>
 		<div class="navbar navbar-inverse navbar-fixed-bottom hidden-phone"><!-- tablets & desktop -->
-			<a href="uni-a-z.php"><img src="img/front-az.png" class="menuimgs" /></a><a href="mensen.php"><img src="img/front-mensen.png" class="menuimgs" /></a><a href="ulb.php"><img src="img/front-ulb.png" class="menuimgs" /></a><a href="karte.php"><img src="img/front-karte.png" class="menuimgs" /></a><a href="favoriten.php"><img src="img/front-favoriten.png" class="menuimgs" /></a><a href="fachbereiche.php"><img src="img/front-fachbereiche.png" class="menuimgs" /></a><a href="hoersaele.php"><img src="img/front-hoersaele.png" class="menuimgs" /></a><a href="wohnheime.php"><img src="img/front-wohnheime.png" class="menuimgs" /></a><a href="info.php"><img src="img/front-info.png" class="menuimgs" /></a>  	
+			<a class="internal" href="uni-a-z.php"><img src="img/front-az.png" class="menuimgs" /></a><a class="internal" href="mensen.php"><img src="img/front-mensen.png" class="menuimgs" /></a><a class="internal" href="ulb.php"><img src="img/front-ulb.png" class="menuimgs" /></a><a class="internal" href="karte.php"><img src="img/front-karte.png" class="menuimgs" /></a><a class="internal" href="favoriten.php"><img src="img/front-favoriten.png" class="menuimgs" /></a><a class="internal" href="fachbereiche.php"><img src="img/front-fachbereiche.png" class="menuimgs" /></a><a class="internal" href="hoersaele.php"><img src="img/front-hoersaele.png" class="menuimgs" /></a><a class="internal" href="wohnheime.php"><img src="img/front-wohnheime.png" class="menuimgs" /></a><a class="internal" href="info.php"><img src="img/front-info.png" class="menuimgs" /></a>  	
 		</div>
 
 <?php	} //end if showMenu ?>
