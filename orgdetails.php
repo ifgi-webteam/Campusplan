@@ -43,11 +43,18 @@ function addMapCode($orgDetails){
 	<script>
 	
 	function error(msg){
-		alert(msg); // TODO: Make this a bit nicer
+		$('button.route').remove();
+		$('a.route').html('Navigation via Google Maps');
+		$('div#instructions').addClass('lead alert').html('Dein Gerät untersützt keine Ermittlung deines aktuellen Standortes, oder die Funktion ist deaktiviert. Daher können wir dir die Navigation nur über Google Maps anbieten, nach Eingabe deines Standortes.');
 	}
 
 	// wait until the page is loaded:
 	$(function(event){
+
+		if (navigator.geolocation) {
+			// create the link for the bus route button:
+			navigator.geolocation.getCurrentPosition(enableBusRoute, error);
+		}
 
 	 	// enable the navigation button:
 	 	$('.route').click(function(){
@@ -60,14 +67,10 @@ function addMapCode($orgDetails){
 	 		var id = $(this).attr('id');
 
 	 		// get position via HTML5 geolocation API
-	 		if (navigator.geolocation) {
-	 			if(id == 'bus'){
-	 				navigator.geolocation.getCurrentPosition(showBusRoute, error);
-	 			} else {
-	 				navigator.geolocation.getCurrentPosition(function(position){
-	 					showRoute(position, id, map, layerGroup);	 					
-	 				}, error);
-	 			}
+	 		if (navigator.geolocation) {	 			
+ 				navigator.geolocation.getCurrentPosition(function(position){
+ 					showRoute(position, id, map, layerGroup);	 					
+ 				}, error);	 			
 			} else {
 				alert('Ihr Gerät scheint die HTML5 Geolocation API nicht zu unterstützen.');// todo - link to google maps only with destination, user has to put in start
 			} 
@@ -288,10 +291,10 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 
 					<script>
 						// forward to google maps for public transport options
-						function showBusRoute(position) {
+						function enableBusRoute(position) {
 			  
 						  // add the following parameters to the URI in case we want to distinguish the 
-					      // different routing options inside the web app at some point:
+					      // different routing options for google maps inside the web app at some point:
 		
 						  // dirflg=r: rail / public transport
 						  // dirflg=w: walk
@@ -303,10 +306,7 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 
 						  echo "&hl=de&ie=UTF8&ttype=now&dirflg=r&noexp=0&noal=0&sort=def&mra=ltm&t=m&start=0';
 
-						  window.open(
-  							uri,
-  							'_blank' // <- open in a new window.
-						  );
+						  $('a#bus').attr('href', uri);
 						  
 						}
 
@@ -371,11 +371,11 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 						
 						<div class="btn-toolbar" style="text-align: center">
 							<div class="btn-group" id="navbuttons">
-	  							<button class="btn btn-warning"><img src="img/route.png" id="navlogo" style="height: 24px; width: 24px; margin: -4px 0 -2px -2px"  /><img src="img/loader.gif" style="height: 24px; width: 24px; ; margin: -4px 0 -2px -2px; display: none" id="navloader" /><span class="hidden-phone" style="color: black"> Wegbeschreibung </button>
+	  							<button class="btn btn-warning"><img src="img/route.png" id="navlogo" style="height: 24px; width: 24px; margin: -3px 0 -3px -3px"  /><img src="img/loader.gif" style="height: 24px; width: 24px; ; margin: -3px 0 -3px -3px; display: none" id="navloader" /><span class="hidden-phone" style="color: black"> Wegbeschreibung </button>
 	  							<button class="btn route" id="bicycle"><span class="visible-phone">Rad</span><span class="hidden-phone">Per Fahrrad</button>
 	  							<button class="btn route" id="foot">Zufuß</button>
 	  							<button class="btn route" id="car"><span class="visible-phone">Auto</span><span class="hidden-phone">Mit dem Auto</button>
-	  							<button class="btn route" id="bus"><span class="visible-phone">Bus</span><span class="hidden-phone">Mit dem Bus (öffnet Google Maps)</button>  							
+	  							<a class="btn route" href="https://maps.google.com/maps?daddr=<?php if($destAddr != ''){ echo $destAddr; } else { echo $dest; } ?>&hl=de&ie=UTF8&ttype=now&dirflg=r&noexp=0&noal=0&sort=def&mra=ltm&t=m&start=0';" id="bus"><span class="visible-phone">Bus</span><span class="hidden-phone">Mit dem Bus (öffnet Google Maps)</a>  							
 							</div>
 
 						</div>
