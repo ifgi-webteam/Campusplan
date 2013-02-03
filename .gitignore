@@ -16,3 +16,5 @@ tiles/*
 keys.php
 
 routes/*
+
+piwik.php

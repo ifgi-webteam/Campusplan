@@ -98,7 +98,7 @@ function getFoot($showlogos = false){
 	<?php } ?>
 	
 	</div> <!-- class=content -->
-	
+	<?php include_once('piwik.php'); // contains the piwik tracking code - not on GitHub! ?>
 </body>
 </html>
 
