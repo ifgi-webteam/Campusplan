@@ -14,7 +14,7 @@
 				
 				<p class="lead">Web App Version 1.0 beta</p> 
 
-				<p>Die WWU Campusplan Webapp wird als Open Source Projekt am <a href="http://ifgi.uni-muenster.de">Institut für Geoinformatik</a> gepflegt. Der Code befindet sich auf <a href="https://github.com/lodum/Campusplan">GitHub</a> – Verbesserungsvorschläge von Programmierfreudigen per <a href="https://help.github.com/articles/using-pull-requests">Pull Request</a> werden gern angenommen.</p>
+				<p>Die WWU Campusplan Webapp wird als Open Source Projekt vom <a href="http://ifgi.uni-muenster.de">Institut für Geoinformatik</a> und der <a href="http://www.uni-muenster.de/journalisten/ansprechpartner.shtml">Pressestelle</a> gepflegt. Der Code befindet sich auf <a href="https://github.com/lodum/Campusplan">GitHub</a> – Verbesserungsvorschläge von Programmierfreudigen per <a href="https://help.github.com/articles/using-pull-requests">Pull Request</a> werden gern angenommen.</p>
 
 				<p class="lead" align="center" style="margin: 30px 0 30px"><a class="btn btn-info btn-large" href="mailto:campusplan-support@uni-muenster.de?&amp;subject=Campus%20Plan%20Web%20App%20Feedback">Feedback</a></p>
 				
