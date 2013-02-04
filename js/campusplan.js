@@ -1,15 +1,16 @@
-function hideAddressBar(){
-	if(document.documentElement.scrollHeight<window.outerHeight/window.devicePixelRatio){
-		document.documentElement.style.height=(window.outerHeight/window.devicePixelRatio)+'px';
-			setTimeout(window.scrollTo(1,1),0);
-	}
-	window.addEventListener("load",function(){hideAddressBar();});
-	window.addEventListener("orientationchange",function(){hideAddressBar();});
+function hideAddressBar(){ // via http://davidwalsh.name/hide-address-bar
+	setTimeout(function(){
+    	window.scrollTo(0, 1);
+  	}, 0);	
 }
 
 // enable "starring" pages (adding to cookies)
 // the cookies added here will be shown on the favorites page (read and displayed via php)
 $( document ).ready(function(){
+
+	// hide the address bar
+	window.addEventListener("load",function(){hideAddressBar();});
+	window.addEventListener("orientationchange",function(){hideAddressBar();});
 
 	// make sure all pages are loaded via JS to enable webapp home screen installation:
 	$(function() {
