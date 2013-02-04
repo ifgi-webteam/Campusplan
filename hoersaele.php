@@ -36,7 +36,9 @@ SELECT DISTINCT * WHERE {
   ?building foaf:name ?buildingname;
             vcard:adr ?addr .
 
-  ?addr vcard:street-address ?address .          
+  ?addr vcard:street-address ?address .  
+
+  FILTER langMatches(lang(?name),'de') .         
 
 } ORDER BY ?name
 
