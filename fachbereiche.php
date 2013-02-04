@@ -45,6 +45,7 @@ SELECT DISTINCT * WHERE {
      lodum:departmentNo ?no.   
   FILTER langMatches(lang(?name),'".$lang."') . 
   FILTER regex(?name,' - ') . 
+  FILTER regex(str(?fb), '/fb') .
 } ORDER BY ?no
 
 ");
