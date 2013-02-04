@@ -386,7 +386,7 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 			 		} //end if
 
 			 	
-
+			 		listSubOrganizations();
 			 	 
 				
  			echo '</div>
@@ -396,6 +396,50 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
  			return $thisOrg;
  		}
  	}
+
+}
+
+function listSubOrganizations(){
+
+	$orgs = sparql_get("
+
+		prefix foaf: <http://xmlns.com/foaf/0.1/> 
+		prefix aiiso: <http://purl.org/vocab/aiiso/schema#>
+		prefix lodum: <http://vocab.lodum.de/helper/>
+				
+		SELECT DISTINCT ?orga ?name WHERE { 
+				
+			Graph <http://data.uni-muenster.de/context/uniaz/> {
+		          ?orga a ?type ; 
+			            foaf:name ?name ;
+			  aiiso:part_of <".$_GET['org_uri']."> .
+			  
+			  BIND(lcase(?name) as ?lname) .
+			  FILTER langMatches(lang(?name),'DE') .
+			  FILTER (STRLEN(?name) > 0) .
+			  FILTER regex(str(?orga),'uniaz') . 
+		    }
+		           
+		} ORDER BY ?lname
+	");
+	
+	// only start if there are any results:
+	if($orgs->results->bindings){
+		echo '<h2>Untergeordnete Einrichtungen</h2>
+
+		<div class="btn-group btn-group-vertical" style="width: 100%">';
+		
+		foreach ($orgs->results->bindings as $institut) {
+				
+			$name = $institut->name->value;
+			$orga = $institut->orga->value;
+ 			
+ 			echo '<a class="btn btn-large btn-stacked internal" href="orgdetails.php?org_uri='.$orga.'">'.$name.'</a>';
+ 		}
+
+ 		echo '</div>';
+ 		 		
+ 	} 
 
 }
 
