@@ -381,13 +381,13 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 						</div>
 
 						<div class="container" id="instructions"></div>
-				
+
 					<?php
 			 		} //end if
 
-			 	
+			 		// show suborganizations (for 'Fachbereich' pages) or food offerings (for 'Mensa' pages)
 			 		listSubOrganizations();
-			 	 
+			 		listMenu();			 	 
 				
  			echo '</div>
  			</div>
@@ -398,6 +398,98 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
  	}
 
 }
+
+function listMenu(){
+	
+	setlocale("LC_TIME", "de_DE");
+
+	$time = strtotime('monday this week');  	
+	$date = date('Y-m-d', $time);  	
+	$datetime = $date.'T00:00:00Z';
+
+	$food = sparql_get('
+prefix xsd: <http://www.w3.org/2001/XMLSchema#> 
+prefix gr: <http://purl.org/goodrelations/v1#>
+prefix foaf: <http://xmlns.com/foaf/0.1/> 
+
+SELECT DISTINCT ?name ?start ?minPrice ?maxPrice WHERE {
+  <'.$_GET["org_uri"].'> gr:offers ?menu. 
+  ?menu a gr:Offering ;
+        gr:availabilityStarts ?start ;
+        gr:name ?name ;
+        gr:hasPriceSpecification ?priceSpec .
+  ?priceSpec gr:hasMinCurrencyValue ?minPrice ;
+             gr:hasMaxCurrencyValue ?maxPrice . 
+  FILTER (?start > "'.$datetime.'"^^xsd:dateTime) .
+} ORDER BY MONTH(?start) DAY(?start) LCASE(?mensaname) 
+');
+	
+	if( !isset($food) ) {
+		echo '<div class="alert alert-error">Fehler beim Abruf der Mensadaten.</div>';
+	}else{		
+
+		// only start if there are any results:
+		if($food->results->bindings){
+			$header = false;
+			
+			$tag = 'none';
+			$weekdays = array("Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag");
+			$weekday = 0;
+
+ 			foreach ($food->results->bindings as $menu) {
+ 				$other = false;
+ 				
+				// create a new list for each day of the week:
+ 				$day = substr($menu->start->value, 0, 10);
+
+ 				if(!$header){
+ 					echo '<div class="container"><div class="row-fluid">
+ 					<div class="span12">
+ 					<h2>Angebote in der Woche vom '.strftime('%e. %B %Y', strtotime($menu->start->value)).'</h2>
+ 					<hr />
+ 					</div>
+ 					</div>
+ 					';
+ 					$header = true;
+ 				}
+
+ 				if($day !== $tag){
+					if($weekday < count($weekdays)){ 					
+ 						echo '</tbody></table>';
+ 						// close the span6 div - but only if we have opened it before!
+ 						if ($tag !== 'none'){
+ 							echo '</div>';
+ 						}
+ 						// close the row-fluid div after every other span6 div
+ 						if($other){
+ 							echo '</div>';
+ 						}
+
+ 						echo '<div class="row-fluid"><div class="span6"';
+ 						if(!$other){ // move the right column a bit 
+ 							echo ' style="padding-right: 20px"';
+ 						}
+ 						echo '><h3 id="'.$day.'">'.$weekdays[$weekday++].'</h3>
+ 						<table class="table table-bordered table-striped">';
+ 						$tag = $day;
+ 						$other = !$other;
+
+ 					}else{
+ 						$weekday++;
+ 					}
+ 				}
+
+	 			if($weekday <= count($weekdays)){	
+					echo '<tr><td>'.$menu->name->value.' <span class="pull-right">'.$menu->minPrice->value.'€ | '.$menu->maxPrice->value.'€</span></td></tr>';
+ 				} 								
+ 			}  
+
+ 			echo '</tbody></table></div></div>';	
+ 		}
+ 	}
+
+}
+
 
 function listSubOrganizations(){
 
