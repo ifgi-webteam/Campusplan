@@ -18,7 +18,7 @@ getFoot();
 
 function getFood(){
 	
-	setlocale("LC_TIME", "de_DE");
+	$l = setlocale(LC_TIME, 'deu', 'de_DE.UTF-8');
 
 	$time = strtotime('monday this week');  	
 	$date = date('Y-m-d', $time);  	
