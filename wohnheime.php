@@ -1,5 +1,6 @@
 <?php 
 	require_once("functions.php");
+	checkCache();
 	getHead();
 ?>
 
@@ -67,5 +68,7 @@ SELECT DISTINCT * WHERE {
  	}
 
 }
+
+flushCache();
 
 ?>

@@ -18,3 +18,7 @@ keys.php
 routes/*
 
 piwik.php
+
+cache/*
+
+*.swp

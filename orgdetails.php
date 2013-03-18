@@ -4,6 +4,7 @@
 	$leaftletCSS = true;
 	
 	require_once("functions.php");
+	checkCache();
 	
 	$org_uri   = $_GET["org_uri"]; 
 	
@@ -401,7 +402,7 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 
 function listMenu(){
 	
-	setlocale("LC_TIME", "de_DE");
+	$l = setlocale(LC_TIME, 'deu', 'de_DE.UTF-8');
 
 	$time = strtotime('monday this week');  	
 	$date = date('Y-m-d', $time);  	
@@ -534,5 +535,7 @@ function listSubOrganizations(){
  	} 
 
 }
+
+flushCache();
 
 ?>  

@@ -1,5 +1,6 @@
 <?php 
 	require_once("functions.php");
+	checkCache();
 	getHead("Hörsäle");
 ?>
 
@@ -88,5 +89,7 @@ SELECT DISTINCT * WHERE {
  	}
 
 }
+
+flushCache();
 
 ?>

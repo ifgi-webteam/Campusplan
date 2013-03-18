@@ -1,5 +1,6 @@
 <?php 
 	require_once("functions.php");
+	checkCache();
 	getHead();
 ?>	
 
@@ -128,5 +129,8 @@
 	</div><!-- /content -->		
 </div><!-- /page -->
 
-<?php getFoot(); ?>
+<?php getFoot(); 
+
+flushCache();
+?>
 

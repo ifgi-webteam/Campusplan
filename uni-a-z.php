@@ -1,5 +1,6 @@
 <?php 
 	require_once("functions.php");
+	checkCache();
 	getHead("Uni A-Z");
 ?>
  
@@ -133,5 +134,7 @@ function listOrgs($orgs, $template){
  	}
  	
 }
+
+flushCache();
 
 ?>

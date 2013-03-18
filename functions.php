@@ -2,13 +2,39 @@
 
 // This file contains some generic functions used across most pages of the campus plan app. 
 
-
 // function to keep client from caching the page; required e.g. for the favorites page, 
 // which needs to be re-rendedered each time it is visited
 function dontCache(){
 	header('Cache-Control: no-cache, no-store, must-revalidate'); // HTTP 1.1.
 	header('Pragma: no-cache'); // HTTP 1.0.
 	header('Expires: 0'); // Proxies.
+}
+
+// for the generated pages that should be cached on the server side, 
+// this function checks if a cached version is already there and less than 24 hourse old.
+// if so, the cache is served; otherwise, the page is generated normally (and cached) 
+function checkCache(){
+	$cache_time = 24*60*60; // Time in seconds to keep a page cached - one day in this case 
+	$cache_filename = 'cache/'.md5($_SERVER['REQUEST_URI']); // Location to lookup cached file 
+	
+   	//Check to see if this file has already been cached  
+   	// If it has get and store the file creation time  
+   	$cache_created = (file_exists($cache_filename)) ? filemtime($cache_filename) : 0;  
+     
+   	if ((time() - $cache_created) < $cache_time) {  
+    	readfile($cache_filename); // The cached copy is still valid, read it into the output buffer  
+    	die();  
+   	}  
+
+   	// else generate a 'fresh' version of the page that will be cached at the end: 
+   	ob_start();
+}
+
+function flushCache(){
+	$cache_filename = 'cache/'.md5($_SERVER['REQUEST_URI']); // Location to lookup cached file 
+	// create new cached page if no cache is there yet or it is expired:
+	file_put_contents($cache_filename, ob_get_contents());  
+	ob_end_flush();  
 }
 
 // returns the results of the query as a PHP object
