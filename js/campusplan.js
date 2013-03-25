@@ -13,6 +13,7 @@ $( document ).ready(function(){
 	// make sure all pages are loaded via JS to enable webapp home screen installation:
 	$(function() {
       $('a.internal').click(function() {
+      	$('div#loading').show();
         document.location = $(this).attr('href');
         return false;
       });
