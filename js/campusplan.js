@@ -17,19 +17,7 @@ $( document ).ready(function(){
         document.location = $(this).attr('href');
         return false;
       });
-    });
-
-   	$('#back').click(function(){
-		event.preventDefault();
-		console.log("back");
-		history.back();
-	});
-
-	$('#forward').click(function(){
-		event.preventDefault();
-		console.log("forward");
-		history.forward();
-	});	    
+    });   	
 	
 	var cookie        = encodeURIComponent($(location).attr('href')) ;
 	var value         = $('span#title').html() ;
