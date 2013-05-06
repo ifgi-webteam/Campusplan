@@ -99,7 +99,8 @@ function getHead($showmenu = true){
 
 		<?php if($showmenu){ ?><div class="navbar navbar-inverse navbar-fixed-top visible-phone"><!-- phone displays -->
 			<div class="navbar-inner">
-			    <a class="brand internal" href="index.php"><img src="img/wwu-white-s.png" class="navbarlogo"> CampusPlan</a>    
+				<!-- yeah, inline css! geht voll ab, alter -->
+			    <a class="brand internal" href="index.php"><img src="img/navigation_up.png" class="navbarlogo" style="margin-right:0px;"><img src="img/wwu-white-s.png" class="navbarlogo"> CampusPlan</a>
 			    </div>
 			</div>
 		</div>
