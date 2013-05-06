@@ -107,11 +107,12 @@ SELECT DISTINCT ?name ?start ?minPrice ?maxPrice ?mensa ?mensaname WHERE {
 					}
 
 					echo '<tr><td>'.$menu->name->value.' <span class="pull-right">'.$menu->minPrice->value.'€ | '.$menu->maxPrice->value.'€</span></td></tr>';
- 				} 								
+ 				}
  			}  
 
- 			echo '</tbody></table></div></div>';	
+ 			echo '</tbody></table></div></div></div>';
  		}
+		echo '</div></div></div></div>';
  	}
 
 }

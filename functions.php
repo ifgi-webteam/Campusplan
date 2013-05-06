@@ -92,7 +92,7 @@ function getHead($showmenu = true){
 </head> 
 
 <body> 
-	<div id="loading"><img src="img/loader-big.gif" width="64px" height="64px" alt="loading..." /></div>
+	<div id="loading"><img src="img/loader-big.gif" width="64" height="64" alt="loading..." /></div>
 	<div id="content"> 
 
 		<div <?php if($showmenu){ ?>class="content"<?php } ?>>
