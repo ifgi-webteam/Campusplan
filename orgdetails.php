@@ -71,7 +71,7 @@ function addMapCode($orgDetails){
 	 		if (navigator.geolocation) {	 			
  				navigator.geolocation.getCurrentPosition(function(position){
  					showRoute(position, id, map, layerGroup);	 					
- 				}, error);	 			
+ 				}, error, {timeout:10000});	 			
 			} else {
 				alert('Ihr Gerät scheint die HTML5 Geolocation API nicht zu unterstützen.');// todo - link to google maps only with destination, user has to put in start
 			} 
@@ -512,7 +512,7 @@ function listSubOrganizations(){
 			  FILTER (STRLEN(?name) > 0) .
 			  FILTER regex(str(?orga),'uniaz') . 
 		    }
-		           
+
 		} ORDER BY ?lname
 	");
 	
@@ -531,11 +531,11 @@ function listSubOrganizations(){
  		}
 
  		echo '</div>';
- 		 		
+
  	} 
 
 }
 
 flushCache();
 
-?>  
+?>
