@@ -68,6 +68,7 @@ function getHead($showmenu = true){
 <html>
 	<head>
 	<meta charset="utf-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
@@ -92,7 +93,6 @@ function getHead($showmenu = true){
 </head> 
 
 <body> 
-	<div id="loading"><img src="img/loader-big.gif" width="64" height="64" alt="loading..." /></div>
 	<div id="content"> 
 
 		<div <?php if($showmenu){ ?>class="content"<?php } ?>>
@@ -123,7 +123,7 @@ function getFoot($showlogos = false){
 		<div class="container hidden-phone"><a href="http://www.uni-muenster.de"><img src="img/wwu-full.png" class="logoimgs pull-right" /></a>
 			<a href="http://ifgi.uni-muenster.de"><img src="img/ifgi.png" class="logoimgs pull-right" /></a></div>
 	<?php } ?>
-	
+		<div id="loading"><img src="img/loader-big.gif" width="64" height="64" alt="loading..." /></div>
 	</div> <!-- class=content -->
 	<?php include_once('piwik.php'); // contains the piwik tracking code - not on GitHub! ?>
 </body>

@@ -1,10 +1,16 @@
 function hideAddressBar(){
-  window.scrollTo(0, 1);
+	window.scrollTo(0, 1);
 }
- 
-window.onload = hideAddressBar;
-window.onresize = hideAddressBar;
-window.onorientationchange = hideAddressBar;
+
+window.onload = function() {
+	hideAddressBar;
+}
+window.onresize = function () {
+	hideAddressBar;
+}
+window.onorientationchange = function () {
+	hideAddressBar;
+}
 
 // enable "starring" pages (adding to cookies)
 // the cookies added here will be shown on the favorites page (read and displayed via php)
