@@ -39,7 +39,7 @@ SELECT DISTINCT ?name ?start ?minPrice ?maxPrice ?mensa ?mensaname WHERE {
              gr:hasMaxCurrencyValue ?maxPrice .
   ?mensa gr:offers ?menu ;
          foaf:name ?mensaname .  
-  FILTER (?start > "'.$datetime.'"^^xsd:dateTime) .
+  FILTER (xsd:dateTime(?start) > "'.$datetime.'"^^xsd:dateTime) .
 } ORDER BY MONTH(?start) DAY(?start) LCASE(?mensaname) 
 ');
 	
