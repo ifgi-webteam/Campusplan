@@ -59,7 +59,7 @@ SELECT DISTINCT * WHERE {
  				$name = str_replace("Internationales", "Int.", $name);
  				$url   = $fb->fb->value;
  				
- 				echo '<a class="btn btn-large btn-stacked internal" href="orgdetails.php?org_uri='.$url.'">'.$name.'</a>';				 				
+ 				echo '<a class="btn btn-large btn-stacked internal" href="orgdetails.php?org_uri='.urlencode($url).'">'.htmlspecialchars($name).'</a>';				 				
 	
  			} 	
 

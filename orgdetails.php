@@ -50,7 +50,7 @@ function addMapCode($orgDetails){
 	}
 
 	// wait until the page is loaded:
-	$(function(event){
+	$(window).load(function(){
 
 		if (navigator.geolocation) {
 			// create the link for the bus route button:
@@ -101,7 +101,8 @@ function addMapCode($orgDetails){
 	 	function onLocationFound(e) {
 	 	    var marker = new L.Marker(e.latlng);
 	 	    map.addLayer(marker);
-	 	}	 	
+	 	}
+
 	";
 	
 	
@@ -128,9 +129,9 @@ function addMapCode($orgDetails){
 		$json_geometry = '{'.substr($json_geometry, 1); 
 	echo "	
 		
-		var center = new L.LatLng(" .$y. ", ".$x.");
-		destlat =  " .$y. ";
-		destlng =  " .$x. ";
+		var center = new L.LatLng(" .htmlspecialchars($y). ", ".htmlspecialchars($x).");
+		destlat =  " .htmlspecialchars($y). ";
+		destlng =  " .htmlspecialchars($x). ";
 		map.setView(center, 17);
 		var geojsonLayer = new L.GeoJSON();
 		
@@ -145,22 +146,21 @@ function addMapCode($orgDetails){
 						
 		map.addLayer(geojsonLayer);
 		";
-	
 		
 	}else{  //handle orgs that only have lat/lon
 		echo "
-		var center = new L.LatLng(".$orgDetails->lat->value.", ".$orgDetails->long->value.");
-		destlat =  " .$orgDetails->lat->value. ";
-		destlng =  " .$orgDetails->long->value. ";
+		var center = new L.LatLng(".htmlspecialchars($orgDetails->lat->value).", ".htmlspecialchars($orgDetails->long->value).");
+		destlat =  " .htmlspecialchars($orgDetails->lat->value). ";
+		destlng =  " .htmlspecialchars($orgDetails->long->value). ";
 		map.setView(center, 17);
 	
 		var marker = new L.Marker(center);
 		map.addLayer(marker);	
 		";	
 	}
-		echo"			
+		echo "
 		// fixes the problem where some map tiles are not shown initally:
-		L.Util.requestAnimFrame(map.invalidateSize,map,!1,map._container);
+		map.invalidateSize();
 
 		$('div.leaflet-control-attribution').hide();
 	});	
@@ -237,10 +237,10 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 			$orgName = $thisOrg->name->value;
 
 			if(endsWith($orgName, " Institut für")){
-				$orgName = "Institut für ".substr($orgName, 0, -13);
+				$orgName = "Institut für ".htmlspecialchars(substr($orgName, 0, -13));
 			}
 
-			echo '<div class="row-fluid"><div class="span12" id="orgInfo"><h1><span id="title">'.$orgName.'</span></h1>
+			echo '<div class="row-fluid"><div class="span12" id="orgInfo"><h1><span id="title">'.htmlspecialchars($orgName).'</span></h1>
 						
 
 				<div class="btn-group btn-group-vertical" style="float:right; margin-bottom: 15px">';
@@ -252,7 +252,7 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 					$www = str_replace('http://', '', $thisOrg->homepage->value);
 					if ( endsWith($www, '/') ) { $www = substr($www, 0, -1); }
 
-					echo ' <a class="btn" style="width: 70px" href="'.$thisOrg->homepage->value.'" target="_blank"><i class="icon-globe"></i> Website</a>
+					echo ' <a class="btn" style="width: 70px" href="'.htmlspecialchars($thisOrg->homepage->value).'" target="_blank"><i class="icon-globe"></i> Website</a>
 					';
 				}
 				
@@ -276,10 +276,10 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 				// ... or the address
 				if(isset($thisOrg->address->value)){
 					$destAddr = urlencode($thisOrg->address->value);
-					echo $thisOrg->address->value.'</span>';
+					echo htmlspecialchars($thisOrg->address->value).'</span>';
 				} else if(isset($thisOrg->street->value) && isset($thisOrg->zip->value) && isset($thisOrg->city->value)) {
 					$destAddr = urlencode($thisOrg->street->value.', '.$thisOrg->zip->value.' '.$thisOrg->city->value);
-					echo $thisOrg->street->value.', '.$thisOrg->zip->value.' '.$thisOrg->city->value.'</span>';
+					echo htmlspecialchars($thisOrg->street->value).', '.htmlspecialchars($thisOrg->zip->value).' '.htmlspecialchars($thisOrg->city->value).'</span>';
 				}
 
 				?>
@@ -303,7 +303,7 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 		
 						  var uri = 'https://maps.google.com/maps?saddr='+position.coords.latitude+','+position.coords.longitude+'&daddr=";
 						  
-						  if($destAddr != ''){ echo $destAddr; } else { echo $dest; }
+						  if($destAddr != ''){ echo urlencode($destAddr); } else { echo urlencode($dest); }
 
 						  echo "&hl=de&ie=UTF8&ttype=now&dirflg=r&noexp=0&noal=0&sort=def&mra=ltm&t=m&start=0';
 
@@ -315,7 +315,7 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 						function showRoute(position, mode, map, layerGroup) {
 			  			  
 						  // we round the current position to 4 digits (a couple of meters) to avoid unnecessary requests to the routing service:
-						  var url = 'route.php?coords='+(Math.round(10000*position.coords.latitude)/10000)+','+(Math.round(10000*position.coords.longitude)/10000)+',".$dest."&mode='+mode+'&lang=de';
+						  var url = 'route.php?coords='+(Math.round(10000*position.coords.latitude)/10000)+','+(Math.round(10000*position.coords.longitude)/10000)+',".urlencode($dest)."&mode='+mode+'&lang=de';
 
 						  $('#navlogo').hide();
 						  $('#navloader').show();
@@ -376,7 +376,7 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 	  							<button class="btn route" id="bicycle"><span class="visible-phone">Rad</span><span class="hidden-phone">Per Fahrrad</button>
 	  							<button class="btn route" id="foot">Zufuß</button>
 	  							<button class="btn route" id="car"><span class="visible-phone">Auto</span><span class="hidden-phone">Mit dem Auto</button>
-	  							<a class="btn route" href="https://maps.google.com/maps?daddr=<?php if($destAddr != ''){ echo $destAddr; } else { echo $dest; } ?>&hl=de&ie=UTF8&ttype=now&dirflg=r&noexp=0&noal=0&sort=def&mra=ltm&t=m&start=0';" id="bus"><span class="visible-phone">Bus</span><span class="hidden-phone">Mit dem Bus (öffnet Google Maps)</a>  							
+	  							<a class="btn route" href="https://maps.google.com/maps?daddr=<?php if($destAddr != ''){ echo urlencode($destAddr); } else { echo urlencode($dest); } ?>&hl=de&ie=UTF8&ttype=now&dirflg=r&noexp=0&noal=0&sort=def&mra=ltm&t=m&start=0';" id="bus"><span class="visible-phone">Bus</span><span class="hidden-phone">Mit dem Bus (öffnet Google Maps)</a>
 							</div>
 
 						</div>
@@ -481,7 +481,7 @@ SELECT DISTINCT ?name ?start ?minPrice ?maxPrice WHERE {
  				}
 
 	 			if($weekday <= count($weekdays)){	
-					echo '<tr><td>'.$menu->name->value.' <span class="pull-right">'.$menu->minPrice->value.'€ | '.$menu->maxPrice->value.'€</span></td></tr>';
+					echo '<tr><td>'.htmlspecialchars($menu->name->value).' <span class="pull-right">'.htmlspecialchars($menu->minPrice->value).'€ | '.htmlspecialchars($menu->maxPrice->value).'€</span></td></tr>';
  				} 								
  			}  
 
@@ -527,7 +527,7 @@ function listSubOrganizations(){
 			$name = $institut->name->value;
 			$orga = $institut->orga->value;
  			
- 			echo '<a class="btn btn-large btn-stacked internal" href="orgdetails.php?org_uri='.$orga.'">'.$name.'</a>';
+ 			echo '<a class="btn btn-large btn-stacked internal" href="orgdetails.php?org_uri='.urlencode($orga).'">'.htmlspecialchars($name).'</a>';
  		}
 
  		echo '</div>';

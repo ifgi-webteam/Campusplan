@@ -37,7 +37,6 @@ function searchForm($value){
 			</div>
 		</div>
 	';
-	// echo '<form><input type="search" name="search" id="search-basic" value="'.$value.'" /><input type="submit" value="Einrichtung suchen" /></form>';
 }
 
 function getAZList(){
@@ -45,9 +44,8 @@ function getAZList(){
 	searchForm('');
 	echo '<p class="lead">... oder nach Anfangsbuchstabe:</p>';
 	echo '<p class="az">';
-	$az = array("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z");
-	foreach ($az as $letter) {
-		echo '<a class="btn btn-large btn-letter internal" href="uni-a-z.php?letter='.$letter.'">'.$letter.'</a> ';
+	foreach (range('A', 'Z') as $letter) {
+		echo '<a class="btn btn-large btn-letter internal" href="uni-a-z.php?letter='.urlencode($letter).'">'.htmlspecialchars($letter).'</a> ';
 	}
 	for($i=1; $i<=10; $i++) { echo '<a class="btn btn-large btn-letter internal invisible" href="uni-a-z.php?letter=" style="height:1px;">&nbsp;</a> ';}
 	echo '</p>';
@@ -112,7 +110,7 @@ SELECT DISTINCT ?orga ?name WHERE {
 function listOrgs($orgs, $template){
 	// only start if there are any results:
 	if($orgs->results->bindings){
-		echo '<h2>Einrichtungen mit <em>'.$template.'</em></h2>
+		echo '<h2>Einrichtungen mit <em>'.htmlspecialchars($template).'</em></h2>
 
 		<div class="btn-group btn-group-vertical">';
 		
@@ -121,14 +119,14 @@ function listOrgs($orgs, $template){
 			$name = $fb->name->value;
 			$orga = $fb->orga->value;
  			
- 			echo '<a class="btn btn-large btn-stacked internal" href="orgdetails.php?org_uri='.$orga.'">'.$name.'</a>';
+ 			echo '<a class="btn btn-large btn-stacked internal" href="orgdetails.php?org_uri='.urlencode($orga).'">'.htmlspecialchars($name).'</a>';
  		}
 
  		echo '</div>';
  		 		
  	} else {
 
- 		print "<h3>Keine Einrichtungen mit <em>".$template."</em> gefunden.</h3>";
+ 		print "<h3>Keine Einrichtungen mit <em>".htmlspecialchars($template)."</em> gefunden.</h3>";
 
  		getAZList();
 

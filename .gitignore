@@ -1,4 +1,6 @@
 cache/
-tiles/
 piwik/
+routes/
+tiles/
 piwik.php
+keys.php

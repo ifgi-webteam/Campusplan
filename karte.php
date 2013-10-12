@@ -8,8 +8,8 @@
  
 	 // wait until the page is loaded:
 	 // $( document ).delegate("#mapPage", "pagecreate", function() {
-  	// wait until the page is loaded:
-	 $(function(event){
+  	 // wait until the page is loaded:
+	 $(window).load(function(){
 
 	 	$('#map').addClass('mapFullScreen');
 	 	$('#map').show();
@@ -24,15 +24,14 @@
 	 	
 	 	var center = new L.LatLng(51.9663, 7.6099); 
 	 	map.setView(center, 14).addLayer(osm);
-	 	
 
 		// fixes the problem where some map tiles are not shown initally:
-		L.Util.requestAnimFrame(map.invalidateSize,map,!1,map._container);
-		map.invalidateSize();	
+		map.invalidateSize();
 
 		var geojsonLayer = new L.GeoJSON();
 		 	
 	 	geojsonLayer.on('featureparse', function (e) {
+	 		alert('e.properties');
 	 	    if (e.properties && e.properties.popupContent){
 	 	        e.layer.bindPopup(e.properties.popupContent);
 	 	    }
@@ -108,7 +107,7 @@
 			";
 		
 			
-		} else if(isset($building->lat->value) && isset($building->long->value)){  //handle orgs that only have lat/lon
+		} else if(isset($building->lat->value) && isset($building->long->value)){  // handle orgs that only have lat/lon
 			echo "
 			var circle = new L.Circle(new L.LatLng(".$building->lat->value.", ".$building->long->value."), 10, circleOptions); 
 			";

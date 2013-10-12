@@ -75,10 +75,7 @@ SELECT DISTINCT * WHERE {
 
  				// skip duplicates
  				if($title != $prevtitle){
- 					echo '<a class="btn btn-large btn-stacked internal" href="orgdetails.php?org_uri='.$url.'">'.$title.'<br /><small>'.$building.', '.$address.' ('.$floor.')</small></a>';		
- 				 	//echo '<div class="span6"><a class="btn btn-org" href="orgdetails.php?org_uri='.$url.'&org_title='.$title.'"><b>'.$title.'</b><br /><span class="desc">'.$building.', '.$address.' ('.$floor.')</span></a></div>
- 					//	'; 					
-
+ 					echo '<a class="btn btn-large btn-stacked internal" href="orgdetails.php?org_uri='.urlencode($url).'">'.htmlspecialchars($title).'<br /><small>'.htmlspecialchars($building).', '.htmlspecialchars($address).' ('.$floor.')</small></a>';
  				}
 
  				$prevtitle = $title;

@@ -69,9 +69,10 @@ function getHead($showmenu = true){
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"> 
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+	<link rel="icon" href="favicon.png" type="image/png">
 
 	<title>Campusplan</title> 
 
@@ -82,7 +83,7 @@ function getHead($showmenu = true){
 		<link rel="stylesheet" href="css/leaflet.ie.css" />
 	<![endif]-->
 	<link href="css/campusplan.css" rel="stylesheet" media="screen">
-    <link href="css/responsive.css" rel="stylesheet" media="screen">
+    <link href="css/campusplan-responsive.css" rel="stylesheet" media="screen">
 
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery.cookie.js"></script>  
@@ -97,18 +98,25 @@ function getHead($showmenu = true){
 
 		<div <?php if($showmenu){ ?>class="content"<?php } ?>>
 
-		<?php if($showmenu){ ?><div class="navbar navbar-inverse navbar-fixed-top visible-phone"><!-- phone displays -->
-			<div class="navbar-inner">
-				<!-- yeah, inline css! geht voll ab, alter -->
-			    <a class="brand internal" href="index.php"><img src="img/navigation_up.png" class="navbarlogo" style="margin-right:0px;"><img src="img/wwu-white-s.png" class="navbarlogo"> CampusPlan</a>
-			    </div>
+		<?php if($showmenu){ ?>
+			<div class="navbar navbar-inverse navbar-fixed-top visible-phone"><!-- phone displays -->
+				<div class="navbar-inner">
+				    <a class="brand internal" href="index.php"><img src="img/navigation_up.png" class="navbarlogo" style="margin-right:0px;"><img src="img/wwu-white-s.png" class="navbarlogo"> CampusPlan</a>
+				    </div>
+				</div>
 			</div>
-		</div>
-		<div class="navbar navbar-inverse navbar-fixed-bottom hidden-phone"><!-- tablets & desktop -->
-			<a class="internal" href="uni-a-z.php"><img src="img/front-az.png" class="menuimgs" /></a><a class="internal" href="mensen.php"><img src="img/front-mensen.png" class="menuimgs" /></a><a class="internal" href="ulb.php"><img src="img/front-ulb.png" class="menuimgs" /></a><a class="internal" href="karte.php"><img src="img/front-karte.png" class="menuimgs" /></a><a class="internal" href="favoriten.php"><img src="img/front-favoriten.png" class="menuimgs" /></a><a class="internal" href="fachbereiche.php"><img src="img/front-fachbereiche.png" class="menuimgs" /></a><a class="internal" href="hoersaele.php"><img src="img/front-hoersaele.png" class="menuimgs" /></a><a class="internal" href="wohnheime.php"><img src="img/front-wohnheime.png" class="menuimgs" /></a><a class="internal" href="info.php"><img src="img/front-info.png" class="menuimgs" /></a>  	
-		</div>
-
-<?php	} //end if showMenu ?>
+			<div class="navbar navbar-inverse navbar-fixed-bottom hidden-phone"><!-- tablets & desktop -->
+				<a class="internal" href="uni-a-z.php"><img src="img/front-az.png" class="menuimgs" /></a>
+				<a class="internal" href="mensen.php"><img src="img/front-mensen.png" class="menuimgs" /></a>
+				<a class="internal" href="ulb.php"><img src="img/front-ulb.png" class="menuimgs" /></a>
+				<a class="internal" href="karte.php"><img src="img/front-karte.png" class="menuimgs" /></a>
+				<a class="internal" href="favoriten.php"><img src="img/front-favoriten.png" class="menuimgs" /></a>
+				<a class="internal" href="fachbereiche.php"><img src="img/front-fachbereiche.png" class="menuimgs" /></a>
+				<a class="internal" href="hoersaele.php"><img src="img/front-hoersaele.png" class="menuimgs" /></a>
+				<a class="internal" href="wohnheime.php"><img src="img/front-wohnheime.png" class="menuimgs" /></a>
+				<a class="internal" href="info.php"><img src="img/front-info.png" class="menuimgs" /></a>  	
+			</div>
+		<?php	} //end if showMenu ?>
 	
 	<div id="map"></div>
 

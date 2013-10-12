@@ -5,11 +5,11 @@
 
 	include_once('keys.php');
 
-	$url = 'http://routes.cloudmade.com/'.$cloudmadekey.'/api/0.3/'.$_GET["coords"].'/'.$_GET["mode"].'.js?lang='.$_GET["lang"];
+	$url = 'http://routes.cloudmade.com/'.$cloudmadekey.'/api/0.3/'.urlencode($_GET["coords"]).'/'.urlencode($_GET["mode"]).'.js?lang='.urlencode($_GET["lang"]);
 
 	// we'll cache the requests, because users will quite likely switch back and forth between the modes
 	// so we can server the second same request from our cache
-	$file = 'routes/'.$_GET['coords'].'-'.$_GET['mode'].'-'.$_GET['lang'].'.json';
+	$file = 'routes/'.md5($_GET['coords'].'-'.$_GET['mode'].'-'.$_GET['lang']).'.json';
     $route = null;
     $tries = 0;
     if (!is_file($file)) { // check if the route has already been cached

@@ -73,8 +73,8 @@
     header("Expires: " . $exp_gmt);
     header("Last-Modified: " . $mod_gmt);
     header("Cache-Control: public, max-age=" . $ttl * 60);
-    // for MSIE 5
-    header("Cache-Control: pre-check=" . $ttl * 60, FALSE);
+    // for MSIE 5 -- really?
+    // header("Cache-Control: pre-check=" . $ttl * 60, FALSE);
     header ('Content-Type: image/png');
     //readfile($file);
     echo $img;
