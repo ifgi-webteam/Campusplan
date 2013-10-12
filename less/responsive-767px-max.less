@@ -9,14 +9,7 @@
   body {
     padding-left: 20px;
     padding-right: 20px;
-  } 
-
-  //make the start menu full screen:
-  div.start-menu {
-    margin-left: -20px;
-    margin-right: -20px;
   }
-
   // Negative indent the now static "fixed" navbar
   .navbar-fixed-top,
   .navbar-fixed-bottom,
@@ -49,7 +42,6 @@
   // Remove width from containers
   .container {
     width: auto;
-    margin-bottom: 0px;
   }
   // Fluid rows
   .row-fluid {
@@ -80,8 +72,8 @@
     .box-sizing(border-box);
   }
   .row-fluid [class*="offset"]:first-child {
-		margin-left: 0;
-	}
+    margin-left: 0;
+  }
 
   // FORM FIELDS
   // -----------
@@ -101,7 +93,7 @@
   .input-prepend input[class*="span"],
   .input-append input[class*="span"] {
     display: inline-block; // redeclare so they don't wrap to new lines
-    width: 75%;
+    width: auto;
   }
   .controls-row [class*="span"] + [class*="span"] {
     margin-left: 0;
@@ -118,12 +110,6 @@
     &.fade  { top: -100px; }
     &.fade.in { top: 20px; }
   }
-
-  // Fix search results width on small screens with low width
-  .btn-group-vertical {
-    max-width: 100%;
-  }
-
 
 }
 

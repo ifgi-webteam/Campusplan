@@ -6,13 +6,6 @@
 // Body reset
 // -------------------------
 
-html, body {
-  height: 100%; 
-  overflow: auto; 
-  margin: 0;
-  -webkit-overflow-scrolling: touch;
-}
-
 body {
   margin: 0;
   font-family: @baseFontFamily;
@@ -30,7 +23,8 @@ a {
   color: @linkColor;
   text-decoration: none;
 }
-a:hover {
+a:hover,
+a:focus {
   color: @linkColorHover;
   text-decoration: underline;
 }
