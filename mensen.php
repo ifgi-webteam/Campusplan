@@ -111,8 +111,10 @@ SELECT DISTINCT ?name ?start ?minPrice ?maxPrice ?mensa ?mensaname WHERE {
  			}  
 
  			echo '</tbody></table></div></div></div>';
+ 		} else {
+ 			echo '<div class="alert alert-error">Zur Zeit gibt es keine Mensadaten.</div>';
  		}
-		echo '</div></div></div></div>';
+		//echo '</div></div></div></div>';
  	}
 
 }
