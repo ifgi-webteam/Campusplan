@@ -84,6 +84,7 @@ function getHead($showmenu = true){
 	<![endif]-->
 	<link href="css/campusplan.css" rel="stylesheet" media="screen">
     <link href="css/campusplan-responsive.css" rel="stylesheet" media="screen">
+    <link href="css/campusplan-safari.css" rel="stylesheet" media="screen">
 
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery.cookie.js"></script>  
