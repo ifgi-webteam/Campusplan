@@ -23,7 +23,7 @@ $( document ).ready(function(){
         document.location = $(this).attr('href');
         return false;
       });
-    });   	
+    });
 	
 	var cookie        = encodeURIComponent($(location).attr('href')) ;
 	var value         = $('span#title').html() ;
@@ -47,3 +47,5 @@ $( document ).ready(function(){
 		}			
 	});
 });
+
+window.onunload = function(){};
