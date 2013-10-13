@@ -5279,7 +5279,6 @@ a.badge:focus {
 html,
 body {
   height: 100%;
-  overflow: auto;
   margin: 0px;
   padding: 0px;
   -webkit-overflow-scrolling: touch;
