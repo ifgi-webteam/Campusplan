@@ -16,8 +16,8 @@
 			<a class="internal" href="wohnheime.php"><img src="img/front-wohnheime.png" class="frontimg-s" /></a>
 			<a class="internal" href="info.php"><img src="img/front-info.png" class="frontimg-s" /></a>
 
-			<a href="http://www.uni-muenster.de"><img src="img/wwu-full.png" class="logoimg" /></a>
-			<a href="http://ifgi.uni-muenster.de"><img src="img/ifgi.png" class="logoimg" /></a>
+			<a href="http://www.uni-muenster.de" target="_blank"><img src="img/wwu-full.png" class="logoimg" /></a>
+			<a href="http://ifgi.uni-muenster.de" target="_blank"><img src="img/ifgi.png" class="logoimg" /></a>
 		
 		</div>
 					

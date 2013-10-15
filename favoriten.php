@@ -29,7 +29,7 @@ function getFavorites(){
 			$url = urldecode($url);
 			$url = str_replace('orgdetails_php', 'orgdetails.php', $url);
 			$url = str_replace('_uni-muenster_de', '.uni-muenster.de', $url);			
-			echo '<a class="btn btn-large btn-stacked internal" href="'.$url.'">'.$title.'</a>';
+			echo '<a class="btn btn-large btn-stacked internal" href="'.htmlspecialchars($url).'">'.htmlspecialchars($title).'</a>';
 		}
 	} 					
 	

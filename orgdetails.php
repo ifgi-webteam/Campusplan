@@ -10,7 +10,6 @@
 	
 	getHead();
 ?>
-
 <div class="container">
 		
 		<?php 
@@ -255,7 +254,7 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 					echo ' <a class="btn" style="width: 70px" href="'.htmlspecialchars($thisOrg->homepage->value).'" target="_blank"><i class="icon-globe"></i> Website</a>
 					';
 				}
-				
+
 					// Bookmark Button:
 					echo '<button id="favorite" class="btn" style="width:96px"><i class="icon-star"></i> Merken</button>					
 

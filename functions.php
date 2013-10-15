@@ -128,8 +128,8 @@ function getFoot($showlogos = false){
 ?>	
 	
 	<?php if($showlogos){ ?>
-		<div class="container hidden-phone"><a href="http://www.uni-muenster.de"><img src="img/wwu-full.png" class="logoimgs pull-right" /></a>
-			<a href="http://ifgi.uni-muenster.de"><img src="img/ifgi.png" class="logoimgs pull-right" /></a></div>
+		<div class="container hidden-phone"><a href="http://www.uni-muenster.de" target="_blank"><img src="img/wwu-full.png" class="logoimgs pull-right" /></a>
+			<a href="http://ifgi.uni-muenster.de" target="_blank"><img src="img/ifgi.png" class="logoimgs pull-right" /></a></div>
 	<?php } ?>
 		<div id="loading"><img src="img/loader-big.gif" width="64" height="64" alt="loading..." /></div>
 	</div> <!-- class=content -->
