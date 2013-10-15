@@ -77,20 +77,19 @@ function getHead($showmenu = true){
 	<title>Campusplan</title> 
 
 	<link rel="apple-touch-icon" href="img/start.png"/>
-	
-	<link rel="stylesheet" href="css/leaflet.css" />
-	<!--[if lte IE 8]>
-		<link rel="stylesheet" href="css/leaflet.ie.css" />
-	<![endif]-->
-	<link href="css/campusplan.css" rel="stylesheet" media="screen">
-    <link href="css/campusplan-responsive.css" rel="stylesheet" media="screen">
-    <link href="css/campusplan-safari.css" rel="stylesheet" media="screen">
 
-    <script src="js/jquery.min.js"></script>
-    <script src="js/jquery.cookie.js"></script>  
-    <script src="js/bootstrap.min.js"></script>    
-    <script src="js/leaflet.js"></script>  
-	<script src="js/campusplan.js"></script>  
+	<link rel="stylesheet" href="css/leaflet.css?v=<?= md5("css/leaflet.css") ?>" />
+	<!--[if lte IE 8]>
+		<link rel="stylesheet" href="css/leaflet.ie.css?v=<?= md5("css/leaflet.ie.css") ?>" />
+	<![endif]-->
+	<link href="css/campusplan.css?v=<?= md5("css/campusplan.css") ?>" rel="stylesheet" media="screen">
+    <link href="css/campusplan-responsive.css?v=<?= md5("css/campusplan-responsive.css") ?>" rel="stylesheet" media="screen">
+
+    <script src="js/jquery.min.js?v=<?= md5("js/jquery.min.js") ?>"></script>
+    <script src="js/jquery.cookie.js?v=<?= md5("js/jquery.cookie.js"); ?>"></script>
+    <script src="js/bootstrap.min.js?v=<?= md5("js/bootstrap.min.js"); ?>"></script>
+    <script src="js/leaflet.js?v=<?= md5("js/leaflet.js"); ?>"></script>
+	<script src="js/campusplan.js?v=<?= md5("js/campusplan.js"); ?>"></script>
 	
 </head> 
 

@@ -45,7 +45,7 @@ function getAZList(){
 	echo '<p class="lead">... oder nach Anfangsbuchstabe:</p>';
 	echo '<p class="az">';
 	foreach (range('A', 'Z') as $letter) {
-		echo '<a class="btn btn-large btn-letter internal" href="uni-a-z.php?letter='.urlencode($letter).'">'.htmlspecialchars($letter).'</a> ';
+		echo '<a class="btn btn-large btn-letter internal" href="uni-a-z.php?letter='.$letter.'">'.$letter.'</a> ';
 	}
 	for($i=1; $i<=10; $i++) { echo '<a class="btn btn-large btn-letter internal invisible" href="uni-a-z.php?letter=" style="height:1px;">&nbsp;</a> ';}
 	echo '</p>';
