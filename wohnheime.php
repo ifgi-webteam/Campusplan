@@ -53,13 +53,13 @@ SELECT DISTINCT * WHERE {
  				
  				// TODO: English!
  				
- 				$name  = $fb->name->value;
+ 				$name  = htmlspecialchars($fb->name->value);
  				$name = str_replace("Wohnanlage ", "<span class='hidden-phone'>Wohnanlage </span>", $name);
  				$name = str_replace("Studentenwohnheim ", "<span class='hidden-phone'>Studentenwohnheim </span>", $name);
  				$name = str_replace("Internationales", "Int.", $name);
  				$url   = $fb->fb->value;
  				
- 				echo '<a class="btn btn-large btn-stacked internal" href="orgdetails.php?org_uri='.urlencode($url).'">'.htmlspecialchars($name).'</a>';				 				
+ 				echo '<a class="btn btn-large btn-stacked internal" href="orgdetails.php?org_uri='.urlencode($url).'">'.$name.'</a>';				 				
 	
  			} 	
 

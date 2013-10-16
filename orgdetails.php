@@ -302,7 +302,7 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 		
 						  var uri = 'https://maps.google.com/maps?saddr='+position.coords.latitude+','+position.coords.longitude+'&daddr=";
 						  
-						  if($destAddr != ''){ echo urlencode($destAddr); } else { echo urlencode($dest); }
+						  if($destAddr != ''){ echo $destAddr; } else { echo $dest; }
 
 						  echo "&hl=de&ie=UTF8&ttype=now&dirflg=r&noexp=0&noal=0&sort=def&mra=ltm&t=m&start=0';
 
