@@ -49,6 +49,8 @@ function sparql_get($query){
    curl_setopt($ch, CURLOPT_URL, $url);
    curl_setopt($ch, CURLOPT_HEADER, false); //  header output OFF
    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Accept: application/sparql-results+json'));
+   curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 15); 
+   curl_setopt($ch, CURLOPT_TIMEOUT, 15);
    
    // return response, don't print/echo
    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -56,9 +58,10 @@ function sparql_get($query){
    $response = curl_exec($ch);
    // done...
    curl_close($ch);
-   $resobj = json_decode($response);  
-   
+   $resobj = json_decode($response);
    return $resobj;
+   
+   //return false;
 }
 
 function getHead($showmenu = true){	

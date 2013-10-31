@@ -109,7 +109,7 @@ SELECT DISTINCT ?orga ?name WHERE {
 
 function listOrgs($orgs, $template){
 	// only start if there are any results:
-	if($orgs->results->bindings){
+	if($orgs && $orgs->results->bindings){
 		echo '<h2>Einrichtungen mit <em>'.htmlspecialchars($template).'</em></h2>
 
 		<div class="btn-group btn-group-vertical">';
