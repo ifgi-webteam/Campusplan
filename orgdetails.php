@@ -373,7 +373,7 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 							<div class="btn-group" id="navbuttons">
 	  							<button class="btn btn-warning"><img src="img/route.png" id="navlogo" style="height: 24px; width: 24px; margin: -3px 0 -3px -3px"  /><img src="img/loader.gif" style="height: 24px; width: 24px; ; margin: -3px 0 -3px -3px; display: none" id="navloader" /><span class="hidden-phone" style="color: black"> Wegbeschreibung </button>
 	  							<button class="btn route" id="bicycle"><span class="visible-phone">Rad</span><span class="hidden-phone">Per Fahrrad</button>
-	  							<button class="btn route" id="foot">Zufuß</button>
+	  							<button class="btn route" id="foot">Zu Fuß</button>
 	  							<button class="btn route" id="car"><span class="visible-phone">Auto</span><span class="hidden-phone">Mit dem Auto</button>
 	  							<a class="btn route" href="https://maps.google.com/maps?daddr=<?php if($destAddr != ''){ echo urlencode($destAddr); } else { echo urlencode($dest); } ?>&hl=de&ie=UTF8&ttype=now&dirflg=r&noexp=0&noal=0&sort=def&mra=ltm&t=m&start=0';" id="bus"><span class="visible-phone">Bus</span><span class="hidden-phone">Mit dem Bus (öffnet Google Maps)</a>
 							</div>
