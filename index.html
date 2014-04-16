@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="de">
+<head>
+	<title>WWU Campusplan</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="icon" href="favicon.png" type="image/png">
+	<link rel="stylesheet" href="/CampusplanAngular/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/CampusplanAngular/css/style.css">
+	<base href="/CampusplanAngular/">
+</head>
+<body ng-app="ngRouteExample">
+	<div ng-controller="MainController">
+	<div class="container" id="">
+		<!-- navbar -->
+		<nav class="navbar navbar-default" role="navigation">
+			<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="">Campusplan</a>
+				</div>
+
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li class="frontpage-nav uni-a-z"><a class="internal" href="UniA-Z/" class="navbar-uni-a-z">Uni A-Z</a></li>
+						<li class="frontpage-nav mensen"><a class="internal" href="Mensen/" class="navbar-mensen">Mensen</a></li>
+						<li class="frontpage-nav karte"><a class="internal" href="Karte/" class="navbar-karte">Karte</a></li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle info" data-toggle="dropdown">Mehr <b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li class="ulb-katalog"><a class="internal" href=""><img src="img/front-ulb-katalog.svg" style="height:32px"> ULB-Katalog</a></li>
+								<li class="favoriten"><a class="internal" href=""><img src="img/front-favoriten.svg" style="height:32px"> Favoriten</a></li>
+								<li class="fachbereiche"><a class="internal" href=""><img src="img/front-fachbereiche.svg" style="height:32px"> Fachbereiche</a></li>
+								<li class="hoersaele"><a class="internal" href=""><img src="img/front-hoersaele.svg" style="height:32px"> Hörsäle</a></li>
+								<li class="wohnheime"><a class="internal" href=""><img src="img/front-wohnheime.svg" style="height:32px"> Wohnheime</a></li>
+								<li class="info"><a class="internal" href="info"><img src="img/front-info.svg" style="height:32px"> Info</a></li>
+							</ul>
+						</li>
+					</ul>
+
+					<form class="navbar-form navbar-right" role="search">
+						<div class="input-group">
+							<input class="form-control" name="search" placeholder="Suche..." type="text">
+			  				<span class="input-group-btn">
+			  					<button class="btn btn-large" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+			  				</span>
+			  			</div>
+					</form>
+				</div><!-- /.navbar-collapse -->
+			</div><!-- /.container-fluid -->
+		</nav>
+		<!-- /navbar -->
+	</div>
+	<div class="container" id="tiles">
+		<!-- big tiles -->
+		<nav>
+			<ul id="nav">
+			<!-- big tiles -->
+			<li><div class="tile"><a class="internal" href="UniA-Z/"><img alt="Uni A-Z" title="Uni A-Z" class="front uni-a-z" src="img/front-uni-a-z.png"><span class="tiletitle">Uni A-Z</span></a></div></li>
+			<li><div class="tile"><a class="internal" href="Mensen/"><img alt="Mensen" title="Mensen" class="front mensen" src="img/front-mensen.png"><span class="tiletitle">Mensen</span></a></div></li>
+			<li><div class="tile"><a class="internal" href="Karte/"><img alt="Karte" title="Karte" class="front karte" src="img/front-karte.png"><span class="tiletitle">Karte</span></a></div></li>
+			<!-- small tiles -->
+			<li><div class="tile smalltile"><a class="internal" href="ulb-katalog"><img alt="ULB-Katalog" title="ULB-Katalog" class="front ulb-katalog" src="img/front-ulb-katalog.png"><span class="tiletitle">ULB-Katalog</span></a></div></li>
+			<li><div class="tile smalltile"><a class="internal" href="favoriten"><img alt="Favoriten" title="Favoriten" class="front favoriten" src="img/front-favoriten.png"><span class="tiletitle">Favoriten</span></a></div></li>
+			<li><div class="tile smalltile"><a class="internal" href="fachbereiche"><img alt="Fachbereiche" title="Fachbereiche" class="front fachbereiche" src="img/front-fachbereiche.png"><span class="tiletitle">Fachbereiche</span></a></div></li>
+			<li><div class="tile smalltile"><a class="internal" href="hoersaele"><img alt="Hörsäle" title="Hörsäle" class="front hoersaele" src="img/front-hoersaele.png"><span class="tiletitle">Hörsäle</span></a></div></li>
+			<li><div class="tile smalltile"><a class="internal" href="wohnheime"><img alt="Wohnheime" title="Wohnheime" class="front wohnheime" src="img/front-wohnheime.png"><span class="tiletitle">Wohnheime</span></a></div></li>
+			<li><div class="tile smalltile"><a class="internal" href="info"><img alt="Info" title="Info" class="front info" src="img/front-info.png"><span class="tiletitle">Info</span></a></div></li>
+			<!-- logos 
+			<li><div class="tile smalltile logo"><a href=""><img title="Institut für Geoinformatik" alt="Institut für Geoinformatik" class="front" src="img/ifgi.png"></a></div></li>
+			<li><div class="tile smalltile logo"><a href=""><img title="Universität Münster" alt="Universität Münster" class="front" src="img/wwu-full.png"></a></div></li>
+			-->
+			</ul>
+		</nav>
+		<!-- /big tiles -->
+	</div>
+	</div> <!-- /ng-controller="MainController" -->
+
+	<div class="container" id="content" ng-view>
+	</div>
+
+	<hr />
+
+	<pre>$location.path() = {{$location.path()}}</pre>
+	<pre>$route.current.templateUrl = {{$route.current.templateUrl}}</pre>
+	<pre>$route.current.params = {{$route.current.params}}</pre>
+	<pre>$route.current.scope.name = {{$route.current.scope.name}}</pre>
+	<pre>$routeParams = {{$routeParams}}</pre>
+
+	<!-- jQuery & Bootstrap 3 -->
+	<script type="text/javascript" src="/CampusplanAngular/js/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript" src="/CampusplanAngular/js/bootstrap.min.js"></script>
+
+	<!-- Angular JS 1.2 -->
+	<script src="js/angular.min.js"></script>
+	<script src="js/angular-route.min.js"></script>
+	<script src="js/script.js"></script>
+	<script type="text/javascript">
+	angular.element(document.getElementsByTagName('head')).append(angular.element('<base href="' + window.location.pathname + '" />'));
+	</script>
+</body>
+</html>

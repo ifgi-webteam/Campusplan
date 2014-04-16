@@ -1,0 +1,244 @@
+@font-face {
+  font-family: 'Signika';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Signika-Semibold'), url(fonts/Signika-Semibold.woff) format('woff');
+}
+
+html, body {
+	height: 100%;
+	width: 100%;
+	color:#252525;
+}
+
+div.container {
+	padding:0;
+}
+
+
+/* 
+	Text & Links auf Startseitenkacheln
+*/
+div#tiles a:hover span.tiletitle {
+	text-shadow: 0 0 5px rgba(0,0,0,0.6);
+	text-decoration: none;
+}
+
+div#tiles a:active span.tiletitle {
+	text-shadow: 0 0 5px rgba(0,0,0,1);
+	text-decoration: none;
+}
+
+div#tiles div.logo a:hover img {
+	background-color:#eee;
+}
+
+div.tile:hover {
+	padding:-5px;
+	box-shadow: rgba(0,0,0,0.5) 0px 0px 5px;
+	z-index: 99;
+	opacity: 0.9;
+}
+
+div.tile span.tiletitle {
+	position: absolute;
+	width:100%;
+	bottom: 5px;
+	/*right: 10px;*/
+	left:0px;
+	font-family: 'Signika', sans-serif;
+	font-weight: 600;
+	font-size: 2.2em;
+	color: #fff;
+	text-align: center;
+	text-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+div.tile.smalltile span.tiletitle {
+	font-size:1.5em;
+	text-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+/* 
+	Kachelgröße an den umliegenden Container anpassen 
+*/
+img.front {
+	width: 100%;
+	height: auto;
+}
+
+/* Kacheln auf der Startseite liegen in <ul> & <li> Elementen */
+ul#nav, ul#nav li {
+	margin: 0;
+	padding: 0;
+}
+
+ul#nav li {
+	list-style: none;
+}
+
+div.tile img {
+	padding:10px;
+}
+
+/* 
+	Kachelgrößen für große Bildschirme
+*/
+div.tile {
+	float:left;
+	max-width: 33%;
+	max-width: calc(100% / 3);
+	min-width: 120px;
+	padding: 0px;
+	position: relative;
+}
+
+div.tile.smalltile {
+	max-width: 16.5%;
+	max-width: calc(100% / 6);
+	min-width: 60px;
+}
+
+/* 
+	Kachelgrößen für kleine Bildschirme anpassen
+*/
+
+@media (max-width: 600px) {
+	div.tile {
+		max-width: 50%;
+	}
+
+	div.tile.smalltile {
+		max-width: 25%;
+	}
+
+	div.tile span.tiletitle {
+		font-size:1.5em
+	}
+	
+	div.tile.smalltile span.tiletitle {
+		font-size:1em
+	}
+}
+
+@media all and (orientation:landscape) and (max-width: 1024px) {
+	div.tile {
+		max-width: 25%;
+	}
+
+	div.tile.smalltile {
+		max-width: 12.5%;
+	}
+
+	div.tile span.tiletitle {
+		font-size:1.5em
+	}
+	
+	div.tile.smalltile span.tiletitle {
+		font-size:1em
+	}
+}
+
+/* 
+	Kachelfarben
+*/
+
+.fachbereiche {
+	background-color:#b1c800;
+}
+.favoriten {
+	background-color:#009dd1;
+}
+.hoersaele {
+	background-color:#7ab51d;
+}
+.info {
+	background-color:#ffd400;
+}
+.karte {
+	background-color:#7ab51d;
+}
+.mensen {
+	background-color:#2a6c8c;
+}
+.ulb-katalog {
+	background-color:#2a6c8c;
+}
+.uni-a-z {
+	background-color:#009dd1;
+}
+.wohnheime {
+	background-color:#b1c800;
+}
+
+/*
+	nav verkleinern zu Leiste mit der .navbar Klasse
+*/
+div#tiles.navbar {
+	border:0;
+}
+
+div#tiles.navbar .logo {
+	display:none;
+}
+
+div#tiles.navbar div.tile {
+	max-width: 11.11%;
+	min-width: 60px;
+}
+
+div#tiles.navbar div.tile.smalltile {
+	max-width: 11.11%;
+	min-width: 60px;
+}
+
+div#tiles.navbar div.tile span.tiletitle {
+	font-size:1em;
+}
+
+div#tiles.navbar div.tile.smalltile span.tiletitle {
+	font-size:1em;
+}
+
+@media all and (orientation:landscape) and (max-width: 1024px) {
+	div#tiles.navbar div.tile {
+		max-width: 11.11%;
+		min-width: 60px;
+	}
+
+	div#tiles.navbar div.tile.smalltile {
+		max-width: 11.11%;
+		min-width: 60px;
+	}
+
+	div#tiles.navbar div.tile span.tiletitle {
+		font-size:0.8em;
+	}
+	
+	div#tiles.navbar div.tile.smalltile span.tiletitle {
+		font-size:0.8em;
+	}
+}
+
+/* wwu & lodum & ifgi logo on info page */
+.logoimgs {
+	max-width:33%;
+}
+
+/* navbar visible buttons @ normal screen size */
+.navbar-nav li.frontpage-nav a {
+	background-size:auto 75%;
+	background-position:left center;
+	background-repeat:no-repeat;
+	padding-left:40px;
+	color:#fff;
+}
+.navbar-nav li.frontpage-nav.karte {
+	background-image:url(../img/front-karte.svg);
+}
+.navbar-nav li.frontpage-nav.mensen {
+	background-image:url(../img/front-mensen.svg);
+}
+.navbar-nav li.frontpage-nav.uni-a-z {
+	background-image:url(../img/front-uni-a-z.svg);
+}
