@@ -2,7 +2,7 @@
   font-family: 'Signika';
   font-style: normal;
   font-weight: 600;
-  src: local('Signika-Semibold'), url(fonts/Signika-Semibold.woff) format('woff');
+  src: local('Signika-Semibold'), url(../fonts/Signika-Semibold.woff) format('woff');
 }
 
 html, body {
