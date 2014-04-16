@@ -44,7 +44,6 @@ div.tile span.tiletitle {
 	position: absolute;
 	width:100%;
 	bottom: 5px;
-	/*right: 10px;*/
 	left:0px;
 	font-family: 'Signika', sans-serif;
 	font-weight: 600;
@@ -85,12 +84,16 @@ div.tile img {
 	Kachelgrößen für große Bildschirme
 */
 div.tile {
+	width:100%;	
+	padding: 0px;
+	position: relative;
 	float:left;
 	max-width: 33%;
 	max-width: calc(100% / 3);
 	min-width: 120px;
-	padding: 0px;
-	position: relative;
+}
+div.tile a img {
+	width:100%;	
 }
 
 div.tile.smalltile {
