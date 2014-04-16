@@ -1,3 +1,0 @@
-// iOS Safari hack http://browserhacks.com/
-// scrolling not working
-html, body { [;overflow: auto;]; }
