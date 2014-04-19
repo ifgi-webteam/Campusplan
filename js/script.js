@@ -1,6 +1,6 @@
 angular.module('ngRouteExample', ['ngRoute'])
 /* 
-	Controllers 
+	Page controllers 
 */
 .controller('MainController', function($scope, $route, $routeParams, $location) {
 	$scope.$route = $route;
@@ -15,15 +15,38 @@ angular.module('ngRouteExample', ['ngRoute'])
 	$scope.name = "KarteController";
 	$scope.params = $routeParams;
 })
-.controller('UniA-ZController', function($scope, $routeParams) {
-	$scope.name = "ChapterController";
+.controller('UniA-ZController', function($scope, $routeParams, $http) {
+	$scope.name = "UniA-ZController";
 	$scope.params = $routeParams;
+
+	$scope.search = function() {
+		$scope.params.letter = $scope.searchword;
+		$http.post('/Campusplan/search.php', { data: $scope.searchword })
+		.success(function(data, status) {
+			$scope.status = status;
+			$scope.data = data;
+			$scope.result = data;
+			$scope.orgas = data.results.bindings;
+		})
+		.error(function(data, status) {
+			$scope.data = data || "Request failed";
+			$scope.status = status;			
+		});
+	}
+	$scope.searchletter = function(lt) {
+		$scope.params.letter = lt;
+		$scope.searchword = lt;
+		$scope.search();
+	}
 })
 /*
 	Config
 */
 .config(function($routeProvider, $locationProvider) {
 	$routeProvider
+		.when('/', {
+			templateUrl: 'templates/home.html'
+		})
 		.when('/Mensen/', {
 			templateUrl: 'templates/mensen.html',
 			controller: 'MensenController',
@@ -35,8 +58,10 @@ angular.module('ngRouteExample', ['ngRoute'])
 		.when('/UniA-Z/', {
 			templateUrl: 'templates/uni-a-z.html',
 			controller: 'UniA-ZController'
+		})
+		.when('/Info/', {
+			templateUrl: 'templates/info.html'
 		});
-
 	// configure html5 to get links working on jsfiddle
 	$locationProvider.html5Mode(true).hashPrefix('!');
 });

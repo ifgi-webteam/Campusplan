@@ -223,9 +223,9 @@ div#tiles.navbar div.tile.smalltile span.tiletitle {
 	}
 }
 
-/* wwu & lodum & ifgi logo on info page */
+/* wwu, lodum & ifgi logo on info page match container width */
 .logoimgs {
-	max-width:33%;
+	max-width:100%;
 }
 
 /* navbar visible buttons @ normal screen size */
@@ -244,4 +244,12 @@ div#tiles.navbar div.tile.smalltile span.tiletitle {
 }
 .navbar-nav li.frontpage-nav.uni-a-z {
 	background-image:url(../img/front-uni-a-z.svg);
+}
+
+/* evenly distribute the letters on UniA-Z */
+div.az {
+	line-height:40px;
+}
+div.az a {
+	width:50px;
 }
