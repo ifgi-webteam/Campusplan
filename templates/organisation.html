@@ -1,0 +1,12 @@
+<div class="container-fluid">
+	<div class="col-xs-12" ng-show="orgaSearchSuccess">
+		<h1>{{ orga.name.value }}</h1>
+		{{ orga.address.value }} <br>
+		{{ orga.homepage.value }} <br>
+		{{ orga.lat.value }} <br>
+		{{ orga.long.value }}
+	</div>
+	<div class="col-xs-12" ng-show="orgaSearchFailed">
+		Keine Ergebnisse.
+	</div>
+</div>

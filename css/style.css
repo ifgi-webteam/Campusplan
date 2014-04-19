@@ -253,3 +253,22 @@ div.az {
 div.az a {
 	width:50px;
 }
+
+#orgaSearchFailed p {
+	padding:15px;
+}
+
+#az-result-list {
+	list-style: none;
+	padding: 0;
+	max-width: 100%;
+}
+#az-result-list li {
+	text-align: left;
+}
+#az-result-list li a {
+	width: 100%;
+	height: 100%;
+	display: block;
+	white-space: normal;
+}

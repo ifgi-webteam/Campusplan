@@ -1,6 +1,6 @@
 <div ng-controller="UniA-ZController">
 	<div class="container-fluid">
-		<div class="col-xs-12">
+		<div class="col-md-6">
 			<h1>Uni A-Z</h1>
 			<p class="lead">Das Einrichtungsverzeichnis der WWU.</p>
 
@@ -14,7 +14,7 @@
 			</form>
 		</div>
 
-		<div class="col-xs-12">
+		<div class="col-xs-12" ng-hide="orgaSearchSuccess">
 			<p class="lead"><br>... oder nach Anfangsbuchstabe suchen:</p>
 			<div class="az">
 				<div class="az-inner">
@@ -48,10 +48,15 @@
 			</div>
 		</div>
 
-		<div class="col-xs-12" ng-model="result">
-			<ul>
-				<li ng-repeat="orga in orgas"><a href="{{ orga.orga.value }}">{{ orga.name.value }}</a></li>
+		<div class="col-xs-12" ng-model="result" ng-show="orgaSearchSuccess">
+			<p><br>Suchergebnisse für <strong>"{{ searchword }}"</strong>:<br></p>
+			<ul id="az-result-list" class="btn-group-vertical">
+				<li ng-repeat="orga in orgas" class="btn btn-default"><a href="Organisation/{{ orga.orga.value.split('/').pop() }}">{{ orga.name.value }}</a></li>
 			</ul>
+		</div>
+
+		<div class="col-xs-12" ng-model="result" ng-show="orgaSearchFailed" id="orgaSearchFailed">
+			<p class="bg-danger">Keine Suchergebnisse für <strong>"{{ searchword }}"</strong>.</p>
 		</div>
 	</div>
 </div>
