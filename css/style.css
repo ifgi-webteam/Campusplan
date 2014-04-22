@@ -261,10 +261,6 @@ div.az a {
 	display: inline-block;
 }
 
-#orgaSearchFailed p {
-	padding:15px;
-}
-
 #az-result-list {
 	list-style: none;
 	padding: 0;
@@ -278,4 +274,12 @@ div.az a {
 	height: 100%;
 	display: block;
 	white-space: normal;
+}
+
+
+#orgaSearchFailed p {
+	padding:15px;
+}
+#map {
+	height:300px;
 }

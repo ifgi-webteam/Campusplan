@@ -1,0 +1,20 @@
+{
+  "name": "Campusplan Universität Münster",
+  "version": "2.0",
+  "authors": [
+    "Christoph Kisfeld <c_kisf01@uni-muenster.de>"
+  ],
+  "ignore": [
+    ".git",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "angular": "~1.2",
+    "angular-leaflet-directive": "~0.7.6",
+    "leaflet-dist": "~0.7.2",
+    "angular-route": "~1.2.16",
+    "angular-i18n": "~1.2.16",
+    "bootstrap": "~3.1.1"
+  }
+}

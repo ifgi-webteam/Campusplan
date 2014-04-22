@@ -7,7 +7,7 @@
 	<meta name="robots" content="noindex, nofollow">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="icon" href="favicon.png" type="image/png">
-	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body ng-app="ngRouteExample">
@@ -64,14 +64,11 @@
 		</div> <!-- /ng-view -->
 	</div> <!-- /ng-controller="MainController" -->
 
-	<!-- jQuery & Bootstrap 3 -->
-	<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
-	<script type="text/javascript" src="js/bootstrap.min.js"></script>
-
-	<!-- Angular JS 1.2 -->
-	<script src="js/angular.min.js"></script>
-	<script src="js/angular-route.min.js"></script>
-	<script src="i18n/angular-locale_de-de.js"></script>
+	<script src="bower_components/angular/angular.min.js"></script>
+	<script src="bower_components/angular-route/angular-route.min.js"></script>
+	<script src="bower_components/angular-i18n/angular-locale_de-de.js"></script>
+	<script src="bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.min.js"></script> 
+	<script src="bower_components/leaflet-dist/leaflet.js"></script> 
 	<script src="js/script.js"></script>
 	<script type="text/javascript">
 		angular.element(document.getElementsByTagName('head')).append(angular.element('<base href="' + window.location.pathname + '" />'));

@@ -125,3 +125,11 @@ angular.module('ngRouteExample', ['ngRoute'])
 	// configure html5 to get links working on jsfiddle
 	$locationProvider.html5Mode(true).hashPrefix('!');
 });
+
+var map = L.map('map');
+L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+    maxZoom: 18
+}).addTo(map);
+
+map.setView([51.505, -0.09], 13);
