@@ -7,8 +7,8 @@ $angjs_data_decoded = json_decode($angjs_data);
 $searchterm = $angjs_data_decoded->data;
 
 // perform a letter search if query is only one letter
-if(preg_match('/[a-zA-Z]/', $searchterm)) {
-	echo searchByLetter($searchterm);
+if(preg_match('/^[a-zA-Z]$/', $searchterm)) {
+	echo searchByLetter(strtoupper($searchterm));
 } else {
 	echo searchByWord($searchterm);
 }

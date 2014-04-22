@@ -1,2 +1,23 @@
-Mensa Mensa lecker lecker
-  controller: {{name}}<br />
+<div ng-controller="MensenController">
+	<div class="container-fluid">
+		<div class="col-md-12">
+			<h1>Mensaplan für die Woche vom {{ mondayDate | date:'dd. MMMM yyyy' }}</h1>
+		</div>
+
+		<div class="col-xs-12" >
+			<ul id="az-result-list" class="btn-group-vertical">
+				<li ng-repeat="a in mensaData" class="btn btn-default">
+
+				<a href="Organisation/{{ a.mensa.value.split('/').pop() }}">{{ a.mensaname.value }}</a>
+				{{ a.name.value }}
+
+				</li>
+			</ul>
+		</div>
+
+		<div class="col-xs-12" ng-model="result" ng-show="mensenQueryFail">
+			<p class="bg-danger">Beim Abfragen des Mensaplans ist ein Fehler aufgetretetn.</p>
+		</div>
+
+	</div>
+</div>

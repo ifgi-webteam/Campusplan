@@ -1,3 +1,11 @@
+function getMonday(d) {
+  d = new Date(d);
+  var day = d.getDay(),
+      diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
+  return new Date(d.setDate(diff));
+}
+var monthsGerman = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+
 angular.module('ngRouteExample', ['ngRoute'])
 /* 
 	Page controllers 
@@ -7,9 +15,27 @@ angular.module('ngRouteExample', ['ngRoute'])
 	$scope.$location = $location;
 	$scope.$routeParams = $routeParams;
 })
-.controller('MensenController', function($scope, $routeParams) {
+.controller('MensenController', function($scope, $routeParams, $http) {
 	$scope.name = "MensenController";
 	$scope.params = $routeParams;
+	$scope.mondayDate = getMonday(new Date());
+
+	$http.get('api/mensen.php')
+	.success(function(data, status) {
+		$scope.result = data;
+		if(data.results != null && data.results.bindings.length != 0) {
+			$scope.mensaData = data.results.bindings;
+			$scope.mensenQuerySuccess = true;
+			$scope.mensenQueryFailed = false;
+		} else {
+			$scope.mensenQuerySuccess = false;
+			$scope.mensenQueryFailed = true;
+		}
+	})
+	.error(function(data, status) {
+		$scope.data = data || "Request failed";
+		$scope.status = status;			
+	});
 })
 .controller('KarteController', function($scope, $routeParams) {
 	$scope.name = "KarteController";
@@ -19,31 +45,30 @@ angular.module('ngRouteExample', ['ngRoute'])
 	$scope.name = "UniA-ZController";
 	$scope.params = $routeParams;
 
-	/* Request a search at search.php and return results */
+	/* Request a search at api/unia-z.php and return results */
 	$scope.search = function() {
-		$scope.params.letter = $scope.searchword;
-		$http.post('api/unia-z.php', { data: $scope.searchword })
-		.success(function(data, status) {
-			$scope.status = status;
-			$scope.data = data;
-			$scope.result = data;
-			if(data.results.bindings != null && data.results.bindings.length != 0) {
-				$scope.orgas = data.results.bindings;
-				$scope.orgaSearchSuccess = true;
-				$scope.orgaSearchFailed = false;
-			} else {
-				$scope.orgaSearchSuccess = false;
-				$scope.orgaSearchFailed = true;
-			}
-		})
-		.error(function(data, status) {
-			$scope.data = data || "Request failed";
-			$scope.status = status;			
-		});
+		if($scope.inputsearchterm.length > 0) {
+			$scope.searchterm = $scope.inputsearchterm;
+			$http.post('api/unia-z.php', { data: $scope.searchterm })
+			.success(function(data, status) {
+				$scope.result = data;
+				if(data.results != null && data.results.bindings.length != 0) {
+					$scope.orgas = data.results.bindings;
+					$scope.orgaSearchSuccess = true;
+					$scope.orgaSearchFailed = false;
+				} else {
+					$scope.orgaSearchSuccess = false;
+					$scope.orgaSearchFailed = true;
+				}
+			})
+			.error(function(data, status) {
+				$scope.data = data || "Request failed";
+				$scope.status = status;			
+			});
+		}
 	}
 	$scope.searchletter = function(letter) {
-		$scope.params.letter = letter;
-		$scope.searchword = letter;
+		$scope.inputsearchterm = letter;
 		$scope.search();
 	}
 })

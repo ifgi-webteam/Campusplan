@@ -7,7 +7,6 @@ Requirements
 * Apache Webserver
 	* mod_rewrite enabled
 * PHP 5.1+
-    * curl enabled
 * [Cloudmade](http://cloudmade.com/) routing API key
 
 Installation

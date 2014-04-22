@@ -248,10 +248,17 @@ div#tiles.navbar div.tile.smalltile span.tiletitle {
 
 /* evenly distribute the letters on UniA-Z */
 div.az {
-	line-height:40px;
+	line-height:50px;
 }
 div.az a {
 	width:50px;
+}
+.az-inner ul {
+	list-style: none;
+	padding: 0;
+}
+.az-inner ul li {
+	display: inline-block;
 }
 
 #orgaSearchFailed p {

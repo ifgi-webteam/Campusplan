@@ -1,6 +1,6 @@
 <?php
 // Query database and return JSON string
-function sparql_get($query){
+function sparql_get($query) {
 	$url = 'http://data.uni-muenster.de/sparql?query='.urlencode($query).'&format=json';
 	$opts = array(
 		'http'=>array(
@@ -17,7 +17,7 @@ function sparql_get($query){
 }
 
 // Search database by starting letter
-function searchByLetter($letter){
+function searchByLetter($letter) {
 	
 	$orgs = sparql_get("
 
@@ -44,7 +44,7 @@ SELECT DISTINCT ?orga ?name WHERE {
 }
 
 // Search database by whole word
-function searchByWord($searchterm){
+function searchByWord($searchterm) {
 
 	$orgs = sparql_get("
 
@@ -72,7 +72,7 @@ SELECT DISTINCT ?orga ?name WHERE {
 }
 
 // single organization query
-function getOrgDetails($identifier, $lang = "de"){
+function getOrgDetails($identifier, $lang = "de") {
 	$org = "http://data.uni-muenster.de/context/uniaz/".$identifier;
 	$orga = sparql_get("
 
@@ -105,4 +105,31 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 	");
 
 	return $orga;
+}
+
+function getMensaplan() {
+
+	$time = strtotime('monday this week');  	
+	$date = date('Y-m-d', $time);  	
+	$datetime = $date.'T00:00:00Z';
+
+	$food = sparql_get('
+prefix xsd: <http://www.w3.org/2001/XMLSchema#> 
+prefix gr: <http://purl.org/goodrelations/v1#>
+prefix foaf: <http://xmlns.com/foaf/0.1/> 
+
+SELECT DISTINCT ?name ?start ?minPrice ?maxPrice ?mensa ?mensaname WHERE {
+    
+  ?menu a gr:Offering ;
+        gr:availabilityStarts ?start ;
+        gr:name ?name ;
+        gr:hasPriceSpecification ?priceSpec .
+  ?priceSpec gr:hasMinCurrencyValue ?minPrice ;
+             gr:hasMaxCurrencyValue ?maxPrice .
+  ?mensa gr:offers ?menu ;
+         foaf:name ?mensaname .  
+  FILTER (xsd:dateTime(?start) > "'.$datetime.'"^^xsd:dateTime) .
+} ORDER BY MONTH(?start) DAY(?start) LCASE(?mensaname) 
+');
+	return $food;
 }
