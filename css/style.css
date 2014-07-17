@@ -281,5 +281,6 @@ div.az a {
 	padding:15px;
 }
 #map {
-	height:300px;
+	height:600px;
+	border:2px solid #f0f;
 }

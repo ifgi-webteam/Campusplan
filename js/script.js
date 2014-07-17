@@ -1,12 +1,12 @@
 function getMonday(d) {
   d = new Date(d);
   var day = d.getDay(),
-      diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
+	  diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
   return new Date(d.setDate(diff));
 }
 var monthsGerman = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
 
-angular.module('ngRouteExample', ['ngRoute'])
+angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive'])
 /* 
 	Page controllers 
 */
@@ -14,6 +14,19 @@ angular.module('ngRouteExample', ['ngRoute'])
 	$scope.$route = $route;
 	$scope.$location = $location;
 	$scope.$routeParams = $routeParams;
+
+	// Leaflet defaults
+	angular.extend($scope, {
+		center: {
+			lat: 52.0,
+			lng: 7.0,
+			zoom: 16
+		},
+		defaults: {
+			//scrollWheelZoom: false
+		},
+		orgMarkers: {}
+	});
 })
 .controller('MensenController', function($scope, $routeParams, $http) {
 	$scope.name = "MensenController";
@@ -72,7 +85,7 @@ angular.module('ngRouteExample', ['ngRoute'])
 		$scope.search();
 	}
 })
-.controller('OrgaController', function($scope, $routeParams, $http) {
+.controller('OrgaController', function($scope, $routeParams, $http, leafletData, $document) {
 	$scope.name = "OrgaController";
 	$scope.params = $routeParams;
 
@@ -85,14 +98,39 @@ angular.module('ngRouteExample', ['ngRoute'])
 			$scope.orga = data.results.bindings[0];
 			$scope.orgaSearchSuccess = true;
 			$scope.orgaSearchFailed = false;
+
+			$scope.center.lat = parseFloat($scope.orga.lat.value);
+			$scope.center.lng = parseFloat($scope.orga.long.value);
+
+			angular.extend($scope, {
+				orgMarkers: {
+					orgaMarker: {
+						lat: parseFloat($scope.orga.lat.value),
+						lng: parseFloat($scope.orga.long.value),
+						focus: true,
+						message: $scope.orga.name.value
+					}
+				}
+			});
+
+			// Reset the view after AngularJS has loaded the page
+			// Otherwise tiles don't load completely
+			leafletData.getMap().then(function(map) {
+				$scope.$watch('$viewContentLoaded', function() {
+					map.invalidateSize();
+					map.setView([$scope.orga.lat.value, $scope.orga.long.value], 16);
+				});
+            });
 		} else {
 			$scope.orgaSearchSuccess = false;
 			$scope.orgaSearchFailed = true;
 		}
+
+
 	})
 	.error(function(data, status) {
 		$scope.data = data || "Request failed";
-		$scope.status = status;			
+		$scope.status = status;
 	});
 })
 /*
@@ -126,10 +164,3 @@ angular.module('ngRouteExample', ['ngRoute'])
 	$locationProvider.html5Mode(true).hashPrefix('!');
 });
 
-var map = L.map('map');
-L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
-    maxZoom: 18
-}).addTo(map);
-
-map.setView([51.505, -0.09], 13);

@@ -1,6 +1,6 @@
 <div class="container-fluid">
-	<div class="col-xs-12" id="map"></div>
 	<div class="col-xs-12" ng-show="orgaSearchSuccess">
+		<leaflet width="100%" height="480px" markers="orgMarkers" center="orgaMarkers[0]"></leaflet>
 		<h1>{{ orga.name.value }}</h1>
 		{{ orga.address.value }} <br>
 		{{ orga.homepage.value }} <br>
