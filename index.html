@@ -14,52 +14,30 @@
 </head>
 <body ng-app="CampusplanApp">
 	<div ng-controller="MainController">
-		<div class="container" id="">
-			<!-- navbar -->
-			<nav class="navbar navbar-default" role="navigation">
-				<div class="container-fluid">
-					<!-- Brand and toggle get grouped for better mobile display -->
-					<div class="navbar-header">
-						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-							<span class="sr-only">Toggle navigation</span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						</button>
-						<a class="navbar-brand" href="#">Campusplan</a>
-					</div>
-
-					<!-- Collect the nav links, forms, and other content for toggling -->
-					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-						<ul class="nav navbar-nav">
-							<li class="frontpage-nav uni-a-z"><a class="internal" href="UniA-Z/" class="navbar-uni-a-z">Uni A-Z</a></li>
-							<li class="frontpage-nav mensen"><a class="internal" href="Mensen/" class="navbar-mensen">Mensen</a></li>
-							<li class="frontpage-nav karte"><a class="internal" href="Karte/" class="navbar-karte">Karte</a></li>
-							<li class="dropdown">
-								<a class="dropdown-toggle info" data-toggle="dropdown">Mehr <b class="caret"></b></a>
-								<ul class="dropdown-menu">
-									<li class="ulb-katalog"><a class="internal" href="ULB-Katalog/"><img src="img/front-ulb-katalog.svg" style="height:32px"> ULB-Katalog</a></li>
-									<li class="favoriten"><a class="internal" href="Favoriten/"><img src="img/front-favoriten.svg" style="height:32px"> Favoriten</a></li>
-									<li class="fachbereiche"><a class="internal" href="Fachbereiche/"><img src="img/front-fachbereiche.svg" style="height:32px"> Fachbereiche</a></li>
-									<li class="hoersaele"><a class="internal" href="Hörsäle/"><img src="img/front-hoersaele.svg" style="height:32px"> Hörsäle</a></li>
-									<li class="wohnheime"><a class="internal" href="Wohnheime/"><img src="img/front-wohnheime.svg" style="height:32px"> Wohnheime</a></li>
-									<li class="info"><a class="internal" href="Info/"><img src="img/front-info.svg" style="height:32px"> Info</a></li>
-								</ul>
-							</li>
-						</ul>
-
-						<form class="navbar-form navbar-right" role="search">
-							<div class="input-group">
-								<input class="form-control" name="search" placeholder="Suche..." type="text">
-				  				<span class="input-group-btn">
-				  					<button class="btn btn-large" type="submit"><span class="glyphicon glyphicon-search"></span></button>
-				  				</span>
-				  			</div>
-						</form>
-					</div><!-- /.navbar-collapse -->
-				</div><!-- /.container-fluid -->
-			</nav>
-			<!-- /navbar -->
+		<div class="container">
+		<!-- navbar -->
+		<nav class="navbar navbar-fixed-top" role="navigation" id="navbar">
+			<div class="container navbar-default" ng-style="{'background-color': $navbarBgCol}">
+				<ul class="nav navbar-nav">
+				<li class="dropdown">
+				<div class="dropdown">
+			        <li class="dropdown">
+			          <a class="dropdown-toggle navbar-brand" data-toggle="dropdown"><span class="branding-img"></span> <span class="caret"></span> Campusplan</a>
+			          <ul class="dropdown-menu" role="menu">
+			            <li><a href="#">Action</a></li>
+			            <li><a href="#">Another action</a></li>
+			            <li><a href="#">Something else here</a></li>
+			            <li class="divider"></li>
+			            <li><a href="#">Separated link</a></li>
+			            <li class="divider"></li>
+			            <li><a href="#">One more separated link</a></li>
+			          </ul>
+			        </li>
+				</div>
+				</li>
+				</ul>
+			</div><!-- /.container-fluid -->
+		</nav><!-- /navbar -->
 		</div>
 
 		<div class="container" id="content" ng-view>

@@ -5,6 +5,10 @@
   src: local('Signika-Semibold'), url(../fonts/Signika-Semibold.woff) format('woff');
 }
 
+body {
+	padding-top: 70px;
+}
+
 html, body {
 	height: 100%;
 	width: 100%;
@@ -228,14 +232,14 @@ div#tiles.navbar div.tile.smalltile span.tiletitle {
 	max-width:100%;
 }
 
-/* navbar visible buttons @ normal screen size */
+/* navbar visible buttons @ normal screen size 
 .navbar-nav li.frontpage-nav a {
 	background-size:auto 75%;
 	background-position:left center;
 	background-repeat:no-repeat;
 	padding-left:40px;
 	color:#fff;
-}
+}*/
 .navbar-nav li.frontpage-nav.karte {
 	background-image:url(../img/front-karte.svg);
 }
@@ -244,6 +248,37 @@ div#tiles.navbar div.tile.smalltile span.tiletitle {
 }
 .navbar-nav li.frontpage-nav.uni-a-z {
 	background-image:url(../img/front-uni-a-z.svg);
+}
+
+/*
+	Branding text and logo
+*/
+.navbar > .container .navbar-brand {
+	margin-left:0px;
+	cursor:pointer;
+	color:#fff;
+	font-family: 'Signika', sans-serif;
+	font-weight: 600;
+	color: #fff;
+	text-align: center;
+	text-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+.navbar > .container .navbar-brand:hover {
+	color:#fff;
+}
+
+.branding-img {
+	padding-right:50px;
+	vertical-align:text-top;
+	height:30px;
+	width:70px;
+	background-image:url(../img/wwu-icon-w.png);
+	background-repeat: no-repeat;
+}
+
+.dropdown.open .branding-img { 
+	background-image:url(../img/wwu-icon-b.png);
 }
 
 /* evenly distribute the letters on UniA-Z */
@@ -294,3 +329,4 @@ div.az a {
 	background-repeat:no-repeat;
 	min-height:256px;
 }
+

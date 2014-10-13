@@ -17,10 +17,11 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 /* 
 	Page controllers 
 */
-.controller('MainController', function($scope, $route, $routeParams, $location) {
+.controller('MainController', function($scope, $route, $routeParams, $location, $rootScope) {
 	$scope.$route = $route;
 	$scope.$location = $location;
 	$scope.$routeParams = $routeParams;
+	$rootScope.$navbarBgCol = "#009dd1";
 
 	// Leaflet defaults
 	angular.extend($scope, {
@@ -35,10 +36,14 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 		orgMarkers: {}
 	});
 })
-.controller('MensenController', function($scope, $routeParams, $http) {
+.controller('HomeController', function($scope, $routeParams, $rootScope) {
+	$rootScope.$navbarBgCol = "#009dd1";
+})
+.controller('MensenController', function($scope, $routeParams, $http, $rootScope) {
 	$scope.name = "MensenController";
 	$scope.params = $routeParams;
 	$scope.mondayDate = getMonday(new Date());
+	$rootScope.$navbarBgCol = "#2a6c8c";
 
 	$scope.mensaLoading = $http.get('api/mensen.php')
 		.success(function(data, status) {
@@ -57,9 +62,10 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 			$scope.status = status;			
 		});
 })
-.controller('KarteController', function($scope, $routeParams, $http) {
+.controller('KarteController', function($scope, $routeParams, $http, $rootScope) {
 	$scope.name = "KarteController";
 	$scope.params = $routeParams;
+	$rootScope.$navbarBgCol = "#7ab51d";
 	
 	$scope.things = function() {
 		$scope.promise1 = $http.get('api/test.php')
@@ -155,7 +161,8 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 .config(function($routeProvider, $locationProvider) {
 	$routeProvider
 		.when('/', {
-			templateUrl: 'templates/home.html'
+			templateUrl: 'templates/home.html',
+			controller: 'HomeController',
 		})
 		.when('/Mensen/', {
 			templateUrl: 'templates/mensen.html',
