@@ -284,3 +284,13 @@ div.az a {
 	height:600px;
 	border:2px solid #f0f;
 }
+
+/*
+	Loading animation
+*/
+.loading-animation {
+	background-image:url('../img/loader-big.gif');
+	background-position:50% 0px;
+	background-repeat:no-repeat;
+	min-height:256px;
+}

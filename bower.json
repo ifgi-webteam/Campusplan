@@ -15,6 +15,7 @@
     "leaflet-dist": "~0.7.2",
     "angular-route": "~1.2.16",
     "angular-i18n": "~1.2.16",
-    "bootstrap": "~3.1.1"
+    "bootstrap": "~3.1.1",
+    "angular-busy": "~4.1.0"
   }
 }

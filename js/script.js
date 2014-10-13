@@ -6,7 +6,14 @@ function getMonday(d) {
 }
 var monthsGerman = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
 
-angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive'])
+angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
+.value('cgBusyDefaults',{
+    message:'',
+    backdrop: true,
+    templateUrl: 'templates/loading.html',
+    delay: 300,
+    minDuration: 250
+})
 /* 
 	Page controllers 
 */
@@ -23,7 +30,7 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive'])
 			zoom: 16
 		},
 		defaults: {
-			//scrollWheelZoom: false
+			scrollWheelZoom: true
 		},
 		orgMarkers: {}
 	});
@@ -33,26 +40,35 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive'])
 	$scope.params = $routeParams;
 	$scope.mondayDate = getMonday(new Date());
 
-	$http.get('api/mensen.php')
-	.success(function(data, status) {
-		$scope.result = data;
-		if(data.results != null && data.results.bindings.length != 0) {
-			$scope.mensaData = data.results.bindings;
-			$scope.mensenQuerySuccess = true;
-			$scope.mensenQueryFailed = false;
-		} else {
-			$scope.mensenQuerySuccess = false;
-			$scope.mensenQueryFailed = true;
-		}
-	})
-	.error(function(data, status) {
-		$scope.data = data || "Request failed";
-		$scope.status = status;			
-	});
+	$scope.mensaLoading = $http.get('api/mensen.php')
+		.success(function(data, status) {
+			$scope.result = data;
+			if(data.results != null && data.results.bindings.length != 0) {
+				$scope.mensaData = data.results.bindings;
+				$scope.mensenQuerySuccess = true;
+				$scope.mensenQueryFailed = false;
+			} else {
+				$scope.mensenQuerySuccess = false;
+				$scope.mensenQueryFailed = true;
+			}
+		})
+		.error(function(data, status) {
+			$scope.data = data || "Request failed";
+			$scope.status = status;			
+		});
 })
-.controller('KarteController', function($scope, $routeParams) {
+.controller('KarteController', function($scope, $routeParams, $http) {
 	$scope.name = "KarteController";
 	$scope.params = $routeParams;
+	
+	$scope.things = function() {
+		$scope.promise1 = $http.get('api/test.php')
+			.success(function(data) {
+				$scope.data=data;
+			}).catch(function(error) {
+				console.log(error);
+			});
+	}
 })
 .controller('UniA-ZController', function($scope, $routeParams, $http) {
 	$scope.name = "UniA-ZController";
@@ -62,7 +78,7 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive'])
 	$scope.search = function() {
 		if($scope.inputsearchterm.length > 0) {
 			$scope.searchterm = $scope.inputsearchterm;
-			$http.post('api/unia-z.php', { data: $scope.searchterm })
+			$scope.AZLoading = $http.post('api/unia-z.php', { data: $scope.searchterm })
 			.success(function(data, status) {
 				$scope.result = data;
 				if(data.results != null && data.results.bindings.length != 0) {
