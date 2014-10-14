@@ -1,8 +1,16 @@
+/*
 @font-face {
   font-family: 'Signika';
   font-style: normal;
   font-weight: 600;
-  src: local('Signika-Semibold'), url(../fonts/Signika-Semibold.woff) format('woff');
+  src: local('Signika-Semibold'), url("../fonts/Signika-Semibold.woff") format('woff');
+}
+*/
+@font-face {
+  font-family: "MetaWebPro-Normal";
+  font-style: normal;
+  font-weight: 400;
+  src: url("//www.uni-muenster.de/imperia/md/content/allgemein/farbunabhaengig/fonts/metawebpro-normal.eot?#iefix") format("embedded-opentype"), url("//www.uni-muenster.de/imperia/md/content/allgemein/farbunabhaengig/fonts/metawebpro-normal.woff") format("woff"), url("//www.uni-muenster.de/imperia/md/content/allgemein/farbunabhaengig/fonts/metacomppro-normal.ttf") format("truetype"), url("//www.uni-muenster.de/imperia/md/images/allgemein/farbunabhaengig/fonts/metacomppro-normal.svg#metacomppro-normal") format("svg");
 }
 
 body {
@@ -49,7 +57,7 @@ div.tile span.tiletitle {
 	width:100%;
 	bottom: 5px;
 	left:0px;
-	font-family: 'Signika', sans-serif;
+	font-family: 'MetaWebPro-Normal', sans-serif;
 	font-weight: 600;
 	font-size: 2.2em;
 	color: #fff;
@@ -232,14 +240,6 @@ div#tiles.navbar div.tile.smalltile span.tiletitle {
 	max-width:100%;
 }
 
-/* navbar visible buttons @ normal screen size 
-.navbar-nav li.frontpage-nav a {
-	background-size:auto 75%;
-	background-position:left center;
-	background-repeat:no-repeat;
-	padding-left:40px;
-	color:#fff;
-}*/
 .navbar-nav li.frontpage-nav.karte {
 	background-image:url(../img/front-karte.svg);
 }
@@ -266,6 +266,14 @@ div#tiles.navbar div.tile.smalltile span.tiletitle {
 
 .navbar > .container .navbar-brand:hover {
 	color:#fff;
+}
+
+.navbar-nav>li>a {
+	padding-top: 15px;
+}
+
+.navbar-nav {
+	margin: 0px;
 }
 
 .branding-img {

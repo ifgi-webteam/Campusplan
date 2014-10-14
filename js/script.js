@@ -36,7 +36,7 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 		orgMarkers: {}
 	});
 })
-.controller('HomeController', function($scope, $routeParams, $rootScope) {
+.controller('HomeController', function($scope, $rootScope) {
 	$rootScope.$navbarBgCol = "#009dd1";
 })
 .controller('MensenController', function($scope, $routeParams, $http, $rootScope) {
@@ -76,9 +76,10 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 			});
 	}
 })
-.controller('UniA-ZController', function($scope, $routeParams, $http) {
+.controller('UniA-ZController', function($scope, $routeParams, $http, $rootScope) {
 	$scope.name = "UniA-ZController";
 	$scope.params = $routeParams;
+	$rootScope.$navbarBgCol = "#009dd1";
 
 	/* Request a search at api/unia-z.php and return results */
 	$scope.search = function() {
@@ -107,9 +108,13 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 		$scope.search();
 	}
 })
-.controller('OrgaController', function($scope, $routeParams, $http, leafletData, $document) {
+.controller('InfoController', function($scope, $rootScope) {
+	$rootScope.$navbarBgCol = "#ffd400";
+})
+.controller('OrgaController', function($scope, $routeParams, $http, leafletData, $document, $rootScope) {
 	$scope.name = "OrgaController";
 	$scope.params = $routeParams;
+	$rootScope.$navbarBgCol = "#7ab51d";
 
 	$http.post('api/orga.php', { data: $scope.params.identifier })
 	.success(function(data, status) {
@@ -121,8 +126,8 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 			$scope.orgaSearchSuccess = true;
 			$scope.orgaSearchFailed = false;
 
-			$scope.center.lat = parseFloat($scope.orga.lat.value);
-			$scope.center.lng = parseFloat($scope.orga.long.value);
+			//$scope.center.lat = parseFloat($scope.orga.lat.value);
+			//$scope.center.lng = parseFloat($scope.orga.long.value);
 
 			angular.extend($scope, {
 				orgMarkers: {
@@ -177,6 +182,7 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 			controller: 'UniA-ZController'
 		})
 		.when('/Info/', {
+			controller: 'InfoController',
 			templateUrl: 'templates/info.html'
 		})
 		.when('/Organisation/:identifier', {
