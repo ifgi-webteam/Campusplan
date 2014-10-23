@@ -4,8 +4,12 @@
 			<h1>Mensaplan für die Woche vom {{ mondayDate | date:'dd. MMMM yyyy' }}</h1>
 		</div>
 
-		<div ng-repeat="day in mensaData" class="collapse in">
-			<h2 data-toggle="collapse" data-target=".table-striped" id="{{ day.meta.dayOfWeek }}">{{ day.meta.dayOfWeekNameGer }} {{ day.meta.date }}</h2>
+		<div ng-repeat="day in mensaData" class="col-md-12">
+			<h3 data-toggle="collapse" data-target="#table{{ day.meta.dayOfWeek }}" id="{{ day.meta.dayOfWeek }}">
+				<span class="glyphicon glyphicon-plus"></span>
+				{{ day.meta.dayOfWeekNameGer }}
+			</h3>
+			<div id="table{{ day.meta.dayOfWeek }}" class="collapse" ng-class="{in: day.meta.dayOfWeek==dayOfWeek}">
 			<table ng-repeat="mensa in day.fooddata" class="table table-bordered table-striped">
 				<thead>
 					<tr><th><a href="Organisation/{{ mensa.mensa.uri }}">{{ mensa.mensa.name }}</a></th></tr>
@@ -16,6 +20,7 @@
 					</tr>
 				</tbody>
 			</table>
+			</div>
 		</div>
 
 		<div class="col-xs-12" ng-model="result" ng-show="mensenQueryFail">

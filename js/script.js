@@ -31,6 +31,7 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 	$scope.name = "MensenController";
 	$scope.params = $routeParams;
 	$scope.mondayDate = getMonday(new Date());
+	$scope.dayOfWeek = new Date().getDay();
 	$rootScope.$navbarBgCol = "#2a6c8c";
 
 	$scope.mensaLoading = $http.get('api/mensen.php')
