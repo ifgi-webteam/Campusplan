@@ -23,6 +23,10 @@ html, body {
 	color:#252525;
 }
 
+#content {
+	height:100%;
+}
+
 div.container {
 	padding:0;
 }
@@ -319,13 +323,22 @@ div.az a {
 	white-space: normal;
 }
 
-
 #orgaSearchFailed p {
 	padding:15px;
 }
-#map {
-	height:600px;
-	border:2px solid #f0f;
+#orgaMap {
+	height:66%;
+}
+
+/*
+	Use classes instead of IDs for maps, or else map will
+	not load properly load (wrong zoom and center point)
+*/
+.orgaMap {
+	height:66%;
+}
+.overviewMap {
+	height:100%;
 }
 
 /*

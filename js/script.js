@@ -23,19 +23,6 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 	$scope.$location = $location;
 	$scope.$routeParams = $routeParams;
 	$rootScope.$navbarBgCol = "#009dd1";
-
-	// Leaflet defaults
-	angular.extend($scope, {
-		center: {
-			lat: 52.0,
-			lng: 7.0,
-			zoom: 16
-		},
-		defaults: {
-			scrollWheelZoom: true
-		},
-		orgMarkers: {}
-	});
 })
 .controller('HomeController', function($scope, $rootScope) {
 	$rootScope.$navbarBgCol = "#009dd1";
@@ -63,19 +50,34 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 			$scope.status = status;			
 		});
 })
-.controller('KarteController', function($scope, $routeParams, $http, $rootScope) {
+.controller('KarteController', function($scope, $routeParams, $http, $rootScope, leafletData) {
 	$scope.name = "KarteController";
 	$scope.params = $routeParams;
 	$rootScope.$navbarBgCol = "#7ab51d";
 	
-	$scope.things = function() {
-		$scope.promise1 = $http.get('api/test.php')
-			.success(function(data) {
-				$scope.data=data;
-			}).catch(function(error) {
-				console.log(error);
-			});
-	}
+	angular.extend($scope, {
+		mapCenter: {
+			lat: 51.96362,
+			lng: 7.61309,
+			zoom: 14
+		},
+		mapDefaults: {
+			scrollWheelZoom: true, 	
+			tileLayer: "http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpeg",
+			tileLayerOptions: {
+				subdomains: "1234",
+				attribution: 'Map data © OpenStreetMap contributors | Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">'
+			}
+		},
+	});
+
+	leafletData.getMap().then(function(map) {
+		$scope.$watch('$viewContentLoaded', function() {
+			map.invalidateSize();
+			map.setView([51.96362, 7.61309], 14);
+		});
+    });
+	
 })
 .controller('UniA-ZController', function($scope, $routeParams, $http, $rootScope) {
 	$scope.name = "UniA-ZController";
@@ -116,6 +118,23 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 	$scope.name = "OrgaController";
 	$scope.params = $routeParams;
 	$rootScope.$navbarBgCol = "#7ab51d";
+
+	angular.extend($scope, {
+		mapCenter: {
+			lat: 51.96362,
+			lng: 7.61309,
+			zoom: 14
+		},
+		mapDefaults: {
+			scrollWheelZoom: true, 	
+			tileLayer: "http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpeg",
+			tileLayerOptions: {
+				subdomains: "1234",
+				attribution: 'Map data © OpenStreetMap contributors | Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">'
+			}
+		},
+		orgMarkers: {}
+	});
 
 	$http.post('api/orga.php', { data: $scope.params.identifier })
 	.success(function(data, status) {

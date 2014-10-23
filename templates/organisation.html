@@ -1,11 +1,13 @@
+<leaflet class="orgaMap" markers="orgMarkers" defaults="mapDefaults" center="orgaMarkers[0]"></leaflet>
 <div class="container-fluid">
 	<div class="col-xs-12" ng-show="orgaSearchSuccess">
-		<leaflet width="100%" height="480px" markers="orgMarkers" center="orgaMarkers[0]"></leaflet>
-		<h1>{{ orga.name.value }}</h1>
+		<h2>{{ orga.name.value }}</h2>
 		{{ orga.address.value }} <br>
-		{{ orga.homepage.value }} <br>
-		{{ orga.lat.value }} <br>
-		{{ orga.long.value }}
+		<br>
+		<div class="btn-group-vertical">
+		<a class="btn btn-sm btn-default" href="{{ orga.homepage.value }}"><span class="glyphicon glyphicon-globe" target="_blank"></span> Webseite</a>
+		<a class="btn btn-sm btn-default" href=""><span class="glyphicon glyphicon-star"></span> zu Favoriten</a>
+		</div>
 	</div>
 	<div class="col-xs-12" ng-show="orgaSearchFailed">
 		Keine Ergebnisse.
