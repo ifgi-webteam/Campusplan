@@ -133,3 +133,26 @@ SELECT DISTINCT ?name ?start ?minPrice ?maxPrice ?mensa ?mensaname WHERE {
 ');
 	return $food;
 }
+
+function getMapGeometries() {
+	$query = "
+prefix foaf: <http://xmlns.com/foaf/0.1/>
+prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+prefix vcard: <http://www.w3.org/2006/vcard/ns#>
+prefix lodum: <http://vocab.lodum.de/helper/>
+prefix ogc: <http://www.opengis.net/ont/OGC-GeoSPARQL/1.0/>
+prefix dbp-ont: <http://dbpedia.org/ontology/>
+SELECT ?building ?name ?address ?lat ?long ?wkt WHERE {
+?building a dbp-ont:building ;
+foaf:name ?name.
+OPTIONAL { ?building vcard:adr ?address . }
+OPTIONAL { ?building geo:lat ?lat ;
+geo:long ?long .
+OPTIONAL { ?building ogc:hasGeometry ?geometry .
+?geometry ogc:asWKT ?wkt . }
+} .
+}
+";
+	$mapData = sparql_get($query);
+	return $mapData;
+}

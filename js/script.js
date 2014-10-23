@@ -78,6 +78,41 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 			map.setView([51.96362, 7.61309], 14);
 		});
     });
+
+    $http.post('api/karte.php', { data: $scope.params.identifier })
+	.success(function(data, status) {
+		$scope.status = status;
+		$scope.data = data;
+		$scope.result = data;
+
+		if(data != null) {
+			$scope.orga = data;
+			$scope.orgaSearchSuccess = true;
+			$scope.orgaSearchFailed = false;
+
+			angular.extend($scope, {
+				orgMarkers: data 
+			});
+
+			// Reset the view after AngularJS has loaded the page
+			// Otherwise tiles don't load completely
+			leafletData.getMap().then(function(map) {
+				$scope.$watch('$viewContentLoaded', function() {
+					map.invalidateSize();
+					//map.setView([$scope.orga.lat.value, $scope.orga.long.value], 16);
+				});
+            });
+		} else {
+			$scope.orgaSearchSuccess = false;
+			$scope.orgaSearchFailed = true;
+		}
+
+
+	})
+	.error(function(data, status) {
+		$scope.data = data || "Request failed";
+		$scope.status = status;
+	});
 	
 })
 .controller('UniA-ZController', function($scope, $routeParams, $http, $rootScope) {
