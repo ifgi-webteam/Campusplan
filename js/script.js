@@ -5,6 +5,7 @@ function getMonday(d) {
   return new Date(d.setDate(diff));
 }
 var monthsGerman = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+var daysGerman = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
 
 angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 .value('cgBusyDefaults',{
@@ -48,8 +49,8 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 	$scope.mensaLoading = $http.get('api/mensen.php')
 		.success(function(data, status) {
 			$scope.result = data;
-			if(data.results != null && data.results.bindings.length != 0) {
-				$scope.mensaData = data.results.bindings;
+			if(data != null) { // && data.results.bindings.length != 0) {
+				$scope.mensaData = data;
 				$scope.mensenQuerySuccess = true;
 				$scope.mensenQueryFailed = false;
 			} else {

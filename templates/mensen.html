@@ -4,15 +4,18 @@
 			<h1>Mensaplan für die Woche vom {{ mondayDate | date:'dd. MMMM yyyy' }}</h1>
 		</div>
 
-		<div class="col-xs-12">
-			<ul id="az-result-list" class="btn-group-vertical">
-				<li ng-repeat="a in mensaData" class="btn btn-default">
-
-				<a href="Organisation/{{ a.mensa.value.split('/').pop() }}">{{ a.mensaname.value }}</a>
-				{{ a.name.value }}
-
-				</li>
-			</ul>
+		<div ng-repeat="day in mensaData" class="collapse in">
+			<h2 data-toggle="collapse" data-target=".table-striped" id="{{ day.meta.dayOfWeek }}">{{ day.meta.dayOfWeekNameGer }} {{ day.meta.date }}</h2>
+			<table ng-repeat="mensa in day.fooddata" class="table table-bordered table-striped">
+				<thead>
+					<tr><th><a href="Organisation/{{ mensa.mensa.uri }}">{{ mensa.mensa.name }}</a></th></tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="food in mensa.food">
+						<td>{{ food.name }}<span style="float:right">{{ food.minPrice }}&euro; | {{ food.maxPrice }}&euro;</span></td>
+					</tr>
+				</tbody>
+			</table>
 		</div>
 
 		<div class="col-xs-12" ng-model="result" ng-show="mensenQueryFail">
