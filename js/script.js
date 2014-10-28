@@ -9,11 +9,11 @@ var daysGerman = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Sa
 
 angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 .value('cgBusyDefaults',{
-    message:'',
-    backdrop: true,
-    templateUrl: 'templates/loading.html',
-    delay: 300,
-    minDuration: 250
+	message:'',
+	backdrop: true,
+	templateUrl: 'templates/loading.html',
+	delay: 300,
+	minDuration: 250
 })
 /* 
 	Page controllers 
@@ -68,8 +68,17 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 			tileLayerOptions: {
 				subdomains: "1234",
 				attribution: 'Map data © OpenStreetMap contributors | Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">'
-			}
+			},
 		},
+		icons: { iconA: {iconUrl: "img/marker.png" } }
+			/*iconUrl: "img/marker.png",
+			iconSize:     [5, 5],
+			iconAnchor:   [2, 2]
+
+			shadowUrl: 'img/leaf-shadow.png',
+			shadowSize:   [50, 64],
+			shadowAnchor: [4, 62],
+		}*/
 	});
 
 	leafletData.getMap().then(function(map) {
@@ -77,13 +86,12 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 			map.invalidateSize();
 			map.setView([51.96362, 7.61309], 14);
 		});
-    });
+	});
 
-    $http.post('api/karte.php', { data: $scope.params.identifier })
+	$http.post('api/karte.php', { data: $scope.params.identifier })
 	.success(function(data, status) {
 		$scope.status = status;
 		$scope.data = data;
-		$scope.result = data;
 
 		if(data != null) {
 			$scope.orga = data;
@@ -91,7 +99,7 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 			$scope.orgaSearchFailed = false;
 
 			angular.extend($scope, {
-				orgMarkers: data 
+				orgMarkers: data
 			});
 
 			// Reset the view after AngularJS has loaded the page
@@ -101,7 +109,7 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 					map.invalidateSize();
 					//map.setView([$scope.orga.lat.value, $scope.orga.long.value], 16);
 				});
-            });
+			});
 		} else {
 			$scope.orgaSearchSuccess = false;
 			$scope.orgaSearchFailed = true;
@@ -169,8 +177,10 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 				attribution: 'Map data © OpenStreetMap contributors | Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">'
 			}
 		},
-		orgMarkers: {}
+		orgMarkers: {},
 	});
+
+	var myIcon = { iconA: { iconUrl: "img/marker.png" } }
 
 	$http.post('api/orga.php', { data: $scope.params.identifier })
 	.success(function(data, status) {
@@ -191,7 +201,8 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 						lat: parseFloat($scope.orga.lat.value),
 						lng: parseFloat($scope.orga.long.value),
 						focus: true,
-						message: $scope.orga.name.value
+						message: $scope.orga.name.value,
+						icon: myIcon.iconA
 					}
 				}
 			});
@@ -203,7 +214,7 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 					map.invalidateSize();
 					map.setView([$scope.orga.lat.value, $scope.orga.long.value], 16);
 				});
-            });
+			});
 		} else {
 			$scope.orgaSearchSuccess = false;
 			$scope.orgaSearchFailed = true;

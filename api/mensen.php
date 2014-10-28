@@ -4,8 +4,6 @@ $daysGerman = array('Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', '
 
 $mensajson = getMensaplan();
 $mensaarr = json_decode($mensajson, true);
-//print_r($mensaarr);
-//echo "<hr>";
 $mensasorted = array();
 foreach($mensaarr['results']['bindings'] as $food) {
 	// reduce dates to date/month/year, stripping time

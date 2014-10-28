@@ -4,10 +4,11 @@ $mapjson = json_decode(getMapGeometries(), true);
 
 $points = array();
 foreach($mapjson["results"]["bindings"] as $point) {
-	if(isset($point["lat"]) && $point["long"]) {
+	if(isset($point["lat"]) && $point["lon"]) {
 		$points[] = array("lat" => $point["lat"]["value"],
-			"lng" => $point["long"]["value"],
-			"message" => $point["name"]["value"]
+			"lng" => $point["lon"]["value"],
+			"message" => $point["name"]["value"]."<br>".$point["streetaddress"]["value"],
+			"icon" => array("iconUrl"=>"img/marker.png")
 			);
 	}
 }
