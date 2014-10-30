@@ -227,8 +227,26 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 		$scope.status = status;
 	});
 })
-.controller('FachbereicheController', function($scope, $rootScope) {
+.controller('FachbereicheController', function($scope, $rootScope, $http) {
 	$rootScope.$navbarBgCol = "#009dd1";
+
+	$scope.FachbereicheLoading = $http.get('api/fachbereiche.php')
+	.success(function(data, status) {
+		$scope.result = data;
+		if(data.results != null && data.results.bindings.length != 0) {
+			$scope.fachbereiche = data.results.bindings;
+			$scope.fachbereichSuccess = true;
+			$scope.fachbereichFailed = false;
+		} else {
+			$scope.fachbereichSuccess = false;
+			$scope.fachbereichFailed = true;
+		}
+	})
+	.error(function(data, status) {
+		$scope.data = data || "Request failed";
+		$scope.status = status;			
+	});
+
 })
 .controller('NotImplementedController', function($scope, $rootScope, $route, $routeParams, $location) {
 	$scope.$route = $route;

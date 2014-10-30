@@ -152,3 +152,23 @@ SELECT DISTINCT ?building ?name ?lat ?lon ?streetaddress ?postalcode ?region WHE
 	return $mapData;
 }
 
+
+function getFachbereiche() {
+	$lang="de";
+	$query = "
+prefix foaf: <http://xmlns.com/foaf/0.1/> 
+prefix lodum: <http://vocab.lodum.de/helper/>
+prefix owl: <http://www.w3.org/2002/07/owl#>
+
+SELECT DISTINCT * WHERE {
+  ?fb a lodum:Department ;
+     foaf:name ?name;
+     lodum:departmentNo ?no.   
+  FILTER langMatches(lang(?name),'".$lang."') . 
+  FILTER regex(?name,' - ') . 
+  FILTER regex(str(?fb), '/fb') .
+} ORDER BY ?no
+";
+	$fbs = sparql_get($query);
+	return $fbs;
+}
