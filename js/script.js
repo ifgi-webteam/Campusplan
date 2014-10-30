@@ -227,6 +227,15 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 		$scope.status = status;
 	});
 })
+.controller('FachbereicheController', function($scope, $rootScope) {
+	$rootScope.$navbarBgCol = "#009dd1";
+})
+.controller('NotImplementedController', function($scope, $rootScope, $route, $routeParams, $location) {
+	$scope.$route = $route;
+	$scope.$location = $location;
+	$scope.$routeParams = $routeParams;
+	$rootScope.$navbarBgCol = "#009dd1";
+})
 /*
 	Config
 */
@@ -255,7 +264,28 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 		.when('/Organisation/:identifier', {
 			templateUrl: 'templates/organisation.html',
 			controller: 'OrgaController'
-		});
+		})
+		.when('/Fachbereiche/', {
+			templateUrl: 'templates/fachbereiche.html',
+			controller: 'NotImplementedController'
+		})
+		.when('/Hörsäle/', {
+			templateUrl: 'templates/empty.html',
+			controller: 'NotImplementedController'
+		})
+		.when('/Wohnheime/', {
+			templateUrl: 'templates/empty.html',
+			controller: 'NotImplementedController'
+		})
+		.when('/Favoriten/', {
+			templateUrl: 'templates/empty.html',
+			controller: 'NotImplementedController'
+		})
+		.when('/ULB-Katalog/', {
+			templateUrl: 'templates/empty.html',
+			controller: 'NotImplementedController'
+		})
+		;
 	// configure html5 to get links working on jsfiddle
 	$locationProvider.html5Mode(true).hashPrefix('!');
 });
