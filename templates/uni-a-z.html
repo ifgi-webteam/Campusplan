@@ -59,10 +59,21 @@
 		</div>
 
 		<div class="col-xs-12" ng-model="result" ng-show="orgaSearchSuccess">
-			<p><br>Suchergebnisse für <strong>"{{ searchterm }}"</strong>:<br></p>
-			<ul id="az-result-list" class="btn-group-vertical">
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th>Suchergebnisse für <strong>"{{ searchterm }}"</strong>:</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="orga in orgas">
+						<td><a href="Organisation/{{ orga.orga.value.split('/').pop() }}">{{ orga.name.value }}</a></td>
+					</tr>
+				</tbody>
+			</table>
+			<!--<ul id="az-result-list" class="btn-group-vertical">
 				<li ng-repeat="orga in orgas" class="btn btn-default"><a href="Organisation/{{ orga.orga.value.split('/').pop() }}">{{ orga.name.value }}</a></li>
-			</ul>
+			</ul>-->
 		</div>
 
 		
