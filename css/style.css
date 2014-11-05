@@ -14,7 +14,7 @@
 }
 
 body {
-	padding-top: 70px;
+	padding-top: 50px;
 }
 
 html, body {
@@ -323,11 +323,8 @@ div.az a {
 	white-space: normal;
 }
 
-#orgaSearchFailed p {
+.apiFailed p {
 	padding:15px;
-}
-#orgaMap {
-	height:66%;
 }
 
 /*
@@ -351,3 +348,7 @@ div.az a {
 	min-height:256px;
 }
 
+
+.fullheight {
+	height:100%;
+}

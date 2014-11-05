@@ -1,4 +1,6 @@
-<leaflet class="orgaMap" markers="orgMarkers" defaults="mapDefaults" center="orgaMarkers"></leaflet>
+<div class="fullheight" cg-busy="orgaLoading">
+<leaflet class="orgaMap" markers="orgMarkers" defaults="mapDefaults" center="orgaMarkers" ng-show="orgaSearchSuccess"></leaflet>
+
 <div class="container-fluid">
 	<div class="col-xs-12" ng-show="orgaSearchSuccess">
 		<h2>{{ orga.name.value }}</h2>
@@ -9,7 +11,9 @@
 		<a class="btn btn-sm btn-default" href=""><span class="glyphicon glyphicon-star"></span> zu Favoriten</a>
 		</div>
 	</div>
-	<div class="col-xs-12" ng-show="orgaSearchFailed">
-		Keine Ergebnisse.
+
+	<div class="col-xs-12 apiFailed" ng-model="result" ng-show="orgaSearchFailed">
+		<p class="bg-danger">Beim Abfragen dieser Organisation ist ein Fehler aufgetreten.</p>
 	</div>
+</div>
 </div>

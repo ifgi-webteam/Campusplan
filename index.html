@@ -13,34 +13,37 @@
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body ng-app="CampusplanApp">
-	<div ng-controller="MainController">
-		<div class="container">
+	<div class="fullheight" ng-controller="MainController">
+		<div class="container" >
 		<!-- navbar -->
 		<nav class="navbar navbar-fixed-top" role="navigation" id="navbar">
 			<div class="container navbar-default" ng-style="{'background-color': $navbarBgCol}">
 				<ul class="nav navbar-nav">
-				<li class="dropdown">
-				<div class="dropdown">
-			        <li class="dropdown">
-			          <a class="dropdown-toggle navbar-brand" data-toggle="dropdown"><span class="branding-img"></span> <span class="caret"></span> Campusplan</a>
-			          <ul class="dropdown-menu" role="menu">
-			            <li><a href="#">Übersicht</a></li>
-			            <li class="divider"></li>
-			            <li><a href="UniA-Z">Uni A-Z</a></li>
-			            <li><a href="Mensen">Mensa</a></li>
-			            <li><a href="Karte">Karte</a></li>
-			            <li><a href="ULB-Katalog">ULB Katalog</a></li>
-			            <li><a href="Favoriten">Favoriten</a></li>
-			            <li><a href="Fachbereiche">Fachbereiche</a></li>
-			            <li><a href="Hörsäle">Hörsäle</a></li>
-			            <li><a href="Wohnheime">Wohnheime</a></li>
-			            <li><a href="Info">Info</a></li>
-			          </ul>
-			        </li>
-				</div>
-				</li>
+					<li class="dropdown">
+						<div class="dropdown">
+							<ul class="nav navbar-nav" style="width:100%">
+							<li class="dropdown">
+							<a class="dropdown-toggle navbar-brand" data-toggle="dropdown"><span class="branding-img"></span> <span class="caret"></span> Campusplan</a>							  
+							  <ul class="dropdown-menu" role="menu">
+								<li><a href="#">Übersicht</a></li>
+								<li class="divider"></li>
+								<li><a href="UniA-Z">Uni A-Z</a></li>
+								<li><a href="Mensen">Mensa</a></li>
+								<li><a href="Karte">Karte</a></li>
+								<li><a href="ULB-Katalog">ULB Katalog</a></li>
+								<li><a href="Favoriten">Favoriten</a></li>
+								<li><a href="Fachbereiche">Fachbereiche</a></li>
+								<li><a href="Hörsäle">Hörsäle</a></li>
+								<li><a href="Wohnheime">Wohnheime</a></li>
+								<li><a href="Info">Info</a></li>
+							  </ul>
+							</li>
+							<li class="nav navbar-nav pull-right"><a href="Wetter">Sonne 100°C</a></li>
+							</ul>
+						</div>
+					</li>
 				</ul>
-			</div><!-- /.container-fluid -->
+			</div><!-- /.container.navbar-header -->
 		</nav><!-- /navbar -->
 		</div>
 

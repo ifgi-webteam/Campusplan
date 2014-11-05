@@ -70,15 +70,13 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 				attribution: 'Map data © OpenStreetMap contributors | Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">'
 			},
 		},
-		icons: { iconA: {iconUrl: "img/marker.png" } }
-			/*iconUrl: "img/marker.png",
-			iconSize:     [5, 5],
-			iconAnchor:   [2, 2]
-
-			shadowUrl: 'img/leaf-shadow.png',
-			shadowSize:   [50, 64],
-			shadowAnchor: [4, 62],
-		}*/
+		icons: { 
+			iconA: {
+				iconUrl: "img/marker.png",
+				iconSize:     [6, 6],
+				iconAnchor:   [2, 2]
+			} 
+		}
 	});
 
 	leafletData.getMap().then(function(map) {
@@ -88,7 +86,7 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 		});
 	});
 
-	$http.post('api/karte.php', { data: $scope.params.identifier })
+	$scope.karteLoading = $http.post('api/karte.php', { data: $scope.params.identifier })
 	.success(function(data, status) {
 		$scope.status = status;
 		$scope.data = data;
@@ -182,7 +180,7 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 
 	var myIcon = { iconA: { iconUrl: "img/marker.png" } }
 
-	$http.post('api/orga.php', { data: $scope.params.identifier })
+	$scope.orgaLoading = $http.post('api/orga.php', { data: $scope.params.identifier })
 	.success(function(data, status) {
 		$scope.status = status;
 		$scope.data = data;
@@ -191,9 +189,6 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 			$scope.orga = data.results.bindings[0];
 			$scope.orgaSearchSuccess = true;
 			$scope.orgaSearchFailed = false;
-
-			//$scope.center.lat = parseFloat($scope.orga.lat.value);
-			//$scope.center.lng = parseFloat($scope.orga.long.value);
 
 			angular.extend($scope, {
 				orgMarkers: {

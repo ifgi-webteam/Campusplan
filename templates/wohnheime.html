@@ -5,10 +5,6 @@
 			<p class="lead">Studentenwohnheime des Studentenwerks in Münster</p>
 		</div>
 
-		<div class="col-md-6" ng-model="result" ng-show="wohnheimeFailed">
-			Error
-		</div>
-
 		<div class="col-xs-12" ng-model="result" ng-show="wohnheimeSuccess">
 			<table class="table table-bordered table-striped">
 				<thead>
@@ -22,6 +18,10 @@
 					</tr>
 				</tbody>
 			</table>
+		</div>
+
+		<div class="col-xs-12 apiFailed" ng-model="result" ng-show="wohnheimeFailed">
+			<p class="bg-danger">Beim Abfragen der Wohnheime ist ein Fehler aufgetreten.</p>
 		</div>
 
 	</div>
