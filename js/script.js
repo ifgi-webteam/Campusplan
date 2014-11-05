@@ -246,7 +246,46 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 		$scope.data = data || "Request failed";
 		$scope.status = status;			
 	});
+})
+.controller('HoersaeleController', function($scope, $rootScope, $http) {
+	$rootScope.$navbarBgCol = "#009dd1";
 
+	$scope.HoersaeleLoading = $http.get('api/hoersaele.php')
+	.success(function(data, status) {
+		$scope.result = data;
+		if(data.results != null && data.results.bindings.length != 0) {
+			$scope.hoersaele = data.results.bindings;
+			$scope.hoersaeleSuccess = true;
+			$scope.hoersaeleFailed = false;
+		} else {
+			$scope.hoersaeleSuccess = false;
+			$scope.hoersaeleFailed = true;
+		}
+	})
+	.error(function(data, status) {
+		$scope.data = data || "Request failed";
+		$scope.status = status;			
+	});
+})
+.controller('WohnheimeController', function($scope, $rootScope, $http) {
+	$rootScope.$navbarBgCol = "#009dd1";
+
+	$scope.WohnheimeLoading = $http.get('api/wohnheime.php')
+	.success(function(data, status) {
+		$scope.result = data;
+		if(data.results != null && data.results.bindings.length != 0) {
+			$scope.wohnheime = data.results.bindings;
+			$scope.wohnheimeSuccess = true;
+			$scope.wohnheimeFailed = false;
+		} else {
+			$scope.wohnheimeSuccess = false;
+			$scope.wohnheimeFailed = true;
+		}
+	})
+	.error(function(data, status) {
+		$scope.data = data || "Request failed";
+		$scope.status = status;			
+	});
 })
 .controller('NotImplementedController', function($scope, $rootScope, $route, $routeParams, $location) {
 	$scope.$route = $route;
@@ -279,7 +318,7 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 			controller: 'InfoController',
 			templateUrl: 'templates/info.html'
 		})
-		.when('/Organisation/:identifier', {
+		.when('/Organisation/:identifier*', {
 			templateUrl: 'templates/organisation.html',
 			controller: 'OrgaController'
 		})
@@ -288,12 +327,12 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 			controller: 'NotImplementedController'
 		})
 		.when('/Hörsäle/', {
-			templateUrl: 'templates/empty.html',
-			controller: 'NotImplementedController'
+			templateUrl: 'templates/hoersaele.html',
+			controller: 'HoersaeleController'
 		})
 		.when('/Wohnheime/', {
-			templateUrl: 'templates/empty.html',
-			controller: 'NotImplementedController'
+			templateUrl: 'templates/wohnheime.html',
+			controller: 'WohnheimeController'
 		})
 		.when('/Favoriten/', {
 			templateUrl: 'templates/empty.html',

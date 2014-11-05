@@ -12,7 +12,7 @@
 			<div id="table{{ day.meta.dayOfWeek }}" class="collapse" ng-class="{in: day.meta.dayOfWeek==dayOfWeek}">
 			<table ng-repeat="mensa in day.fooddata" class="table table-bordered table-striped">
 				<thead>
-					<tr><th><a href="Organisation/{{ mensa.mensa.uri }}">{{ mensa.mensa.name }}</a></th></tr>
+					<tr><th><a href="Organisation/{{ mensa.mensa.uri.split('context/').pop() }}">{{ mensa.mensa.name }}</a></th></tr>
 				</thead>
 				<tbody>
 					<tr ng-repeat="food in mensa.food">

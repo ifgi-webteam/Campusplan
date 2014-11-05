@@ -67,7 +67,7 @@
 				</thead>
 				<tbody>
 					<tr ng-repeat="orga in orgas">
-						<td><a href="Organisation/{{ orga.orga.value.split('/').pop() }}">{{ orga.name.value }}</a></td>
+						<td><a href="Organisation/{{ orga.orga.value.split('context/').pop() }}">{{ orga.name.value }}</a></td>
 					</tr>
 				</tbody>
 			</table>

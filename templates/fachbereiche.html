@@ -18,7 +18,7 @@
 				</thead>
 				<tbody>
 					<tr ng-repeat="fb in fachbereiche">
-						<td><a href="Organisation/{{ fb.fb.value.split('/').pop() }}">{{ fb.name.value }}</a></td>
+						<td><a href="Organisation/{{ fb.fb.value.split('context/').pop() }}">{{ fb.name.value }}</a></td>
 					</tr>
 				</tbody>
 			</table>

@@ -73,7 +73,7 @@ SELECT DISTINCT ?orga ?name WHERE {
 
 // single organization query
 function getOrgDetails($identifier, $lang = "de") {
-	$org = "http://data.uni-muenster.de/context/uniaz/".$identifier;
+	$org = "http://data.uni-muenster.de/context/".$identifier;
 	$orga = sparql_get("
 
 prefix foaf: <http://xmlns.com/foaf/0.1/> 
@@ -168,6 +168,52 @@ SELECT DISTINCT * WHERE {
   FILTER regex(?name,' - ') . 
   FILTER regex(str(?fb), '/fb') .
 } ORDER BY ?no
+";
+	$fbs = sparql_get($query);
+	return $fbs;
+}
+
+
+function getHoersaele() {
+	$lang="de";
+	$query = "
+prefix foaf: <http://xmlns.com/foaf/0.1/> 
+prefix lodum: <http://vocab.lodum.de/helper/>
+prefix owl: <http://www.w3.org/2002/07/owl#>
+prefix vcard: <http://www.w3.org/2006/vcard/ns#>
+
+SELECT DISTINCT * WHERE {
+
+  ?hs a lodum:LectureHall ;
+     foaf:name ?name ;
+     lodum:building ?building ;
+     lodum:floor ?floor .      
+  
+  ?building foaf:name ?buildingname;
+            vcard:adr ?addr .
+
+  ?addr vcard:street-address ?address .  
+
+  FILTER langMatches(lang(?name),'de') .         
+
+} ORDER BY ?name
+";
+	$fbs = sparql_get($query);
+	return $fbs;
+}
+
+
+function getWohnheime() {
+	$lang="de";
+	$query = "
+prefix foaf: <http://xmlns.com/foaf/0.1/> 
+prefix lodum: <http://vocab.lodum.de/helper/>
+
+SELECT DISTINCT * WHERE {
+  ?fb a lodum:StudentHousing ;
+     foaf:name ?name;
+  FILTER langMatches(lang(?name),'".$lang."') .
+} ORDER BY ?name
 ";
 	$fbs = sparql_get($query);
 	return $fbs;

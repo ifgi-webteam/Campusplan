@@ -23,7 +23,7 @@ foreach($mensaarr['results']['bindings'] as $food) {
 	$mensasorted[ $foodday ]["fooddata"][ $food['mensa']['value'] ]['food'][] = $foodarray;
 
 	$mensasorted[ $foodday ]["fooddata"][ $food['mensa']['value'] ]['mensa']['name'] = $food['mensaname']['value'];
-	$mensasorted[ $foodday ]["fooddata"][ $food['mensa']['value'] ]['mensa']['uri'] = basename($food['mensa']['value']);
+	$mensasorted[ $foodday ]["fooddata"][ $food['mensa']['value'] ]['mensa']['uri'] = $food['mensa']['value'];
 }
 
 echo json_encode($mensasorted);
