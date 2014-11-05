@@ -190,6 +190,10 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 			$scope.orgaSearchSuccess = true;
 			$scope.orgaSearchFailed = false;
 
+			if($scope.orga.lat.value != null && $scope.orga.long.value != null) {
+				$scope.orgaHasCoords = true;
+				/* geocoding from address here? */
+			}
 			angular.extend($scope, {
 				orgMarkers: {
 					orgaMarker: {
