@@ -371,7 +371,13 @@ div.az a {
 change dropdown menu colours 
 http://stackoverflow.com/a/22075316/1781026
 */
-.navbar-default .navbar-nav .open .dropdown-menu>li>a,.navbar-default .navbar-nav .open .dropdown-menu {
+.navbar-default .navbar-nav .open .dropdown-menu>li>a, .navbar-default .navbar-nav .open .dropdown-menu {
 	background-color: #eee;
 	color:#000;
 }
+
+.navbar-default .navbar-nav .open .dropdown-menu>li>a:active {
+	background-color: #ccc;
+	color:#000;
+}
+
