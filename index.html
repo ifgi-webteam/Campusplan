@@ -18,10 +18,10 @@
 		<!-- navbar -->
 		<nav class="navbar navbar-fixed-top" role="navigation" id="navbar">
 			<div class="container navbar-default" ng-style="{'background-color': $navbarBgCol}">
-				<ul class="nav navbar-nav">
-					<li class="dropdown">
-						<div class="dropdown">
-							<ul class="nav navbar-nav" style="width:100%">
+				<ul class="nav navbar-nav" style="width:100%">
+					<li class="dropdown"  style="width:100%">
+						<div class="dropdown"  style="width:100%">
+							<ul class="nav navbar-nav"  style="width:100%">
 							<li class="dropdown">
 							<a class="dropdown-toggle navbar-brand" data-toggle="dropdown"><span class="branding-img"></span> <span class="caret"></span> Campusplan</a>							  
 							  <ul class="dropdown-menu" role="menu">
@@ -38,7 +38,9 @@
 								<li><a href="Info">Info</a></li>
 							  </ul>
 							</li>
-							<li class="nav navbar-nav pull-right"><a href="Wetter">Sonne 100°C</a></li>
+							<li class="nav navbar-nav pull-right" id="wetter" ng-if="wetterSuccess">
+								<a href="Wetter"><img src="img/weather-iconmonstr-brightness-3-icon.svg" style="height:22px;width:22px;"> {{ wetter.temp*100/100 | number:0 }}°C</a>
+							</li>
 							</ul>
 						</div>
 					</li>

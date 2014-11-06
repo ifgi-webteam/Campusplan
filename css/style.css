@@ -21,6 +21,7 @@ html, body {
 	height: 100%;
 	width: 100%;
 	color:#252525;
+	font-family: 'MetaWebPro-Normal', 'Signika', sans-serif;
 }
 
 #content {
@@ -97,7 +98,7 @@ div.tile img {
 }
 
 /* 
-	Kachelgrößen für große Bildschirme
+	Standard Kachelgrößen
 */
 div.tile {
 	width:100%;	
@@ -119,10 +120,9 @@ div.tile.smalltile {
 }
 
 /* 
-	Kachelgrößen für kleine Bildschirme anpassen
+	Kachelgrößen für hochkant Bildschirme/Smartphones
 */
-
-@media (max-width: 600px) {
+@media (orientation:portrait) {
 	div.tile {
 		max-width: 50%;
 	}
@@ -140,13 +140,16 @@ div.tile.smalltile {
 	}
 }
 
-@media all and (orientation:landscape) and (max-width: 1024px) {
+/* 
+	Kachelgrößen für kleinere horizontale Bildschirme (Desktop PCs, Tablets)
+*/
+@media (orientation:landscape) and (max-width: 799px) {
 	div.tile {
-		max-width: 25%;
+		max-width: 50.0%;
 	}
 
 	div.tile.smalltile {
-		max-width: 12.5%;
+		max-width: 25%;
 	}
 
 	div.tile span.tiletitle {
@@ -157,6 +160,7 @@ div.tile.smalltile {
 		font-size:1em
 	}
 }
+
 
 /* 
 	Kachelfarben
@@ -351,4 +355,14 @@ div.az a {
 
 .fullheight {
 	height:100%;
+}
+
+#wetter, #wetter a {
+	font-family: "Signika", sans-serif;
+	text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+	color:#fff;
+	font-size: 16px;
+	/* this element enlarges the top navbar by 3px, which overlaps with content, set fixed width to fix this */
+	height: 50px;
+	overflow: hidden; 
 }

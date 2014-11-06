@@ -12,17 +12,35 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 	message:'',
 	backdrop: true,
 	templateUrl: 'templates/loading.html',
-	delay: 300,
-	minDuration: 250
+	delay: 1000,
+	minDuration: 0
 })
 /* 
 	Page controllers 
 */
-.controller('MainController', function($scope, $route, $routeParams, $location, $rootScope) {
+.controller('MainController', function($scope, $route, $routeParams, $location, $rootScope, $http) {
 	$scope.$route = $route;
 	$scope.$location = $location;
 	$scope.$routeParams = $routeParams;
 	$rootScope.$navbarBgCol = "#009dd1";
+
+	$scope.weatherLoading = $http.get('api/wetter.php')
+	.success(function(data, status) {
+		$scope.result = data;
+
+		if(data.temp != null) {
+			$scope.wetter = data;
+			$scope.wetterSuccess = true;
+			$scope.wetterFailed = false;
+		} else {
+			$scope.wetterSuccess = false;
+			$scope.wetterFailed = true;
+		}
+	})
+	.error(function(data, status) {
+		$scope.data = data || "Request failed";
+		$scope.status = status;
+	});	
 })
 .controller('HomeController', function($scope, $rootScope) {
 	$rootScope.$navbarBgCol = "#009dd1";
@@ -339,6 +357,10 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 		})
 		.when('/ULB-Katalog/', {
 			templateUrl: 'templates/empty.html',
+			controller: 'NotImplementedController'
+		})
+		.when('/Wetter/', {
+			templateUrl: 'templates/wetter.html',
 			controller: 'NotImplementedController'
 		})
 		;
