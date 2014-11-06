@@ -352,7 +352,6 @@ div.az a {
 	min-height:256px;
 }
 
-
 .fullheight {
 	height:100%;
 }
@@ -365,4 +364,14 @@ div.az a {
 	/* this element enlarges the top navbar by 3px, which overlaps with content, set fixed width to fix this */
 	height: 50px;
 	overflow: hidden; 
+}
+
+
+/* 
+change dropdown menu colours 
+http://stackoverflow.com/a/22075316/1781026
+*/
+.navbar-default .navbar-nav .open .dropdown-menu>li>a,.navbar-default .navbar-nav .open .dropdown-menu {
+	background-color: #eee;
+	color:#000;
 }
