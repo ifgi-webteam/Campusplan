@@ -3,7 +3,18 @@
 		<div class="col-md-6">
 			<h1>Hörsäle</h1>
 			<p class="lead">Hörsäle der WWU</p>
+
+			<form>
+				<div class="input-group input-group-lg">
+	  				<input ng-model="inputsearchterm" required class="form-control" name="search" placeholder="Nach Hörsaal suchen" type="text">
+	  				<span class="input-group-btn">
+	  					<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+	  				</span>
+				</div>
+			</form>
 		</div>
+
+		<div class="col-xs-12"><p></p></div>
 
 		<div class="col-xs-12" ng-model="result" ng-show="hoersaeleSuccess">
 			<table class="table table-bordered table-striped">
@@ -13,7 +24,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr ng-repeat="hs in hoersaele">
+					<tr ng-repeat="hs in hoersaele | filter: inputsearchterm">
 						<td>
 							<a href="Organisation/{{ hs.hs.value.split('context/').pop() }}">{{ hs.name.value }}</a><br>
 							<small>{{ hs.buildingname.value }} {{ hs.address.value }} ({{ hs.floor.value }})</small>
