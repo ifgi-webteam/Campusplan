@@ -1,3 +1,9 @@
+var navbarcollapsing = document.querySelectorAll(".navbar-collapse");
+for(var i=0, length=navbarcollapsing.length; i< length; i++) {
+	navbarcollapsing[i].style.maxHeight = window.screen.availWidth - document.querySelector(".navbar-header").style.height + "px";
+	alert(navbarcollapsing[i].style.maxHeight);
+}
+
 function getMonday(d) {
   d = new Date(d);
   var day = d.getDay(),
@@ -367,4 +373,5 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 	// configure html5 to get links working on jsfiddle
 	$locationProvider.html5Mode(true).hashPrefix('!');
 });
+
 

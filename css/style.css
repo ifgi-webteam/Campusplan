@@ -1,11 +1,10 @@
-/*
 @font-face {
   font-family: 'Signika';
   font-style: normal;
   font-weight: 600;
   src: local('Signika-Semibold'), url("../fonts/Signika-Semibold.woff") format('woff');
 }
-*/
+
 @font-face {
   font-family: "MetaWebPro-Normal";
   font-style: normal;
@@ -34,7 +33,7 @@ div.container {
 
 
 /* 
-	Text & Links auf Startseitenkacheln
+	Text and links size & colour on home page tiles
 */
 div#tiles a:hover span.tiletitle {
 	text-shadow: 0 0 5px rgba(0,0,0,0.6);
@@ -65,6 +64,7 @@ div.tile span.tiletitle {
 	font-family: 'MetaWebPro-Normal', sans-serif;
 	font-weight: 600;
 	font-size: 2.2em;
+	font-size: 5vmin;
 	color: #fff;
 	text-align: center;
 	text-shadow: 0 0 5px rgba(0,0,0,0.5);
@@ -72,6 +72,7 @@ div.tile span.tiletitle {
 
 div.tile.smalltile span.tiletitle {
 	font-size:1.5em;
+	font-size:3vmin;
 	text-shadow: 0 0 5px rgba(0,0,0,0.5);
 }
 
@@ -94,11 +95,11 @@ ul#nav li {
 }
 
 div.tile img {
-	padding:10px;
+	padding: 0px 10px 20px 10px;
 }
 
 /* 
-	Standard Kachelgrößen
+	Default tile sizes on home page
 */
 div.tile {
 	width:100%;	
@@ -120,7 +121,7 @@ div.tile.smalltile {
 }
 
 /* 
-	Kachelgrößen für hochkant Bildschirme/Smartphones
+	Tile size on home page for portrait mode / smartphones
 */
 @media (orientation:portrait) {
 	div.tile {
@@ -132,16 +133,18 @@ div.tile.smalltile {
 	}
 
 	div.tile span.tiletitle {
-		font-size:1.5em
+		font-size:1.5em;
+		font-size:6vmin;
 	}
 	
 	div.tile.smalltile span.tiletitle {
-		font-size:1em
+		font-size:1em;
+		font-size:3vmin;
 	}
 }
 
 /* 
-	Kachelgrößen für kleinere horizontale Bildschirme (Desktop PCs, Tablets)
+	Tile size on home page for smaller landscape mode screens (desktop PCs, tablets, phones)
 */
 @media (orientation:landscape) and (max-width: 799px) {
 	div.tile {
@@ -153,14 +156,55 @@ div.tile.smalltile {
 	}
 
 	div.tile span.tiletitle {
-		font-size:1.5em
+		font-size:1.5em;
+		font-size:6vmin;
 	}
 	
 	div.tile.smalltile span.tiletitle {
-		font-size:1em
+		font-size:1em;
+		font-size:3vmin;
 	}
 }
 
+/* 
+	Tile size in dropdown navbar
+*/
+.dropdown-menu div.tile,
+.dropdown-menu div.tile.smalltile {
+	width:100%;	
+	padding: 0px;
+	position: relative;
+	float:left;
+	max-width: 20%;
+	max-width: calc(100% / 5);
+	min-width: 45px;
+}
+
+.dropdown-menu div.tile a img {
+	width:100%;	
+}
+
+.dropdown-menu div.tile.tile span.tiletitle,
+.dropdown-menu div.tile.smalltile span.tiletitle {
+	font-size:1em;
+	font-size:3vmin;
+	font-weight: normal;
+}
+
+
+/* fixed font sizes for very small screens */
+@media all and (max-width: 640px), all and (max-height: 320px) {
+	.dropdown-menu div.tile.tile span.tiletitle,
+	.dropdown-menu div.tile.smalltile span.tiletitle {
+		font-size:0.8em;
+	}
+	div.tile.smalltile span.tiletitle {
+		font-size:0.8em;
+	}
+	div.tile span.tiletitle {
+		font-size:1.5em;
+	}
+}
 
 /* 
 	Kachelfarben
@@ -194,54 +238,6 @@ div.tile.smalltile {
 	background-color:#b1c800;
 }
 
-/*
-	nav verkleinern zu Leiste mit der .navbar Klasse
-*/
-div#tiles.navbar {
-	border:0;
-}
-
-div#tiles.navbar .logo {
-	display:none;
-}
-
-div#tiles.navbar div.tile {
-	max-width: 11.11%;
-	min-width: 60px;
-}
-
-div#tiles.navbar div.tile.smalltile {
-	max-width: 11.11%;
-	min-width: 60px;
-}
-
-div#tiles.navbar div.tile span.tiletitle {
-	font-size:1em;
-}
-
-div#tiles.navbar div.tile.smalltile span.tiletitle {
-	font-size:1em;
-}
-
-@media all and (orientation:landscape) and (max-width: 1024px) {
-	div#tiles.navbar div.tile {
-		max-width: 11.11%;
-		min-width: 60px;
-	}
-
-	div#tiles.navbar div.tile.smalltile {
-		max-width: 11.11%;
-		min-width: 60px;
-	}
-
-	div#tiles.navbar div.tile span.tiletitle {
-		font-size:0.8em;
-	}
-	
-	div#tiles.navbar div.tile.smalltile span.tiletitle {
-		font-size:0.8em;
-	}
-}
 
 /* wwu, lodum & ifgi logo on info page match container width */
 .logoimgs {
@@ -259,7 +255,7 @@ div#tiles.navbar div.tile.smalltile span.tiletitle {
 }
 
 /*
-	Branding text and logo
+	Branding text and logo size
 */
 .navbar > .container .navbar-brand {
 	margin-left:0px;
@@ -367,10 +363,7 @@ div.az a {
 }
 
 
-/* 
-change dropdown menu colours 
-http://stackoverflow.com/a/22075316/1781026
-*/
+/* Change dropdown menu colours */
 .navbar-default .navbar-nav .open .dropdown-menu>li>a, .navbar-default .navbar-nav .open .dropdown-menu {
 	background-color: #eee;
 	color:#000;
@@ -381,3 +374,22 @@ http://stackoverflow.com/a/22075316/1781026
 	color:#000;
 }
 
+/* Hide weather when dropdown menu is open */
+li.dropdown.open + li {
+	display:none;
+}
+
+/* Full width navbar dropdown */
+.dropdown-menu {
+	min-width:750px;
+	padding-top:0px;
+	padding-bottom:0px;
+	margin-top:0px;
+	margin-bottom:0px;
+	border:0px;
+}
+@media (max-width: 750px) { 
+	.dropdown-menu {
+		min-width:200px;
+	}
+}
