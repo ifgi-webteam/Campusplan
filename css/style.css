@@ -84,7 +84,9 @@ img.front {
 	height: auto;
 }
 
-/* Kacheln auf der Startseite liegen in <ul> & <li> Elementen */
+/* 
+	Change list style of home page tiles 
+*/
 ul#nav, ul#nav li {
 	margin: 0;
 	padding: 0;
@@ -99,7 +101,7 @@ div.tile img {
 }
 
 /* 
-	Default tile sizes on home page
+	Default tile sizes on home page 
 */
 div.tile {
 	width:100%;	
@@ -123,7 +125,7 @@ div.tile.smalltile {
 /* 
 	Tile size on home page for portrait mode / smartphones
 */
-@media (orientation:portrait) {
+@media all and (orientation:portrait) {
 	div.tile {
 		max-width: 50%;
 	}
@@ -146,7 +148,7 @@ div.tile.smalltile {
 /* 
 	Tile size on home page for smaller landscape mode screens (desktop PCs, tablets, phones)
 */
-@media (orientation:landscape) and (max-width: 799px) {
+@media all and (orientation:landscape) and (max-width: 768px) {
 	div.tile {
 		max-width: 50.0%;
 	}
@@ -209,35 +211,36 @@ div.tile.smalltile {
 /* 
 	Kachelfarben
 */
-
-.fachbereiche {
-	background-color:#b1c800;
-}
-.favoriten {
+.colDefault,
+.colUni-a-z {
 	background-color:#009dd1;
 }
-.hoersaele {
+.colFachbereiche,
+.colOrga {
+	background-color:#b1c800;
+}
+.colFavoriten {
+	background-color:#009dd1;
+}
+.colHoersaele {
 	background-color:#7ab51d;
 }
-.info {
+.colInfo {
 	background-color:#ffd400;
+	background-color:#f5c500;
 }
-.karte {
+.colKarte {
 	background-color:#7ab51d;
 }
-.mensen {
+.colMensen {
 	background-color:#2a6c8c;
 }
-.ulb-katalog {
+.colUlb-katalog {
 	background-color:#2a6c8c;
 }
-.uni-a-z {
-	background-color:#009dd1;
-}
-.wohnheime {
+.colWohnheime {
 	background-color:#b1c800;
 }
-
 
 /* wwu, lodum & ifgi logo on info page match container width */
 .logoimgs {
@@ -362,7 +365,6 @@ div.az a {
 	overflow: hidden; 
 }
 
-
 /* Change dropdown menu colours */
 .navbar-default .navbar-nav .open .dropdown-menu>li>a, .navbar-default .navbar-nav .open .dropdown-menu {
 	background-color: #eee;
@@ -388,8 +390,20 @@ li.dropdown.open + li {
 	margin-bottom:0px;
 	border:0px;
 }
-@media (max-width: 750px) { 
+
+@media all and (max-width: 768px) { 
 	.dropdown-menu {
 		min-width:200px;
 	}
+}
+
+li.first {
+	clear:both;
+}
+
+li.navbarOnly {
+	display:none;
+}
+.dropdown-menu li.navbarOnly {
+	display:block;
 }

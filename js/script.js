@@ -49,14 +49,14 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 	});	
 })
 .controller('HomeController', function($scope, $rootScope) {
-	$rootScope.$navbarBgCol = "#009dd1";
+	$rootScope.$currentPageName = "Default";
 })
 .controller('MensenController', function($scope, $routeParams, $http, $rootScope) {
 	$scope.name = "MensenController";
 	$scope.params = $routeParams;
 	$scope.mondayDate = getMonday(new Date());
 	$scope.dayOfWeek = new Date().getDay();
-	$rootScope.$navbarBgCol = "#2a6c8c";
+	$rootScope.$currentPageName = "Mensen";
 
 	$scope.mensaLoading = $http.get('api/mensen.php')
 		.success(function(data, status) {
@@ -78,7 +78,7 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 .controller('KarteController', function($scope, $routeParams, $http, $rootScope, leafletData) {
 	$scope.name = "KarteController";
 	$scope.params = $routeParams;
-	$rootScope.$navbarBgCol = "#7ab51d";
+	$rootScope.$currentPageName = "Karte";
 	
 	angular.extend($scope, {
 		mapCenter: {
@@ -148,7 +148,7 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 .controller('UniA-ZController', function($scope, $routeParams, $http, $rootScope) {
 	$scope.name = "UniA-ZController";
 	$scope.params = $routeParams;
-	$rootScope.$navbarBgCol = "#009dd1";
+	$rootScope.$currentPageName = "Uni-a-z";
 
 	/* Request a search at api/unia-z.php and return results */
 	$scope.search = function() {
@@ -178,12 +178,12 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 	}
 })
 .controller('InfoController', function($scope, $rootScope) {
-	$rootScope.$navbarBgCol = "#ffd400";
+	$rootScope.$currentPageName = "Info";
 })
 .controller('OrgaController', function($scope, $routeParams, $http, leafletData, $document, $rootScope) {
 	$scope.name = "OrgaController";
 	$scope.params = $routeParams;
-	$rootScope.$navbarBgCol = "#7ab51d";
+	$rootScope.$currentPageName = "Orga";
 
 	angular.extend($scope, {
 		mapCenter: {
@@ -251,7 +251,7 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 	});
 })
 .controller('FachbereicheController', function($scope, $rootScope, $http) {
-	$rootScope.$navbarBgCol = "#009dd1";
+	$rootScope.$currentPageName = "Fachbereiche";
 
 	$scope.FachbereicheLoading = $http.get('api/fachbereiche.php')
 	.success(function(data, status) {
@@ -271,7 +271,7 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 	});
 })
 .controller('HoersaeleController', function($scope, $rootScope, $http) {
-	$rootScope.$navbarBgCol = "#009dd1";
+	$rootScope.$currentPageName = "Hoersaele";
 
 	$scope.HoersaeleLoading = $http.get('api/hoersaele.php')
 	.success(function(data, status) {
@@ -291,7 +291,7 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 	});
 })
 .controller('WohnheimeController', function($scope, $rootScope, $http) {
-	$rootScope.$navbarBgCol = "#009dd1";
+	$rootScope.$currentPageName = "Wohnheime";
 
 	$scope.WohnheimeLoading = $http.get('api/wohnheime.php')
 	.success(function(data, status) {
@@ -314,7 +314,7 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 	$scope.$route = $route;
 	$scope.$location = $location;
 	$scope.$routeParams = $routeParams;
-	$rootScope.$navbarBgCol = "#009dd1";
+	$rootScope.$currentPageName = "Default";
 })
 /*
 	Config
@@ -368,9 +368,8 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 		.when('/Wetter/', {
 			templateUrl: 'templates/wetter.html',
 			controller: 'NotImplementedController'
-		})
-		;
-	// configure html5 to get links working on jsfiddle
+		});
+
 	$locationProvider.html5Mode(true).hashPrefix('!');
 });
 
