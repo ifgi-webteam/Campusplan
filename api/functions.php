@@ -108,10 +108,16 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 }
 
 function getMensaplan() {
-
-	$time = strtotime('monday this week');  	
-	$date = date('Y-m-d', $time);  	
-	$datetime = $date.'T00:00:00Z';
+	if(date('l') == "Saturday" || date('l') == "Sunday") {
+		$timeStart = strtotime('monday next week');
+	} else {
+		$timeStart = strtotime('monday this week');
+	}
+	$timeEnd = $timeStart + 7*24*60*60;
+	$dateStart = date('Y-m-d', $timeStart);
+	$dateEnd = date('Y-m-d', $timeEnd);
+	$datetimeStart = $dateStart.'T00:00:00Z';
+	$datetimeEnd = $dateEnd.'T00:00:00Z';
 
 	$food = sparql_get('
 prefix xsd: <http://www.w3.org/2001/XMLSchema#> 
@@ -128,7 +134,9 @@ SELECT DISTINCT ?name ?start ?minPrice ?maxPrice ?mensa ?mensaname WHERE {
              gr:hasMaxCurrencyValue ?maxPrice .
   ?mensa gr:offers ?menu ;
          foaf:name ?mensaname .  
-  FILTER (xsd:dateTime(?start) > "'.$datetime.'"^^xsd:dateTime) .
+  FILTER (xsd:dateTime(?start) > "'.$datetimeStart.'"^^xsd:dateTime
+  	&& xsd:dateTime(?start) < "'.$datetimeEnd.'"^^xsd:dateTime
+  	) .
 } ORDER BY MONTH(?start) DAY(?start) LCASE(?mensaname) 
 ');
 	return $food;

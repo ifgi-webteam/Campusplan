@@ -9,10 +9,10 @@ foreach($mensaarr['results']['bindings'] as $food) {
 	// reduce dates to date/month/year, stripping time
 	$dateval = strtotime( $food['start']['value'] );
 	
-	$foodday = date('d.m.Y', $dateval);
-	if(!isset($mensasorted[ date('d.m.Y', $dateval) ])) {
+	$foodday = date('N', $dateval);
+	if(!isset($mensasorted[ $foodday ])) {
 		$mensasorted[ $foodday ] = array();
-		$mensasorted[ $foodday ]["meta"]["date"] = $foodday;
+		$mensasorted[ $foodday ]["meta"]["date"] = date('Y-m-d', $dateval);
 		$mensasorted[ $foodday ]["meta"]["dayOfWeek"] = date('w', $dateval);
 		$mensasorted[ $foodday ]["meta"]["dayOfWeekNameGer"] = $daysGerman[date('w', $dateval)-1];
 	}

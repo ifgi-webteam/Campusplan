@@ -1,9 +1,3 @@
-var navbarcollapsing = document.querySelectorAll(".navbar-collapse");
-for(var i=0, length=navbarcollapsing.length; i< length; i++) {
-	navbarcollapsing[i].style.maxHeight = window.screen.availWidth - document.querySelector(".navbar-header").style.height + "px";
-	alert(navbarcollapsing[i].style.maxHeight);
-}
-
 function getMonday(d) {
   d = new Date(d);
   var day = d.getDay(),
@@ -52,11 +46,16 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 	$rootScope.$currentPageName = "Default";
 })
 .controller('MensenController', function($scope, $routeParams, $http, $rootScope) {
+	var doW = new Date().getDay();
 	$scope.name = "MensenController";
 	$scope.params = $routeParams;
 	$scope.mondayDate = getMonday(new Date());
-	$scope.dayOfWeek = new Date().getDay();
+	$scope.dayOfWeek = doW;
 	$rootScope.$currentPageName = "Mensen";
+	
+	// chéck if it is saturday, sunday or monay
+	// used in Mensaplan to expand Monday menu on these days
+	$scope.expandMonday = (doW == 0 || doW == 1 || doW == 6);
 
 	$scope.mensaLoading = $http.get('api/mensen.php')
 		.success(function(data, status) {

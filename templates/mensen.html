@@ -1,7 +1,7 @@
 <div ng-controller="MensenController">
 	<div class="container-fluid" cg-busy="mensaLoading">
 		<div class="col-md-12">
-			<h1>Mensaplan für die Woche vom {{ mondayDate | date:'dd. MMMM yyyy' }}</h1>
+			<h1>Mensaplan für die Woche vom {{ mensaData[1].meta.date | date:'dd. MMMM yyyy' }}</h1>
 		</div>
 
 		<div ng-repeat="day in mensaData" class="col-md-12">
@@ -9,7 +9,7 @@
 				<span class="glyphicon glyphicon-plus"></span>
 				{{ day.meta.dayOfWeekNameGer }}
 			</h3>
-			<div id="table{{ day.meta.dayOfWeek }}" class="collapse" ng-class="{in: day.meta.dayOfWeek==dayOfWeek}">
+			<div id="table{{ day.meta.dayOfWeek }}" class="collapse" ng-class="{in: day.meta.dayOfWeek==dayOfWeek || (day.meta.dayOfWeek == 1 && expandMonday) }">
 			<table ng-repeat="mensa in day.fooddata" class="table table-bordered table-striped">
 				<thead>
 					<tr><th><a href="Organisation/{{ mensa.mensa.uri.split('context/').pop() }}">{{ mensa.mensa.name }}</a></th></tr>
