@@ -99,7 +99,7 @@ prefix lodum: <http://vocab.lodum.de/helper/>
 prefix ogc: <http://www.opengis.net/ont/OGC-GeoSPARQL/1.0/>
 prefix xsd: <http://www.w3.org/2001/XMLSchema#> 
 
-SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?lat ?long ?wkt ?start ?minPrice WHERE {
+SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?lat ?long ?wkt WHERE {
   <".$org."> foaf:name ?name.
   OPTIONAL { <".$org."> foaf:homepage ?homepage . }  
   OPTIONAL { <".$org."> vcard:adr ?address . 
@@ -121,6 +121,28 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 	");
 
 	return $orga;
+}
+
+function listSubSorganizations($identifier) {
+	$org = "http://data.uni-muenster.de/context/".$identifier;
+	$orgs = sparql_get("
+prefix foaf: <http://xmlns.com/foaf/0.1/>
+prefix aiiso: <http://purl.org/vocab/aiiso/schema#>
+prefix lodum: <http://vocab.lodum.de/helper/>
+SELECT DISTINCT ?orga ?name WHERE {
+	Graph <http://data.uni-muenster.de/context/uniaz/> {
+		?orga a ?type ;
+		foaf:name ?name ;
+		
+		aiiso:part_of <".$org."> .
+		BIND(lcase(?name) as ?lname) .
+		FILTER langMatches(lang(?name),'DE') .
+		FILTER (STRLEN(?name) > 0) .
+		FILTER regex(str(?orga),'uniaz') .
+	}
+} ORDER BY ?lname
+	");
+	return $orgs;
 }
 
 // Mensaplan for whole week, all Mensas

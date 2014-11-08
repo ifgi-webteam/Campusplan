@@ -238,6 +238,15 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 				});
 			});
 
+			$scope.orgaLoading = $http.post('api/orgasub.php', { data: $scope.params.identifier })
+			.success(function(data, status) {
+				if(Object.keys(data.results.bindings).length > 0) {
+					console.log(data);
+					$scope.orgaHasSubOrga = true;
+					$scope.orgaSubOrgaData = data.results.bindings;
+				}
+			});
+
 			$scope.orgaLoading = $http.post('api/mensen.php', { data: $scope.params.identifier })
 			.success(function(data, status) {
 				if(Object.keys(data).length > 0) {

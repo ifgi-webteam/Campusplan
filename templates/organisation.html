@@ -30,6 +30,17 @@
 		</div>
 	</div>
 
+	<div class="col-xs-12" ng-show="orgaHasSubOrga">
+		<h3>Untergeordnete Einrichtungen</h3>
+		<table class="table table-bordered table-striped">
+			<tbody>
+				<tr ng-repeat="orga in orgaSubOrgaData">
+					<td><a href="Organisation/{{ orga.orga.value.split('context/').pop() }}">{{ orga.name.value }}</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
 	<div class="col-xs-12 apiFailed" ng-model="result" ng-show="orgaSearchFailed">
 		<p class="bg-danger">Beim Abfragen dieser Organisation ist ein Fehler aufgetreten.</p>
 	</div>
