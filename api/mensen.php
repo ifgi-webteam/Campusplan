@@ -2,13 +2,21 @@
 include('functions.php');
 $daysGerman = array('Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag');
 
-$mensajson = getMensaplan();
+$angjs_data = file_get_contents('php://input');
+$angjs_data_decoded = json_decode($angjs_data);
+if(!empty($angjs_data_decoded)) {
+	$searchterm = $angjs_data_decoded->data;
+	$mensajson = getMensaplan($searchterm);
+} else {
+	$mensajson = getMensaplan();
+}
+
 $mensaarr = json_decode($mensajson, true);
 $mensasorted = array();
 foreach($mensaarr['results']['bindings'] as $food) {
 	// reduce dates to date/month/year, stripping time
 	$dateval = strtotime( $food['start']['value'] );
-	
+
 	$foodday = date('N', $dateval);
 	if(!isset($mensasorted[ $foodday ])) {
 		$mensasorted[ $foodday ] = array();

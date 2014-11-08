@@ -25,7 +25,7 @@
 				</thead>
 				<tbody>
 					<tr ng-repeat="fb in fachbereiche | filter: inputsearchterm">
-						<td><a href="Organisation/{{ fb.fb.value.split('context/').pop() }}">{{ fb.name.value }}</a></td>
+						<td><a href="Organisation/{{ fb.fb.value.split('context/').pop() }}"><b>{{ fb.name.value.match(splitNamePattern)[1] }}</b>&nbsp;&nbsp; {{ fb.name.value.match(splitNamePattern)[2] }}</a></td>
 					</tr>
 				</tbody>
 			</table>

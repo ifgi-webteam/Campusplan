@@ -1,15 +1,31 @@
 <?php
+// Implement a cache mechanism for file_get_contents()
+function file_get_contents_cached($url) {
+	$urlMd5 = md5($url);
+	$cachedFile = "cache/".$urlMd5;
+	if(is_file($cachedFile)) {	
+		$cached = file_get_contents($cachedFile, true);
+		return $cached;
+	} else {
+		$opts = array(
+			'http'=>array(
+				'header' => "Accept: application/sparql-results+json\r\n",
+				'timeout' => 10
+				)
+		);
+		$context = stream_context_create($opts);
+		$response = file_get_contents($url, false, $context);
+		if($http_response_header[0] != "HTTP/1.1 200 OK") return false;
+
+		file_put_contents($cachedFile, $response);
+		return $response;
+	}
+}
+
 // Query database and return JSON string
 function sparql_get($query) {
 	$url = 'http://data.uni-muenster.de/sparql?query='.urlencode($query).'&format=json';
-	$opts = array(
-		'http'=>array(
-			'header' => "Accept: application/sparql-results+json\r\n",
-			'timeout' => 10
-		)
-	);
-	$context = stream_context_create($opts);
-	$response = file_get_contents($url, false, $context);
+	$response = file_get_contents_cached($url);
 	if(json_decode($response)) { // check for validity
 		return $response;
 	}
@@ -83,7 +99,7 @@ prefix lodum: <http://vocab.lodum.de/helper/>
 prefix ogc: <http://www.opengis.net/ont/OGC-GeoSPARQL/1.0/>
 prefix xsd: <http://www.w3.org/2001/XMLSchema#> 
 
-SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?lat ?long ?wkt WHERE {
+SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?lat ?long ?wkt ?start ?minPrice WHERE {
   <".$org."> foaf:name ?name.
   OPTIONAL { <".$org."> foaf:homepage ?homepage . }  
   OPTIONAL { <".$org."> vcard:adr ?address . 
@@ -99,7 +115,7 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
      }          
      OPTIONAL { ?building ogc:hasGeometry ?geometry .
                           ?geometry ogc:asWKT ?wkt . } 
-  }    
+  }  
   FILTER langMatches(lang(?name),'".$lang."') . 
 }
 	");
@@ -107,7 +123,8 @@ SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?la
 	return $orga;
 }
 
-function getMensaplan() {
+// Mensaplan for whole week, all Mensas
+function getMensaplan($identifier = "") {
 	if(date('l') == "Saturday" || date('l') == "Sunday") {
 		$timeStart = strtotime('monday next week');
 	} else {
@@ -119,13 +136,16 @@ function getMensaplan() {
 	$datetimeStart = $dateStart.'T00:00:00Z';
 	$datetimeEnd = $dateEnd.'T00:00:00Z';
 
+	$specificMensa = "";
+	if($identifier != "") $specificMensa = '<http://data.uni-muenster.de/context/'.$identifier.'> gr:offers ?menu.';
+
 	$food = sparql_get('
 prefix xsd: <http://www.w3.org/2001/XMLSchema#> 
 prefix gr: <http://purl.org/goodrelations/v1#>
 prefix foaf: <http://xmlns.com/foaf/0.1/> 
 
 SELECT DISTINCT ?name ?start ?minPrice ?maxPrice ?mensa ?mensaname WHERE {
-    
+  '.$specificMensa.'
   ?menu a gr:Offering ;
         gr:availabilityStarts ?start ;
         gr:name ?name ;

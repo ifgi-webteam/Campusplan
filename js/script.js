@@ -237,6 +237,15 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 					map.setView([$scope.orga.lat.value, $scope.orga.long.value], 16);
 				});
 			});
+
+			$scope.orgaLoading = $http.post('api/mensen.php', { data: $scope.params.identifier })
+			.success(function(data, status) {
+				if(Object.keys(data).length > 0) {
+					console.log(data);
+					$scope.orgaHasMensa = true;
+					$scope.mensaData = data;
+				}
+			});
 		} else {
 			$scope.orgaSearchSuccess = false;
 			$scope.orgaSearchFailed = true;
@@ -251,6 +260,7 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 })
 .controller('FachbereicheController', function($scope, $rootScope, $http) {
 	$rootScope.$currentPageName = "Fachbereiche";
+	$scope.splitNamePattern = /(Fachbereich [0-9]{2}) - (.+)/;
 
 	$scope.FachbereicheLoading = $http.get('api/fachbereiche.php')
 	.success(function(data, status) {

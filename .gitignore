@@ -1,4 +1,4 @@
-cache/
+api/cache/*
 piwik/
 routes/
 tiles/
