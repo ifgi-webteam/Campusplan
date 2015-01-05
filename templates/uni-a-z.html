@@ -6,7 +6,7 @@
 
 			<form>
 				<div class="input-group input-group-lg">
-	  				<input ng-model="inputsearchterm" required class="form-control" name="search" placeholder="Suchbegriff hier eingeben..." type="text">
+	  				<input ng-model="inputsearchterm" ng-change="liveSearch()" required class="form-control" name="search" placeholder="Suchbegriff hier eingeben..." type="text">
 	  				<span class="input-group-btn">
 	  					<button ng-click="search()" class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
 	  				</span>

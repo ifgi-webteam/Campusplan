@@ -23,7 +23,9 @@
 						<div class="dropdown">
 							<ul class="nav navbar-nav" style="width:100%" ng-class="'col'+$currentPageName">
 								<li class="dropdown">
-								<a class="dropdown-toggle navbar-brand" data-toggle="dropdown"><span class="branding-img"></span> <span class="caret"></span> Campusplan</a>
+								<a ng-hide="$currentPageName == 'Default'" class="dropdown-toggle navbar-brand" data-toggle="dropdown"><span class="branding-img"></span> <span class="caret"></span> Campusplan</a>
+								
+								<span ng-show="$currentPageName == 'Default'" class="navbar-brand"><span class="branding-img"></span> &nbsp; Campusplan</a></span>
 
 								<ul class="dropdown-menu" role="menu">
 									<ng-include src="'templates/tiles.html'">

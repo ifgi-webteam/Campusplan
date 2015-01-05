@@ -26,8 +26,8 @@
 				<tbody>
 					<tr ng-repeat="hs in hoersaele | filter: inputsearchterm">
 						<td>
-							<a href="Organisation/{{ hs.hs.value.split('context/').pop() }}">{{ hs.name.value }}</a><br>
-							<small>{{ hs.buildingname.value }} {{ hs.address.value }} ({{ hs.floor.value }})</small>
+							<b><a href="Organisation/{{ hs.hs.value.split('context/').pop() }}">{{ hs.name.value }}</a></b> &nbsp;&nbsp;
+							{{ hs.buildingname.value }} {{ hs.address.value }} ({{hs.floor.value >= "2" ? (hs.floor.value-1) +". Obergeschoss" : "Erdgeschoss"}})
 						</td>
 					</tr>
 				</tbody>

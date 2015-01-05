@@ -60,18 +60,20 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 	$scope.mensaLoading = $http.get('api/mensen.php')
 		.success(function(data, status) {
 			$scope.result = data;
-			if(data != null) { // && data.results.bindings.length != 0) {
+			if(data.results != null && data.results.bindings.length > 0) {
+				console.log("ok");
 				$scope.mensaData = data;
 				$scope.mensenQuerySuccess = true;
 				$scope.mensenQueryFailed = false;
 			} else {
+				console.log("nok");
 				$scope.mensenQuerySuccess = false;
 				$scope.mensenQueryFailed = true;
 			}
 		})
 		.error(function(data, status) {
 			$scope.data = data || "Request failed";
-			$scope.status = status;			
+			$scope.status = status;
 		});
 })
 .controller('KarteController', function($scope, $routeParams, $http, $rootScope, leafletData) {
@@ -144,7 +146,7 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 	});
 	
 })
-.controller('UniA-ZController', function($scope, $routeParams, $http, $rootScope) {
+.controller('UniA-ZController', function($scope, $routeParams, $http, $rootScope, $timeout) {
 	$scope.name = "UniA-ZController";
 	$scope.params = $routeParams;
 	$rootScope.$currentPageName = "Uni-a-z";
@@ -156,7 +158,7 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 			$scope.AZLoading = $http.post('api/unia-z.php', { data: $scope.searchterm })
 			.success(function(data, status) {
 				$scope.result = data;
-				if(data.results != null && data.results.bindings.length != 0) {
+				if(data.results != null && data.results.bindings.length > 0) {
 					$scope.orgas = data.results.bindings;
 					$scope.orgaSearchSuccess = true;
 					$scope.orgaSearchFailed = false;
@@ -175,6 +177,17 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 		$scope.inputsearchterm = letter;
 		$scope.search();
 	}
+	
+	var _timeout;
+	$scope.liveSearch = function() {
+		if(_timeout){
+		  $timeout.cancel(_timeout);
+		}
+		_timeout = $timeout(function(){
+		  $scope.search();
+		  _timeout = null;
+		},500);
+	}
 })
 .controller('InfoController', function($scope, $rootScope) {
 	$rootScope.$currentPageName = "Info";
@@ -183,7 +196,9 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 	$scope.name = "OrgaController";
 	$scope.params = $routeParams;
 	$rootScope.$currentPageName = "Orga";
+	$scope.orgaHasCoords = false;
 
+	// set the map default settings
 	angular.extend($scope, {
 		mapCenter: {
 			lat: 51.96362,
@@ -201,43 +216,61 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 		orgMarkers: {},
 	});
 
+	// map marker icon
 	var myIcon = { iconA: { iconUrl: "img/marker.png" } }
 
+	// query orga from API
 	$scope.orgaLoading = $http.post('api/orga.php', { data: $scope.params.identifier })
 	.success(function(data, status) {
 		$scope.status = status;
 		$scope.data = data;
 		$scope.result = data;
-		if(data.results.bindings != null && data.results.bindings.length != 0) {
+		if(data.results != null && data.results.bindings.length > 0) {
 			$scope.orga = data.results.bindings[0];
 			$scope.orgaSearchSuccess = true;
 			$scope.orgaSearchFailed = false;
-
-			if($scope.orga.lat.value != null && $scope.orga.long.value != null) {
+			if($scope.orga.lat != null && $scope.orga.long != null) {
+				// coordinates in results
 				$scope.orgaHasCoords = true;
-				/* geocoding from address here? */
-			}
-			angular.extend($scope, {
-				orgMarkers: {
-					orgaMarker: {
-						lat: parseFloat($scope.orga.lat.value),
-						lng: parseFloat($scope.orga.long.value),
-						focus: true,
-						message: $scope.orga.name.value,
-						icon: myIcon.iconA
-					}
-				}
-			});
+			} else {
+				// geocode address otherwise
+				$scope.geocodeLoading = $http.post('api/geocode.php', { data: $scope.orga.address.value })
+				.success(function(data, status) {
+					if(Object.keys(data.results).length > 0) {
+						$scope.orga.lat = [];
+						$scope.orga.lat.value = data.results[0].locations[0].displayLatLng.lat;
+						$scope.orga.long = [];
+						$scope.orga.long.value = data.results[0].locations[0].displayLatLng.lng;
+						$scope.orgaHasCoords = true;
 
-			// Reset the view after AngularJS has loaded the page
-			// Otherwise tiles don't load completely
-			leafletData.getMap().then(function(map) {
-				$scope.$watch('$viewContentLoaded', function() {
-					map.invalidateSize();
-					map.setView([$scope.orga.lat.value, $scope.orga.long.value], 16);
+					}
+				});
+			}
+
+			$scope.$watch('orgaHasCoords', function() {
+				angular.extend($scope, {
+					orgMarkers: {
+						orgaMarker: {
+							lat: parseFloat($scope.orga.lat.value),
+							lng: parseFloat($scope.orga.long.value),
+							focus: true,
+							message: $scope.orga.name.value,
+							icon: myIcon.iconA
+						}
+					}
+				});
+
+				// Reset the view after AngularJS has loaded the page
+				// Otherwise tiles don't load completely
+				leafletData.getMap().then(function(map) {
+					$scope.$watch('$viewContentLoaded', function() {
+						map.invalidateSize();
+						map.setView([$scope.orga.lat.value, $scope.orga.long.value], 16);
+					});
 				});
 			});
 
+			// load sub organizations (used for Fachbereiche)
 			$scope.orgaLoading = $http.post('api/orgasub.php', { data: $scope.params.identifier })
 			.success(function(data, status) {
 				if(Object.keys(data.results.bindings).length > 0) {
@@ -247,6 +280,7 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 				}
 			});
 
+			// load mensaplan for mensa organizations
 			$scope.orgaLoading = $http.post('api/mensen.php', { data: $scope.params.identifier })
 			.success(function(data, status) {
 				if(Object.keys(data).length > 0) {
@@ -274,7 +308,7 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 	$scope.FachbereicheLoading = $http.get('api/fachbereiche.php')
 	.success(function(data, status) {
 		$scope.result = data;
-		if(data.results != null && data.results.bindings.length != 0) {
+		if(data.results != null && data.results.bindings.length > 0) {
 			$scope.fachbereiche = data.results.bindings;
 			$scope.fachbereichSuccess = true;
 			$scope.fachbereichFailed = false;
@@ -294,7 +328,7 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 	$scope.HoersaeleLoading = $http.get('api/hoersaele.php')
 	.success(function(data, status) {
 		$scope.result = data;
-		if(data.results != null && data.results.bindings.length != 0) {
+		if(data.results != null && data.results.bindings.length > 0) {
 			$scope.hoersaele = data.results.bindings;
 			$scope.hoersaeleSuccess = true;
 			$scope.hoersaeleFailed = false;
@@ -314,7 +348,7 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 	$scope.WohnheimeLoading = $http.get('api/wohnheime.php')
 	.success(function(data, status) {
 		$scope.result = data;
-		if(data.results != null && data.results.bindings.length != 0) {
+		if(data.results != null && data.results.bindings.length > 0) {
 			$scope.wohnheime = data.results.bindings;
 			$scope.wohnheimeSuccess = true;
 			$scope.wohnheimeFailed = false;

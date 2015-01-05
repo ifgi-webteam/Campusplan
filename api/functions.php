@@ -1,24 +1,32 @@
 <?php
 // Implement a cache mechanism for file_get_contents()
 function file_get_contents_cached($url) {
-	$urlMd5 = md5($url);
-	$cachedFile = "cache/".$urlMd5;
-	if(is_file($cachedFile)) {	
-		$cached = file_get_contents($cachedFile, true);
-		return $cached;
-	} else {
-		$opts = array(
-			'http'=>array(
-				'header' => "Accept: application/sparql-results+json\r\n",
-				'timeout' => 10
-				)
-		);
-		$context = stream_context_create($opts);
-		$response = file_get_contents($url, false, $context);
-		if($http_response_header[0] != "HTTP/1.1 200 OK") return false;
+	try {
+		$urlMd5 = md5($url);
+		$cachedFile = "cache/".$urlMd5;
+		if(is_file($cachedFile)) {	
+			$cached = file_get_contents($cachedFile, true);
+			return $cached;
+		} else {
+			$opts = array(
+				'http'=>array(
+					'header' => "Accept: application/sparql-results+json\r\n",
+					'timeout' => 10
+					)
+			);
+			$context = stream_context_create($opts);
 
-		file_put_contents($cachedFile, $response);
-		return $response;
+			// mute file_get_contents because it doesn't behave within try/catch block when exception happens
+			if($response = @file_get_contents($url, false, $context)) {
+				if($http_response_header[0] != "HTTP/1.1 200 OK") return false;
+
+				file_put_contents($cachedFile, $response);
+				return $response;
+			}
+			return false;		
+		}
+	} catch(Exception $e) {
+
 	}
 }
 
@@ -232,21 +240,21 @@ prefix lodum: <http://vocab.lodum.de/helper/>
 prefix owl: <http://www.w3.org/2002/07/owl#>
 prefix vcard: <http://www.w3.org/2006/vcard/ns#>
 
-SELECT DISTINCT * WHERE {
+SELECT DISTINCT ?hs (MAX(?name) AS ?name) (MAX(?building) AS ?building) (MAX(?floor) AS ?floor) (MAX(?buildingname) AS ?buildingname) (MAX(?addr) AS ?addr) (MAX(?address) AS ?address) WHERE {
 
   ?hs a lodum:LectureHall ;
      foaf:name ?name ;
      lodum:building ?building ;
      lodum:floor ?floor .      
   
-  ?building foaf:name ?buildingname;
+  ?building foaf:name ?buildingname ;
             vcard:adr ?addr .
 
   ?addr vcard:street-address ?address .  
 
   FILTER langMatches(lang(?name),'de') .         
 
-} ORDER BY ?name
+}  GROUP BY ?hs ORDER BY ?name
 ";
 	$fbs = sparql_get($query);
 	return $fbs;
