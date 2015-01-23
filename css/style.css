@@ -212,6 +212,7 @@ div.tile.smalltile {
 	Kachelfarben
 */
 .colDefault,
+.colWetter,
 .colUni-a-z {
 	background-color:#009dd1;
 }
@@ -240,6 +241,9 @@ div.tile.smalltile {
 }
 .colWohnheime {
 	background-color:#b1c800;
+}
+.colNotImplemented{
+	background-color:#bb0000;
 }
 
 /* wwu, lodum & ifgi logo on info page match container width */
