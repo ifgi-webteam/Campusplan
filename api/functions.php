@@ -1,10 +1,13 @@
 <?php
 // Implement a cache mechanism for file_get_contents()
-function file_get_contents_cached($url) {
+// Set a default cache expiry time of 7 days (604800 seconds)
+function file_get_contents_cached($url, $expiry=604800) {
 	try {
 		$urlMd5 = md5($url);
 		$cachedFile = "cache/".$urlMd5;
-		if(is_file($cachedFile)) {	
+		$now = time();
+		// check if a cached version exists AND if it's not older than $epiry
+		if(is_file($cachedFile) && ($now-filemtime($cachedFile)) < $expiry) {	
 			$cached = file_get_contents($cachedFile, true);
 			return $cached;
 		} else {
