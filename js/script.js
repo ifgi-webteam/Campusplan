@@ -1,13 +1,17 @@
+// get monday of this week
 function getMonday(d) {
   d = new Date(d);
   var day = d.getDay(),
 	  diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
   return new Date(d.setDate(diff));
 }
+// german date names
 var monthsGerman = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
 var daysGerman = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
 
+// load Angular & modules
 angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
+// configure cgBusy for loading animations
 .value('cgBusyDefaults',{
 	message:'',
 	backdrop: true,
@@ -24,11 +28,12 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 	$scope.$routeParams = $routeParams;
 	$rootScope.$navbarBgCol = "#009dd1";
 
+	// query Wetter api
 	$scope.weatherLoading = $http.get('api/wetter.php')
 	.success(function(data, status) {
 		$scope.result = data;
 
-		if(data.temp != null) {
+		if(data.currently != null) {
 			$scope.wetter = data;
 			$scope.wetterSuccess = true;
 			$scope.wetterFailed = false;
@@ -42,9 +47,15 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 		$scope.status = status;
 	});	
 })
+/*
+	Controller Hauptseite
+*/
 .controller('HomeController', function($scope, $rootScope) {
 	$rootScope.$currentPageName = "Default";
 })
+/*
+	Controller Mensa
+*/
 .controller('MensenController', function($scope, $routeParams, $http, $rootScope) {
 	var doW = new Date().getDay();
 	$scope.name = "MensenController";
@@ -53,20 +64,19 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 	$scope.dayOfWeek = doW;
 	$rootScope.$currentPageName = "Mensen";
 	
-	// chéck if it is saturday, sunday or monay
+	// chéck if it is saturday, sunday or monday
 	// used in Mensaplan to expand Monday menu on these days
 	$scope.expandMonday = (doW == 0 || doW == 1 || doW == 6);
 
+	// query Mensa api
 	$scope.mensaLoading = $http.get('api/mensen.php')
 		.success(function(data, status) {
 			$scope.result = data;
 			if(data.results != null && data.results.bindings.length > 0) {
-				console.log("ok");
 				$scope.mensaData = data;
 				$scope.mensenQuerySuccess = true;
 				$scope.mensenQueryFailed = false;
 			} else {
-				console.log("nok");
 				$scope.mensenQuerySuccess = false;
 				$scope.mensenQueryFailed = true;
 			}
@@ -76,11 +86,15 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 			$scope.status = status;
 		});
 })
+/*
+	Controller Karte
+*/
 .controller('KarteController', function($scope, $routeParams, $http, $rootScope, leafletData) {
 	$scope.name = "KarteController";
 	$scope.params = $routeParams;
 	$rootScope.$currentPageName = "Karte";
-	
+
+	// set map defaults
 	angular.extend($scope, {
 		mapCenter: {
 			lat: 51.96362,
@@ -89,7 +103,7 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 		},
 		mapDefaults: {
 			scrollWheelZoom: true, 	
-			tileLayer: "http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpeg",
+			tileLayer: "http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpeg", // Mapquest Open
 			tileLayerOptions: {
 				subdomains: "1234",
 				attribution: 'Map data © OpenStreetMap contributors | Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">'
@@ -104,6 +118,8 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 		}
 	});
 
+	// Reset the view after AngularJS has loaded the page
+	// Otherwise tiles don't load completely
 	leafletData.getMap().then(function(map) {
 		$scope.$watch('$viewContentLoaded', function() {
 			map.invalidateSize();
@@ -121,12 +137,14 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 			$scope.orgaSearchSuccess = true;
 			$scope.orgaSearchFailed = false;
 
+			// load api results into marker variable on map
 			angular.extend($scope, {
 				orgMarkers: data
 			});
 
 			// Reset the view after AngularJS has loaded the page
 			// Otherwise tiles don't load completely
+			// (again)
 			leafletData.getMap().then(function(map) {
 				$scope.$watch('$viewContentLoaded', function() {
 					map.invalidateSize();
@@ -146,6 +164,9 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 	});
 	
 })
+/*
+	Controller Uni A-Z
+*/
 .controller('UniA-ZController', function($scope, $routeParams, $http, $rootScope, $timeout) {
 	$scope.name = "UniA-ZController";
 	$scope.params = $routeParams;
@@ -155,6 +176,8 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 	$scope.search = function() {
 		if($scope.inputsearchterm.length > 0) {
 			$scope.searchterm = $scope.inputsearchterm;
+
+			// query user search input to uni a-z api
 			$scope.AZLoading = $http.post('api/unia-z.php', { data: $scope.searchterm })
 			.success(function(data, status) {
 				$scope.result = data;
@@ -178,6 +201,7 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 		$scope.search();
 	}
 	
+	// search-as-you-type with 500ms delay
 	var _timeout;
 	$scope.liveSearch = function() {
 		if(_timeout){
@@ -189,9 +213,16 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 		},500);
 	}
 })
+/*
+	Controller Info
+	nothing fancy here since it's just more or less a static site
+*/
 .controller('InfoController', function($scope, $rootScope) {
 	$rootScope.$currentPageName = "Info";
 })
+/*
+	Controller Organization
+*/
 .controller('OrgaController', function($scope, $routeParams, $http, leafletData, $document, $rootScope) {
 	$scope.name = "OrgaController";
 	$scope.params = $routeParams;
@@ -207,7 +238,7 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 		},
 		mapDefaults: {
 			scrollWheelZoom: true, 	
-			tileLayer: "http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpeg",
+			tileLayer: "http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpeg", // Mapquest Open
 			tileLayerOptions: {
 				subdomains: "1234",
 				attribution: 'Map data © OpenStreetMap contributors | Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">'
@@ -230,10 +261,10 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 			$scope.orgaSearchSuccess = true;
 			$scope.orgaSearchFailed = false;
 			if($scope.orga.lat != null && $scope.orga.long != null) {
-				// coordinates in results
+				// organization has lat/lon coordinates in results
 				$scope.orgaHasCoords = true;
 			} else {
-				// geocode address otherwise
+				// try to geocode address otherwise
 				$scope.geocodeLoading = $http.post('api/geocode.php', { data: $scope.orga.address.value })
 				.success(function(data, status) {
 					if(Object.keys(data.results).length > 0) {
@@ -242,12 +273,13 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 						$scope.orga.long = [];
 						$scope.orga.long.value = data.results[0].locations[0].displayLatLng.lng;
 						$scope.orgaHasCoords = true;
-
 					}
 				});
 			}
 
+			// show map if organization has coordinates
 			$scope.$watch('orgaHasCoords', function() {
+				// prepare map defaults
 				angular.extend($scope, {
 					orgMarkers: {
 						orgaMarker: {
@@ -301,6 +333,10 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 		$scope.status = status;
 	});
 })
+/*
+	Controller Fachbereiche 
+	similar to Hörsäle, Wohnheime
+*/
 .controller('FachbereicheController', function($scope, $rootScope, $http) {
 	$rootScope.$currentPageName = "Fachbereiche";
 	$scope.splitNamePattern = /(Fachbereich [0-9]{2}) - (.+)/;
@@ -322,6 +358,10 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 		$scope.status = status;			
 	});
 })
+/*
+	Controller Hörsäle
+	similar to Fachbereiche, Wohnheime
+*/
 .controller('HoersaeleController', function($scope, $rootScope, $http) {
 	$rootScope.$currentPageName = "Hoersaele";
 
@@ -342,7 +382,11 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 		$scope.status = status;			
 	});
 })
-.controller('WohnheimeController', function($scope, $rootScope, $http) {
+/*
+	Controller Wohnheime
+	similar to Fachbereiche, Hörsäle
+*/
+.controller('WohnheimeController', function($scope, $rootScope, $http, $filter) {
 	$rootScope.$currentPageName = "Wohnheime";
 
 	$scope.WohnheimeLoading = $http.get('api/wohnheime.php')
@@ -362,14 +406,26 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 		$scope.status = status;			
 	});
 })
+/*
+	Controller Wetter
+*/
+.controller('WetterController', function($scope, $rootScope, $route, $routeParams, $location) {
+	$scope.$route = $route;
+	$scope.$location = $location;
+	$scope.$routeParams = $routeParams;
+	$rootScope.$currentPageName = "Wetter";
+})
+/*
+	Dummy Controller
+*/
 .controller('NotImplementedController', function($scope, $rootScope, $route, $routeParams, $location) {
 	$scope.$route = $route;
 	$scope.$location = $location;
 	$scope.$routeParams = $routeParams;
-	$rootScope.$currentPageName = "Default";
+	$rootScope.$currentPageName = "NotImplemented";
 })
 /*
-	Config
+	Config for template<->controller association
 */
 .config(function($routeProvider, $locationProvider) {
 	$routeProvider
@@ -419,7 +475,7 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 		})
 		.when('/Wetter/', {
 			templateUrl: 'templates/wetter.html',
-			controller: 'NotImplementedController'
+			controller: 'WetterController'
 		});
 
 	$locationProvider.html5Mode(true).hashPrefix('!');

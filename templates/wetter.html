@@ -6,20 +6,14 @@
 		</div>
 
 		<div class="col-xs-12" ng-model="result" ng-show="wetterSuccess">
-			<table class="table table-bordered table-striped">
-				<thead>
-					<tr>
-						<th>Tabelle</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>
-							here be data
-						</td>
-					</tr>
-				</tbody>
-			</table>
+				<i class="wi wi-wmo4680-{{wetter.code}}" style="font-size:5em;float:left;padding:5px"></i>
+				<p style="vertical-align:middle; font-size:1.8em;padding:5px">
+				{{ wetter.temp*100/100 | number:0 }}°C<br>
+				{{ wetter.description }}
+				{{ wetter.currently.temperature }}
+				</p>
+
+				<h2>Wettervorhersage</h2>
 		</div>
 
 		<div class="col-xs-12 apiFailed" ng-model="result" ng-show="wetterFailed">

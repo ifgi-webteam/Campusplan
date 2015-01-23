@@ -10,6 +10,7 @@
 	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="bower_components/leaflet-dist/leaflet.css">
 	<link rel="stylesheet" href="bower_components/angular-busy/dist/angular-busy.min.css">
+	<link rel="stylesheet" href="css/weather-icons.min.css">
 	<link rel="stylesheet" href="css/style.css">
 </head>
 <body ng-app="CampusplanApp">
@@ -32,7 +33,7 @@
 								</ul>
 							</li>
 							<li class="nav navbar-nav pull-right" id="wetter" ng-if="wetterSuccess">
-								<a href="Wetter"><img src="img/weather-iconmonstr-brightness-3-icon.svg" style="height:22px;width:22px;"> {{ wetter.temp*100/100 | number:0 }}°C</a>
+								<a href="Wetter"><i class="wi wi-forecastio-{{wetter.currently.icon}}" style="height:22px;width:22px;"></i>&nbsp;{{ (wetter.currently.temperature == None) ? '--' : (wetter.currently.temperature*100/100 | number:0) }}°C</a>
 							</li>
 							</ul>
 						</div>
