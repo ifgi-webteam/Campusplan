@@ -6,14 +6,34 @@
 		</div>
 
 		<div class="col-xs-12" ng-model="result" ng-show="wetterSuccess">
-				<i class="wi wi-wmo4680-{{wetter.code}}" style="font-size:5em;float:left;padding:5px"></i>
+				<i class="wi wi-forecastio-{{wetter.currently.icon}}" style="font-size:5em;float:left;padding:5px"></i>
 				<p style="vertical-align:middle; font-size:1.8em;padding:5px">
-				{{ wetter.temp*100/100 | number:0 }}°C<br>
-				{{ wetter.description }}
-				{{ wetter.currently.temperature }}
+				{{ wetter.currently.time*1000 | date:'dd. MMMM yyyy H:mm' }}<br>
+				{{ wetter.currently.temperature }}°C<br>
+				{{ wetter.currently.summary }}
 				</p>
 
-				<h2>Wettervorhersage</h2>
+				<hr>
+				<h2>Wettervorhersage für die nächsten Stunden</h2>
+				<div ng-repeat="wh in wetter.hourly.data | limitTo:6">
+					<i class="wi wi-forecastio-{{wh.icon}}" style="font-size:2em;float:left;padding:5px"></i>
+					<p style="vertical-align:middle; font-size:1em;padding:5px">
+					{{ wh.time*1000 | date:'H:mm' }}<br>
+					{{ wh.temperature }}°C<br>
+					{{ wh.summary }}
+					</p>
+				</div>
+
+				<hr style="clear:both">
+				<h2>Wettervorhersage für die nächsten Tage</h2>
+				<div ng-repeat="wh in wetter.daily.data | limitTo:7">
+					<i class="wi wi-forecastio-{{wh.icon}}" style="font-size:2em;float:left;padding:5px"></i>
+					<p style="vertical-align:middle; font-size:1em;padding:5px">
+					{{ wh.time*1000 | date:'EEEE, dd. MMMM' }}<br>
+					{{ wh.temperatureMin }} bis {{ wh.temperatureMax }}°C<br>
+					{{ wh.summary }}
+					</p>
+				</div>
 		</div>
 
 		<div class="col-xs-12 apiFailed" ng-model="result" ng-show="wetterFailed">
