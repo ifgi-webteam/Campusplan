@@ -6,33 +6,57 @@
 		</div>
 
 		<div class="col-xs-12" ng-model="result" ng-show="wetterSuccess">
-				<i class="wi wi-forecastio-{{wetter.currently.icon}}" style="font-size:5em;float:left;padding:5px"></i>
-				<p style="vertical-align:middle; font-size:1.8em;padding:5px">
-				{{ wetter.currently.time*1000 | date:'dd. MMMM yyyy H:mm' }}<br>
-				{{ wetter.currently.temperature }}°C<br>
-				{{ wetter.currently.summary }}
-				</p>
+				
+				<div>
+					<table style="margin-left:auto;margin-right:auto">
+					<tr>
+					<td style="vertical-align:middle">
+						<i class="wi wi-forecastio-{{wetter.currently.icon}}" style="font-size:9em;float:left;padding:5px"></i>
+					</td>
+					<td style="vertical-align:middle">
+						<p style="vertical-align:middle; font-size:1.8em;padding:5px; line-height:100%">
+						<span><b>{{ wetter.currently.time*1000 | date:'H:mm' }} Uhr</b></span><br>
+						<span style="font-size:smaller">{{ wetter.currently.time*1000 | date:'dd. MMMM yyyy H:mm' }}</span><br>
+						<span>{{ wetter.currently.temperature | number:0 }}°C</span><br>
+						<span>{{ wetter.currently.summary }}</span><br>
+						<span ng-show="wetter.currently.precipProbability !== 0">Niederschlagswahrsch. {{ wetter.currently.precipProbability*100 | number:0 }}%</span>
+						</p>
+					</td>
+					</tr>
+					</table>
+				</div>
 
-				<hr>
+				<hr style="clear:both">
 				<h2>Wettervorhersage für die nächsten Stunden</h2>
-				<div ng-repeat="wh in wetter.hourly.data | limitTo:6">
-					<i class="wi wi-forecastio-{{wh.icon}}" style="font-size:2em;float:left;padding:5px"></i>
-					<p style="vertical-align:middle; font-size:1em;padding:5px">
-					{{ wh.time*1000 | date:'H:mm' }}<br>
-					{{ wh.temperature }}°C<br>
-					{{ wh.summary }}
-					</p>
+				<div ng-repeat="wh in wetter.hourly.data | limitTo:12" style="text-align:center" class="col-xs-2">
+					<i class="wi wi-forecastio-{{wh.icon}}" style="font-size:2em;padding:5px"></i><br>
+					<span style="vertical-align:middle; font-size:1em;padding:5px">
+					<b>{{ wh.time*1000 | date:'H:mm' }} Uhr</b><br>
+					{{ wh.temperature | number:0 }}°C<br>
+					{{ wh.summary }}<br>
+					<span ng-show="wh.precipProbability !== 0">
+						NW {{ wh.precipProbability*100 | number:0 }}%
+					</span>
+					</span>
+				</div>
+
+				<div style="clear:both; text-align:right; padding-top:20px; width:100%; font-size:small; color:#666">
+					NW = Niederschlagswahrscheinlichkeit
 				</div>
 
 				<hr style="clear:both">
 				<h2>Wettervorhersage für die nächsten Tage</h2>
-				<div ng-repeat="wh in wetter.daily.data | limitTo:7">
-					<i class="wi wi-forecastio-{{wh.icon}}" style="font-size:2em;float:left;padding:5px"></i>
-					<p style="vertical-align:middle; font-size:1em;padding:5px">
-					{{ wh.time*1000 | date:'EEEE, dd. MMMM' }}<br>
-					{{ wh.temperatureMin }} bis {{ wh.temperatureMax }}°C<br>
+				<div ng-repeat="wh in wetter.daily.data | limitTo:6" style="text-align:center" class="col-xs-4">
+					<i class="wi wi-forecastio-{{wh.icon}}" style="font-size:2em;padding:5px"></i><br>
+					<span style="vertical-align:middle; font-size:1em;padding:5px">
+					<b>{{ wh.time*1000 | date:'EEEE, dd. MMMM' }}</b><br>
+					<span style="color:#00b"><b>{{ wh.temperatureMin | number:0 }}</b></span> bis <span style="color:#b00"><b>{{ wh.temperatureMax | number:0 }}</b></span>°C<br>
 					{{ wh.summary }}
-					</p>
+					</span>
+				</div>
+
+				<div style="clear:both; text-align:right; padding-top:20px; width:100%; font-size:small; color:#666">
+					Wetterdaten von <a href="http://forecast.io/" target="_blank">Forecast.io</a>.
 				</div>
 		</div>
 
