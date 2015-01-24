@@ -28,7 +28,7 @@
 
 				<hr style="clear:both">
 				<h2>Wettervorhersage für die nächsten Stunden</h2>
-				<div ng-repeat="wh in wetter.hourly.data | limitTo:12" style="text-align:center" class="col-xs-2">
+				<div ng-repeat="wh in wetter.hourly.data | limitTo:12" style="text-align:center" class="col-md-2 col-xs-6">
 					<i class="wi wi-forecastio-{{wh.icon}}" style="font-size:2em;padding:5px"></i><br>
 					<span style="vertical-align:middle; font-size:1em;padding:5px">
 					<b>{{ wh.time*1000 | date:'H:mm' }} Uhr</b><br>
@@ -46,7 +46,7 @@
 
 				<hr style="clear:both">
 				<h2>Wettervorhersage für die nächsten Tage</h2>
-				<div ng-repeat="wh in wetter.daily.data | limitTo:6" style="text-align:center" class="col-xs-4">
+				<div ng-repeat="wh in wetter.daily.data | limitTo:6" style="text-align:center" class="col-md-4">
 					<i class="wi wi-forecastio-{{wh.icon}}" style="font-size:2em;padding:5px"></i><br>
 					<span style="vertical-align:middle; font-size:1em;padding:5px">
 					<b>{{ wh.time*1000 | date:'EEEE, dd. MMMM' }}</b><br>
