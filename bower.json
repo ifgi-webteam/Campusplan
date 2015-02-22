@@ -10,12 +10,11 @@
     "bower_components"
   ],
   "dependencies": {
-    "angular": "1.2.27",
-    "angular-leaflet-directive": "~0.7.6",
-    "leaflet-dist": "~0.7.2",
-    "angular-route": "~1.2.16",
-    "angular-i18n": "~1.2.16",
-    "bootstrap": "~3.3.0",
+    "angular": "1.2.x",
+    "angular-leaflet-directive": "~0.7.x",
+    "angular-route": "~1.2.x",
+    "angular-i18n": "~1.2.x",
+    "bootstrap": "~3.3.x",
     "angular-busy": "~4.1.0",
     "angular-local-storage": "~0.1.5"
   }
