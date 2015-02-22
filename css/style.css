@@ -411,3 +411,12 @@ li.navbarOnly {
 .dropdown-menu li.navbarOnly {
 	display:block;
 }
+
+.footnote {
+	clear:both; 
+	text-align:right; 
+	padding-top:20px; 
+	width:100%; 
+	font-size:small; 
+	color:#666
+}

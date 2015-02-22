@@ -7,7 +7,7 @@ function file_get_contents_cached($url, $expiry=604800) {
 		$cachedFile = "cache/".$urlMd5;
 		$now = time();
 		// check if a cached version exists AND if it's not older than $epiry
-		if(is_file($cachedFile) && ($now-filemtime($cachedFile)) < $expiry) {	
+		if(is_file($cachedFile) && ($now-filemtime($cachedFile)) < $expiry) {
 			$cached = file_get_contents($cachedFile, true);
 			return $cached;
 		} else {
@@ -26,7 +26,7 @@ function file_get_contents_cached($url, $expiry=604800) {
 				file_put_contents($cachedFile, $response);
 				return $response;
 			}
-			return false;		
+			return false;
 		}
 	} catch(Exception $e) {
 
@@ -45,28 +45,28 @@ function sparql_get($query) {
 
 // Search database by starting letter
 function searchByLetter($letter) {
-	
+
 	$orgs = sparql_get("
 
-prefix foaf: <http://xmlns.com/foaf/0.1/> 
+prefix foaf: <http://xmlns.com/foaf/0.1/>
 prefix aiiso: <http://purl.org/vocab/aiiso/schema#>
 prefix lodum: <http://vocab.lodum.de/helper/>
-		
-SELECT DISTINCT ?orga ?name WHERE { 
-		
+
+SELECT DISTINCT ?orga ?name WHERE {
+
 	Graph <http://data.uni-muenster.de/context/uniaz/> {
-          ?orga a ?type ; 
+          ?orga a ?type ;
 	            foaf:name ?name .
 	  BIND(lcase(?name) as ?lname) .
 	  FILTER langMatches(lang(?name),'DE') .
 	  FILTER (STRSTARTS(?name, '".$letter."')) .
 	  FILTER (STRLEN(?name) > 0) .
-	  FILTER regex(str(?orga),'uniaz') . 
+	  FILTER regex(str(?orga),'uniaz') .
     }
-           
+
 } ORDER BY ?lname
 ");
-	
+
 	return $orgs;
 }
 
@@ -75,26 +75,26 @@ function searchByWord($searchterm) {
 
 	$orgs = sparql_get("
 
-prefix foaf: <http://xmlns.com/foaf/0.1/> 
+prefix foaf: <http://xmlns.com/foaf/0.1/>
 prefix aiiso: <http://purl.org/vocab/aiiso/schema#>
 prefix lodum: <http://vocab.lodum.de/helper/>
-		
-SELECT DISTINCT ?orga ?name WHERE { 
-		
+
+SELECT DISTINCT ?orga ?name WHERE {
+
 	Graph <http://data.uni-muenster.de/context/uniaz/> {
-          ?orga a ?type ; 
+          ?orga a ?type ;
 	            foaf:name ?name .
-	  
+
 	  BIND(lcase(?name) as ?lname) .
 	  FILTER langMatches(lang(?name),'DE') .
 	  FILTER regex(?name, '".$searchterm."', 'i' ) .
 	  FILTER (STRLEN(?name) > 0) .
-	  FILTER regex(str(?orga),'uniaz') . 
+	  FILTER regex(str(?orga),'uniaz') .
     }
-           
+
 } ORDER BY ?lname
 ");
-	
+
 	return $orgs;
 }
 
@@ -103,31 +103,32 @@ function getOrgDetails($identifier, $lang = "de") {
 	$org = "http://data.uni-muenster.de/context/".$identifier;
 	$orga = sparql_get("
 
-prefix foaf: <http://xmlns.com/foaf/0.1/> 
-prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> 
+prefix foaf: <http://xmlns.com/foaf/0.1/>
+prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
 prefix vcard: <http://www.w3.org/2006/vcard/ns#>
 prefix lodum: <http://vocab.lodum.de/helper/>
 prefix ogc: <http://www.opengis.net/ont/OGC-GeoSPARQL/1.0/>
-prefix xsd: <http://www.w3.org/2001/XMLSchema#> 
+prefix xsd: <http://www.w3.org/2001/XMLSchema#>
 
-SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?lat ?long ?wkt WHERE {
+SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?lat ?long ?wkt ?subject WHERE {
   <".$org."> foaf:name ?name.
-  OPTIONAL { <".$org."> foaf:homepage ?homepage . }  
-  OPTIONAL { <".$org."> vcard:adr ?address . 
+  OPTIONAL { <".$org."> foaf:homepage ?homepage . }
+  OPTIONAL { <".$org."> vcard:adr ?address .
   	FILTER ( datatype(?address) = xsd:string )
   }
-  OPTIONAL { <".$org."> lodum:building ?building . 
-     OPTIONAL { ?building geo:lat ?lat ; 
+  OPTIONAL { <".$org."> lodum:building ?building .
+     OPTIONAL { ?building geo:lat ?lat ;
                               geo:long ?long . }
-     OPTIONAL { ?building vcard:adr ?buildingAddress . 
+     OPTIONAL { ?building vcard:adr ?buildingAddress .
      			?buildingAddress vcard:street-address ?street ;
      			    vcard:postal-code ?zip ;
-     			    vcard:region ?city .     			
-     }          
+     			    vcard:region ?city .
+     }
      OPTIONAL { ?building ogc:hasGeometry ?geometry .
-                          ?geometry ogc:asWKT ?wkt . } 
-  }  
-  FILTER langMatches(lang(?name),'".$lang."') . 
+                          ?geometry ogc:asWKT ?wkt . }
+  }
+  BIND(<".$org."> as ?subject)
+  FILTER langMatches(lang(?name),'".$lang."') .
 }
 	");
 
@@ -144,7 +145,7 @@ SELECT DISTINCT ?orga ?name WHERE {
 	Graph <http://data.uni-muenster.de/context/uniaz/> {
 		?orga a ?type ;
 		foaf:name ?name ;
-		
+
 		aiiso:part_of <".$org."> .
 		BIND(lcase(?name) as ?lname) .
 		FILTER langMatches(lang(?name),'DE') .
@@ -173,9 +174,9 @@ function getMensaplan($identifier = "") {
 	if($identifier != "") $specificMensa = '<http://data.uni-muenster.de/context/'.$identifier.'> gr:offers ?menu.';
 
 	$food = sparql_get('
-prefix xsd: <http://www.w3.org/2001/XMLSchema#> 
+prefix xsd: <http://www.w3.org/2001/XMLSchema#>
 prefix gr: <http://purl.org/goodrelations/v1#>
-prefix foaf: <http://xmlns.com/foaf/0.1/> 
+prefix foaf: <http://xmlns.com/foaf/0.1/>
 
 SELECT DISTINCT ?name ?start ?minPrice ?maxPrice ?mensa ?mensaname WHERE {
   '.$specificMensa.'
@@ -186,26 +187,26 @@ SELECT DISTINCT ?name ?start ?minPrice ?maxPrice ?mensa ?mensaname WHERE {
   ?priceSpec gr:hasMinCurrencyValue ?minPrice ;
              gr:hasMaxCurrencyValue ?maxPrice .
   ?mensa gr:offers ?menu ;
-         foaf:name ?mensaname .  
+         foaf:name ?mensaname .
   FILTER (xsd:dateTime(?start) > "'.$datetimeStart.'"^^xsd:dateTime
   	&& xsd:dateTime(?start) < "'.$datetimeEnd.'"^^xsd:dateTime
   	) .
-} ORDER BY MONTH(?start) DAY(?start) LCASE(?mensaname) 
+} ORDER BY MONTH(?start) DAY(?start) LCASE(?mensaname)
 ');
 	return $food;
 }
 
 function getMapGeometries() {
 	$query = "
-SELECT DISTINCT ?building ?name ?lat ?lon ?streetaddress ?postalcode ?region WHERE { 
-	?building a <http://dbpedia.org/ontology/building> ; 
-	<http://xmlns.com/foaf/0.1/name> ?name ; 
-	<http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat; 
-	<http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon; 
-	<http://www.w3.org/2006/vcard/ns#adr> ?adr . 
-	Filter( !EXISTS { ?building <http://www.opengis.net/ont/OGC-GeoSPARQL/1.0/hasGeometry> ?geom. }) 
-	?adr <http://www.w3.org/2006/vcard/ns#street-address> ?streetaddress; 
-	<http://www.w3.org/2006/vcard/ns#postal-code> ?postalcode; 
+SELECT DISTINCT ?building ?name ?lat ?lon ?streetaddress ?postalcode ?region WHERE {
+	?building a <http://dbpedia.org/ontology/building> ;
+	<http://xmlns.com/foaf/0.1/name> ?name ;
+	<http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat;
+	<http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon;
+	<http://www.w3.org/2006/vcard/ns#adr> ?adr .
+	Filter( !EXISTS { ?building <http://www.opengis.net/ont/OGC-GeoSPARQL/1.0/hasGeometry> ?geom. })
+	?adr <http://www.w3.org/2006/vcard/ns#street-address> ?streetaddress;
+	<http://www.w3.org/2006/vcard/ns#postal-code> ?postalcode;
 	<http://www.w3.org/2006/vcard/ns#region> ?region.
 } ORDER BY ?name
 ";
@@ -217,16 +218,16 @@ SELECT DISTINCT ?building ?name ?lat ?lon ?streetaddress ?postalcode ?region WHE
 function getFachbereiche() {
 	$lang="de";
 	$query = "
-prefix foaf: <http://xmlns.com/foaf/0.1/> 
+prefix foaf: <http://xmlns.com/foaf/0.1/>
 prefix lodum: <http://vocab.lodum.de/helper/>
 prefix owl: <http://www.w3.org/2002/07/owl#>
 
 SELECT DISTINCT * WHERE {
   ?fb a lodum:Department ;
      foaf:name ?name;
-     lodum:departmentNo ?no.   
-  FILTER langMatches(lang(?name),'".$lang."') . 
-  FILTER regex(?name,' - ') . 
+     lodum:departmentNo ?no.
+  FILTER langMatches(lang(?name),'".$lang."') .
+  FILTER regex(?name,' - ') .
   FILTER regex(str(?fb), '/fb') .
 } ORDER BY ?no
 ";
@@ -238,7 +239,7 @@ SELECT DISTINCT * WHERE {
 function getHoersaele() {
 	$lang="de";
 	$query = "
-prefix foaf: <http://xmlns.com/foaf/0.1/> 
+prefix foaf: <http://xmlns.com/foaf/0.1/>
 prefix lodum: <http://vocab.lodum.de/helper/>
 prefix owl: <http://www.w3.org/2002/07/owl#>
 prefix vcard: <http://www.w3.org/2006/vcard/ns#>
@@ -248,14 +249,14 @@ SELECT DISTINCT ?hs (MAX(?name) AS ?name) (MAX(?building) AS ?building) (MAX(?fl
   ?hs a lodum:LectureHall ;
      foaf:name ?name ;
      lodum:building ?building ;
-     lodum:floor ?floor .      
-  
+     lodum:floor ?floor .
+
   ?building foaf:name ?buildingname ;
             vcard:adr ?addr .
 
-  ?addr vcard:street-address ?address .  
+  ?addr vcard:street-address ?address .
 
-  FILTER langMatches(lang(?name),'de') .         
+  FILTER langMatches(lang(?name),'de') .
 
 }  GROUP BY ?hs ORDER BY ?name
 ";
@@ -267,7 +268,7 @@ SELECT DISTINCT ?hs (MAX(?name) AS ?name) (MAX(?building) AS ?building) (MAX(?fl
 function getWohnheime() {
 	$lang="de";
 	$query = "
-prefix foaf: <http://xmlns.com/foaf/0.1/> 
+prefix foaf: <http://xmlns.com/foaf/0.1/>
 prefix lodum: <http://vocab.lodum.de/helper/>
 
 SELECT DISTINCT * WHERE {

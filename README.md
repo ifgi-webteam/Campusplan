@@ -20,7 +20,7 @@ This is a web app version of a the **Campus Plan App** developed by the [Univers
 
 ## Attributions
 
-* Map icons `img/awesomemarkers-*.png` from the [Awesome Markers](https://github.com/lvoogdt/Leaflet.awesome-markers) project (MIT license)
+* Map icons `img/awesomemarkers-*.png` derived from the [Awesome Markers](https://github.com/lvoogdt/Leaflet.awesome-markers) project (MIT license)
 * Navigation icons from [Iconmonstr](http://iconmonstr.com/) (Creative Commons license) & [The Noun Project](http://thenounproject.com/) (Public Domain)
-* [Weather icons](http://erikflowers.github.io/weather-icons/) (`fonts/weathericons*`) by Lukas Bischoff & Erik FLowers (SIL OFL 1.1 & MIT License)
-* [Signika font](http://www.google.com/fonts/specimen/Signika) by Anna Giedryś (SIL Open Font License, 1.1)
+* [Weather icons](http://erikflowers.github.io/weather-icons/) (`fonts/weathericons*`) by Lukas Bischoff & Erik Flowers (SIL Open Font License 1.1 & MIT License)
+* [Signika font](http://www.google.com/fonts/specimen/Signika) by Anna Giedryś (SIL Open Font License 1.1)

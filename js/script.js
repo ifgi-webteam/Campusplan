@@ -10,7 +10,7 @@ var monthsGerman = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli'
 var daysGerman = ['Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag'];
 
 // load Angular & modules
-angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
+angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy', 'LocalStorageModule'])
 // configure cgBusy for loading animations
 .value('cgBusyDefaults',{
 	message:'',
@@ -239,7 +239,7 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 /*
 	Controller Organization
 */
-.controller('OrgaController', function($scope, $routeParams, $http, leafletData, $document, $rootScope) {
+.controller('OrgaController', function($scope, $routeParams, $http, leafletData, $document, $rootScope, localStorageService) {
 	$scope.name = "OrgaController";
 	$scope.params = $routeParams;
 	$rootScope.$currentPageName = "Orga";
@@ -247,6 +247,48 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 
 	// set the map default settings
 	angular.extend($scope, $rootScope.leafletDefaults);
+
+	// check if orga in favourites list
+	// returns index nr. on success, -1 if false
+	$scope.inFavs = function() {
+		var favourites = localStorageService.get('favoriten');
+		var dupe = -1;
+
+		if(angular.isObject(favourites) && angular.isObject(favourites.orgas)) {
+			for(i in favourites.orgas) {
+				if(angular.equals(favourites.orgas[i], $scope.orga)) {
+					dupe = i;
+					break;
+				}
+			}
+		}
+		return dupe;
+	}
+
+	// add orga to favourites
+	$scope.addFav = function() {
+		var favourites = localStorageService.get('favoriten');
+
+		if(angular.isObject(favourites) && angular.isObject(favourites.orgas)) {
+			// check for duplicates
+			// in case of duplicate, remove fav
+			var dupe = $scope.inFavs();
+			if(dupe != -1) {
+				favourites.orgas.splice(dupe, 1); // remove favourite from list
+				$scope.inFav = false;
+			} else {
+				favourites.orgas.push($scope.orga); // add favourite to list
+				$scope.inFav = true;
+			}
+		} else {
+			// if favorites are empty, create new object
+			favourites = {};
+			favourites.orgas = []
+			favourites.orgas.push($scope.orga);
+			$scope.inFav = true;
+		}
+		return localStorageService.set('favoriten', favourites);
+	}
 
 	// query orga from API
 	$scope.orgaLoading = $http.post('api/orga.php', { data: $scope.params.identifier })
@@ -258,6 +300,7 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 			$scope.orga = data.results.bindings[0];
 			$scope.orgaSearchSuccess = true;
 			$scope.orgaSearchFailed = false;
+			$scope.inFav = ($scope.inFavs() < 0) ? false : true;
 			if($scope.orga.lat != null && $scope.orga.long != null) {
 				// organization has lat/lon coordinates in results
 				$scope.orgaHasCoords = true;
@@ -414,6 +457,20 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 	$rootScope.$currentPageName = "Wetter";
 })
 /*
+	Controller Favoriten
+*/
+.controller('FavoritenController', function($scope, $rootScope, $http, $filter, localStorageService) {
+	$rootScope.$currentPageName = "Favoriten";
+	$scope.favoriten = localStorageService.get('favoriten');
+
+	$scope.clearFavs = function() {
+		$scope.favoriten = {};
+		$scope.favoriten.orgas = [];
+		return localStorageService.clearAll();
+	}
+
+})
+/*
 	Dummy Controller
 */
 .controller('NotImplementedController', function($scope, $rootScope, $route, $routeParams, $location) {
@@ -425,7 +482,7 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 /*
 	Config for template<->controller association
 */
-.config(function($routeProvider, $locationProvider) {
+.config(function($routeProvider, $locationProvider, localStorageServiceProvider) {
 	$routeProvider
 		.when('/', {
 			templateUrl: 'templates/home.html',
@@ -464,8 +521,8 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 			controller: 'WohnheimeController'
 		})
 		.when('/Favoriten/', {
-			templateUrl: 'templates/empty.html',
-			controller: 'NotImplementedController'
+			templateUrl: 'templates/favoriten.html',
+			controller: 'FavoritenController'
 		})
 		.when('/ULB-Katalog/', {
 			templateUrl: 'templates/empty.html',
@@ -477,6 +534,10 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 		});
 
 	$locationProvider.html5Mode(true).hashPrefix('!');
+
+	localStorageServiceProvider
+		.setPrefix('campusplan')
+		.setStorageCookie(0, '/');
 });
 
 
