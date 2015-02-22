@@ -236,7 +236,7 @@ div.tile.smalltile {
 .colMensen {
 	background-color:#2a6c8c;
 }
-.colUlb-katalog {
+.colULB-Katalog {
 	background-color:#2a6c8c;
 }
 .colWohnheime {
@@ -419,4 +419,30 @@ li.navbarOnly {
 	width:100%; 
 	font-size:small; 
 	color:#666
+}
+
+.footnote a {
+	color:#666
+}
+
+@keyframes fav {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(359deg); }
+}
+.fav {
+	
+}
+
+.fav span {
+	color: #f5c500;
+	animation: fav 5s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+
+.yellow {
+	color: #f5c500;
+}
+.gray {
+	color:#666;
 }

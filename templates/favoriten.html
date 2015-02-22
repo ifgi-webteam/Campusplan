@@ -2,7 +2,7 @@
 	<div class="container-fluid">
 		<div class="col-md-6">
 			<h1>Favoriten</h1>
-			<p class="lead">Seiten von Einrichtungen können über einen Klick auf <a class="btn btn-sm btn-default"><span class="glyphicon glyphicon-star"></span> zu Favoriten</a> in diese Liste hinzugefügt werden.</p>
+			<p class="lead">Seiten von Einrichtungen können über einen Klick auf <a class="btn btn-sm btn-default" ng-click="stuff($event)"><span class="glyphicon glyphicon-star"></span> zu Favoriten</a> in diese Liste hinzugefügt werden.</p>
 
 			<form ng-show="favoriten.orgas.length > 5">
 				<div class="input-group input-group-lg">
@@ -16,27 +16,22 @@
 
 		<div class="col-xs-12"><p></p></div>
 
-		<div class="col-xs-12" ng-show="!favoriten || !favoriten.orgas">
+		<div class="col-xs-12" ng-show="!favoriten || !favoriten.orgas || favoriten.orgas.length == 0">
 			<p>Du hast bisher keine Favoriten markiert.</p>
 		</div>
 
 		<div class="col-xs-12" ng-show="favoriten.orgas.length > 0">
 			<table class="table table-bordered table-striped">
-				<thead>
-					<tr>
-						<th>Favoriten</th>
-					</tr>
-				</thead>
 				<tbody>
 					<tr ng-repeat="f in favoriten.orgas | filter: inputsearchterm">
-						<td><a href="/Organisation/{{ f.subject.value.split('context/').pop() }}">{{ f.name.value }}</a></td>
+						<td>
+							<span class="glyphicon glyphicon-star yellow"></span> <a href="/Organisation/{{ f.subject.value.split('context/').pop() }}">{{ f.name.value }}</a>
+							<a href="" class="pull-right gray" ng-click="removeFav(f)">Entfernen</a>
+						</td>
+
 					</tr>
 				</tbody>
 			</table>
-
-			<div class="footnote">
-					<a href="" ng-click="clearFavs()">Favoritenliste löschen</a>
-			</div>
 		</div>
 	</div>
 </div>
