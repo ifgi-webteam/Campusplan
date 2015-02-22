@@ -18,27 +18,9 @@ This is a web app version of a the **Campus Plan App** developed by the [Univers
 1. Clone the repository into your webserver htdocs
 2. Run ```bower update``` to install the JS libraries
 
-### Todo v2
+## Attributions
 
-#### Features
-- [ ] Hauptseite
-  - [x] Kacheln
-  - [ ] Navbar
-  	- [x] Farbwechsel
-- [ ] Mensen 
-  - [ ] DB API
-  	- [x] Anfragen
-  	- [ ] Caching
-- [ ] Uni A-Z
-  - [ ] DB API
-- [ ] Karte 
-  - [ ] DB API
-- [ ] Fachbereiche 
-  - [ ] DB API
-- [ ] Favoriten 
-- [ ] Hörsäle 
-  - [ ] DB API
-- [ ] Info 
-- [ ] ULB-Katalog 
-- [ ] Wohnheime
-  - [ ] DB API
+* Map icons `img/awesomemarkers-*.png` from the [Awesome Markers](https://github.com/lvoogdt/Leaflet.awesome-markers) project (MIT license)
+* Navigation icons from [Iconmonstr](http://iconmonstr.com/) (Creative Commons license) & [The Noun Project](http://thenounproject.com/) (Public Domain)
+* [Weather icons](http://erikflowers.github.io/weather-icons/) (`fonts/weathericons*`) by Lukas Bischoff & Erik FLowers (SIL OFL 1.1 & MIT License)
+* [Signika font](http://www.google.com/fonts/specimen/Signika) by Anna Giedryś (SIL Open Font License, 1.1)

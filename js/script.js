@@ -27,6 +27,34 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 	$scope.$location = $location;
 	$scope.$routeParams = $routeParams;
 	$rootScope.$navbarBgCol = "#009dd1";
+	// Leaflet map defaults
+	$rootScope.leafletDefaults = {
+		mapCenter: {
+			lat: 51.96362,
+			lng: 7.61309,
+			zoom: 14
+		},
+		mapDefaults: {
+			scrollWheelZoom: true, 	
+			tileLayer: "http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpeg", // Mapquest Open
+			tileLayerOptions: {
+				subdomains: "1234",
+				attribution: 'Map data © OpenStreetMap contributors | Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">'
+			},
+		},
+		icons: { 
+			iconBlue: {
+				iconUrl: "img/awesomemarkers-blue.png",
+				iconSize: [30, 46],
+				iconAnchor: [14, 43],
+				popupAnchor: [1, -40],
+				shadowUrl: "img/awesomemarkers-shadow.png",
+				shadowAnchor: [10, 12],
+				shadowSize: [36, 16]
+			} 
+		},
+		orgMarkers: {}
+	};
 
 	// query Wetter api
 	$scope.weatherLoading = $http.get('api/wetter.php')
@@ -95,28 +123,7 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 	$rootScope.$currentPageName = "Karte";
 
 	// set map defaults
-	angular.extend($scope, {
-		mapCenter: {
-			lat: 51.96362,
-			lng: 7.61309,
-			zoom: 14
-		},
-		mapDefaults: {
-			scrollWheelZoom: true, 	
-			tileLayer: "http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpeg", // Mapquest Open
-			tileLayerOptions: {
-				subdomains: "1234",
-				attribution: 'Map data © OpenStreetMap contributors | Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">'
-			},
-		},
-		icons: { 
-			iconA: {
-				iconUrl: "img/marker.png",
-				iconSize:     [6, 6],
-				iconAnchor:   [2, 2]
-			} 
-		}
-	});
+	angular.extend($scope, $rootScope.leafletDefaults);
 
 	// Reset the view after AngularJS has loaded the page
 	// Otherwise tiles don't load completely
@@ -137,9 +144,18 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 			$scope.orgaSearchSuccess = true;
 			$scope.orgaSearchFailed = false;
 
+			/*
+				Data returned from API has these attributes: lat, lng, message
+				We add the custom icon attribute here.
+			*/
+			$scope.markers = angular.forEach($scope.orga, function(e, i){
+					e.icon = $scope.icons.iconBlue;
+					return e;
+				});
+
 			// load api results into marker variable on map
 			angular.extend($scope, {
-				orgMarkers: data
+				orgMarkers: $scope.markers
 			});
 
 			// Reset the view after AngularJS has loaded the page
@@ -230,25 +246,7 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 	$scope.orgaHasCoords = false;
 
 	// set the map default settings
-	angular.extend($scope, {
-		mapCenter: {
-			lat: 51.96362,
-			lng: 7.61309,
-			zoom: 14
-		},
-		mapDefaults: {
-			scrollWheelZoom: true, 	
-			tileLayer: "http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpeg", // Mapquest Open
-			tileLayerOptions: {
-				subdomains: "1234",
-				attribution: 'Map data © OpenStreetMap contributors | Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">'
-			}
-		},
-		orgMarkers: {},
-	});
-
-	// map marker icon
-	var myIcon = { iconA: { iconUrl: "img/marker.png" } }
+	angular.extend($scope, $rootScope.leafletDefaults);
 
 	// query orga from API
 	$scope.orgaLoading = $http.post('api/orga.php', { data: $scope.params.identifier })
@@ -287,7 +285,7 @@ angular.module('CampusplanApp', ['ngRoute', 'leaflet-directive', 'cgBusy'])
 							lng: parseFloat($scope.orga.long.value),
 							focus: true,
 							message: $scope.orga.name.value,
-							icon: myIcon.iconA
+							icon: $scope.icons.iconBlue
 						}
 					}
 				});
