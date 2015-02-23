@@ -22,7 +22,7 @@
 
 		<div class="col-xs-12"></div>
 
-		<div class="col-md-6" ng-hide="orgaSearchSuccess">
+		<div class="col-md-6" ng-hide="orgaSearchSuccess && inputsearchterm.length > 0">
 			<p class="lead"><br>... oder nach Anfangsbuchstabe suchen:</p>
 			<div class="az">
 				<div class="az-inner">
@@ -58,7 +58,7 @@
 			</div>
 		</div>
 
-		<div class="col-xs-12" ng-model="result" ng-show="orgaSearchSuccess">
+		<div class="col-xs-12" ng-model="result" ng-show="orgaSearchSuccess && inputsearchterm.length > 0">
 			<table class="table table-bordered table-striped">
 				<thead>
 					<tr>

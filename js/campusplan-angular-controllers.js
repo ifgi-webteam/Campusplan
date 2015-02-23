@@ -12,10 +12,11 @@ campusplanApp.controller('MainController', function($scope, $route, $routeParams
 		mapCenter: {
 			lat: 51.96362,
 			lng: 7.61309,
-			zoom: 14
+			zoom: 12
 		},
 		mapDefaults: {
-			scrollWheelZoom: true, 	
+			scrollWheelZoom: true, 
+			minZoom: 10,
 			tileLayer: "http://otile{s}.mqcdn.com/tiles/1.0.0/map/{z}/{x}/{y}.jpeg", // Mapquest Open
 			tileLayerOptions: {
 				subdomains: "1234",
@@ -110,7 +111,7 @@ campusplanApp.controller('MainController', function($scope, $route, $routeParams
 	leafletData.getMap().then(function(map) {
 		$scope.$watch('$viewContentLoaded', function() {
 			map.invalidateSize();
-			map.setView([51.96362, 7.61309], 14);
+			map.setView([51.96362, 7.61309], 16);
 		});
 	});
 
@@ -170,7 +171,7 @@ campusplanApp.controller('MainController', function($scope, $route, $routeParams
 
 	/* Request a search at api/unia-z.php and return results */
 	$scope.search = function() {
-		if($scope.inputsearchterm.length > 0) {
+		if($scope.inputsearchterm.length == 1 || $scope.inputsearchterm.length > 2) {
 			$scope.searchterm = $scope.inputsearchterm;
 
 			// query user search input to uni a-z api
@@ -301,7 +302,7 @@ campusplanApp.controller('MainController', function($scope, $route, $routeParams
 				leafletData.getMap().then(function(map) {
 					$scope.$watch('$viewContentLoaded', function() {
 						map.invalidateSize();
-						map.setView([$scope.orga.lat.value, $scope.orga.long.value], 16);
+						map.setView([$scope.orga.lat.value, $scope.orga.long.value], 17);
 					});
 				});
 			});

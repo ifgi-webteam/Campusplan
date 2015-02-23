@@ -35,7 +35,7 @@ function file_get_contents_cached($url, $expiry=604800) {
 
 // Query database and return JSON string
 function sparql_get($query) {
-	$url = 'http://giv-lodumdata.uni-muenster.de:8080/openrdf-workbench/repositories/lodumhbz/query?query='.urlencode($query).'&format=json';
+	$url = 'http://giv-lodumdata.uni-muenster.de:8080/openrdf-workbench/repositories/lodumhbz/query?limit=5000&query='.urlencode($query).'&format=json';
 	$response = file_get_contents_cached($url);
 	if(json_decode($response)) { // check for validity
 		return $response;
@@ -43,7 +43,9 @@ function sparql_get($query) {
 	return false;
 }
 
-// Search database by starting letter
+/*
+	Query database for organizations by starting letter
+*/
 function searchByLetter($letter) {
 
 	$orgs = sparql_get("
@@ -70,7 +72,9 @@ SELECT DISTINCT ?orga ?name WHERE {
 	return $orgs;
 }
 
-// Search database by whole word
+/*
+	Query database for organizations by whole word
+*/
 function searchByWord($searchterm) {
 
 	$orgs = sparql_get("
@@ -98,7 +102,9 @@ SELECT DISTINCT ?orga ?name WHERE {
 	return $orgs;
 }
 
-// single organization query
+/*
+	Query single organization's details
+*/
 function getOrgDetails($identifier, $lang = "de") {
 	$org = "http://data.uni-muenster.de/context/".$identifier;
 	$orga = sparql_get("
@@ -152,12 +158,14 @@ SELECT DISTINCT ?orga ?name WHERE {
 		FILTER (STRLEN(?name) > 0) .
 		FILTER regex(str(?orga),'uniaz') .
 	}
-} ORDER BY ?lname
+} 
 	");
 	return $orgs;
 }
 
-// Mensaplan for whole week, all Mensas
+/*
+	Query all Mensaplan for whole week, all Mensas
+*/
 function getMensaplan($identifier = "") {
 	if(date('l') == "Saturday" || date('l') == "Sunday") {
 		$timeStart = strtotime('monday next week');
@@ -202,21 +210,28 @@ SELECT DISTINCT ?name ?start ?minPrice ?maxPrice ?mensa ?mensaname WHERE {
 */
 function getMapGeometriesPts() {
 	$query = "
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX aiiso: <http://purl.org/vocab/aiiso/schema#>
+PREFIX lodum: <http://vocab.lodum.de/helper/>
 PREFIX geo:<http://www.opengis.net/ont/geosparql#>
+PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
+PREFIX wgs84: <http://www.w3.org/2003/01/geo/wgs84_pos#>
 
-SELECT DISTINCT ?building ?name ?lat ?lon ?streetaddress ?postalcode ?region WHERE {
-	?building a <http://dbpedia.org/ontology/building> ;
-	<http://xmlns.com/foaf/0.1/name> ?name ;
-	<http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat;
-	<http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon;
-	<http://www.w3.org/2006/vcard/ns#adr> ?adr .
-	OPTIONAL { ?building geo:hasGeometry ?geom.
-    	?geom geo:asWKT ?wkt }
-	?adr <http://www.w3.org/2006/vcard/ns#street-address> ?streetaddress;
-	<http://www.w3.org/2006/vcard/ns#postal-code> ?postalcode;
-	<http://www.w3.org/2006/vcard/ns#region> ?region.
-} ORDER BY ?name
-";
+SELECT DISTINCT ?name ?lat ?lon ?address ?organization ?buildingname ?building WHERE {
+	?organization a foaf:Organization ;
+	  foaf:name ?name ;
+	  vcard:adr ?adr ;
+	  lodum:building ?building .
+	  
+	?building 
+	  wgs84:lat ?lat ;
+	  wgs84:long ?lon ;
+	  foaf:name ?buildingname .
+
+	OPTIONAL { ?organization vcard:adr ?address .
+ 	  FILTER ( datatype(?address) = xsd:string )
+  	}
+} ";
 	$mapData = sparql_get($query);
 	return $mapData;
 }
@@ -227,13 +242,16 @@ SELECT DISTINCT ?building ?name ?lat ?lon ?streetaddress ?postalcode ?region WHE
 */
 function getMapGeometriesPoly() {
 	$query = "
+prefix foaf: <http://xmlns.com/foaf/0.1/>
+prefix aiiso: <http://purl.org/vocab/aiiso/schema#>
+prefix lodum: <http://vocab.lodum.de/helper/>
 PREFIX geo:<http://www.opengis.net/ont/geosparql#>
 
-SELECT DISTINCT ?building ?wkt WHERE {
-	?building a <http://dbpedia.org/ontology/building> .
-	
-	?building geo:hasGeometry ?geom ;
-    	?geom geo:asWKT ?wkt .
+SELECT DISTINCT ?building ?name ?wkt WHERE {
+	?building a <http://dbpedia.org/ontology/building> ;
+	<http://xmlns.com/foaf/0.1/name> ?name .
+	?building geo:hasGeometry ?geom.
+    	?geom geo:asWKT ?wkt 
 } ORDER BY ?name
 ";
 	$mapData = sparql_get($query);
@@ -241,7 +259,7 @@ SELECT DISTINCT ?building ?wkt WHERE {
 }
 
 /*
-
+	Query all Fachbereiche
 */
 function getFachbereiche() {
 	$lang="de";
@@ -263,7 +281,9 @@ SELECT DISTINCT * WHERE {
 	return $fbs;
 }
 
-
+/*
+	Query all Hörsäle
+*/
 function getHoersaele() {
 	$lang="de";
 	$query = "
@@ -292,7 +312,9 @@ SELECT DISTINCT ?hs (MAX(?name) AS ?name) (MAX(?building) AS ?building) (MAX(?fl
 	return $fbs;
 }
 
-
+/*
+	Query all Wohnheime
+*/
 function getWohnheime() {
 	$lang="de";
 	$query = "

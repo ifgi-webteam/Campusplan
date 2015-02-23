@@ -7,7 +7,7 @@
 		{{ orga.address.value }} <br>
 		<br>
 		<div class="btn-group-vertical">
-		<a class="btn btn-sm btn-default" href="{{ orga.homepage.value }}"><span class="glyphicon glyphicon-globe" target="_blank"></span> Webseite</a>
+		<a class="btn btn-sm btn-default" href="{{ orga.homepage.value }}" ng-show="orga.homepage.value.length > 3"><span class="glyphicon glyphicon-globe" target="_blank"></span> Webseite</a>
 		<a class="btn btn-sm btn-default" href="" ng-click="addFav()" ng-class="{'btn-warning': inFav}"><span class="glyphicon glyphicon-star"></span> zu Favoriten</a>
 		</div>
 	</div>
