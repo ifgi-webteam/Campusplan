@@ -17,6 +17,7 @@ This is a web app version of a the **Campus Plan App** developed by the [Univers
 
 1. Clone the repository into your webserver htdocs
 2. Run ```bower update``` to install the JS libraries
+3. Create the directory ```api/cache``` and give Apache rw access: ```chmod www-data api/cache/```
 
 ## Attributions
 
