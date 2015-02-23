@@ -16,6 +16,7 @@
     "angular-i18n": "~1.2.x",
     "bootstrap": "~3.3.x",
     "angular-busy": "~4.1.0",
-    "angular-local-storage": "~0.1.5"
+    "angular-local-storage": "~0.1.5",
+    "Wicket": "https://github.com/arthur-e/Wicket.git#9a57c429fbdb54e5024d3630a48fc913fc425104"
   }
 }

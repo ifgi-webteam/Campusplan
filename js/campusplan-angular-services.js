@@ -1,6 +1,7 @@
 /*
 	Angular Services
 */
+// read/save/add/remove favourites
 campusplanApp.factory('FavService', function(localStorageService) {
 	return {
 		test: function() {
@@ -49,4 +50,16 @@ campusplanApp.factory('FavService', function(localStorageService) {
 			return localStorageService.set('favoriten', favourites);
 		}
 	};
+})
+
+// Wicket library
+// convert 'Well Known Text' geometries to GeoJSON objects
+campusplanApp.service('WicketService', function() {
+	
+	this.WktToObj = function(wktInput) {
+		var wkt = new Wkt.Wkt();
+		wkt.read(wktInput);
+		return wkt.toJson();//{reverseInnerPolygons: true}
+	}
+
 });

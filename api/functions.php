@@ -104,28 +104,28 @@ function getOrgDetails($identifier, $lang = "de") {
 	$orga = sparql_get("
 
 prefix foaf: <http://xmlns.com/foaf/0.1/>
-prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
+prefix wgs84: <http://www.w3.org/2003/01/geo/wgs84_pos#>
 prefix vcard: <http://www.w3.org/2006/vcard/ns#>
 prefix lodum: <http://vocab.lodum.de/helper/>
-prefix ogc: <http://www.opengis.net/ont/OGC-GeoSPARQL/1.0/>
+PREFIX geo:<http://www.opengis.net/ont/geosparql#>
 prefix xsd: <http://www.w3.org/2001/XMLSchema#>
 
-SELECT DISTINCT ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?lat ?long ?wkt ?subject WHERE {
+SELECT DISTINCT ?subject ?name ?homepage ?address ?street ?zip ?city ?buildingaddress ?lat ?long ?wkt WHERE {
   <".$org."> foaf:name ?name.
   OPTIONAL { <".$org."> foaf:homepage ?homepage . }
   OPTIONAL { <".$org."> vcard:adr ?address .
   	FILTER ( datatype(?address) = xsd:string )
   }
   OPTIONAL { <".$org."> lodum:building ?building .
-     OPTIONAL { ?building geo:lat ?lat ;
-                              geo:long ?long . }
+     OPTIONAL { ?building wgs84:lat ?lat ;
+                              wgs84:long ?long . }
      OPTIONAL { ?building vcard:adr ?buildingAddress .
      			?buildingAddress vcard:street-address ?street ;
      			    vcard:postal-code ?zip ;
      			    vcard:region ?city .
      }
-     OPTIONAL { ?building ogc:hasGeometry ?geometry .
-                          ?geometry ogc:asWKT ?wkt . }
+     OPTIONAL { ?building geo:hasGeometry ?geometry .
+                          ?geometry geo:asWKT ?wkt . }
   }
   BIND(<".$org."> as ?subject)
   FILTER langMatches(lang(?name),'".$lang."') .

@@ -219,7 +219,7 @@ campusplanApp.controller('MainController', function($scope, $route, $routeParams
 /*
 	Controller Organization
 */
-.controller('OrgaController', function($scope, $routeParams, $http, leafletData, $document, $rootScope, localStorageService, FavService) {
+.controller('OrgaController', function($scope, $routeParams, $http, leafletData, $document, $rootScope, localStorageService, FavService, WicketService) {
 	$scope.name = "OrgaController";
 	$scope.params = $routeParams;
 	$rootScope.$currentPageName = "Orga";
@@ -247,6 +247,7 @@ campusplanApp.controller('MainController', function($scope, $route, $routeParams
 		$scope.result = data;
 		if(data.results != null && data.results.bindings.length > 0) {
 			$scope.orga = data.results.bindings[0];
+			console.log($scope.orga);
 			$scope.orgaSearchSuccess = true;
 			$scope.orgaSearchFailed = false;
 			$scope.inFav = ($scope.inFavs() < 0) ? false : true;
@@ -263,6 +264,19 @@ campusplanApp.controller('MainController', function($scope, $route, $routeParams
 						$scope.orga.long = [];
 						$scope.orga.long.value = data.results[0].locations[0].displayLatLng.lng;
 						$scope.orgaHasCoords = true;
+					}
+				});
+			}
+			
+			if($scope.orga.wkt != null && $scope.orga.wkt.value != null) {
+				// has wkt geometries
+				var geometryObj;
+				geometryObj = WicketService.WktToObj($scope.orga.wkt.value);
+				
+				angular.extend($scope, {
+					geojson: { 
+						data: geometryObj, 
+						style: { weight: 2, opacity: 1, color: 'red', fillOpacity: 0 } 
 					}
 				});
 			}
@@ -417,7 +431,7 @@ campusplanApp.controller('MainController', function($scope, $route, $routeParams
 /*
 	Controller Favoriten
 */
-.controller('FavoritenController', function($scope, $rootScope, $http, $filter, localStorageService, FavService) {
+.controller('FavoritenController', function($scope, $rootScope, $http, $filter, localStorageService, FavService, WicketService) {
 	$rootScope.$currentPageName = "Favoriten";
 	$scope.favoriten = localStorageService.get('favoriten');
 
