@@ -1,6 +1,6 @@
 <?php
 include("functions.php");
-$mapjson = json_decode(getMapGeometries(), true);
+$mapjson = json_decode(getMapGeometriesPts(), true);
 
 $points = array();
 foreach($mapjson["results"]["bindings"] as $point) {

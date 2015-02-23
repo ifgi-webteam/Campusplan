@@ -196,15 +196,22 @@ SELECT DISTINCT ?name ?start ?minPrice ?maxPrice ?mensa ?mensaname WHERE {
 	return $food;
 }
 
-function getMapGeometries() {
+/*
+	Query all buildings for display on map
+	Includes point location data
+*/
+function getMapGeometriesPts() {
 	$query = "
+PREFIX geo:<http://www.opengis.net/ont/geosparql#>
+
 SELECT DISTINCT ?building ?name ?lat ?lon ?streetaddress ?postalcode ?region WHERE {
 	?building a <http://dbpedia.org/ontology/building> ;
 	<http://xmlns.com/foaf/0.1/name> ?name ;
 	<http://www.w3.org/2003/01/geo/wgs84_pos#lat> ?lat;
 	<http://www.w3.org/2003/01/geo/wgs84_pos#long> ?lon;
 	<http://www.w3.org/2006/vcard/ns#adr> ?adr .
-	Filter( !EXISTS { ?building <http://www.opengis.net/ont/OGC-GeoSPARQL/1.0/hasGeometry> ?geom. })
+	OPTIONAL { ?building geo:hasGeometry ?geom.
+    	?geom geo:asWKT ?wkt }
 	?adr <http://www.w3.org/2006/vcard/ns#street-address> ?streetaddress;
 	<http://www.w3.org/2006/vcard/ns#postal-code> ?postalcode;
 	<http://www.w3.org/2006/vcard/ns#region> ?region.
@@ -214,7 +221,28 @@ SELECT DISTINCT ?building ?name ?lat ?lon ?streetaddress ?postalcode ?region WHE
 	return $mapData;
 }
 
+/*
+	Query all buildings for display on map
+	Includes polygon data
+*/
+function getMapGeometriesPoly() {
+	$query = "
+PREFIX geo:<http://www.opengis.net/ont/geosparql#>
 
+SELECT DISTINCT ?building ?wkt WHERE {
+	?building a <http://dbpedia.org/ontology/building> .
+	
+	?building geo:hasGeometry ?geom ;
+    	?geom geo:asWKT ?wkt .
+} ORDER BY ?name
+";
+	$mapData = sparql_get($query);
+	return $mapData;
+}
+
+/*
+
+*/
 function getFachbereiche() {
 	$lang="de";
 	$query = "
