@@ -1,7 +1,7 @@
 <?php
 // Implement a cache mechanism for file_get_contents()
 // Set a default cache expiry time of 7 days (604800 seconds)
-function file_get_contents_cached($url, $expiry=604800) {
+function file_get_contents_cached($url, $expiry=604800, $opts=array()) {
 	try {
 		$urlMd5 = md5($url);
 		$cachedFile = "cache/".$urlMd5;
@@ -11,17 +11,20 @@ function file_get_contents_cached($url, $expiry=604800) {
 			$cached = file_get_contents($cachedFile, true);
 			return $cached;
 		} else {
-			$opts = array(
-				'http'=>array(
-					'header' => "Accept: application/sparql-results+json\r\n",
-					'timeout' => 10
-					)
-			);
+			if(empty($opts)) {
+				$opts = array(
+					'http'=>array(
+						'header' => "Accept: application/json\r\n",
+						'timeout' => 10
+						)
+				);
+			}
 			$context = stream_context_create($opts);
 
 			// mute file_get_contents because it doesn't behave within try/catch block when exception happens
 			if($response = @file_get_contents($url, false, $context)) {
 				if($http_response_header[0] != "HTTP/1.1 200 OK") return false;
+				//print_r($http_response_header);
 
 				file_put_contents($cachedFile, $response);
 				return $response;
@@ -36,7 +39,13 @@ function file_get_contents_cached($url, $expiry=604800) {
 // Query database and return JSON string
 function sparql_get($query) {
 	$url = 'http://giv-lodumdata.uni-muenster.de:8080/openrdf-workbench/repositories/lodumhbz/query?limit=5000&query='.urlencode($query).'&format=json';
-	$response = file_get_contents_cached($url);
+	$opts = array(
+			'http'=>array(
+				'header' => "Accept: application/sparql-results+json\r\n",
+				'timeout' => 10
+				)
+		);
+	$response = file_get_contents_cached($url, 604800, $opts);
 	if(json_decode($response)) { // check for validity
 		return $response;
 	}
@@ -203,9 +212,10 @@ SELECT DISTINCT ?name ?start ?minPrice ?maxPrice ?mensa ?mensaname WHERE {
 ');
 	return $food;
 }
+/* Fetch mensa data from different source, implementation see https://github.com/chk1/mensaparser */
 function getMensaplan2($identifier = "") {
 	if($identifier!="") { $identifier = "/".$identifier; }
-	return file_get_contents('http://192.168.78.155:9000/menu'.$identifier);
+	return file_get_contents_cached('http://app.uni-muenster.de:9000/menu'.$identifier);
 }
 
 
