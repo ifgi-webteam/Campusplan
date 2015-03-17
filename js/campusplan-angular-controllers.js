@@ -318,7 +318,7 @@ campusplanApp.controller('MainController', function($scope, $route, $routeParams
 			});
 
 			// load mensaplan for mensa organizations
-			$scope.orgaLoading = $http.post('api/mensen.php', { data: $scope.params.identifier })
+			$scope.orgaLoading = $http.get('http://localhost:9000/all', { data: $scope.params.identifier })
 			.success(function(data, status) {
 				if(Object.keys(data).length > 0) {
 					console.log(data);
