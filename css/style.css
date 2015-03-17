@@ -464,5 +464,5 @@ li.navbarOnly {
 }
 
 h2 {
-	word-break: break-all;
+	word-wrap: break-word;
 }
