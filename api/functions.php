@@ -215,7 +215,7 @@ SELECT DISTINCT ?name ?start ?minPrice ?maxPrice ?mensa ?mensaname WHERE {
 /* Fetch mensa data from different source, implementation see https://github.com/chk1/mensaparser */
 function getMensaplan2($identifier = "") {
 	if($identifier!="") { $identifier = "/".$identifier; }
-	return file_get_contents_cached('http://app.uni-muenster.de:9000/menu'.$identifier);
+	return file_get_contents_cached('http://app.uni-muenster.de:9000/menu'.$identifier, 24*3600);
 }
 
 
