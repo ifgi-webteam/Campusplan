@@ -78,10 +78,11 @@ campusplanApp.controller('MainController', function($scope, $route, $routeParams
 	$scope.expandMonday = (doW == 0 || doW == 1 || doW == 6);
 
 	// query Mensa api
-	$scope.mensaLoading = $http.get('http://app.uni-muenster.de:9000/menu')
+	$scope.mensaLoading = $http.get('api/mensen.php')
 		.success(function(data, status) {
 			$scope.result = data;
-			if(data.results != null && data.results.bindings.length > 0) {
+			console.log(data);
+			if(Object.keys(data).length > 0) {
 				$scope.mensaData = data;
 				$scope.mensenQuerySuccess = true;
 				$scope.mensenQueryFailed = false;
@@ -318,7 +319,7 @@ campusplanApp.controller('MainController', function($scope, $route, $routeParams
 			});
 
 			// load mensaplan for mensa organizations
-			$scope.orgaLoading = $http.get('http://app.uni-muenster.de:9000/menu/'+$scope.params.identifier)
+			$scope.orgaLoading = $http.post('api/mensen.php', { data: $scope.params.identifier.split('/').pop() })
 			.success(function(data, status) {
 				if(Object.keys(data).length > 0) {
 					console.log(data);

@@ -7,18 +7,19 @@ try {
 	$angjs_data_decoded = json_decode($angjs_data);
 	if(!empty($angjs_data_decoded)) {
 		$searchterm = $angjs_data_decoded->data;
-		$mensajson = getMensaplan($searchterm);
+		$mensajson = getMensaplan2($searchterm);
 	} else {
-		$mensajson = getMensaplan();
+		$mensajson = getMensaplan2();
 	}
+	//echo $mensajson;
 
 	$mensaarr = json_decode($mensajson, true);
 	$mensasorted = array();
 
 	if($mensajson) {
-		foreach($mensaarr['results']['bindings'] as $food) {
+		foreach($mensaarr as $food) {
 			// reduce dates to date/month/year, stripping time
-			$dateval = strtotime( $food['start']['value'] );
+			$dateval = strtotime( $food['data']['date'] );
 
 			$foodday = date('N', $dateval);
 			if(!isset($mensasorted[ $foodday ])) {
@@ -28,13 +29,13 @@ try {
 				$mensasorted[ $foodday ]["meta"]["dayOfWeekNameGer"] = $daysGerman[date('w', $dateval)-1];
 			}
 
-			$foodarray = array('name' => $food['name']['value'],
-				'minPrice' => $food['minPrice']['value'], 
-				'maxPrice' => $food['maxPrice']['value']);
-			$mensasorted[ $foodday ]["fooddata"][ $food['mensa']['value'] ]['food'][] = $foodarray;
+			$foodarray = array('name' => $food['data']['name'],
+				'minPrice' => $food['data']['minPrice'], 
+				'maxPrice' => $food['data']['maxPrice']);
+			$mensasorted[ $foodday ]["fooddata"][ $food['data']['mensa']['uid'] ]['food'][] = $foodarray;
 
-			$mensasorted[ $foodday ]["fooddata"][ $food['mensa']['value'] ]['mensa']['name'] = $food['mensaname']['value'];
-			$mensasorted[ $foodday ]["fooddata"][ $food['mensa']['value'] ]['mensa']['uri'] = $food['mensa']['value'];
+			$mensasorted[ $foodday ]["fooddata"][ $food['data']['mensa']['uid'] ]['mensa']['name'] = $food['data']['mensa']['name'];
+			$mensasorted[ $foodday ]["fooddata"][ $food['data']['mensa']['uid'] ]['mensa']['uri'] = $food['data']['mensa']['uid'];
 		}
 
 		echo json_encode($mensasorted);

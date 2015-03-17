@@ -203,6 +203,11 @@ SELECT DISTINCT ?name ?start ?minPrice ?maxPrice ?mensa ?mensaname WHERE {
 ');
 	return $food;
 }
+function getMensaplan2($identifier = "") {
+	if($identifier!="") { $identifier = "/".$identifier; }
+	return file_get_contents('http://192.168.78.155:9000/menu'.$identifier);
+}
+
 
 /*
 	Query all buildings for display on map
