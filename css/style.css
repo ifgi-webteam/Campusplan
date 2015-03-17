@@ -462,3 +462,7 @@ li.navbarOnly {
 	max-height: 400px;
 	overflow-y: auto;
 }
+
+h2 {
+	word-break: break-all;
+}
