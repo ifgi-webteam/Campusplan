@@ -122,6 +122,12 @@ div.tile.smalltile {
 	min-width: 60px;
 }
 
+/* weather icon font size */
+div.tile.smalltile span.tiletitle i.wi {
+	font-size:5em;
+	font-size:10vmin;
+}
+
 /* 
 	Tile size on home page for portrait mode / smartphones
 */
@@ -138,7 +144,7 @@ div.tile.smalltile {
 		font-size:1.5em;
 		font-size:6vmin;
 	}
-	
+
 	div.tile.smalltile span.tiletitle {
 		font-size:1em;
 		font-size:3vmin;
@@ -445,4 +451,14 @@ li.navbarOnly {
 }
 .gray {
 	color:#666;
+}
+
+.infobuttons a {
+	margin: 5px;
+}
+
+.leaflet-popup-content {
+	width:200px;
+	max-height: 400px;
+	overflow-y: auto;
 }
