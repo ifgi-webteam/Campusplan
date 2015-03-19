@@ -4,10 +4,10 @@
 <div class="container-fluid">
 	<div class="col-xs-12" ng-show="orgaSearchSuccess">
 		<h2>{{ orga.name.value }}</h2>
-		{{ orga.address.value }} <br>
+		{{ orga.address.value || orga.street.value +", "+ orga.zip.value + orga.city.value }} <br>
 		<br>
 		<div class="btn-group-vertical">
-		<a class="btn btn-sm btn-default" href="{{ orga.homepage.value }}" ng-show="orga.homepage.value.length > 3"><span class="glyphicon glyphicon-globe" target="_blank"></span> Webseite</a>
+		<a class="btn btn-sm btn-default" href="{{ orga.homepage.value }}" ng-class="{'disabled': !orga.homepage.value }"><span class="glyphicon glyphicon-globe" target="_blank"></span> Webseite</a>
 		<a class="btn btn-sm btn-default" href="" ng-click="addFav()" ng-class="{'btn-warning': inFav}"><span class="glyphicon glyphicon-star"></span> zu Favoriten</a>
 		</div>
 	</div>
