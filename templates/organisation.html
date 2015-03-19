@@ -6,9 +6,41 @@
 		<h2>{{ orga.name.value }}</h2>
 		{{ orga.address.value || orga.street.value +", "+ orga.zip.value + orga.city.value }} <br>
 		<br>
-		<div class="btn-group-vertical">
-		<a class="btn btn-sm btn-default" href="{{ orga.homepage.value }}" ng-class="{'disabled': !orga.homepage.value }"><span class="glyphicon glyphicon-globe" target="_blank"></span> Webseite</a>
-		<a class="btn btn-sm btn-default" href="" ng-click="addFav()" ng-class="{'btn-warning': inFav}"><span class="glyphicon glyphicon-star"></span> zu Favoriten</a>
+		<div class="btn-group">
+			<a class="btn btn-sm btn-default" href="{{ orga.homepage.value }}" ng-class="{'disabled': !orga.homepage.value }"><span class="glyphicon glyphicon-globe" target="_blank"></span> Webseite</a>
+			<a class="btn btn-sm btn-default" href="" ng-click="addFav()" ng-class="{'btn-warning': inFav}"><span class="glyphicon glyphicon-star"></span> zu Favoriten</a>
+		</div>
+
+		<div class="btn-group" ng-show="orgaHasCoords" cg-busy="{promise:routeLoading,templateUrl:'templates/loading-small.html'}">
+			<span class="btn btn-sm btn-info" href=""><span class="glyphicon glyphicon glyphicon-screenshot"></span> Navigation</span>
+			<a class="btn btn-sm btn-default" href="" ng-class="{ 'btn-success': routeType=='pedestrian' }" ng-click="getRoute('pedestrian')">zu Fuß</a>
+			<a class="btn btn-sm btn-default" href="" ng-class="{ 'btn-success': routeType=='bicycle' }" ng-click="getRoute('bicycle')">mit dem Fahrrad</a>
+			<a class="btn btn-sm btn-default" href="" ng-class="{ 'btn-success': routeType=='fastest' }" ng-click="getRoute('fastest')">mit dem Auto</a>
+		</div>
+
+		<div class="col-xs-12" ng-show="hasRoute" cg-busy="routeLoading">
+			<h3>Wegbeschreibung</h3>
+			<div class="row">
+			<table class="table table-bordered table-striped" class="col-md-6">
+				<thead>
+					<tr>
+						<th colspan="3">
+						Distanz {{ route.route.distance | number: 2 }} km, geschätzte Zeit {{ route.route.time/60 | number: 0 }} Minuten
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="maneuver in route.route.legs.0.maneuvers">
+						<td>
+						<img src="/img/directions/{{ maneuver | directionIcon }}.png">
+						</td>
+						<td>{{ maneuver.narrative }}</td>
+						<td>{{ maneuver.distance | number: 2 }} km</td>
+					</tr>
+				</tbody>
+			</table>
+			</div>
+			<span class="pull-right" style="font-weight:normal; font-size:smaller">Directions Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png"></span>
 		</div>
 	</div>
 

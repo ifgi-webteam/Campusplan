@@ -227,6 +227,7 @@ campusplanApp.controller('MainController', function($scope, $route, $routeParams
 	$rootScope.$currentPageName = "Orga";
 	$scope.orgaHasCoords = false;
 	$scope.inFav = false;
+	$scope.hasRoute = false;
 
 	// set the map default settings
 	angular.extend($scope, $rootScope.leafletDefaults);
@@ -327,6 +328,20 @@ campusplanApp.controller('MainController', function($scope, $route, $routeParams
 					$scope.mensaData = data;
 				}
 			});
+
+			// call routing API
+			// type = pedestrian, bicycle or fastest (car)
+			$scope.getRoute = function(type) {
+				$scope.routeLoading = $http.post('api/routing.php', { data: type })
+				.success(function(data, status) {
+					console.log(data);
+					$scope.route = data;
+					$scope.routeType = type;
+					console.log(type);
+					$scope.hasRoute = true;
+				})
+			}
+
 		} else {
 			$scope.orgaSearchSuccess = false;
 			$scope.orgaSearchFailed = true;

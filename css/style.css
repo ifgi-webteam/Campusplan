@@ -361,6 +361,13 @@ div.az a {
 	min-height:256px;
 }
 
+.loading-animation-small {
+	background-image:url('../img/loader-small.gif');
+	background-position:50% 0px;
+	background-repeat:no-repeat;
+	height:32px;
+}
+
 .fullheight {
 	height:100%;
 }
