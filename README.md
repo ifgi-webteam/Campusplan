@@ -10,18 +10,20 @@ This is a web app version of a the **Campus Plan App** developed by the [Univers
 
 * Apache Webserver
 	* mod_rewrite enabled
-* PHP 5.1+
-* bower 
+* NGINX works too, see [configuration example](https://gist.github.com/chk1/d8149378fcea2cf72778)
+* PHP 5.x
+* bower
 
 ### Installation
 
 1. Clone the repository into your webserver htdocs
-2. Run ```bower update``` to install the JS libraries
-3. Create the directory ```api/cache``` and give Apache rw access: ```chmod www-data api/cache/```
+2. Configure your webserver to redirect requests to `index.html`
+2. Run ```bower update``` to install the JS libraries and CSS files
+3. Create the directory ```api/cache``` and give your webserver read/write access: ```chmod www-data:www-data api/cache/```
 
 ## Attributions
 
 * Map icons `img/awesomemarkers-*.png` derived from the [Awesome Markers](https://github.com/lvoogdt/Leaflet.awesome-markers) project (MIT license)
-* Navigation icons from [Iconmonstr](http://iconmonstr.com/) (Creative Commons license) & [The Noun Project](http://thenounproject.com/) (Public Domain)
+* Navigation & menu icons from [Iconmonstr](http://iconmonstr.com/) (Creative Commons license) and [The Noun Project](http://thenounproject.com/) (Public Domain)
 * [Weather icons](http://erikflowers.github.io/weather-icons/) (`fonts/weathericons*`) by Lukas Bischoff & Erik Flowers (SIL Open Font License 1.1 & MIT License)
 * [Signika font](http://www.google.com/fonts/specimen/Signika) by Anna Giedryś (SIL Open Font License 1.1)
