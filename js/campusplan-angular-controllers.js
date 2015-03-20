@@ -143,9 +143,9 @@ campusplanApp.controller('MainController', function($scope, $route, $routeParams
 				We add the custom icon attribute here.
 			*/
 			$scope.markers = angular.forEach($scope.orga, function(e, i){
-					e.icon = $scope.icons.iconBlue;
-					return e;
-				});
+				e.icon = $scope.icons.iconBlue;
+				return e;
+			});
 
 			// load api results into marker variable on map
 			angular.extend($scope, {
@@ -294,9 +294,9 @@ campusplanApp.controller('MainController', function($scope, $route, $routeParams
 						orgaMarker: {
 							lat: parseFloat($scope.orga.lat.value),
 							lng: parseFloat($scope.orga.long.value),
-							focus: true,
-							message: $scope.orga.name.value,
-							icon: $scope.icons.iconBlue
+							//focus: true,
+							icon: $scope.icons.iconBlue,
+							//message: $scope.orga.name.value
 						}
 					}
 				});
@@ -304,9 +304,15 @@ campusplanApp.controller('MainController', function($scope, $route, $routeParams
 				// Reset the view after AngularJS has loaded the page
 				// Otherwise tiles don't load completely
 				leafletData.getMap().then(function(map) {
+					var popup = L.popup({ offset:[-95,-36], minWidth:150, closeButton: false })
+						.setContent($scope.orga.name.value)
+						.setLatLng([$scope.orgMarkers.orgaMarker.lat, $scope.orgMarkers.orgaMarker.lng]);
+					popup.openOn(map);
+
 					map.attributionControl.setPrefix('');
 					//map.invalidateSize();
 					map.setView([$scope.orga.lat.value, $scope.orga.long.value], 17);
+					console.log($scope.orgMarkers.orgaMarker);
 				});
 			});
 
