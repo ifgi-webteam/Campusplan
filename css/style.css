@@ -128,6 +128,11 @@ div.tile.smalltile span.tiletitle i.wi {
 	font-size:10vmin;
 }
 
+
+.clearfix-big {
+	clear:both;
+}
+
 /* 
 	Tile size on home page for portrait mode / smartphones
 */
@@ -148,6 +153,13 @@ div.tile.smalltile span.tiletitle i.wi {
 	div.tile.smalltile span.tiletitle {
 		font-size:1em;
 		font-size:3vmin;
+	}
+
+	.clearfix-small {
+		clear:both;
+	}
+	.clearfix-big {
+		clear:none;
 	}
 }
 
@@ -171,6 +183,13 @@ div.tile.smalltile span.tiletitle i.wi {
 	div.tile.smalltile span.tiletitle {
 		font-size:1em;
 		font-size:3vmin;
+	}
+
+	.clearfix-small {
+		clear:both;
+	}
+	.clearfix-big {
+		clear:none;
 	}
 }
 
