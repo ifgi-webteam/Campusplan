@@ -7,6 +7,7 @@ campusplanApp.controller('MainController', function($scope, $route, $routeParams
 	$scope.$location = $location;
 	$scope.$routeParams = $routeParams;
 	$rootScope.$navbarBgCol = "#009dd1";
+
 	// Leaflet map defaults
 	$rootScope.leafletDefaults = {
 		mapCenter: {
@@ -122,7 +123,7 @@ campusplanApp.controller('MainController', function($scope, $route, $routeParams
 	leafletData.getMap().then(function(map) {
 		map.attributionControl.setPrefix('');
 		$scope.$watch('$viewContentLoaded', function() {
-			map.invalidateSize();
+			//map.invalidateSize();
 			map.setView([51.96362, 7.61309], 16);
 		});
 	});
@@ -149,16 +150,6 @@ campusplanApp.controller('MainController', function($scope, $route, $routeParams
 			// load api results into marker variable on map
 			angular.extend($scope, {
 				orgMarkers: $scope.markers
-			});
-
-			// Reset the view after AngularJS has loaded the page
-			// Otherwise tiles don't load completely
-			// (again)
-			leafletData.getMap().then(function(map) {
-				$scope.$watch('$viewContentLoaded', function() {
-					map.invalidateSize();
-					//map.setView([$scope.orga.lat.value, $scope.orga.long.value], 16);
-				});
 			});
 		} else {
 			$scope.orgaSearchSuccess = false;
@@ -259,9 +250,9 @@ campusplanApp.controller('MainController', function($scope, $route, $routeParams
 		$scope.status = status;
 		$scope.data = data;
 		$scope.result = data;
+
 		if(data.results != null && data.results.bindings.length > 0) {
 			$scope.orga = data.results.bindings[0];
-			console.log($scope.orga);
 			$scope.orgaSearchSuccess = true;
 			$scope.orgaSearchFailed = false;
 			$scope.inFav = ($scope.inFavs() < 0) ? false : true;
@@ -314,10 +305,8 @@ campusplanApp.controller('MainController', function($scope, $route, $routeParams
 				// Otherwise tiles don't load completely
 				leafletData.getMap().then(function(map) {
 					map.attributionControl.setPrefix('');
-					$scope.$watch('$viewContentLoaded', function() {
-						map.invalidateSize();
-						map.setView([$scope.orga.lat.value, $scope.orga.long.value], 17);
-					});
+					//map.invalidateSize();
+					map.setView([$scope.orga.lat.value, $scope.orga.long.value], 17);
 				});
 			});
 
