@@ -417,9 +417,10 @@ li.dropdown.open + li {
 	display:none;
 }
 
-/* Full width navbar dropdown */
+/* Navbar dropdown for big screen takes up 75% width*/
 .dropdown-menu {
 	min-width:750px;
+	width:75%;
 	padding-top:0px;
 	padding-bottom:0px;
 	margin-top:0px;
@@ -427,9 +428,20 @@ li.dropdown.open + li {
 	border:0px;
 }
 
+/* Navbar dropdown for small screens takes up 100% width*/
 @media all and (max-width: 768px) { 
 	.dropdown-menu {
-		min-width:200px;
+		min-width:240px;
+		width:100%;
+	}
+}
+
+/* Navbar dropdown for iPad screens takes up 650px width*/
+@media all and (device-width: 768px) and (device-height: 1024px) and (orientation:portrait),
+	all and (device-width: 768px) and (device-height: 1024px) and (orientation:landscape) {
+	
+	.dropdown-menu {
+		min-width:650px;
 	}
 }
 
