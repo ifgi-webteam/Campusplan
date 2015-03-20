@@ -348,7 +348,6 @@ campusplanApp.controller('MainController', function($scope, $route, $routeParams
 				$scope.routingType = type;
 				if($scope.userPosition.coords) {
 					$scope.getRoute($scope.userPosition);
-					console.log($scope.userPosition);
 				} else {
 					if (navigator.geolocation) {
 						navigator.geolocation.getCurrentPosition($scope.getRoute, function() {
