@@ -32,9 +32,19 @@ campusplanApp.controller('MainController', function($scope, $route, $routeParams
 				shadowUrl: "img/awesomemarkers-shadow.png",
 				shadowAnchor: [10, 12],
 				shadowSize: [36, 16]
+			},
+			iconGreen: {
+				iconUrl: "img/awesomemarkers-green.png",
+				iconSize: [30, 46],
+				iconAnchor: [14, 43],
+				popupAnchor: [1, -40],
+				shadowUrl: "img/awesomemarkers-shadow.png",
+				shadowAnchor: [10, 12],
+				shadowSize: [36, 16]
 			} 
 		},
-		orgMarkers: {}
+		orgMarkers: {},
+		paths: {}
 	};
 
 	// query Wetter api
@@ -329,17 +339,84 @@ campusplanApp.controller('MainController', function($scope, $route, $routeParams
 				}
 			});
 
+			// query user's Geolocation
+			// if successful call routing API
+			// save the position info in variable
+			$scope.userPosition = {};
+			$scope.getUserLocation = function(type) {
+				$scope.waitForGeolocation = true;
+				$scope.routingType = type;
+				if($scope.userPosition.coords) {
+					$scope.getRoute($scope.userPosition);
+					console.log($scope.userPosition);
+				} else {
+					if (navigator.geolocation) {
+						navigator.geolocation.getCurrentPosition($scope.getRoute, function() {
+							$scope.geoLocationError = true;
+						});
+						return true;
+					} 
+					$scope.geoLocationError = true;
+					return false;
+				}
+			}
+
 			// call routing API
 			// type = pedestrian, bicycle or fastest (car)
-			$scope.getRoute = function(type) {
-				$scope.routeLoading = $http.post('api/routing.php', { data: type })
+			$scope.getRoute = function(position) {
+				$scope.userPosition = position;
+				$scope.waitForGeolocation = false;
+
+				$scope.routeLoading = $http.post('api/routing.php', { 
+					type: $scope.routingType, 
+					fromLat: $scope.userPosition.coords.latitude, 
+					fromLng: $scope.userPosition.coords.longitude, 
+					toLat: $scope.orga.lat.value, 
+					toLng: $scope.orga.long.value })
 				.success(function(data, status) {
-					console.log(data);
 					$scope.route = data;
-					$scope.routeType = type;
-					console.log(type);
 					$scope.hasRoute = true;
-				})
+
+					// iterate over result's "shapePoints"
+					// lat and lng aren't stored in pairs, so we skip every 2nd entry in that list
+					$scope.routeNodes = [];
+					angular.forEach($scope.route.route.shape.shapePoints, function(point, index) {
+						if(index%2==0)$scope.routeNodes.push( [$scope.route.route.shape.shapePoints[index],$scope.route.route.shape.shapePoints[index+1]] );
+					});
+
+					// same as starting point
+					$scope.orgMarkers.routeStart = {
+						lat: $scope.route.route.locations[0].latLng.lat,
+						lng: $scope.route.route.locations[0].latLng.lng,
+						icon: $scope.icons.iconBlue
+					}
+
+					// route destination point, can be omitted since already on map
+					//$scope.orgMarkers.routeEnd = {
+					//	lat: $scope.route.route.locations[1].latLng.lat,
+					//	lng: $scope.route.route.locations[1].latLng.lng,
+					//	icon: $scope.icons.iconGreen
+					//}
+
+					// add polyline to map
+					angular.extend($scope, {
+						paths: { 
+							route: {
+								color: 'blue',
+								weight: 3,
+								latlngs: $scope.routeNodes
+							}
+						}
+					});
+
+					// Reset the view / zoom to route bounding box
+					leafletData.getMap().then(function(map) {
+						map.fitBounds([$scope.route.route.boundingBox.ul, $scope.route.route.boundingBox.lr]);
+					});
+					
+				});
+
+
 			}
 
 		} else {

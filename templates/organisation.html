@@ -1,5 +1,5 @@
 <div class="fullheight" cg-busy="orgaLoading">
-<leaflet class="orgaMap" markers="orgMarkers" geojson="geojson" defaults="mapDefaults" center="orgaMarkers" ng-show="orgaHasCoords"></leaflet>
+<leaflet class="orgaMap" markers="orgMarkers" paths="paths" geojson="geojson" defaults="mapDefaults" center="orgaMarkers" ng-show="orgaHasCoords"></leaflet>
 
 <div class="container-fluid">
 	<div class="col-xs-12" ng-show="orgaSearchSuccess">
@@ -12,10 +12,18 @@
 		</div>
 
 		<div class="btn-group" ng-show="orgaHasCoords" cg-busy="{promise:routeLoading,templateUrl:'templates/loading-small.html'}">
-			<span class="btn btn-sm btn-info" href=""><span class="glyphicon glyphicon glyphicon-screenshot"></span> Navigation</span>
-			<a class="btn btn-sm btn-default" href="" ng-class="{ 'btn-success': routeType=='pedestrian' }" ng-click="getRoute('pedestrian')">zu Fuß</a>
-			<a class="btn btn-sm btn-default" href="" ng-class="{ 'btn-success': routeType=='bicycle' }" ng-click="getRoute('bicycle')">mit dem Fahrrad</a>
-			<a class="btn btn-sm btn-default" href="" ng-class="{ 'btn-success': routeType=='fastest' }" ng-click="getRoute('fastest')">mit dem Auto</a>
+			<span class="btn btn-sm btn-info" href=""><span class="glyphicon glyphicon glyphicon-screenshot"></span> Hierher navigieren:</span>
+			<a class="btn btn-sm btn-default" href="" ng-class="{ 'btn-success': routingType=='pedestrian' }" ng-click="getUserLocation('pedestrian')">zu Fuß</a>
+			<a class="btn btn-sm btn-default" href="" ng-class="{ 'btn-success': routingType=='bicycle' }" ng-click="getUserLocation('bicycle')">mit dem Fahrrad</a>
+			<a class="btn btn-sm btn-default" href="" ng-class="{ 'btn-success': routingType=='fastest' }" ng-click="getUserLocation('fastest')">mit dem Auto</a>
+		</div>
+
+		<div class="col-xs-12 apiFailed" ng-model="result" ng-show="waitForGeolocation">
+			<p>Bitte warten, dein Standort wird ermittelt. Falls dies länger als 15 Sekunden dauert, wurde die Standortabfrage abgelehnt oder dein Browser unterstützt diese Funktion nicht.</p>
+		</div>
+
+		<div class="col-xs-12 apiFailed" ng-model="result" ng-show="geoLocationError">
+			<p class="bg-danger">Für die Navigation wird dein aktueller Standort benötigt. Entweder hast du die Standortabfrage abgelehnt, es wurde kein Standort gefunden, oder dein Browser unterstützt diese Funktion nicht.</p>
 		</div>
 
 		<div class="col-xs-12" ng-show="hasRoute" cg-busy="routeLoading">
