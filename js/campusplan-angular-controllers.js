@@ -304,15 +304,18 @@ campusplanApp.controller('MainController', function($scope, $route, $routeParams
 				// Reset the view after AngularJS has loaded the page
 				// Otherwise tiles don't load completely
 				leafletData.getMap().then(function(map) {
-					var popup = L.popup({ offset:[-95,-36], minWidth:150, closeButton: false })
-						.setContent($scope.orga.name.value)
-						.setLatLng([$scope.orgMarkers.orgaMarker.lat, $scope.orgMarkers.orgaMarker.lng]);
-					popup.openOn(map);
+					//var popup = L.popup({ offset:[-95,-36], minWidth:150, closeButton: false })
+					//	.setContent($scope.orga.name.value)
+					//	.setLatLng([$scope.orgMarkers.orgaMarker.lat, $scope.orgMarkers.orgaMarker.lng]);
+					//popup.openOn(map);
 
 					map.attributionControl.setPrefix('');
-					//map.invalidateSize();
+
 					map.setView([$scope.orga.lat.value, $scope.orga.long.value], 17);
-					console.log($scope.orgMarkers.orgaMarker);
+					//$scope.$watch('$viewContentLoaded', function() {
+					//	map.invalidateSize();
+					//	map.setView([$scope.orga.lat.value, $scope.orga.long.value], 17);
+					//});
 				});
 			});
 
