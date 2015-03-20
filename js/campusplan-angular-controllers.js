@@ -120,6 +120,7 @@ campusplanApp.controller('MainController', function($scope, $route, $routeParams
 	// Reset the view after AngularJS has loaded the page
 	// Otherwise tiles don't load completely
 	leafletData.getMap().then(function(map) {
+		map.attributionControl.setPrefix('');
 		$scope.$watch('$viewContentLoaded', function() {
 			map.invalidateSize();
 			map.setView([51.96362, 7.61309], 16);
@@ -312,6 +313,7 @@ campusplanApp.controller('MainController', function($scope, $route, $routeParams
 				// Reset the view after AngularJS has loaded the page
 				// Otherwise tiles don't load completely
 				leafletData.getMap().then(function(map) {
+					map.attributionControl.setPrefix('');
 					$scope.$watch('$viewContentLoaded', function() {
 						map.invalidateSize();
 						map.setView([$scope.orga.lat.value, $scope.orga.long.value], 17);
