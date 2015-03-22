@@ -607,6 +607,6 @@ campusplanApp.controller('MainController',
 	$scope.$routeParams = $routeParams;
 	$rootScope.$currentPageName = "NotImplemented";
 
-	Piwik.setDocumentTitle($rootScope.$currentPageName);
-	Piwik.trackPageView();
+	//Piwik.setDocumentTitle($rootScope.$currentPageName);
+	//Piwik.trackPageView();
 });
