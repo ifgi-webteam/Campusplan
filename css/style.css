@@ -274,6 +274,7 @@ div.tile.smalltile span.tiletitle i.wi {
 /* wwu, lodum & ifgi logo on info page match container width */
 .logoimgs {
 	max-width:100%;
+	padding:30px;
 }
 
 .navbar-nav li.frontpage-nav.karte {
@@ -511,4 +512,8 @@ li.navbarOnly {
 
 h2 {
 	word-wrap: break-word;
+}
+
+div.spacer {
+	height:35px;
 }

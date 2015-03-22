@@ -1,5 +1,6 @@
 RewriteEngine on
 
+RewriteRule ^piwik - [L,NC]
 # Don't rewrite files or directories
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
