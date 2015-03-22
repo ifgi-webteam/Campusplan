@@ -125,7 +125,7 @@ div.tile.smalltile {
 /* weather icon font size */
 div.tile.smalltile span.tiletitle i.wi {
 	font-size:5em;
-	font-size:10vmin;
+	font-size:8vmin;
 }
 
 

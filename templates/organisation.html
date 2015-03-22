@@ -25,31 +25,31 @@
 		<div class="col-xs-12 apiFailed" ng-show="geoLocationError">
 			<p class="bg-danger">Für die Navigation wird dein aktueller Standort benötigt. Entweder hast du die Standortabfrage abgelehnt, es wurde kein Standort gefunden, oder dein Browser unterstützt diese Funktion nicht.</p>
 		</div>
+	</div>
 
-		<div class="col-xs-12" ng-show="hasRoute" cg-busy="routeLoading">
-			<h3>Wegbeschreibung</h3>
-			<div class="row">
-			<table class="table table-bordered table-striped" class="col-md-6">
-				<thead>
-					<tr>
-						<th colspan="3">
-						Distanz {{ route.route.distance | number: 2 }} km, geschätzte Zeit {{ route.route.time/60 | number: 0 }} Minuten
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="maneuver in route.route.legs[0].maneuvers">
-						<td>
-						<img src="/img/directions/{{ maneuver | directionIcon }}.png">
-						</td>
-						<td>{{ maneuver.narrative }}</td>
-						<td>{{ maneuver.distance | number: 2 }} km</td>
-					</tr>
-				</tbody>
-			</table>
-			</div>
-			<span class="pull-right" style="font-weight:normal; font-size:smaller">Directions Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png"></span>
+	<div class="col-xs-12" ng-show="hasRoute" cg-busy="routeLoading">
+		<h3>Wegbeschreibung</h3>
+		<div class="row">
+		<table class="table table-bordered table-striped" class="col-md-6">
+			<thead>
+				<tr>
+					<th colspan="3">
+					Distanz {{ route.route.distance | number: 2 }} km, geschätzte Zeit {{ route.route.time/60 | number: 0 }} Minuten
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="maneuver in route.route.legs[0].maneuvers">
+					<td>
+					<img src="/img/directions/{{ maneuver | directionIcon }}.png">
+					</td>
+					<td>{{ maneuver.narrative }}</td>
+					<td>{{ maneuver.distance | number: 2 }} km</td>
+				</tr>
+			</tbody>
+		</table>
 		</div>
+		<span class="pull-right" style="font-weight:normal; font-size:smaller">Directions Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png"></span>
 	</div>
 
 	<div class="col-xs-12" ng-show="orgaHasMensa">
