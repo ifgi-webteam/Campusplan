@@ -124,7 +124,7 @@ div.tile.smalltile {
 
 /* weather icon font size */
 div.tile.smalltile span.tiletitle i.wi {
-	font-size:5em;
+	font-size:4em;
 	font-size:8vmin;
 }
 
@@ -469,6 +469,10 @@ li.navbarOnly {
 	color:#666
 }
 
+@-webkit-keyframes fav {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(359deg); }
+}
 @keyframes fav {
     from { transform: rotate(0deg); }
     to { transform: rotate(359deg); }
@@ -482,6 +486,9 @@ li.navbarOnly {
 	animation: fav 5s;
 	animation-iteration-count: infinite;
 	animation-timing-function: linear;
+	-webkit-animation: fav 5s;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-timing-function: linear;
 }
 
 .yellow {

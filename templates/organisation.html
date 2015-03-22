@@ -11,6 +11,8 @@
 			<a class="btn btn-sm btn-default" href="" ng-click="addFav()" ng-class="{'btn-warning': inFav}"><span class="glyphicon glyphicon-star"></span> zu Favoriten</a>
 		</div>
 
+		<div style="height:20px;width:20px;">&nbsp;<!-- filler --></div>
+
 		<div class="btn-group" ng-show="orgaHasCoords" cg-busy="{promise:routeLoading,templateUrl:'templates/loading-small.html'}">
 			<span class="btn btn-sm btn-info" href=""><span class="glyphicon glyphicon glyphicon-screenshot"></span> Hierher navigieren:</span>
 			<a class="btn btn-sm btn-default" href="" ng-class="{ 'btn-success': routingType=='pedestrian' }" ng-click="getUserLocation('pedestrian')">zu Fuß</a>
@@ -18,13 +20,14 @@
 			<a class="btn btn-sm btn-default" href="" ng-class="{ 'btn-success': routingType=='fastest' }" ng-click="getUserLocation('fastest')">mit dem Auto</a>
 		</div>
 
-		<div class="col-xs-12 apiFailed" ng-show="waitForGeolocation">
-			<p>Bitte warten, dein Standort wird ermittelt. Falls dies länger als 15 Sekunden dauert, wurde die Standortabfrage abgelehnt oder dein Browser unterstützt diese Funktion nicht.</p>
-		</div>
+	</div>
 
-		<div class="col-xs-12 apiFailed" ng-show="geoLocationError">
-			<p class="bg-danger">Für die Navigation wird dein aktueller Standort benötigt. Entweder hast du die Standortabfrage abgelehnt, es wurde kein Standort gefunden, oder dein Browser unterstützt diese Funktion nicht.</p>
-		</div>
+	<div class="col-xs-12 apiFailed" ng-show="waitForGeolocation">
+		<p>Bitte warten, dein Standort wird ermittelt. Falls dies länger als 15 Sekunden dauert, wurde die Standortabfrage abgelehnt oder dein Browser unterstützt diese Funktion nicht.</p>
+	</div>
+
+	<div class="col-xs-12 apiFailed" ng-show="geoLocationError">
+		<p class="bg-danger">Für die Navigation wird dein aktueller Standort benötigt. Entweder hast du die Standortabfrage abgelehnt, es wurde kein Standort gefunden, oder dein Browser unterstützt diese Funktion nicht.</p>
 	</div>
 
 	<div class="col-xs-12" ng-show="hasRoute" cg-busy="routeLoading">
