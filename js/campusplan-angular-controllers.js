@@ -2,11 +2,16 @@
 	Page controllers 
 */
 
-campusplanApp.controller('MainController', function($scope, $route, $routeParams, $location, $rootScope, $http) {
+campusplanApp.controller('MainController', 
+	function($scope, $route, $routeParams, $location, $rootScope, $http, Piwik) {
+
 	$scope.$route = $route;
 	$scope.$location = $location;
 	$scope.$routeParams = $routeParams;
 	$rootScope.$navbarBgCol = "#009dd1";
+
+	Piwik.setDocumentTitle("Hauptseite");
+	Piwik.trackPageView();
 
 	// Leaflet map defaults
 	$rootScope.leafletDefaults = {
@@ -76,14 +81,19 @@ campusplanApp.controller('MainController', function($scope, $route, $routeParams
 /*
 	Controller Mensa
 */
-.controller('MensenController', function($scope, $routeParams, $http, $rootScope) {
+.controller('MensenController', 
+	function($scope, $routeParams, $http, $rootScope, Piwik) {
+
 	var doW = new Date().getDay();
 	$scope.name = "MensenController";
 	$scope.params = $routeParams;
 	$scope.mondayDate = getMonday(new Date());
 	$scope.dayOfWeek = doW;
 	$rootScope.$currentPageName = "Mensen";
-	
+
+	Piwik.setDocumentTitle($rootScope.$currentPageName);
+	Piwik.trackPageView();
+
 	// chéck if it is saturday, sunday or monday
 	// used in Mensaplan to expand Monday menu on these days
 	$scope.expandMonday = (doW == 0 || doW == 1 || doW == 6);
@@ -92,7 +102,6 @@ campusplanApp.controller('MainController', function($scope, $route, $routeParams
 	$scope.mensaLoading = $http.get('api/mensen.php')
 		.success(function(data, status) {
 			$scope.result = data;
-			console.log(data);
 			if(Object.keys(data).length > 0) {
 				$scope.mensaData = data;
 				$scope.mensenQuerySuccess = true;
@@ -110,10 +119,15 @@ campusplanApp.controller('MainController', function($scope, $route, $routeParams
 /*
 	Controller Karte
 */
-.controller('KarteController', function($scope, $routeParams, $http, $rootScope, leafletData) {
+.controller('KarteController', 
+	function($scope, $routeParams, $http, $rootScope, leafletData, Piwik) {
+
 	$scope.name = "KarteController";
 	$scope.params = $routeParams;
 	$rootScope.$currentPageName = "Karte";
+
+	Piwik.setDocumentTitle($rootScope.$currentPageName);
+	Piwik.trackPageView();
 
 	// set map defaults
 	angular.extend($scope, $rootScope.leafletDefaults);
@@ -167,10 +181,15 @@ campusplanApp.controller('MainController', function($scope, $route, $routeParams
 /*
 	Controller Uni A-Z
 */
-.controller('UniA-ZController', function($scope, $routeParams, $http, $rootScope, $timeout) {
+.controller('UniA-ZController', 
+	function($scope, $routeParams, $http, $rootScope, $timeout, Piwik) {
+
 	$scope.name = "UniA-ZController";
 	$scope.params = $routeParams;
 	$rootScope.$currentPageName = "Uni-a-z";
+
+	Piwik.setDocumentTitle($rootScope.$currentPageName);
+	Piwik.trackPageView();
 
 	/* Request a search at api/unia-z.php and return results */
 	$scope.search = function() {
@@ -217,19 +236,27 @@ campusplanApp.controller('MainController', function($scope, $route, $routeParams
 	Controller Info
 	nothing fancy here since it's just more or less a static site
 */
-.controller('InfoController', function($scope, $rootScope) {
+.controller('InfoController', function($scope, $rootScope, Piwik) {
 	$rootScope.$currentPageName = "Info";
+
+	Piwik.setDocumentTitle($rootScope.$currentPageName);
+	Piwik.trackPageView();
 })
 /*
 	Controller Organization
 */
-.controller('OrgaController', function($scope, $routeParams, $http, leafletData, $document, $rootScope, localStorageService, FavService, WicketService) {
+.controller('OrgaController', 
+	function($scope, $routeParams, $http, leafletData, $document, $rootScope, localStorageService, FavService, WicketService, Piwik) {
+
 	$scope.name = "OrgaController";
 	$scope.params = $routeParams;
 	$rootScope.$currentPageName = "Orga";
 	$scope.orgaHasCoords = false;
 	$scope.inFav = false;
 	$scope.hasRoute = false;
+
+	Piwik.setDocumentTitle($rootScope.$currentPageName);
+	Piwik.trackPageView();
 
 	// set the map default settings
 	angular.extend($scope, $rootScope.leafletDefaults);
@@ -323,7 +350,6 @@ campusplanApp.controller('MainController', function($scope, $route, $routeParams
 			$scope.orgaLoading = $http.post('api/orgasub.php', { data: $scope.params.identifier })
 			.success(function(data, status) {
 				if(Object.keys(data.results.bindings).length > 0) {
-					console.log(data);
 					$scope.orgaHasSubOrga = true;
 					$scope.orgaSubOrgaData = data.results.bindings;
 				}
@@ -333,7 +359,6 @@ campusplanApp.controller('MainController', function($scope, $route, $routeParams
 			$scope.orgaLoading = $http.post('api/mensen.php', { data: $scope.params.identifier.split('/').pop() })
 			.success(function(data, status) {
 				if(Object.keys(data).length > 0) {
-					console.log(data);
 					$scope.orgaHasMensa = true;
 					$scope.mensaData = data;
 				}
@@ -434,9 +459,14 @@ campusplanApp.controller('MainController', function($scope, $route, $routeParams
 	Controller Fachbereiche 
 	similar to Hörsäle, Wohnheime
 */
-.controller('FachbereicheController', function($scope, $rootScope, $http) {
+.controller('FachbereicheController', 
+	function($scope, $rootScope, $http, Piwik) {
+
 	$rootScope.$currentPageName = "Fachbereiche";
 	$scope.splitNamePattern = /(Fachbereich [0-9]{2}) - (.+)/;
+
+	Piwik.setDocumentTitle($rootScope.$currentPageName);
+	Piwik.trackPageView();
 
 	$scope.FachbereicheLoading = $http.get('api/fachbereiche.php')
 	.success(function(data, status) {
@@ -459,8 +489,13 @@ campusplanApp.controller('MainController', function($scope, $route, $routeParams
 	Controller Hörsäle
 	similar to Fachbereiche, Wohnheime
 */
-.controller('HoersaeleController', function($scope, $rootScope, $http) {
+.controller('HoersaeleController', 
+	function($scope, $rootScope, $http, Piwik) {
+
 	$rootScope.$currentPageName = "Hoersaele";
+
+	Piwik.setDocumentTitle($rootScope.$currentPageName);
+	Piwik.trackPageView();
 
 	$scope.HoersaeleLoading = $http.get('api/hoersaele.php')
 	.success(function(data, status) {
@@ -506,27 +541,42 @@ campusplanApp.controller('MainController', function($scope, $route, $routeParams
 /*
 	Controller Wetter
 */
-.controller('WetterController', function($scope, $rootScope, $route, $routeParams, $location) {
+.controller('WetterController', 
+	function($scope, $rootScope, $route, $routeParams, $location, Piwik) {
+
 	$scope.$route = $route;
 	$scope.$location = $location;
 	$scope.$routeParams = $routeParams;
 	$rootScope.$currentPageName = "Wetter";
+
+	Piwik.setDocumentTitle($rootScope.$currentPageName);
+	Piwik.trackPageView();
 })
 /*
 	Controller ULB-Katalog
 */
-.controller('UlbController', function($scope, $rootScope, $route, $routeParams, $location) {
+.controller('UlbController', 
+	function($scope, $rootScope, $route, $routeParams, $location, Piwik) {
+
 	$scope.$route = $route;
 	$scope.$location = $location;
 	$scope.$routeParams = $routeParams;
 	$rootScope.$currentPageName = "ULB-Katalog";
+
+	Piwik.setDocumentTitle($rootScope.$currentPageName);
+	Piwik.trackPageView();
 })
 /*
 	Controller Favoriten
 */
-.controller('FavoritenController', function($scope, $rootScope, $http, $filter, localStorageService, FavService, WicketService) {
+.controller('FavoritenController', 
+	function($scope, $rootScope, $http, $filter, localStorageService, FavService, WicketService, Piwik) {
+
 	$rootScope.$currentPageName = "Favoriten";
 	$scope.favoriten = localStorageService.get('favoriten');
+
+	Piwik.setDocumentTitle($rootScope.$currentPageName);
+	Piwik.trackPageView();
 
 	// remove all orgas / clear the local storage
 	$scope.clearFavs = function() {
@@ -549,9 +599,14 @@ campusplanApp.controller('MainController', function($scope, $route, $routeParams
 /*
 	Dummy Controller
 */
-.controller('NotImplementedController', function($scope, $rootScope, $route, $routeParams, $location) {
+.controller('NotImplementedController', 
+	function($scope, $rootScope, $route, $routeParams, $location, Piwik) {
+
 	$scope.$route = $route;
 	$scope.$location = $location;
 	$scope.$routeParams = $routeParams;
 	$rootScope.$currentPageName = "NotImplemented";
+
+	Piwik.setDocumentTitle($rootScope.$currentPageName);
+	Piwik.trackPageView();
 });

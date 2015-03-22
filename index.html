@@ -45,6 +45,8 @@
 
 		<div class="container" id="content" ng-view>
 		</div> <!-- /ng-view -->
+
+		<ngp-piwik ngp-set-js-url="http://localhost.app/piwik/piwik.js" ngp-set-tracker-url="http://localhost.app/piwik/piwik.php" ngp-set-site-id="1"> </ngp-piwik>
 	</div> <!-- /ng-controller="MainController" -->
 
 	<script src="bower_components/jquery/dist/jquery.min.js"></script>
@@ -54,8 +56,9 @@
 	<script src="bower_components/angular-i18n/angular-locale_de-de.js"></script>
 	<script src="bower_components/leaflet/dist/leaflet.js"></script> 
 	<script src="bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.min.js"></script> 
-	<script src="bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script> 
+	<script src="bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
 	<script src="bower_components/angular-busy/dist/angular-busy.min.js"></script> 
+	<script src="bower_components/angular-piwik/angular-piwik.js"></script> 
 	<script src="bower_components/Wicket/wicket.js"></script> 
 	<script src="js/script.js"></script>
 	<script src="js/campusplan-angular.js"></script>
