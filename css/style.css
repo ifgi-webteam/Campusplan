@@ -195,7 +195,7 @@ div.tile.smalltile span.tiletitle i.wi {
 #dropdown-tile-navigation.dropdown-menu div.tile.tile span.tiletitle,
 #dropdown-tile-navigation.dropdown-menu div.tile.smalltile span.tiletitle {
 	font-size:1em;
-	font-size:3vmin;
+	font-size:2.5vmin;
 	font-weight: normal;
 }
 
