@@ -5,7 +5,7 @@
 		- locationprovider
 		- localstorage
 */
-campusplanApp.config(function($routeProvider, $locationProvider, localStorageServiceProvider) {
+campusplanApp.config(function($routeProvider, $locationProvider, localStorageServiceProvider, $analyticsProvider) {
 	$routeProvider
 		.when('/', {
 			templateUrl: 'templates/home.html',

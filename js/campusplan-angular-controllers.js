@@ -5,7 +5,7 @@ campusplanApp
 /*
 	Controller Hauptseite
 */
-.controller('HomeController', function($scope, $rootScope, Piwik) {
+.controller('HomeController', function($scope, $rootScope) {
 	$rootScope.$currentPageName = "Default"; // used for background color CSS selector
 	$rootScope.pageTitle = ""; // displayed in browser title bar
 })
@@ -13,7 +13,7 @@ campusplanApp
 	Controller Mensa
 */
 .controller('MensenController', 
-	function($scope, $routeParams, $http, $rootScope, Piwik) {
+	function($scope, $routeParams, $http, $rootScope) {
 
 
 	var doW = new Date().getDay();
@@ -51,7 +51,7 @@ campusplanApp
 	Controller Karte
 */
 .controller('KarteController', 
-	function($scope, $routeParams, $http, $rootScope, leafletData, Piwik) {
+	function($scope, $routeParams, $http, $rootScope, leafletData) {
 
 	$scope.name = "KarteController";
 	$scope.params = $routeParams;
@@ -115,7 +115,7 @@ campusplanApp
 	Controller Uni A-Z
 */
 .controller('UniA-ZController', 
-	function($scope, $routeParams, $http, $rootScope, $timeout, Piwik) {
+	function($scope, $routeParams, $http, $rootScope, $timeout) {
 
 	$scope.name = "UniA-ZController";
 	$scope.params = $routeParams;
@@ -168,7 +168,7 @@ campusplanApp
 	Controller Info
 	nothing fancy here since it's just more or less a static site
 */
-.controller('InfoController', function($scope, $rootScope, Piwik) {
+.controller('InfoController', function($scope, $rootScope) {
 	$rootScope.$currentPageName = "Info";
 	$rootScope.pageTitle = "Info";
 
@@ -177,7 +177,7 @@ campusplanApp
 	Controller Organization
 */
 .controller('OrgaController', 
-	function($scope, $routeParams, $http, leafletData, $document, $rootScope, localStorageService, FavService, WicketService, Piwik) {
+	function($scope, $routeParams, $http, leafletData, $document, $rootScope, localStorageService, FavService, WicketService) {
 
 	$scope.name = "OrgaController";
 	$scope.params = $routeParams;
@@ -392,7 +392,7 @@ campusplanApp
 	similar to Hörsäle, Wohnheime
 */
 .controller('FachbereicheController', 
-	function($scope, $rootScope, $http, Piwik) {
+	function($scope, $rootScope, $http) {
 
 	$rootScope.$currentPageName = "Fachbereiche";
 	$rootScope.pageTitle = "Fachbereiche";
@@ -420,7 +420,7 @@ campusplanApp
 	similar to Fachbereiche, Wohnheime
 */
 .controller('HoersaeleController', 
-	function($scope, $rootScope, $http, Piwik) {
+	function($scope, $rootScope, $http) {
 
 	$rootScope.$currentPageName = "Hoersaele";
 	$rootScope.pageTitle = "Hörsaele";
@@ -471,7 +471,7 @@ campusplanApp
 	Controller Wetter
 */
 .controller('WetterController', 
-	function($scope, $rootScope, $route, $routeParams, $location, Piwik) {
+	function($scope, $rootScope, $route, $routeParams, $location) {
 
 	$scope.$route = $route;
 	$scope.$location = $location;
@@ -483,7 +483,7 @@ campusplanApp
 	Controller ULB-Katalog
 */
 .controller('UlbController', 
-	function($scope, $rootScope, $route, $routeParams, $location, Piwik) {
+	function($scope, $rootScope, $route, $routeParams, $location) {
 
 	$scope.$route = $route;
 	$scope.$location = $location;
@@ -495,7 +495,7 @@ campusplanApp
 	Controller Favoriten
 */
 .controller('FavoritenController', 
-	function($scope, $rootScope, $http, $filter, localStorageService, FavService, WicketService, Piwik) {
+	function($scope, $rootScope, $http, $filter, localStorageService, FavService, WicketService) {
 
 	$rootScope.$currentPageName = "Favoriten";
 	$rootScope.pageTitle = "Favoriten";
@@ -523,7 +523,7 @@ campusplanApp
 	Dummy Controller
 */
 .controller('NotImplementedController', 
-	function($scope, $rootScope, $route, $routeParams, $location, Piwik) {
+	function($scope, $rootScope, $route, $routeParams, $location) {
 
 	$scope.$route = $route;
 	$scope.$location = $location;

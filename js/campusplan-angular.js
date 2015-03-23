@@ -1,6 +1,6 @@
 // load Angular & modules
 var campusplanApp = angular.module('CampusplanApp', 
-	['ngRoute', 'leaflet-directive', 'cgBusy', 'LocalStorageModule', 'piwik']);
+	['ngRoute', 'leaflet-directive', 'cgBusy', 'LocalStorageModule', 'angulartics', 'angulartics.piwik']);
 
 // configure cgBusy for loading animations
 campusplanApp.value('cgBusyDefaults',{

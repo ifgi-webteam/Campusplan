@@ -58,7 +58,8 @@
 	<script src="bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.js"></script> 
 	<script src="bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
 	<script src="bower_components/angular-busy/dist/angular-busy.min.js"></script> 
-	<script src="bower_components/angular-piwik/dist/angular-piwik.js"></script> 
+	<script src="bower_components/angulartics/dist/angulartics.min.js"></script> 
+	<script src="bower_components/angulartics/dist/angulartics-piwik.min.js"></script> 
 	<script src="bower_components/Wicket/wicket.js"></script>
 	<script src="bower_components/leaflet-locatecontrol/dist/L.Control.Locate.min.js"></script>
 	<script src="js/script.js"></script>
@@ -70,5 +71,21 @@
 	<script type="text/javascript">
 		angular.element(document.getElementsByTagName('head')).append(angular.element('<base href="' + window.location.pathname + '" />'));
 	</script>
+	<!-- Piwik -->
+	<script type="text/javascript">
+	  var _paq = _paq || [];
+	  _paq.push(['trackPageView']);
+	  _paq.push(['enableLinkTracking']);
+	  (function() {
+	    var u="/piwik/";
+	    _paq.push(['setTrackerUrl', u+'piwik.php']);
+	    _paq.push(['setSiteId', 2]);
+	    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+	    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+	  })();
+	</script>
+	<noscript><p><img src="//localhost/piwik/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
+	<!-- End Piwik Code -->
+
 </body>
 </html>
