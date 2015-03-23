@@ -3,7 +3,7 @@
 */
 
 campusplanApp.controller('MainController', 
-	function($scope, $route, $routeParams, $location, $rootScope, $http, Piwik) {
+	function($scope, $route, $routeParams, $location, $rootScope, $http, Piwik, $interval) {
 
 	$scope.$route = $route;
 	$scope.$location = $location;
@@ -60,37 +60,52 @@ campusplanApp.controller('MainController',
 			drawCircle: true,
 			setView: true,
 			metric: true,
+			//keepCurrentZoomLevel: true,
 			markerClass: L.marker,
-			markerStyle: { icon: L.icon($rootScope.leafletDefaults.icons.iconGreen) },
-			circleStyle: { stroke:true, fillColor: '#7ab51d', color:'#7ab51d', weight:3 },
-			locateOptions: { minZoom: 14, maxZoom: 18 },
+			markerStyle: { 
+				icon: L.icon($rootScope.leafletDefaults.icons.iconGreen) 
+			},
+			circleStyle: { 
+				stroke:true, 
+				fillColor: '#7ab51d', 
+				color:'#7ab51d', 
+				weight:3 
+			},
+			locateOptions: { 
+				//minZoom: 12,  // not implemented
+				maxZoom: 16 
+			},
 			showPopup: true,
 			strings: {
 				title: 'Wo bin ich?',
-				popup: 'Du befindest dich innerhalb von {distance} {unit} um diesem Punkt',
+				popup: 'Du befindest dich innerhalb von {distance} Metern um diesem Punkt',
 				outsideMapBoundsMsg: 'Du bist außerhalb des Kartenausschnitts'
 			}
 		}) 
 	);
 
 	// query Wetter api
-	$scope.weatherLoading = $http.get('api/wetter.php')
-	.success(function(data, status) {
-		$scope.result = data;
+	function fetchWeatherData(){
+		$scope.weatherLoading = $http.get('api/wetter.php')
+		.success(function(data, status) {
+			$scope.result = data;
 
-		if(data.currently != null) {
-			$scope.wetter = data;
-			$scope.wetterSuccess = true;
-			$scope.wetterFailed = false;
-		} else {
-			$scope.wetterSuccess = false;
-			$scope.wetterFailed = true;
-		}
-	})
-	.error(function(data, status) {
-		$scope.data = data || "Request failed";
-		$scope.status = status;
-	});	
+			if(data.currently != null) {
+				$scope.wetter = data;
+				$scope.wetterSuccess = true;
+				$scope.wetterFailed = false;
+			} else {
+				$scope.wetterSuccess = false;
+				$scope.wetterFailed = true;
+			}
+		})
+		.error(function(data, status) {
+			$scope.data = data || "Request failed";
+			$scope.status = status;
+		});	
+	}
+	fetchWeatherData();
+	$interval(fetchWeatherData, 10*60*1000);
 })
 /*
 	Controller Hauptseite
