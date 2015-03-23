@@ -38,7 +38,7 @@ function file_get_contents_cached($url, $expiry=604800, $opts=array()) {
 
 // Query database and return JSON string
 function sparql_get($query) {
-	$url = 'http://giv-lodumdata.uni-muenster.de:8080/openrdf-workbench/repositories/lodumhbz/query?limit=5000&query='.urlencode($query).'&format=json';
+	$url = 'http://giv-lodumdata.uni-muenster.de:8080/openrdf-workbench/repositories/lodumhbz/query?limit=10000&query='.urlencode($query).'&format=json';
 	$opts = array(
 			'http'=>array(
 				'header' => "Accept: application/sparql-results+json\r\n",
