@@ -1,7 +1,7 @@
-<!doctype html>
-<html lang="de">
+<!DOCTYPE html>
+<html lang="de" ng-app="CampusplanApp">
 <head>
-	<title>WWU Campusplan</title>
+	<title ng-bind="'WWU Campusplan ' + $currentPageName">WWU Campusplan</title>
 	<base href="/">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="robots" content="noindex, nofollow">
@@ -15,9 +15,9 @@
 	<link rel="stylesheet" href="css/weather-icons.min.css">
 	<link rel="stylesheet" href="css/style.css">
 </head>
-<body ng-app="CampusplanApp">
-	<div class="fullheight" ng-controller="MainController">
-		<div class="container" >
+<body>
+	<div class="fullheight">
+		<div class="container">
 		<!-- navbar -->
 		<nav class="navbar navbar-fixed-top" role="navigation" id="navbar">
 			<div class="container navbar-default">
