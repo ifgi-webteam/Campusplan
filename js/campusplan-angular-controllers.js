@@ -15,7 +15,6 @@ campusplanApp
 .controller('MensenController', 
 	function($scope, $routeParams, $http, $rootScope) {
 
-
 	var doW = new Date().getDay();
 	$scope.name = "MensenController";
 	$scope.params = $routeParams;
@@ -23,7 +22,6 @@ campusplanApp
 	$scope.dayOfWeek = doW;
 	$rootScope.$currentPageName = "Mensen";
 	$rootScope.pageTitle = "Mensaplan";
-
 
 	// chéck if it is saturday, sunday or monday
 	// used in Mensaplan to expand Monday menu on these days
@@ -46,6 +44,14 @@ campusplanApp
 			$scope.data = data || "Request failed";
 			$scope.status = status;
 		});
+
+	// when collapsing menu entries, place plus/minus signs accordingly 
+	$('#content').on("show.bs.collapse", "div.mensa-table", function(e){
+		$(this).find('.fa.fa-angle-right').removeClass('fa-angle-right').addClass('fa-angle-down');
+	});
+	$('#content').on("hide.bs.collapse", "div.mensa-table", function(e){
+		$(this).find('.fa.fa-angle-down').removeClass('fa-angle-down').addClass('fa-angle-right');
+	});
 })
 /*
 	Controller Karte

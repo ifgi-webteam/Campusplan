@@ -4,9 +4,9 @@
 			<h1>Mensaplan für die Woche vom {{ mensaData[1].meta.date | date:'dd. MMMM yyyy' }}</h1>
 		</div>
 
-		<div ng-repeat="day in mensaData" class="col-md-12">
+		<div ng-repeat="day in mensaData" class="col-md-12 mensa-table">
 			<h3 class="colMensen" style="color:#fff;padding:10px" data-toggle="collapse" data-target="#table{{ day.meta.dayOfWeek }}" id="{{ day.meta.dayOfWeek }}">
-				<i class="fa fa-angle-down"></i> {{ day.meta.dayOfWeekNameGer }}
+				<i class="fa fa-fw" ng-class="(day.meta.dayOfWeek==dayOfWeek || (day.meta.dayOfWeek == 1 && expandMonday)) ? 'fa-angle-down':'fa-angle-right' "></i> {{ day.meta.dayOfWeekNameGer }}
 			</h3>
 			<div id="table{{ day.meta.dayOfWeek }}" class="collapse" ng-class="{in: day.meta.dayOfWeek==dayOfWeek || (day.meta.dayOfWeek == 1 && expandMonday) }">
 			<table ng-repeat="mensa in day.fooddata" class="table table-bordered table-striped">
