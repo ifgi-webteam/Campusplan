@@ -50,8 +50,28 @@ campusplanApp.controller('MainController',
 			} 
 		},
 		orgMarkers: {},
-		paths: {}
+		paths: {},
+		controls: { custom: [] }
 	};
+
+	// add leaflet-locatecontrol (geolocation / "Where am I?") button to map
+	$rootScope.leafletDefaults.controls.custom.push(  
+		L.control.locate({
+			drawCircle: true,
+			setView: true,
+			metric: true,
+			markerClass: L.marker,
+			markerStyle: { icon: L.icon($rootScope.leafletDefaults.icons.iconGreen) },
+			circleStyle: { stroke:true, fillColor: '#7ab51d', color:'#7ab51d', weight:3 },
+			locateOptions: { minZoom: 14, maxZoom: 18 },
+			showPopup: true,
+			strings: {
+				title: 'Wo bin ich?',
+				popup: 'Du befindest dich innerhalb von {distance} {unit} um diesem Punkt',
+				outsideMapBoundsMsg: 'Du bist außerhalb des Kartenausschnitts'
+			}
+		}) 
+	);
 
 	// query Wetter api
 	$scope.weatherLoading = $http.get('api/wetter.php')
@@ -132,15 +152,19 @@ campusplanApp.controller('MainController',
 	// set map defaults
 	angular.extend($scope, $rootScope.leafletDefaults);
 
+
+
 	// Reset the view after AngularJS has loaded the page
 	// Otherwise tiles don't load completely
 	leafletData.getMap().then(function(map) {
 		map.attributionControl.setPrefix('');
+
 		$scope.$watch('$viewContentLoaded', function() {
 			//map.invalidateSize();
 			map.setView([51.96362, 7.61309], 16);
 		});
 	});
+
 
 	$scope.karteLoading = $http.post('api/karte.php', { data: $scope.params.identifier })
 	.success(function(data, status) {
@@ -412,7 +436,7 @@ campusplanApp.controller('MainController',
 					$scope.orgMarkers.routeStart = {
 						lat: $scope.route.route.locations[0].latLng.lat,
 						lng: $scope.route.route.locations[0].latLng.lng,
-						icon: $scope.icons.iconBlue
+						icon: $scope.icons.iconGreen
 					}
 
 					// route destination point, can be omitted since already on map
