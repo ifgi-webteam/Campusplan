@@ -3,7 +3,7 @@ campusplanApp.filter('directionIcon', function() {
 		if(maneuver.turnType == 0) {
 			return 'dir'+maneuver.direction;
 		} else {
-			var num;
+			var img;
 			switch(maneuver.turnType) {
 				//straight
 				case 0:

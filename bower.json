@@ -16,11 +16,11 @@
     "angular-i18n": "~1.3.x",
     "bootstrap": "~3.3.x",
     "angular-busy": "~4.1.x",
-    "angular-local-storage": "~0.1.5",
+    "angular-local-storage": "~0.1.x",
     "Wicket": "https://github.com/arthur-e/Wicket.git#9a57c429fbdb54e5024d3630a48fc913fc425104",
-    "angular-piwik": "~1.0.2"
+    "angular-piwik": "mike-spainhower/angular-piwik#master"
   },
-  "resolutions": {
-    "angular": "1.3.x"
+  "devDependencies": {
+    "angular-mocks": "~1.3.x"
   }
 }

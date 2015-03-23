@@ -3,5 +3,7 @@ piwik/
 routes/
 tiles/
 bower_components/
+node_modules/
+coverage/
 piwik.php
 keys.php
