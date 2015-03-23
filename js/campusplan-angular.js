@@ -12,7 +12,7 @@ campusplanApp.value('cgBusyDefaults',{
 });
 
 // set default variables
-campusplanApp.run(function($rootScope) {
+campusplanApp.run(function($rootScope, $http, $interval) {
 	$rootScope.$navbarBgCol = "#009dd1";
 
 	// Leaflet map defaults
@@ -87,27 +87,25 @@ campusplanApp.run(function($rootScope) {
 	);
 
 	// query Wetter api
-	/*
 	function fetchWeatherData(){
-		$scope.weatherLoading = $http.get('api/wetter.php')
+		$rootScope.weatherLoading = $http.get('api/wetter.php')
 		.success(function(data, status) {
-			$scope.result = data;
+			$rootScope.result = data;
 
 			if(data.currently != null) {
-				$scope.wetter = data;
-				$scope.wetterSuccess = true;
-				$scope.wetterFailed = false;
+				$rootScope.wetter = data;
+				$rootScope.wetterSuccess = true;
+				$rootScope.wetterFailed = false;
 			} else {
-				$scope.wetterSuccess = false;
-				$scope.wetterFailed = true;
+				$rootScope.wetterSuccess = false;
+				$rootScope.wetterFailed = true;
 			}
 		})
 		.error(function(data, status) {
-			$scope.data = data || "Request failed";
-			$scope.status = status;
+			$rootScope.data = data || "Request failed";
+			$rootScope.status = status;
 		});	
 	}
 	fetchWeatherData();
 	$interval(fetchWeatherData, 10*60*1000);
-	*/
 });

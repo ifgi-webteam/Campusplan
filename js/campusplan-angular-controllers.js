@@ -6,10 +6,8 @@ campusplanApp
 	Controller Hauptseite
 */
 .controller('HomeController', function($scope, $rootScope, Piwik) {
-	$rootScope.$currentPageName = "Default";
-
-	Piwik.setDocumentTitle("Hauptseite");
-	//Piwik.trackPageView();
+	$rootScope.$currentPageName = "Default"; // used for background color CSS selector
+	$rootScope.pageTitle = ""; // displayed in browser title bar
 })
 /*
 	Controller Mensa
@@ -17,15 +15,15 @@ campusplanApp
 .controller('MensenController', 
 	function($scope, $routeParams, $http, $rootScope, Piwik) {
 
+
 	var doW = new Date().getDay();
 	$scope.name = "MensenController";
 	$scope.params = $routeParams;
 	$scope.mondayDate = getMonday(new Date());
 	$scope.dayOfWeek = doW;
 	$rootScope.$currentPageName = "Mensen";
+	$rootScope.pageTitle = "Mensaplan";
 
-	Piwik.setDocumentTitle($rootScope.$currentPageName);
-	//Piwik.trackPageView();
 
 	// chéck if it is saturday, sunday or monday
 	// used in Mensaplan to expand Monday menu on these days
@@ -58,9 +56,7 @@ campusplanApp
 	$scope.name = "KarteController";
 	$scope.params = $routeParams;
 	$rootScope.$currentPageName = "Karte";
-
-	Piwik.setDocumentTitle($rootScope.$currentPageName);
-	//Piwik.trackPageView();
+	$rootScope.pageTitle = "Karte";
 
 	// set map defaults
 	angular.extend($scope, $rootScope.leafletDefaults);
@@ -124,9 +120,8 @@ campusplanApp
 	$scope.name = "UniA-ZController";
 	$scope.params = $routeParams;
 	$rootScope.$currentPageName = "Uni-a-z";
+	$rootScope.pageTitle = "Uni A-Z";
 
-	Piwik.setDocumentTitle($rootScope.$currentPageName);
-	//Piwik.trackPageView();
 
 	/* Request a search at api/unia-z.php and return results */
 	$scope.search = function() {
@@ -175,9 +170,8 @@ campusplanApp
 */
 .controller('InfoController', function($scope, $rootScope, Piwik) {
 	$rootScope.$currentPageName = "Info";
+	$rootScope.pageTitle = "Info";
 
-	Piwik.setDocumentTitle($rootScope.$currentPageName);
-	//Piwik.trackPageView();
 })
 /*
 	Controller Organization
@@ -188,12 +182,11 @@ campusplanApp
 	$scope.name = "OrgaController";
 	$scope.params = $routeParams;
 	$rootScope.$currentPageName = "Orga";
+	$rootScope.pageTitle = "Einrichtungen";
 	$scope.orgaHasCoords = false;
 	$scope.inFav = false;
 	$scope.hasRoute = false;
 
-	Piwik.setDocumentTitle($rootScope.$currentPageName);
-	//Piwik.trackPageView();
 
 	// set the map default settings
 	angular.extend($scope, $rootScope.leafletDefaults);
@@ -217,6 +210,8 @@ campusplanApp
 
 		if(data.results != null && data.results.bindings.length > 0) {
 			$scope.orga = data.results.bindings[0];
+			$rootScope.pageTitle = "Einrichtungen: "+$scope.orga.name.value;
+
 			$scope.orgaSearchSuccess = true;
 			$scope.orgaSearchFailed = false;
 			$scope.inFav = ($scope.inFavs() < 0) ? false : true;
@@ -400,10 +395,8 @@ campusplanApp
 	function($scope, $rootScope, $http, Piwik) {
 
 	$rootScope.$currentPageName = "Fachbereiche";
+	$rootScope.pageTitle = "Fachbereiche";
 	$scope.splitNamePattern = /(Fachbereich [0-9]{2}) - (.+)/;
-
-	Piwik.setDocumentTitle($rootScope.$currentPageName);
-	//Piwik.trackPageView();
 
 	$scope.FachbereicheLoading = $http.get('api/fachbereiche.php')
 	.success(function(data, status) {
@@ -430,9 +423,7 @@ campusplanApp
 	function($scope, $rootScope, $http, Piwik) {
 
 	$rootScope.$currentPageName = "Hoersaele";
-
-	Piwik.setDocumentTitle($rootScope.$currentPageName);
-	//Piwik.trackPageView();
+	$rootScope.pageTitle = "Hörsaele";
 
 	$scope.HoersaeleLoading = $http.get('api/hoersaele.php')
 	.success(function(data, status) {
@@ -457,6 +448,7 @@ campusplanApp
 */
 .controller('WohnheimeController', function($scope, $rootScope, $http, $filter) {
 	$rootScope.$currentPageName = "Wohnheime";
+	$rootScope.pageTitle = "Wohnheime";
 
 	$scope.WohnheimeLoading = $http.get('api/wohnheime.php')
 	.success(function(data, status) {
@@ -485,9 +477,7 @@ campusplanApp
 	$scope.$location = $location;
 	$scope.$routeParams = $routeParams;
 	$rootScope.$currentPageName = "Wetter";
-
-	Piwik.setDocumentTitle($rootScope.$currentPageName);
-	//Piwik.trackPageView();
+	$rootScope.pageTitle = "Wetter";
 })
 /*
 	Controller ULB-Katalog
@@ -499,9 +489,7 @@ campusplanApp
 	$scope.$location = $location;
 	$scope.$routeParams = $routeParams;
 	$rootScope.$currentPageName = "ULB-Katalog";
-
-	Piwik.setDocumentTitle($rootScope.$currentPageName);
-	//Piwik.trackPageView();
+	$rootScope.pageTitle= "ULB-Katalog";
 })
 /*
 	Controller Favoriten
@@ -510,10 +498,8 @@ campusplanApp
 	function($scope, $rootScope, $http, $filter, localStorageService, FavService, WicketService, Piwik) {
 
 	$rootScope.$currentPageName = "Favoriten";
+	$rootScope.pageTitle = "Favoriten";
 	$scope.favoriten = localStorageService.get('favoriten');
-
-	Piwik.setDocumentTitle($rootScope.$currentPageName);
-	//Piwik.trackPageView();
 
 	// remove all orgas / clear the local storage
 	$scope.clearFavs = function() {
@@ -543,7 +529,6 @@ campusplanApp
 	$scope.$location = $location;
 	$scope.$routeParams = $routeParams;
 	$rootScope.$currentPageName = "NotImplemented";
+	$rootScope.pageTitle = "Not found";
 
-	//Piwik.setDocumentTitle($rootScope.$currentPageName);
-	////Piwik.trackPageView();
 });

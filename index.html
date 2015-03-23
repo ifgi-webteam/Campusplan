@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="de" ng-app="CampusplanApp">
 <head>
-	<title ng-bind="'WWU Campusplan ' + $currentPageName">WWU Campusplan</title>
+	<title ng-bind="'WWU Campusplan ' + pageTitle">WWU Campusplan</title>
 	<base href="/">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<meta name="robots" content="noindex, nofollow">
@@ -47,8 +47,6 @@
 
 		<div class="container" id="content" ng-view>
 		</div> <!-- /ng-view -->
-
-		<ngp-piwik ngp-set-js-url="/piwik/piwik.js" ngp-set-tracker-url="/piwik/piwik.php" ngp-set-site-id="1"> </ngp-piwik>
 	</div> <!-- /ng-controller="MainController" -->
 
 	<script src="bower_components/jquery/dist/jquery.min.js"></script>

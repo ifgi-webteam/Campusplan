@@ -33,7 +33,7 @@ campusplanApp.config(function($routeProvider, $locationProvider, localStorageSer
 		})
 		.when('/Fachbereiche/', {
 			templateUrl: 'templates/fachbereiche.html',
-			controller: 'NotImplementedController'
+			controller: 'FachbereicheController'
 		})
 		.when('/Hörsäle/', {
 			templateUrl: 'templates/hoersaele.html',
