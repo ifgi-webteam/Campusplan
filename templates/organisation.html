@@ -9,9 +9,10 @@
 		<div class="btn-group">
 			<a class="btn btn-sm btn-default" href="{{ orga.homepage.value }}" ng-class="{'disabled': !orga.homepage.value }"><span class="glyphicon glyphicon-globe" target="_blank"></span> Webseite</a>
 			<a class="btn btn-sm btn-default" href="" ng-click="addFav()" ng-class="{'btn-warning': inFav}"><span class="glyphicon glyphicon-star"></span> zu Favoriten</a>
-			<div class="btn-group visible-xs visible-sm" ng-show="orgaHasCoords" cg-busy="{promise:routeLoading,templateUrl:'templates/loading-small.html'}">
+			
+			<div class="btn-group visible-xs" ng-show="orgaHasCoords" cg-busy="{promise:routeLoading,templateUrl:'templates/loading-small.html'}">
 				<button class="btn btn-sm btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="">
-					<i class="fa fa-location-arrow"></i> Hierher navigieren <span class="caret"></span>
+					<i class="fa fa-location-arrow"></i> Navigation <span class="caret"></span>
 				</button>
 				<ul class="dropdown-menu" role="menu">
 				<li><a class="" href="" ng-click="getUserLocation('pedestrian')">zu Fuß</a></li>
@@ -21,7 +22,7 @@
 			</div>
 		</div>
 
-		<div class="btn-group hidden-xs hidden-sm" ng-show="orgaHasCoords" cg-busy="{promise:routeLoading,templateUrl:'templates/loading-small.html'}">
+		<div class="btn-group hidden-xs" ng-show="orgaHasCoords" cg-busy="{promise:routeLoading,templateUrl:'templates/loading-small.html'}">
 			<span class="btn btn-sm btn-info" href=""><i class="fa fa-location-arrow"></i> Hierher navigieren:</span>
 			<a class="btn btn-sm btn-default" href="" ng-class="{ 'btn-success': routingType=='pedestrian' }" ng-click="getUserLocation('pedestrian')">zu Fuß</a>
 			<a class="btn btn-sm btn-default" href="" ng-class="{ 'btn-success': routingType=='bicycle' }" ng-click="getUserLocation('bicycle')">mit dem Fahrrad</a>
