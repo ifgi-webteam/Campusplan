@@ -54,6 +54,9 @@ campusplanApp.config(function($routeProvider, $locationProvider, localStorageSer
 		.when('/Wetter/', {
 			templateUrl: 'templates/wetter.html',
 			controller: 'WetterController'
+		})
+		.otherwise({
+			redirectTo: '/'
 		});
 
 	$locationProvider.html5Mode(true).hashPrefix('!');

@@ -1,4 +1,8 @@
 <?php
+// query all organizations which have lat/lon attributes
+// aggregate them by lat/lon, so multiple organizations in the same
+// building won't display as different points
+
 include("functions.php");
 $mapjson = json_decode(getMapGeometriesPts(), true);
 

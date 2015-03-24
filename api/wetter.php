@@ -3,6 +3,8 @@ include("functions.php");
 
 $wetter = array();
 $request = array();
+
+// weather data by Klimatologie Institute
 function getWetterKlimatologie() {
 	try{
 		// request weather from Wetterstation Klimatologie Münster
@@ -23,6 +25,7 @@ function getWetterKlimatologie() {
 	}
 }
 
+// Forecast.io free API
 function getWetterForecastIO() {
 	try {
 		$request = file_get_contents_cached('https://api.forecast.io/forecast/05f2b397daaa4a4c5428a7888ce043b7/51.96246,7.62558?units=si&exclude=alerts,flags&lang=de', 1800);

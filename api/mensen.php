@@ -1,4 +1,6 @@
 <?php
+// query mensa data and aggregate by day
+
 include('functions.php');
 $daysGerman = array('Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag', 'Sonntag');
 
