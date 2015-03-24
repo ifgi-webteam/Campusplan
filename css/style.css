@@ -503,3 +503,9 @@ div.spacer {
 .weatherforecast-small {
 	height:150px;
 }
+
+.mensa-table h3 a {
+	width: 100%;
+	color: #fff;
+	text-decoration: none;
+}

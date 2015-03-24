@@ -28,7 +28,7 @@ function getWetterKlimatologie() {
 // Forecast.io free API
 function getWetterForecastIO() {
 	try {
-		$request = file_get_contents_cached('https://api.forecast.io/forecast/05f2b397daaa4a4c5428a7888ce043b7/51.96246,7.62558?units=si&exclude=alerts,flags&lang=de', 1800);
+		$request = file_get_contents_cached('https://api.forecast.io/forecast/05f2b397daaa4a4c5428a7888ce043b7/51.96246,7.62558?units=si&exclude=alerts,flags&lang=de', 900);
 		return $request;
 	}  catch(Exception $e) {
 		return false;
