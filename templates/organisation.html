@@ -8,7 +8,8 @@
 		<br>
 		<div class="btn-group">
 			<a class="btn btn-sm btn-default" href="{{ orga.homepage.value }}" ng-class="{'disabled': !orga.homepage.value }"><span class="glyphicon glyphicon-globe" target="_blank"></span> Webseite</a>
-			<a class="btn btn-sm btn-default" href="" ng-click="addFav()" ng-class="{'btn-warning': inFav}"><span class="glyphicon glyphicon-star"></span> zu Favoriten</a>
+			<a class="btn btn-sm btn-default visible-xs" href="" ng-click="addFav()" ng-class="{'btn-warning': inFav}"><span class="glyphicon glyphicon-star"></span> Favorit</a>
+			<a class="btn btn-sm btn-default hidden-xs" href="" ng-click="addFav()" ng-class="{'btn-warning': inFav}"><span class="glyphicon glyphicon-star"></span> zu Favoriten</a>
 			
 			<div class="btn-group visible-xs" ng-show="orgaHasCoords" cg-busy="{promise:routeLoading,templateUrl:'templates/loading-small.html'}">
 				<button class="btn btn-sm btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="">
