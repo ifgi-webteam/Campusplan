@@ -1,1 +1,3 @@
 Sitemap: http://app.uni-muenster.de/sitemap.xml
+Disallow: /api/
+Disallow: /piwik/
