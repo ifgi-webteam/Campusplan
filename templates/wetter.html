@@ -46,7 +46,7 @@
 
 				<hr style="clear:both">
 				<h2>Wettervorhersage für die nächsten Tage</h2>
-				<div ng-repeat="wh in wetter.daily.data | limitTo:6" style="text-align:center;padding:15px" class="col-sm-4 weatherforecast-big">
+				<div ng-repeat="wh in wetter.daily.data | limitTo:6" style="text-align:center;padding:15px" class="col-xs-6 col-sm-4 weatherforecast-big">
 					<i class="wi wi-forecastio-{{wh.icon}}" style="font-size:2em;padding:5px"></i><br>
 					<span style="vertical-align:middle; font-size:1em;padding:5px">
 					<b>{{ wh.time*1000 | date:'EEEE, dd. MMMM' }}</b><br>
