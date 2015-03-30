@@ -32,7 +32,9 @@ try {
 
 			$foodarray = array('name' => $food['data']['name'],
 				'minPrice' => $food['data']['minPrice'], 
-				'maxPrice' => $food['data']['maxPrice']);
+				'maxPrice' => $food['data']['maxPrice'],
+				'menuName' => $food['data']['menuName'],
+				'closed' => $food['data']['closed']);
 			$mensasorted[ $foodday ]["fooddata"][ $food['data']['mensa']['uid'] ]['food'][] = $foodarray;
 
 			$mensasorted[ $foodday ]["fooddata"][ $food['data']['mensa']['uid'] ]['mensa']['name'] = $food['data']['mensa']['name'];

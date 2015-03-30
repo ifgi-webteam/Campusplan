@@ -17,7 +17,7 @@
 				</thead>
 				<tbody>
 					<tr ng-repeat="food in mensa.food">
-						<td>{{ food.name }}<span style="float:right">{{ food.minPrice }}&euro; | {{ food.maxPrice }}&euro;</span></td>
+						<td>{{ food.name }}<span style="float:right" ng-hide="food.closed==1">{{ food.minPrice }}&euro; | {{ food.maxPrice }}&euro;</span></td>
 					</tr>
 				</tbody>
 			</table>
