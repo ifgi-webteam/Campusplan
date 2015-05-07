@@ -32,4 +32,6 @@ foreach($mapjson["results"]["bindings"] as $point) {
 		
 	}
 }
+
+header('Content-Type: application/json');
 echo json_encode( array_values($points), JSON_NUMERIC_CHECK);
