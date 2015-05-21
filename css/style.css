@@ -485,10 +485,14 @@ li.navbarOnly {
 	margin: 5px;
 }
 
+/* limit the map info popup size */
 .leaflet-popup-content {
 	width:200px;
 	max-height: 400px;
 	overflow-y: auto;
+}
+.leaflet-popup-content ul {
+	padding-left: 1.2em;
 }
 
 h2 {

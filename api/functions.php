@@ -224,6 +224,7 @@ function getMensaplan2($identifier = "") {
 	Includes point location data
 */
 function getMapGeometriesPts() {
+	$lang = "de";
 	$query = "
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>
 PREFIX aiiso: <http://purl.org/vocab/aiiso/schema#>
@@ -246,7 +247,10 @@ SELECT DISTINCT ?name ?lat ?lon ?address ?organization ?buildingname ?building W
 	OPTIONAL { ?organization vcard:adr ?address .
  	  FILTER ( datatype(?address) = xsd:string )
   	}
-} ";
+
+  	FILTER langMatches(lang(?name),'".$lang."') .
+} ORDER BY ?name
+";
 	$mapData = sparql_get($query);
 	return $mapData;
 }

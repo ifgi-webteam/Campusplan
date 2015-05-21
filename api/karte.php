@@ -12,23 +12,25 @@ foreach($mapjson["results"]["bindings"] as $point) {
 		$url_parts = explode('context/', $point["organization"]["value"]);
 		$url = (isset($url_parts[1])) ? $url_parts[1] :  "";
 
-		$building_uri = $point["building"]["value"];
+		//$building_uri = $point["building"]["value"];
+		$building_uri = md5($point["lat"]["value"].$point["lon"]["value"]);
 
 		// combine orgas in the same building
-		if(!isset($points[ $building_uri ]) || strpos($points[ $building_uri ]["message"], $url)) {
+		if(!isset($points[ $building_uri ])) {
 			$points[ $building_uri ] = array(
 				"lat" => $point["lat"]["value"],
 				"lng" => $point["lon"]["value"],
-				"message" => (isset($point["address"])? $point["address"]["value"]."<br>" : "") . '&bullet;&nbsp;<b><a href="Organisation/'. $url .'">'.$point["name"]["value"].'</a></b>'
+				"message" => (isset($point["buildingname"])? "<b>".$point["buildingname"]["value"]."</b><br>" : "") . (isset($point["address"])? $point["address"]["value"]."<br>" : "") . '<ul><li><a href="Organisation/'. $url .'">'.$point["name"]["value"].'</a></li>'
 				);
+		} elseif(strpos($points[ $building_uri ]["message"], $url) !== false) {
+			// nothing
 		} else {
 			$points[ $building_uri ] = array(
 			  	"lat" => $point["lat"]["value"],
 				"lng" => $point["lon"]["value"],
-				"message" =>  $points[ $building_uri ]["message"]. '<br>&bullet;&nbsp;<b><a href="Organisation/'. $url .'">'.$point["name"]["value"].'</a></b>'
+				"message" =>  $points[ $building_uri ]["message"]. '<li><a href="Organisation/'. $url .'">'.$point["name"]["value"].'</a></li>'
 				);
 		}
-
 		
 	}
 }
