@@ -1,3 +1,4 @@
+// Navigation direction icons mapping from Mapquest numbers to file names
 campusplanApp.filter('directionIcon', function() {
 	return function(maneuver) {
 		if(maneuver.turnType == 0) {

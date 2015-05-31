@@ -226,7 +226,8 @@ campusplanApp
 				$scope.orgaHasCoords = true;
 			} else {
 				// try to geocode address otherwise
-				$scope.geocodeLoading = $http.post('api/geocode.php', { data: $scope.orga.address.value })
+				var address = ($scope.orga.address != null) ? $scope.orga.address.value : $scope.orga.street.value +", "+  $scope.orga.zip.value +" "+ $scope.orga.city.value;
+				$scope.geocodeLoading = $http.post('api/geocode.php', { data: address })
 				.success(function(data, status) {
 					if(Object.keys(data.results).length > 0) {
 						$scope.orga.lat = [];
