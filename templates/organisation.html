@@ -54,7 +54,7 @@
 			<tbody>
 				<tr ng-repeat="maneuver in route.route.legs[0].maneuvers">
 					<td>
-					<img src="/img/directions/{{ maneuver | directionIcon }}.png">
+					<img ng-src="/img/directions/{{ maneuver | directionIcon }}.png">
 					</td>
 					<td>{{ maneuver.narrative }}</td>
 					<td>{{ maneuver.distance | number: 2 }} km</td>
