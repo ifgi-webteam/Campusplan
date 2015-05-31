@@ -28,16 +28,46 @@
 
 				<hr style="clear:both">
 				<h2>Wettervorhersage für die nächsten Stunden</h2>
-				<div ng-repeat="wh in wetter.hourly.data | limitTo:12" style="text-align:center;padding:15px" class="col-md-3 col-xs-4 weatherforecast-small">
-					<i class="wi wi-forecastio-{{wh.icon}}" style="font-size:2em;padding:5px"></i><br>
-					<span style="vertical-align:middle; font-size:1em;padding:5px">
-					<b>{{ wh.time*1000 | date:'H:mm' }} Uhr</b><br>
-					{{ wh.temperature | number:0 }}°C<br>
-					{{ wh.summary }}<br>
-					<span ng-show="wh.precipProbability !== 0">
-						NW {{ wh.precipProbability*100 | number:0 }}%
-					</span>
-					</span>
+				<div class="weatherforecast-container-outer">
+				<div class="weatherforecast-container">
+					<div ng-repeat="wh in wetter.hourly.data.slice(0, 3) | limitTo:3" class="col-md-4 col-xs-4 weatherforecast-small">
+						<i class="wi wi-forecastio-{{wh.icon}}" style="font-size:2em;padding:5px"></i><br>
+						<span style="vertical-align:middle; font-size:1em;padding:5px">
+						<b>{{ wh.time*1000 | date:'H:mm' }} Uhr</b><br>
+						{{ wh.temperature | number:0 }}°C<br>
+						{{ wh.summary }}<br>
+						<span ng-show="wh.precipProbability !== 0">
+							NW {{ wh.precipProbability*100 | number:0 }}%
+						</span>
+						</span>
+					</div>
+				</div>
+				<div class="weatherforecast-container">
+					<div ng-repeat="wh in wetter.hourly.data.slice(3, 6)" class="col-md-4 col-xs-4 weatherforecast-small">
+						<i class="wi wi-forecastio-{{wh.icon}}" style="font-size:2em;padding:5px"></i><br>
+						<span style="vertical-align:middle; font-size:1em;padding:5px">
+						<b>{{ wh.time*1000 | date:'H:mm' }} Uhr</b><br>
+						{{ wh.temperature | number:0 }}°C<br>
+						{{ wh.summary }}<br>
+						<span ng-show="wh.precipProbability !== 0">
+							NW {{ wh.precipProbability*100 | number:0 }}%
+						</span>
+						</span>
+					</div>
+				</div>
+				<div class="weatherforecast-container">
+					<div ng-repeat="wh in wetter.hourly.data.slice(6, 9)" class="col-md-4 col-xs-4 weatherforecast-small">
+						<i class="wi wi-forecastio-{{wh.icon}}" style="font-size:2em;padding:5px"></i><br>
+						<span style="vertical-align:middle; font-size:1em;padding:5px">
+						<b>{{ wh.time*1000 | date:'H:mm' }} Uhr</b><br>
+						{{ wh.temperature | number:0 }}°C<br>
+						{{ wh.summary }}<br>
+						<span ng-show="wh.precipProbability !== 0">
+							NW {{ wh.precipProbability*100 | number:0 }}%
+						</span>
+						</span>
+					</div>
+				</div>
 				</div>
 
 				<div class="footnote">
@@ -46,13 +76,27 @@
 
 				<hr style="clear:both">
 				<h2>Wettervorhersage für die nächsten Tage</h2>
-				<div ng-repeat="wh in wetter.daily.data | limitTo:6" style="text-align:center;padding:15px" class="col-xs-6 col-sm-4 weatherforecast-big">
-					<i class="wi wi-forecastio-{{wh.icon}}" style="font-size:2em;padding:5px"></i><br>
-					<span style="vertical-align:middle; font-size:1em;padding:5px">
-					<b>{{ wh.time*1000 | date:'EEEE, dd. MMMM' }}</b><br>
-					<span style="color:#00b"><b>{{ wh.temperatureMin | number:0 }}</b></span> bis <span style="color:#b00"><b>{{ wh.temperatureMax | number:0 }}</b></span>°C<br>
-					{{ wh.summary }}
-					</span>
+				<div class="weatherforecast-container-outer">
+				<div class="weatherforecast-container">
+					<div ng-repeat="wh in wetter.daily.data.slice(0,3)" class="col-xs-4 col-sm-4 weatherforecast-small">
+						<i class="wi wi-forecastio-{{wh.icon}}" style="font-size:2em;padding:5px"></i><br>
+						<span style="vertical-align:middle; font-size:1em;padding:5px">
+						<b>{{ wh.time*1000 | date:'EEEE, dd. MMMM' }}</b><br>
+						<span style="color:#00b"><b>{{ wh.temperatureMin | number:0 }}</b></span> bis <span style="color:#b00"><b>{{ wh.temperatureMax | number:0 }}</b></span>°C<br>
+						{{ wh.summary }}
+						</span>
+					</div>
+				</div>
+				<div class="weatherforecast-container">
+					<div ng-repeat="wh in wetter.daily.data.slice(3,6)" class="col-xs-4 col-sm-4 weatherforecast-small">
+						<i class="wi wi-forecastio-{{wh.icon}}" style="font-size:2em;padding:5px"></i><br>
+						<span style="vertical-align:middle; font-size:1em;padding:5px">
+						<b>{{ wh.time*1000 | date:'EEEE, dd. MMMM' }}</b><br>
+						<span style="color:#00b"><b>{{ wh.temperatureMin | number:0 }}</b></span> bis <span style="color:#b00"><b>{{ wh.temperatureMax | number:0 }}</b></span>°C<br>
+						{{ wh.summary }}
+						</span>
+					</div>
+				</div>
 				</div>
 
 				<div class="footnote">

@@ -503,9 +503,40 @@ div.spacer {
 	height:35px;
 }
 
+.weatherforecast-container {
+	display:flex;
+	flex-flow: row wrap;
+}
+
 .weatherforecast-big,
 .weatherforecast-small {
-	height:170px;
+	display: flex;
+	flex-flow: column;
+	text-align: center;
+	padding:5px;
+}
+
+.weatherforecast-container:not(:last-child) .weatherforecast-small:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  border-bottom: 1px solid #cccccc;
+  border-right: 1px solid #cccccc;
+  bottom: 0px;
+  right: 0px;
+  width: 8px;
+  height: 8px;
+}
+.weatherforecast-container:not(:first-child) .weatherforecast-small:not(:first-child)::before {
+  content: "";
+  position: absolute;
+  border-top: 1px solid #cccccc;
+  border-left: 1px solid #cccccc;
+  top: 0px;
+  left: 0px;
+  width: 8px;
+  height: 8px;
+  margin-top: -1px;
+  margin-left: -1px;
 }
 
 .mensa-table h3 a {
