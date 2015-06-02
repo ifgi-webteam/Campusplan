@@ -5,4 +5,5 @@ tiles/
 bower_components/
 node_modules/
 coverage/
+piwik
 keys.php
