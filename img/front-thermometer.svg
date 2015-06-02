@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="625"
+   height="625"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="front-thermometer.svg"
+   inkscape:export-filename="C:\Users\chk_000\Documents\htdocs-vhosts\Campusplan\img\front-thermometer.png"
+   inkscape:export-xdpi="72"
+   inkscape:export-ydpi="72">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35"
+     inkscape:cx="-197.14286"
+     inkscape:cy="520"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1027"
+     inkscape:window-x="1272"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-427.36218)">
+    <path
+       style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:0.30140597px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 209.11777,860.8767 q 0,-25.92094 11.9055,-48.37568 11.90554,-22.45472 33.60677,-37.525 V 573.63684 q 0,-24.41391 16.72806,-41.29261 16.72801,-16.87876 41.1419,-16.87876 24.41389,0 41.29264,16.87876 16.87868,16.8787 16.87868,41.29261 v 201.33918 q 21.39987,15.07028 33.30537,37.525 11.90555,22.45474 11.90555,48.37568 0,43.10101 -30.14058,73.24155 -30.14064,30.14057 -73.24166,30.14057 -43.10103,0 -73.24167,-30.14057 -30.14057,-30.14055 -30.14057,-73.24155 z m 35.56588,0 q 0,28.33215 19.8928,48.37563 19.89277,20.04356 47.92355,20.04356 28.33216,0 48.82781,-20.34495 20.49554,-20.34485 20.49554,-48.07424 0,-18.98855 -9.94636,-35.11383 -9.94642,-16.12522 -26.82514,-25.16737 l -5.72673,-2.71265 q -3.01406,-1.20563 -3.01406,-6.02814 V 573.63684 q 0,-9.64499 -6.78163,-16.27593 -6.78162,-6.63094 -17.02943,-6.63094 -9.94643,0 -16.87875,6.63094 -6.93233,6.63094 -6.93233,16.27593 v 218.21787 q 0,4.82251 -2.71266,6.02814 l -6.02811,2.71265 q -16.57733,9.04215 -25.92087,25.0167 -9.34363,15.97456 -9.34363,35.2645 z m 15.67313,0 q 0,21.70119 14.7689,36.77156 14.76888,15.07024 35.86728,15.07024 21.09841,0 36.47013,-15.22098 15.37169,-15.22106 15.37169,-36.62082 0,-19.28995 -13.26186,-34.05891 -13.26186,-14.76886 -31.949,-17.18014 V 660.44174 q 0,-1.80844 -2.10984,-3.9183 -2.10987,-2.10981 -4.52112,-2.10981 -2.41123,0 -4.06895,1.80845 -1.65774,1.80839 -1.65774,4.21966 v 149.19591 q -18.68717,2.41128 -31.79835,17.18014 -13.11114,14.76896 -13.11114,34.05891 z"
+       id="path2985"
+       inkscape:connector-curvature="0" />
+  </g>
+</svg>

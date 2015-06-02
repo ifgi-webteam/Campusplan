@@ -1,0 +1,25 @@
+{
+  "name": "Campusplan",
+  "version": "1.0.0",
+  "description": "This is a web app version of a the **Campus Plan App** developed by the [University of Münster](http://www.uni-muenster.de/). The goal of this web app is to subsequently replace the existing native versions for [iOS](http://itunes.apple.com/de/app/wwu-campus-plan/id474030032?mt=8) and [Android](https://play.google.com/store/apps/details?id=ifgi.android) in order to reduce the maintenance effort to one code base.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/chk1/Campusplan.git"
+  },
+  "author": "Christoph Kisfeld",
+  "bugs": {
+    "url": "https://github.com/chk1/Campusplan/issues"
+  },
+  "devDependencies": {
+    "karma-mocha": "~0.1.10",
+    "karma-phantomjs-launcher": "~0.1.4",
+    "karma-sinon-chai": "~0.3.0",
+    "karma-coverage": "~0.2.7",
+    "mocha": "~2.2.1",
+    "karma": "~0.12.31"
+  }
+}

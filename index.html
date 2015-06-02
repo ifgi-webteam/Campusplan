@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="de" ng-app="CampusplanApp">
+<head>
+	<title ng-bind="'WWU Campusplan ' + pageTitle">WWU Campusplan</title>
+	<base href="/">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="robots" content="noindex, nofollow">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+	<meta name="description" content="Der WWU Campusplan bietet eine Übersicht über die Einrichtungen der Universität Münster">
+	<meta name="keywords" content="WWU, Campusplan, Universität Münster, Einrichtungsverzeichnis, Mensaplan, Karte">
+	<meta property="og:site_name" content="WWU Campusplan">
+	<link rel="icon" href="favicon.ico">
+	<link rel="apple-touch-icon" sizes="57x57" href="img/favicon-touch-57x57.png" />
+	<link rel="apple-touch-icon" sizes="57x57" href="img/favicon-touch-152x152.png" />
+	<link rel="stylesheet" href="vendor/bootstrap-3.1-custom/css/bootstrap.min.css">
+	<link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css">
+	<link rel="stylesheet" href="bower_components/angular-busy/dist/angular-busy.min.css">
+	<link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="bower_components/leaflet-locatecontrol/dist/L.Control.Locate.min.css">
+	<link rel="stylesheet" href="css/weather-icons.min.css">
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<div class="fullheight">
+		<div class="container">
+		<!-- navbar -->
+		<nav class="navbar navbar-fixed-top" role="navigation" id="navbar">
+			<div class="container navbar-default">
+				<ul class="nav navbar-nav" style="width:100%">
+					<li class="dropdown"  style="width:100%">
+						<div class="dropdown">
+							<ul class="nav navbar-nav" style="width:100%" ng-class="'col'+$currentPageName">
+								<li class="dropdown">
+								<a ng-hide="$currentPageName == 'Default'" class="dropdown-toggle navbar-brand" data-toggle="dropdown"><span class="branding-img"></span>&nbsp;&nbsp;<i class="fa fa-caret-down"></i> Campusplan</a>
+								
+								<span ng-show="$currentPageName == 'Default'" class="navbar-brand"><span class="branding-img"></span> &nbsp; Campusplan</a></span>
+
+								<ul id="dropdown-tile-navigation" class="dropdown-menu" role="menu">
+									<ng-include src="'templates/tiles.html'">
+								</ul>
+							</li>
+							<li class="nav navbar-nav pull-right" id="wetter" ng-if="wetterSuccess">
+								<a href="Wetter"><i class="wi wi-forecastio-{{wetter.currently.icon}}" style="height:22px;width:22px;"></i>&nbsp;{{ (wetter.currently.temperature == None) ? '--' : (wetter.currently.temperature*100/100 | number:0) }}°C</a>
+							</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div><!-- /.container.navbar-header -->
+		</nav><!-- /navbar -->
+		</div>
+
+		<div class="container" id="content" ng-view autoscroll="">
+		</div> <!-- /ng-view -->
+	</div> <!-- /ng-controller="MainController" -->
+
+	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="vendor/bootstrap-3.1-custom/js/bootstrap.min.js"></script>
+	<script src="bower_components/angular/angular.min.js"></script>
+	<script src="bower_components/angular-route/angular-route.min.js"></script>
+	<script src="bower_components/angular-i18n/angular-locale_de-de.js"></script>
+	<script src="bower_components/leaflet/dist/leaflet.js"></script> 
+	<script src="bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.js"></script> 
+	<script src="bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
+	<script src="bower_components/angular-busy/dist/angular-busy.min.js"></script> 
+	<script src="bower_components/angulartics/dist/angulartics.min.js"></script> 
+	<script src="bower_components/angulartics/dist/angulartics-piwik.min.js"></script> 
+	<script src="bower_components/Wicket/wicket.js"></script>
+	<script src="bower_components/leaflet-locatecontrol/dist/L.Control.Locate.min.js"></script>
+	<script src="js/script.js"></script>
+	<script src="js/campusplan-angular.js"></script>
+	<script src="js/campusplan-angular-config.js"></script>
+	<script src="js/campusplan-angular-controllers.js"></script>
+	<script src="js/campusplan-angular-services.js"></script>
+	<script src="js/campusplan-angular-filters.js"></script>
+	<script type="text/javascript">
+		angular.element(document.getElementsByTagName('head')).append(angular.element('<base href="' + window.location.pathname + '" />'));
+	</script>
+	<!-- Piwik -->
+	<script type="text/javascript">
+	  var _paq = _paq || [];
+	  _paq.push(['trackPageView']);
+	  _paq.push(['enableLinkTracking']);
+	  (function() {
+	    var u="/piwik/";
+	    _paq.push(['setTrackerUrl', u+'piwik.php']);
+	    _paq.push(['setSiteId', 2]);
+	    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+	    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+	  })();
+	</script>
+	<noscript><p><img src="/piwik/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
+	<!-- End Piwik Code -->
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+<div>
+	<div class="container-fluid" cg-busy="AZLoading">
+		<div class="col-md-6">
+			<h1>Uni A-Z</h1>
+			<p class="lead">Das Einrichtungsverzeichnis der WWU.</p>
+
+			<form>
+				<div class="input-group input-group-lg">
+	  				<input ng-model="inputsearchterm" ng-change="liveSearch()" required class="form-control" name="search" placeholder="Suchbegriff hier eingeben..." type="text">
+	  				<span class="input-group-btn">
+	  					<button ng-click="search()" class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+	  				</span>
+				</div>
+			</form>
+		</div>
+
+		<div class="col-xs-12"></div>
+
+		<div class="col-md-6" ng-model="result" ng-show="orgaSearchFailed" id="orgaSearchFailed">
+			<p class="bg-danger">Keine Suchergebnisse für <strong>"{{ searchterm }}"</strong>.</p>
+		</div>
+
+		<div class="col-xs-12"></div>
+
+		<div class="col-md-6" ng-hide="orgaSearchSuccess && inputsearchterm.length > 0">
+			<p class="lead"><br>... oder nach Anfangsbuchstabe suchen:</p>
+			<div class="az">
+				<div class="az-inner">
+					<ul>
+						<li><a class="btn btn-default btn-lg internal" ng-click="searchletter('A')">A</a></li>
+						<li><a class="btn btn-default btn-lg internal" ng-click="searchletter('B')">B</a></li>
+						<li><a class="btn btn-default btn-lg internal" ng-click="searchletter('C')">C</a></li>
+						<li><a class="btn btn-default btn-lg internal" ng-click="searchletter('D')">D</a></li>
+						<li><a class="btn btn-default btn-lg internal" ng-click="searchletter('E')">E</a></li>
+						<li><a class="btn btn-default btn-lg internal" ng-click="searchletter('F')">F</a></li>
+						<li><a class="btn btn-default btn-lg internal" ng-click="searchletter('G')">G</a></li>
+						<li><a class="btn btn-default btn-lg internal" ng-click="searchletter('H')">H</a></li>
+						<li><a class="btn btn-default btn-lg internal" ng-click="searchletter('I')">I</a></li>
+						<li><a class="btn btn-default btn-lg internal" ng-click="searchletter('J')">J</a></li>
+						<li><a class="btn btn-default btn-lg internal" ng-click="searchletter('K')">K</a></li>
+						<li><a class="btn btn-default btn-lg internal" ng-click="searchletter('L')">L</a></li>
+						<li><a class="btn btn-default btn-lg internal" ng-click="searchletter('M')">M</a></li>
+						<li><a class="btn btn-default btn-lg internal" ng-click="searchletter('N')">N</a></li>
+						<li><a class="btn btn-default btn-lg internal" ng-click="searchletter('O')">O</a></li>
+						<li><a class="btn btn-default btn-lg internal" ng-click="searchletter('P')">P</a></li>
+						<li><a class="btn btn-default btn-lg internal" ng-click="searchletter('Q')">Q</a></li>
+						<li><a class="btn btn-default btn-lg internal" ng-click="searchletter('R')">R</a></li>
+						<li><a class="btn btn-default btn-lg internal" ng-click="searchletter('S')">S</a></li>
+						<li><a class="btn btn-default btn-lg internal" ng-click="searchletter('T')">T</a></li>
+						<li><a class="btn btn-default btn-lg internal" ng-click="searchletter('U')">U</a></li>
+						<li><a class="btn btn-default btn-lg internal" ng-click="searchletter('V')">V</a></li>
+						<li><a class="btn btn-default btn-lg internal" ng-click="searchletter('W')">W</a></li>
+						<li><a class="btn btn-default btn-lg internal" ng-click="searchletter('X')">X</a></li>
+						<li><a class="btn btn-default btn-lg internal" ng-click="searchletter('Y')">Y</a></li>
+						<li><a class="btn btn-default btn-lg internal" ng-click="searchletter('Z')">Z</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-xs-12" ng-model="result" ng-show="orgaSearchSuccess && inputsearchterm.length > 0">
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th>Suchergebnisse für <strong>"{{ searchterm }}"</strong>:</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="orga in orgas">
+						<td><a href="Organisation/{{ orga.orga.value.split('context/').pop() }}">{{ orga.name.value }}</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		
+	</div>
+</div>

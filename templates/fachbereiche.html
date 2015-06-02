@@ -1,0 +1,39 @@
+<div>
+	<div class="container-fluid" cg-busy="FachbereicheLoading">
+		<div class="col-md-6">
+			<h1>Fachbereiche</h1>
+			<p class="lead">Fachbereiche der WWU</p>
+
+			<form>
+				<div class="input-group input-group-lg">
+	  				<input ng-model="inputsearchterm" required class="form-control" name="search" placeholder="Nach Fachbereich suchen" type="text">
+	  				<span class="input-group-btn">
+	  					<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+	  				</span>
+				</div>
+			</form>
+		</div>
+
+		<div class="col-xs-12"><p></p></div>
+
+		<div class="col-xs-12" ng-model="result" ng-show="fachbereichSuccess">
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th>Fachbereiche</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="fb in fachbereiche | filter: inputsearchterm">
+						<td><a href="Organisation/{{ fb.fb.value.split('context/').pop() }}"><b>{{ fb.name.value.match(splitNamePattern)[1] }}</b>&nbsp;&nbsp; {{ fb.name.value.match(splitNamePattern)[2] }}</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="col-xs-12 apiFailed" ng-show="fachbereichFailed">
+			<p class="bg-danger">Beim Abfragen der Fachbereiche ist ein Fehler aufgetreten.</p>
+		</div>
+
+	</div>
+</div>

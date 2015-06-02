@@ -1,0 +1,46 @@
+<div>
+	<div class="container-fluid" cg-busy="mensaLoading">
+		<div class="col-md-12">
+			<h1>Mensaplan für die Woche vom {{ mensaData[1].meta.date | date:'dd. MMMM yyyy' }}</h1>
+		</div>
+
+		<div ng-repeat="day in mensaData" class="col-md-12 mensa-table">
+			<a href="" data-toggle="collapse" data-target="#table{{ day.meta.dayOfWeek }}">
+			<h3 class="colMensen" style="color:#fff;padding:10px" id="{{ day.meta.dayOfWeek }}">
+				<i class="fa fa-fw" ng-class="(day.meta.dayOfWeek==dayOfWeek || (day.meta.dayOfWeek == 1 && expandMonday)) ? 'fa-angle-down':'fa-angle-right' "></i> {{ day.meta.dayOfWeekNameGer }}
+			</h3>
+			</a>
+			<div id="table{{ day.meta.dayOfWeek }}" class="collapse" ng-class="{in: day.meta.dayOfWeek==dayOfWeek || (day.meta.dayOfWeek == 1 && expandMonday) }">
+			<table ng-repeat="mensa in day.fooddata" class="table table-bordered table-striped">
+				<thead>
+					<tr><th><a href="Organisation/{{ mensa.mensa.uri.split('context/').pop() }}">{{ mensa.mensa.name }}</a></th></tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="food in mensa.food" ng-hide="mensa.food[$index].closed==1 && mensa.food[$index-1].closed==1">
+						<td>{{ food.name }}<span style="float:right" ng-hide="food.closed==1">{{ food.minPrice }}&euro; | {{ food.maxPrice }}&euro;</span></td>
+					</tr>
+				</tbody>
+			</table>
+			</div>
+		</div>
+		<div class="footnote col-md-12">
+			Alle Angaben ohne Gewähr, Änderungen vorbehalten
+		</div>
+
+		<div class="col-xs-12 apiFailed" ng-show="mensenQueryFailed">
+			<p class="bg-danger">Beim Abfragen des Mensaplans ist ein Fehler aufgetreten.</p>
+			
+			Informiere dich über das aktuelle Menü direkt auf den Seiten des Studentenwerks:
+			
+			<ul>
+			<li><a href="http://www.studentenwerk-muenster.de/de/essen-a-trinken/mensen/mensa-am-aasee" target="_blank">Mensa am Aasee</a></li>
+			<li><a href="http://www.studentenwerk-muenster.de/de/essen-a-trinken/mensen/mensa-am-ring" target="_blank">Mensa am Ring</a></li>
+			<li><a href="http://www.studentenwerk-muenster.de/de/essen-a-trinken/mensen/da-vinci" target="_blank">Mensa Da Vinci</a></li>
+			<li><a href="http://www.studentenwerk-muenster.de/de/essen-a-trinken/bistros-a-cafes/denkpause" target="_blank">Bistro Denkpause</a></li>
+			<li><a href="http://www.studentenwerk-muenster.de/essen-a-trinken/mensen/bispinghof" target="_blank">Mensa Bispinghof</a></li>
+			</ul>
+			
+		</div>
+
+	</div>
+</div>

@@ -1,0 +1,103 @@
+<div class="fullheight" cg-busy="orgaLoading">
+<leaflet class="orgaMap" markers="orgMarkers" paths="paths" geojson="geojson" defaults="mapDefaults" ng-show="orgaHasCoords" controls="controls"></leaflet>
+
+<div class="container-fluid">
+	<div class="col-xs-12" ng-show="orgaSearchSuccess">
+		<h2>{{ orga.name.value }}</h2>
+		{{ orga.address.value || orga.street.value +", "+ orga.zip.value + orga.city.value }} <br>
+		<br>
+		<div class="btn-group">
+			<a class="btn btn-sm btn-default" href="{{ orga.homepage.value }}" ng-class="{'disabled': !orga.homepage.value }"><span class="glyphicon glyphicon-globe" target="_blank"></span> Webseite</a>
+			<a class="btn btn-sm btn-default visible-xs" href="" ng-click="addFav()" ng-class="{'btn-warning': inFav}"><span class="glyphicon glyphicon-star"></span> Favorit</a>
+			<a class="btn btn-sm btn-default hidden-xs" href="" ng-click="addFav()" ng-class="{'btn-warning': inFav}"><span class="glyphicon glyphicon-star"></span> zu Favoriten</a>
+			
+			<div class="btn-group visible-xs" ng-show="orgaHasCoords" cg-busy="{promise:routeLoading,templateUrl:'templates/loading-small.html'}">
+				<button class="btn btn-sm btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="">
+					<i class="fa fa-location-arrow"></i> Navigation <span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" role="menu">
+				<li><a class="" href="" ng-click="getUserLocation('pedestrian')">zu Fuß</a></li>
+				<li><a class="" href="" ng-click="getUserLocation('bicycle')">mit dem Fahrrad</a></li>
+				<li><a class="" href="" ng-click="getUserLocation('fastest')">mit dem Auto</a></li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="btn-group hidden-xs" ng-show="orgaHasCoords" cg-busy="{promise:routeLoading,templateUrl:'templates/loading-small.html'}">
+			<span class="btn btn-sm btn-info" href=""><i class="fa fa-location-arrow"></i> Hierher navigieren:</span>
+			<a class="btn btn-sm btn-default" href="" ng-class="{ 'btn-success': routingType=='pedestrian' }" ng-click="getUserLocation('pedestrian')">zu Fuß</a>
+			<a class="btn btn-sm btn-default" href="" ng-class="{ 'btn-success': routingType=='bicycle' }" ng-click="getUserLocation('bicycle')">mit dem Fahrrad</a>
+			<a class="btn btn-sm btn-default" href="" ng-class="{ 'btn-success': routingType=='fastest' }" ng-click="getUserLocation('fastest')">mit dem Auto</a>
+		</div>
+
+	</div>
+
+	<div class="col-xs-12 apiFailed" ng-show="waitForGeolocation">
+		<p>Bitte warten, dein Standort wird ermittelt. Falls dies länger als 15 Sekunden dauert, wurde die Standortabfrage abgelehnt oder dein Browser unterstützt diese Funktion nicht.</p>
+	</div>
+
+	<div class="col-xs-12 apiFailed" ng-show="geoLocationError">
+		<p class="bg-danger">Für die Navigation wird dein aktueller Standort benötigt. Entweder hast du die Standortabfrage abgelehnt, es wurde kein Standort gefunden, oder dein Browser unterstützt diese Funktion nicht.</p>
+	</div>
+
+	<div class="col-xs-12" ng-show="hasRoute" cg-busy="routeLoading">
+		<h3>Wegbeschreibung</h3>
+		<div class="row">
+		<table class="table table-bordered table-striped" class="col-md-6">
+			<thead>
+				<tr>
+					<th colspan="3">
+					Distanz {{ route.route.distance | number: 2 }} km, geschätzte Zeit {{ route.route.time/60 | number: 0 }} Minuten
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="maneuver in route.route.legs[0].maneuvers">
+					<td>
+					<img ng-src="/img/directions/{{ maneuver | directionIcon }}.png">
+					</td>
+					<td>{{ maneuver.narrative }}</td>
+					<td>{{ maneuver.distance | number: 2 }} km</td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+		<span class="pull-right" style="font-weight:normal; font-size:smaller">Directions Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png"></span>
+	</div>
+
+	<div class="col-xs-12" ng-show="orgaHasMensa">
+		<h3>Mensaplan für die Woche vom {{ mensaData[1].meta.date | date:'dd. MMMM yyyy' }}</h3>
+		<div class="row">
+		<div ng-repeat="day in mensaData" id="table{{ day.meta.dayOfWeek }}" class="col-md-6">
+		<table ng-repeat="mensa in day.fooddata" class="table table-bordered table-striped">
+			<thead>
+				<tr><th>{{ day.meta.dayOfWeekNameGer }}</a></th></tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="food in mensa.food">
+					<td>{{ food.name }}<span style="float:right" ng-hide="food.closed==1">{{ food.minPrice }}&euro; | {{ food.maxPrice }}&euro;</span></td>
+				</tr>
+			</tbody>
+		</table>
+		</div>
+		</div>
+	</div>
+
+	<div class="col-xs-12" ng-show="orgaHasSubOrga">
+		<h3>Untergeordnete Einrichtungen</h3>
+		<table class="table table-bordered table-striped">
+			<tbody>
+				<tr ng-repeat="orga in orgaSubOrgaData">
+					<td><a href="Organisation/{{ orga.orga.value.split('context/').pop() }}">{{ orga.name.value }}</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<div class="col-xs-12 apiFailed" ng-model="result" ng-show="orgaSearchFailed">
+		<p class="bg-danger">Beim Abfragen dieser Organisation ist ein Fehler aufgetreten.</p>
+	</div>
+
+	<div class="col-xs-12 spacer">&nbsp;</div>
+</div>
+</div>

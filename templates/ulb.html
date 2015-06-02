@@ -1,0 +1,32 @@
+<div>
+	<div class="container-fluid">
+		<div class="col-md-6">
+
+			<h1>ULB-Katalog</h1>
+
+			<p>Im Bestand der <a href="/Organisation/uniaz/837a7fa378e33c6589a971d291b90e98">Universitäts- und Landesbibliothek (ULB) Münster</a> befinden sich etwa 3.5 Mio. Bücher und 200 Mio. Artikel, die Du mit der "Disco" Suche durchsuchen kannst.</p>
+			<p><strong>Die Suchergebnisse öffnen sich in einem neuen Browserfenster.</strong></p>
+
+			<form method="get" action="http://disco.uni-muenster.de/primo_library/libweb/action/search.do" target="_blank">
+				<input value="scope:(&quot;ULBMS&quot;),primo_central_multiple_fe" name="scp.scps" id="activescope" type="hidden">
+				<input value="Basic" name="mode" id="mode" type="hidden">
+				<input value="default_tab" name="tab" id="tab" type="hidden">
+				<input value="1" name="indx" id="indx" type="hidden">
+				<input value="true" name="dum" id="dum" type="hidden">
+				<input id="str" value="rank" name="srt" type="hidden">
+				<input value="ulb" name="vid" id="vid" type="hidden">
+				<input value="" name="frbg" id="frbg" type="hidden">
+				<input value="go" name="fn" id="fn" type="hidden">
+				<input value="search" name="ct" id="ct" type="hidden">
+
+				<div class="input-group input-group-lg">
+					<input class="form-control" accesskey="s" id="search_field" value="" name="vl(freeText0)" type="text" placeholder="Suchbegriff eingeben">
+					<span class="input-group-btn">
+						<button class="btn btn-default" type="submit" value="Suchen"><span class="glyphicon glyphicon-search"></span></button>
+	  				</span>
+	  			</div>
+			</form>
+
+		</div>
+	</div>
+</div>

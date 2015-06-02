@@ -1,0 +1,546 @@
+@font-face {
+  font-family: 'Signika';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Signika-Semibold'), url("../fonts/Signika-Semibold.woff") format('woff');
+}
+
+@font-face {
+  font-family: "MetaWebPro-Normal";
+  font-style: normal;
+  font-weight: 400;
+  src: url("//www.uni-muenster.de/imperia/md/content/allgemein/farbunabhaengig/fonts/metawebpro-normal.eot?#iefix") format("embedded-opentype"), url("//www.uni-muenster.de/imperia/md/content/allgemein/farbunabhaengig/fonts/metawebpro-normal.woff") format("woff"), url("//www.uni-muenster.de/imperia/md/content/allgemein/farbunabhaengig/fonts/metacomppro-normal.ttf") format("truetype"), url("//www.uni-muenster.de/imperia/md/images/allgemein/farbunabhaengig/fonts/metacomppro-normal.svg#metacomppro-normal") format("svg");
+}
+
+body {
+	padding-top: 50px;
+}
+
+html, body {
+	height: 100%;
+	width: 100%;
+	color:#252525;
+	font-family: 'MetaWebPro-Normal', 'Signika', sans-serif;
+}
+
+#content {
+	height:100%;
+}
+
+div.container {
+	padding:0;
+}
+
+
+/* 
+	Text and links size & colour on home page tiles
+*/
+div#tiles a:hover span.tiletitle {
+	text-shadow: 0 0 5px rgba(0,0,0,0.6);
+	text-decoration: none;
+}
+
+div#tiles a:active span.tiletitle {
+	text-shadow: 0 0 5px rgba(0,0,0,1);
+	text-decoration: none;
+}
+
+div#tiles div.logo a:hover img {
+	background-color:#eee;
+}
+
+div.tile:hover {
+	padding:-5px;
+	box-shadow: rgba(0,0,0,0.5) 0px 0px 5px;
+	z-index: 99;
+	opacity: 0.9;
+}
+
+div.tile span.tiletitle {
+	position: absolute;
+	width:100%;
+	bottom: 5px;
+	left:0px;
+	font-family: 'MetaWebPro-Normal', sans-serif;
+	font-weight: 600;
+	font-size: 2.2em;
+	font-size: 5vmin;
+	color: #fff;
+	text-align: center;
+	text-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+div.tile.smalltile span.tiletitle {
+	font-size:1.5em;
+	font-size:3vmin;
+	text-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+/* 
+	Kachelgröße an den umliegenden Container anpassen 
+*/
+img.front {
+	width: 100%;
+	height: auto;
+}
+
+/* 
+	Change list style of home page tiles 
+*/
+ul#nav, ul#nav li {
+	margin: 0;
+	padding: 0;
+}
+
+ul#nav li {
+	list-style: none;
+}
+
+div.tile img {
+	padding: 0px 10px 20px 10px;
+}
+
+/* 
+	Default tile sizes on home page 
+*/
+div.tile {
+	width:100%;	
+	padding: 0px;
+	position: relative;
+	float:left;
+	max-width: 33%;
+	max-width: calc(100% / 3);
+	min-width: 120px;
+}
+div.tile a img {
+	width:100%;	
+}
+
+div.tile.smalltile {
+	max-width: 16.5%;
+	max-width: calc(100% / 6);
+	min-width: 60px;
+}
+
+/* weather icon font size */
+div.tile.smalltile span.tiletitle i.wi {
+	font-size:4em;
+	font-size:8vmin;
+}
+
+/* 
+	Tile size on home page for portrait mode / smartphones
+*/
+@media all and (orientation:portrait) {
+	div.tile {
+		max-width: 50%;
+	}
+
+	div.tile.smalltile {
+		max-width: 25%;
+	}
+
+	div.tile span.tiletitle {
+		font-size:1.5em;
+		font-size:6vmin;
+	}
+
+	div.tile.smalltile span.tiletitle {
+		font-size:1em;
+		font-size:3vmin;
+	}
+}
+
+/* 
+	Tile size on home page for smaller landscape mode screens (desktop PCs, tablets, phones)
+*/
+@media all and (orientation:landscape) and (max-width: 768px) {
+	div.tile {
+		max-width: 50.0%;
+	}
+
+	div.tile.smalltile {
+		max-width: 25%;
+	}
+
+	div.tile span.tiletitle {
+		font-size:1.5em;
+		font-size:6vmin;
+	}
+	
+	div.tile.smalltile span.tiletitle {
+		font-size:1em;
+		font-size:3vmin;
+	}
+}
+
+/* 
+	Tile size in dropdown navbar
+*/
+#dropdown-tile-navigation.dropdown-menu div.tile,
+#dropdown-tile-navigation.dropdown-menu div.tile.smalltile {
+	width:100%;	
+	padding: 0px;
+	position: relative;
+	float:left;
+	max-width: 20%;
+	max-width: calc(100% / 5);
+	min-width: 45px;
+}
+
+#dropdown-tile-navigation.dropdown-menu div.tile a img {
+	width:100%;	
+}
+
+#dropdown-tile-navigation.dropdown-menu div.tile.tile span.tiletitle,
+#dropdown-tile-navigation.dropdown-menu div.tile.smalltile span.tiletitle {
+	font-size:1em;
+	font-size:2.5vmin;
+	font-weight: normal;
+}
+
+
+/* fixed font sizes for very small screens */
+@media all and (max-width: 640px), all and (max-height: 320px) {
+	#dropdown-tile-navigation.dropdown-menu div.tile.tile span.tiletitle,
+	#dropdown-tile-navigation.dropdown-menu div.tile.smalltile span.tiletitle {
+		font-size:0.8em;
+	}
+	div.tile.smalltile span.tiletitle {
+		font-size:0.8em;
+	}
+	div.tile span.tiletitle {
+		font-size:1.5em;
+	}
+}
+
+/* 
+	Kachelfarben
+*/
+.colDefault,
+.colWetter,
+.colUni-a-z {
+	background-color:#009dd1;
+}
+.colFachbereiche,
+.colOrga {
+	background-color:#b1c800;
+}
+.colFavoriten {
+	background-color:#009dd1;
+}
+.colHoersaele {
+	background-color:#7ab51d;
+}
+.colInfo {
+	background-color:#ffd400;
+	background-color:#f5c500;
+}
+.colKarte {
+	background-color:#7ab51d;
+}
+.colMensen {
+	background-color:#2a6c8c;
+}
+.colULB-Katalog {
+	background-color:#2a6c8c;
+}
+.colWohnheime {
+	background-color:#b1c800;
+}
+.colNotImplemented{
+	background-color:#bb0000;
+}
+
+/* wwu, lodum & ifgi logo on info page match container width */
+.logoimgs {
+	max-width:100%;
+	padding:30px;
+}
+
+.navbar-nav li.frontpage-nav.karte {
+	background-image:url(../img/front-karte.svg);
+}
+.navbar-nav li.frontpage-nav.mensen {
+	background-image:url(../img/front-mensen.svg);
+}
+.navbar-nav li.frontpage-nav.uni-a-z {
+	background-image:url(../img/front-uni-a-z.svg);
+}
+
+/*
+	Branding text and logo size
+*/
+.navbar > .container .navbar-brand {
+	margin-left:0px;
+	cursor:pointer;
+	color:#fff;
+	font-family: 'Signika', sans-serif;
+	font-weight: 600;
+	color: #fff;
+	text-align: center;
+	text-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+.navbar > .container .navbar-brand:hover {
+	color:#fff;
+}
+
+.navbar-nav>li>a {
+	padding-top: 15px;
+}
+
+.navbar-nav {
+	margin: 0px;
+}
+
+.branding-img {
+	padding-right:50px;
+	vertical-align:text-top;
+	height:30px;
+	width:70px;
+	background-image:url(../img/wwu-icon-w.png);
+	background-repeat: no-repeat;
+}
+
+.dropdown.open .branding-img { 
+	background-image:url(../img/wwu-icon-b.png);
+}
+
+/* evenly distribute the letters on UniA-Z */
+div.az {
+	line-height:50px;
+}
+div.az a {
+	width:50px;
+}
+.az-inner ul {
+	list-style: none;
+	padding: 0;
+}
+.az-inner ul li {
+	display: inline-block;
+}
+
+#az-result-list {
+	list-style: none;
+	padding: 0;
+	max-width: 100%;
+}
+#az-result-list li {
+	text-align: left;
+}
+#az-result-list li a {
+	width: 100%;
+	height: 100%;
+	display: block;
+	white-space: normal;
+}
+
+.apiFailed p {
+	padding:15px;
+}
+
+/*
+	Use classes instead of IDs for maps, or else map will
+	not load properly load (wrong zoom and center point)
+*/
+.orgaMap {
+	height:66%;
+}
+.overviewMap {
+	height:100%;
+}
+
+/*
+	Loading animation
+*/
+.loading-animation {
+	background-image:url('../img/loader-big.gif');
+	background-position:50% 0px;
+	background-repeat:no-repeat;
+	min-height:256px;
+}
+
+.loading-animation-small {
+	background-image:url('../img/loader-small.gif');
+	background-position:50% 0px;
+	background-repeat:no-repeat;
+	height:32px;
+}
+
+.fullheight {
+	height:100%;
+}
+
+#wetter, #wetter a {
+	font-family: "Signika", sans-serif;
+	text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+	color:#fff;
+	font-size: 16px;
+	/* this element enlarges the top navbar by 3px, which overlaps with content, set fixed width to fix this */
+	height: 50px;
+	overflow: hidden; 
+}
+
+/* Change dropdown menu colours */
+.navbar-default .navbar-nav .open #dropdown-tile-navigation.dropdown-menu>li>a, 
+.navbar-default .navbar-nav .open #dropdown-tile-navigation.dropdown-menu {
+	background-color: #eee;
+	color:#000;
+}
+
+.navbar-default .navbar-nav .open #dropdown-tile-navigation.dropdown-menu>li>a:active {
+	background-color: #ccc;
+	color:#000;
+}
+
+/* Hide weather when dropdown menu is open */
+li.dropdown.open + li {
+	display:none;
+}
+
+/* Navbar dropdown for big screen takes up 75% width*/
+#dropdown-tile-navigation.dropdown-menu {
+	min-width:750px;
+	width:75%;
+	padding-top:0px;
+	padding-bottom:0px;
+	margin-top:0px;
+	margin-bottom:0px;
+	border:0px;
+}
+
+/* Navbar dropdown for small screens takes up 100% width*/
+@media all and (max-width: 768px) { 
+	#dropdown-tile-navigation.dropdown-menu {
+		min-width:240px;
+		width:100%;
+	}
+}
+
+/* Navbar dropdown for iPad screens takes up 650px width*/
+@media all and (device-width: 768px) and (device-height: 1024px) and (orientation:portrait),
+	all and (device-width: 768px) and (device-height: 1024px) and (orientation:landscape) {
+	
+	#dropdown-tile-navigation.dropdown-menu {
+		min-width:650px;
+	}
+}
+
+li.first {
+	clear:both;
+}
+
+li.navbarOnly {
+	display:none;
+}
+#dropdown-tile-navigation.dropdown-menu li.navbarOnly {
+	display:block;
+}
+
+.footnote {
+	clear:both; 
+	text-align:right; 
+	padding-top:20px; 
+	width:100%; 
+	font-size:small; 
+	color:#666
+}
+
+.footnote a {
+	color:#666
+}
+
+@-webkit-keyframes fav {
+    from { -webkit-transform: rotate(0deg); }
+    to { -webkit-transform: rotate(359deg); }
+}
+@keyframes fav {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(359deg); }
+}
+.fav {
+	
+}
+
+.fav span {
+	color: #f5c500;
+	animation: fav 5s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+	-webkit-animation: fav 5s;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-timing-function: linear;
+}
+
+.yellow {
+	color: #f5c500;
+}
+.gray {
+	color:#666;
+}
+
+.infobuttons a {
+	margin: 5px;
+}
+
+/* limit the map info popup size */
+.leaflet-popup-content {
+	width:200px;
+	max-height: 400px;
+	overflow-y: auto;
+}
+.leaflet-popup-content ul {
+	padding-left: 1.2em;
+}
+
+h2 {
+	word-wrap: break-word;
+}
+
+div.spacer {
+	height:35px;
+}
+
+.weatherforecast-container {
+	display:flex;
+	flex-flow: row wrap;
+}
+
+.weatherforecast-big,
+.weatherforecast-small {
+	display: flex;
+	flex-flow: column;
+	text-align: center;
+	padding:5px;
+}
+
+.weatherforecast-container:not(:last-child) .weatherforecast-small:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  border-bottom: 1px solid #cccccc;
+  border-right: 1px solid #cccccc;
+  bottom: 0px;
+  right: 0px;
+  width: 8px;
+  height: 8px;
+}
+.weatherforecast-container:not(:first-child) .weatherforecast-small:not(:first-child)::before {
+  content: "";
+  position: absolute;
+  border-top: 1px solid #cccccc;
+  border-left: 1px solid #cccccc;
+  top: 0px;
+  left: 0px;
+  width: 8px;
+  height: 8px;
+  margin-top: -1px;
+  margin-left: -1px;
+}
+
+.mensa-table h3 a {
+	width: 100%;
+	color: #fff;
+	text-decoration: none;
+}

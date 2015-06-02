@@ -1,0 +1,37 @@
+<div>
+	<div class="container-fluid">
+		<div class="col-md-6">
+			<h1>Favoriten</h1>
+			<p class="lead">Seiten von Einrichtungen können über einen Klick auf <a class="btn btn-sm btn-default" ng-click="stuff($event)"><span class="glyphicon glyphicon-star"></span> zu Favoriten</a> in diese Liste hinzugefügt werden.</p>
+
+			<form ng-show="favoriten.orgas.length > 5">
+				<div class="input-group input-group-lg">
+	  				<input ng-model="inputsearchterm" required class="form-control" name="search" placeholder="Favoritenliste filtern" type="text">
+	  				<span class="input-group-btn">
+	  					<button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+	  				</span>
+				</div>
+			</form>
+		</div>
+
+		<div class="col-xs-12"><p></p></div>
+
+		<div class="col-xs-12" ng-show="!favoriten || !favoriten.orgas || favoriten.orgas.length == 0">
+			<p>Du hast bisher keine Favoriten markiert.</p>
+		</div>
+
+		<div class="col-xs-12" ng-show="favoriten.orgas.length > 0">
+			<table class="table table-bordered table-striped">
+				<tbody>
+					<tr ng-repeat="f in favoriten.orgas | filter: inputsearchterm">
+						<td>
+							<span class="glyphicon glyphicon-star yellow"></span> <a href="/Organisation/{{ f.subject.value.split('context/').pop() }}">{{ f.name.value }}</a>
+							<a href="" class="pull-right gray" ng-click="removeFav(f)">Entfernen</a>
+						</td>
+
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
