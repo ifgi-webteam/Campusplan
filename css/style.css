@@ -504,14 +504,18 @@ div.spacer {
 }
 
 .weatherforecast-container {
+	display:-webkit-flex;
 	display:flex;
 	flex-flow: row wrap;
+	-webkit-flex-flow: row wrap;
 }
 
 .weatherforecast-big,
 .weatherforecast-small {
+	display: -webkit-flex;
 	display: flex;
 	flex-flow: column;
+	-webkit-flex-flow: column;
 	text-align: center;
 	padding:5px;
 }
