@@ -1,3 +1,5 @@
+'use strict';
+
 /*
 	Angular Services
 */
@@ -15,7 +17,7 @@ campusplanApp.factory('FavService', function(localStorageService) {
 			var dupe = -1;
 
 			if(angular.isObject(favourites) && angular.isObject(favourites.orgas)) {
-				for(i in favourites.orgas) {
+				for(var i in favourites.orgas) {
 					if(angular.equals(favourites.orgas[i], orga)) {
 						dupe = i;
 						break;
@@ -43,14 +45,14 @@ campusplanApp.factory('FavService', function(localStorageService) {
 			} else {
 				// if favorites are empty, create new object
 				favourites = {};
-				favourites.orgas = []
+				favourites.orgas = [];
 				favourites.orgas.push(orga);
 				//$scope.inFav = true;
 			}
 			return localStorageService.set('favoriten', favourites);
 		}
 	};
-})
+});
 
 // Wicket library
 // convert 'Well Known Text' geometries to GeoJSON objects
@@ -60,6 +62,6 @@ campusplanApp.service('WicketService', function() {
 		var wkt = new Wkt.Wkt();
 		wkt.read(wktInput);
 		return wkt.toJson();//{reverseInnerPolygons: true}
-	}
+	};
 
 });

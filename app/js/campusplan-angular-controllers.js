@@ -1,3 +1,5 @@
+'use strict';
+
 /* 
 	Page controllers 
 */
@@ -6,8 +8,8 @@ campusplanApp
 	Controller Hauptseite
 */
 .controller('HomeController', function($scope, $rootScope) {
-	$rootScope.$currentPageName = "Default"; // used for background color CSS selector
-	$rootScope.pageTitle = ""; // displayed in browser title bar
+	$rootScope.$currentPageName = 'Default'; // used for background color CSS selector
+	$rootScope.pageTitle = ''; // displayed in browser title bar
 })
 /*
 	Controller Mensa
@@ -16,12 +18,12 @@ campusplanApp
 	function($scope, $routeParams, $http, $rootScope) {
 
 	var doW = new Date().getDay();
-	$scope.name = "MensenController";
+	$scope.name = 'MensenController';
 	$scope.params = $routeParams;
 	$scope.mondayDate = getMonday(new Date());
 	$scope.dayOfWeek = doW;
-	$rootScope.$currentPageName = "Mensen";
-	$rootScope.pageTitle = "Mensaplan";
+	$rootScope.$currentPageName = 'Mensen';
+	$rootScope.pageTitle = 'Mensaplan';
 
 	// chéck if it is saturday, sunday or monday
 	// used in Mensaplan to expand Monday menu on these days
@@ -41,15 +43,15 @@ campusplanApp
 			}
 		})
 		.error(function(data, status) {
-			$scope.data = data || "Request failed";
+			$scope.data = data || 'Request failed';
 			$scope.status = status;
 		});
 
 	// when collapsing menu entries, place plus/minus signs accordingly 
-	$('#content').on("show.bs.collapse", "div.mensa-table", function(e){
+	$('#content').on('show.bs.collapse', 'div.mensa-table', function(e){
 		$(this).find('.fa.fa-angle-right').removeClass('fa-angle-right').addClass('fa-angle-down');
 	});
-	$('#content').on("hide.bs.collapse", "div.mensa-table", function(e){
+	$('#content').on('hide.bs.collapse', 'div.mensa-table', function(e){
 		$(this).find('.fa.fa-angle-down').removeClass('fa-angle-down').addClass('fa-angle-right');
 	});
 })
@@ -59,10 +61,10 @@ campusplanApp
 .controller('KarteController', 
 	function($scope, $routeParams, $http, $rootScope, leafletData) {
 
-	$scope.name = "KarteController";
+	$scope.name = 'KarteController';
 	$scope.params = $routeParams;
-	$rootScope.$currentPageName = "Karte";
-	$rootScope.pageTitle = "Karte";
+	$rootScope.$currentPageName = 'Karte';
+	$rootScope.pageTitle = 'Karte';
 
 	// set map defaults
 	angular.extend($scope, $rootScope.leafletDefaults);
@@ -112,7 +114,7 @@ campusplanApp
 
 	})
 	.error(function(data, status) {
-		$scope.data = data || "Request failed";
+		$scope.data = data || 'Request failed';
 		$scope.status = status;
 	});
 	
@@ -123,10 +125,10 @@ campusplanApp
 .controller('UniA-ZController', 
 	function($scope, $routeParams, $http, $rootScope, $timeout) {
 
-	$scope.name = "UniA-ZController";
+	$scope.name = 'UniA-ZController';
 	$scope.params = $routeParams;
-	$rootScope.$currentPageName = "Uni-a-z";
-	$rootScope.pageTitle = "Uni A-Z";
+	$rootScope.$currentPageName = 'Uni-a-z';
+	$rootScope.pageTitle = 'Uni A-Z';
 
 
 	/* Request a search at api/unia-z.php and return results */
@@ -148,15 +150,15 @@ campusplanApp
 				}
 			})
 			.error(function(data, status) {
-				$scope.data = data || "Request failed";
+				$scope.data = data || 'Request failed';
 				$scope.status = status;			
 			});
 		}
-	}
+	};
 	$scope.searchletter = function(letter) {
 		$scope.inputsearchterm = letter;
 		$scope.search();
-	}
+	};
 	
 	// search-as-you-type with 500ms delay
 	var _timeout;
@@ -175,8 +177,8 @@ campusplanApp
 	nothing fancy here since it's just more or less a static site
 */
 .controller('InfoController', function($scope, $rootScope) {
-	$rootScope.$currentPageName = "Info";
-	$rootScope.pageTitle = "Info";
+	$rootScope.$currentPageName = 'Info';
+	$rootScope.pageTitle = 'Info';
 
 })
 /*
@@ -185,10 +187,10 @@ campusplanApp
 .controller('OrgaController', 
 	function($scope, $routeParams, $http, leafletData, $document, $rootScope, localStorageService, FavService, WicketService) {
 
-	$scope.name = "OrgaController";
+	$scope.name = 'OrgaController';
 	$scope.params = $routeParams;
-	$rootScope.$currentPageName = "Orga";
-	$rootScope.pageTitle = "Einrichtungen";
+	$rootScope.$currentPageName = 'Orga';
+	$rootScope.pageTitle = 'Einrichtungen';
 	$scope.orgaHasCoords = false;
 	$scope.inFav = false;
 	$scope.hasRoute = false;
@@ -201,11 +203,11 @@ campusplanApp
 	$scope.addFav = function() {
 		FavService.toggleFav($scope.orga);
 		$scope.inFav = ($scope.inFavs() < 0) ? false : true;
-	}
+	};
 	// check position in favourites list
 	$scope.inFavs = function() {
 		return FavService.inFavs($scope.orga);
-	}
+	};
 
 	// query orga from API
 	$scope.orgaLoading = $http.post('api/orga.php', { data: $scope.params.identifier })
@@ -216,7 +218,7 @@ campusplanApp
 
 		if(data.results != null && data.results.bindings.length > 0) {
 			$scope.orga = data.results.bindings[0];
-			$rootScope.pageTitle = "Einrichtungen: "+$scope.orga.name.value;
+			$rootScope.pageTitle = 'Einrichtungen: '+$scope.orga.name.value;
 
 			$scope.orgaSearchSuccess = true;
 			$scope.orgaSearchFailed = false;
@@ -226,7 +228,7 @@ campusplanApp
 				$scope.orgaHasCoords = true;
 			} else {
 				// try to geocode address otherwise
-				var address = ($scope.orga.address != null) ? $scope.orga.address.value : $scope.orga.street.value +", "+  $scope.orga.zip.value +" "+ $scope.orga.city.value;
+				var address = ($scope.orga.address != null) ? $scope.orga.address.value : $scope.orga.street.value +', '+  $scope.orga.zip.value +' '+ $scope.orga.city.value;
 				$scope.geocodeLoading = $http.post('api/geocode.php', { data: address })
 				.success(function(data, status) {
 					if(Object.keys(data.results).length > 0) {
@@ -322,7 +324,7 @@ campusplanApp
 					$scope.geoLocationError = true;
 					return false;
 				}
-			}
+			};
 
 			// call routing API
 			// type = pedestrian, bicycle or fastest (car)
@@ -340,7 +342,7 @@ campusplanApp
 					$scope.route = data;
 					$scope.hasRoute = true;
 
-					// iterate over result's "shapePoints"
+					// iterate over result's 'shapePoints'
 					// lat and lng aren't stored in pairs, so we skip every 2nd entry in that list
 					$scope.routeNodes = [];
 					angular.forEach($scope.route.route.shape.shapePoints, function(point, index) {
@@ -390,7 +392,7 @@ campusplanApp
 
 	})
 	.error(function(data, status) {
-		$scope.data = data || "Request failed";
+		$scope.data = data || 'Request failed';
 		$scope.status = status;
 	});
 })
@@ -401,8 +403,8 @@ campusplanApp
 .controller('FachbereicheController', 
 	function($scope, $rootScope, $http) {
 
-	$rootScope.$currentPageName = "Fachbereiche";
-	$rootScope.pageTitle = "Fachbereiche";
+	$rootScope.$currentPageName = 'Fachbereiche';
+	$rootScope.pageTitle = 'Fachbereiche';
 	$scope.splitNamePattern = /(Fachbereich [0-9]{2}) - (.+)/;
 
 	$scope.FachbereicheLoading = $http.get('api/fachbereiche.php')
@@ -418,7 +420,7 @@ campusplanApp
 		}
 	})
 	.error(function(data, status) {
-		$scope.data = data || "Request failed";
+		$scope.data = data || 'Request failed';
 		$scope.status = status;			
 	});
 })
@@ -429,8 +431,8 @@ campusplanApp
 .controller('HoersaeleController', 
 	function($scope, $rootScope, $http) {
 
-	$rootScope.$currentPageName = "Hoersaele";
-	$rootScope.pageTitle = "Hörsaele";
+	$rootScope.$currentPageName = 'Hoersaele';
+	$rootScope.pageTitle = 'Hörsaele';
 
 	$scope.HoersaeleLoading = $http.get('api/hoersaele.php')
 	.success(function(data, status) {
@@ -445,7 +447,7 @@ campusplanApp
 		}
 	})
 	.error(function(data, status) {
-		$scope.data = data || "Request failed";
+		$scope.data = data || 'Request failed';
 		$scope.status = status;			
 	});
 })
@@ -453,9 +455,9 @@ campusplanApp
 	Controller Wohnheime
 	similar to Fachbereiche, Hörsäle
 */
-.controller('WohnheimeController', function($scope, $rootScope, $http, $filter) {
-	$rootScope.$currentPageName = "Wohnheime";
-	$rootScope.pageTitle = "Wohnheime";
+.controller('WohnheimeController', function($scope, $rootScope, $http) {
+	$rootScope.$currentPageName = 'Wohnheime';
+	$rootScope.pageTitle = 'Wohnheime';
 
 	$scope.WohnheimeLoading = $http.get('api/wohnheime.php')
 	.success(function(data, status) {
@@ -470,7 +472,7 @@ campusplanApp
 		}
 	})
 	.error(function(data, status) {
-		$scope.data = data || "Request failed";
+		$scope.data = data || 'Request failed';
 		$scope.status = status;			
 	});
 })
@@ -483,8 +485,8 @@ campusplanApp
 	$scope.$route = $route;
 	$scope.$location = $location;
 	$scope.$routeParams = $routeParams;
-	$rootScope.$currentPageName = "Wetter";
-	$rootScope.pageTitle = "Wetter";
+	$rootScope.$currentPageName = 'Wetter';
+	$rootScope.pageTitle = 'Wetter';
 })
 /*
 	Controller ULB-Katalog
@@ -495,17 +497,17 @@ campusplanApp
 	$scope.$route = $route;
 	$scope.$location = $location;
 	$scope.$routeParams = $routeParams;
-	$rootScope.$currentPageName = "ULB-Katalog";
-	$rootScope.pageTitle= "ULB-Katalog";
+	$rootScope.$currentPageName = 'ULB-Katalog';
+	$rootScope.pageTitle= 'ULB-Katalog';
 })
 /*
 	Controller Favoriten
 */
 .controller('FavoritenController', 
-	function($scope, $rootScope, $http, $filter, localStorageService, FavService, WicketService) {
+	function($scope, $rootScope, $http, $filter, localStorageService, FavService) {
 
-	$rootScope.$currentPageName = "Favoriten";
-	$rootScope.pageTitle = "Favoriten";
+	$rootScope.$currentPageName = 'Favoriten';
+	$rootScope.pageTitle = 'Favoriten';
 	$scope.favoriten = localStorageService.get('favoriten');
 
 	// remove all orgas / clear the local storage
@@ -513,18 +515,18 @@ campusplanApp
 		$scope.favoriten = {};
 		$scope.favoriten.orgas = [];
 		return localStorageService.clearAll();
-	}
+	};
 
 	// remove orga from localstorage, then reload fav list
 	$scope.removeFav = function(orga) {
 		FavService.toggleFav(orga);
 		$scope.favoriten = localStorageService.get('favoriten');		
-	}
+	};
 
 	// do stuffs
 	$scope.stuff = function($event) {
 		$($event.target).toggleClass('fav');
-	}
+	};
 })
 /*
 	Dummy Controller
@@ -535,7 +537,7 @@ campusplanApp
 	$scope.$route = $route;
 	$scope.$location = $location;
 	$scope.$routeParams = $routeParams;
-	$rootScope.$currentPageName = "NotImplemented";
-	$rootScope.pageTitle = "Not found";
+	$rootScope.$currentPageName = 'NotImplemented';
+	$rootScope.pageTitle = 'Not found';
 
 });

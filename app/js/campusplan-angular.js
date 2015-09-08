@@ -1,3 +1,5 @@
+'use strict';
+
 // load Angular & modules
 var campusplanApp = angular.module('CampusplanApp', 
 	['ngRoute', 'leaflet-directive', 'cgBusy', 'LocalStorageModule', 'angulartics', 'angulartics.piwik']);
@@ -13,7 +15,7 @@ campusplanApp.value('cgBusyDefaults',{
 
 // set default variables
 campusplanApp.run(function($rootScope, $http, $interval) {
-	$rootScope.$navbarBgCol = "#009dd1";
+	$rootScope.$navbarBgCol = '#009dd1';
 
 	// Leaflet map defaults
 	$rootScope.leafletDefaults = {
@@ -26,28 +28,28 @@ campusplanApp.run(function($rootScope, $http, $interval) {
 			scrollWheelZoom: true, 
 			minZoom: 10,
 			// Mapquest Open proxied & cached through app server
-			tileLayer: "//app.uni-muenster.de/tiles/1.0.0/map/{z}/{x}/{y}.jpeg", 
+			tileLayer: '//app.uni-muenster.de/tiles/1.0.0/map/{z}/{x}/{y}.jpeg', 
 			tileLayerOptions: {
-				subdomains: "1234",
+				subdomains: '1234',
 				attribution: '© <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> | Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="/img/mq_logo.png">'
 			},
 		},
 		icons: { 
 			iconBlue: {
-				iconUrl: "img/awesomemarkers-blue.png",
+				iconUrl: 'img/awesomemarkers-blue.png',
 				iconSize: [30, 46],
 				iconAnchor: [14, 43],
 				popupAnchor: [1, -40],
-				shadowUrl: "img/awesomemarkers-shadow.png",
+				shadowUrl: 'img/awesomemarkers-shadow.png',
 				shadowAnchor: [10, 12],
 				shadowSize: [36, 16]
 			},
 			iconGreen: {
-				iconUrl: "img/awesomemarkers-green.png",
+				iconUrl: 'img/awesomemarkers-green.png',
 				iconSize: [30, 46],
 				iconAnchor: [14, 43],
 				popupAnchor: [1, -40],
-				shadowUrl: "img/awesomemarkers-shadow.png",
+				shadowUrl: 'img/awesomemarkers-shadow.png',
 				shadowAnchor: [10, 12],
 				shadowSize: [36, 16]
 			} 
@@ -103,7 +105,7 @@ campusplanApp.run(function($rootScope, $http, $interval) {
 			}
 		})
 		.error(function(data, status) {
-			$rootScope.data = data || "Request failed";
+			$rootScope.data = data || 'Request failed';
 			$rootScope.status = status;
 		});	
 	}

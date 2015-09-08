@@ -1,3 +1,5 @@
+'use strict';
+
 /*
 	Config for 
 		- template<->controller association

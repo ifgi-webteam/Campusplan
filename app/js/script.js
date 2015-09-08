@@ -1,3 +1,5 @@
+'use strict';
+
 // get monday of this week
 function getMonday(d) {
   d = new Date(d);
