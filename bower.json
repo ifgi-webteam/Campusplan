@@ -18,8 +18,9 @@
     "angular-busy": "~4.1",
     "angular-local-storage": "0.2.x",
     "Wicket": "https://github.com/arthur-e/Wicket.git#8af0560",
-    "leaflet.locatecontrol": "0.44.x",
-    "angulartics": "^0.20"
+    "leaflet.locatecontrol": "^0.44.x",
+    "angulartics": "^0.20",
+    "jquery": "^1.12"
   },
   "devDependencies": {
     "angular-mocks": "~1.4.x"

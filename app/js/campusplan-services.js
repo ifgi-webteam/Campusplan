@@ -65,3 +65,15 @@ campusplanApp.service('WicketService', function() {
 	};
 
 });
+
+// get monday of this week
+campusplanApp.service('DateService', function() {
+
+	this.mondayOfThisWeek = function(someDate) {
+		someDate = new Date(someDate);
+		var day = someDate.getDay(),
+		diff = someDate.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
+		return new Date(someDate.setDate(diff));
+	};
+
+});
