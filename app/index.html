@@ -19,6 +19,15 @@
 	<link rel="stylesheet" href="bower_components/leaflet-locatecontrol/dist/L.Control.Locate.min.css">
 	<link rel="stylesheet" href="css/weather-icons.min.css">
 	<link rel="stylesheet" href="css/style.css">
+
+	<!-- EU cookie Law -->
+	<script type="text/javascript">
+	    window.cookieconsent_options = {"message":"Diese App nutzt Cookies, um bestmögliche Funktionalität zu gewährleisten.","dismiss":"Ok!","learnMore":"","link":"","theme":"dark-bottom"};
+	</script>
+
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.10/cookieconsent.min.js"></script>
+	<!-- End EU cookie law-->
+
 </head>
 <body>
 	<div class="fullheight">
@@ -32,7 +41,7 @@
 							<ul class="nav navbar-nav" style="width:100%" ng-class="'col'+$currentPageName">
 								<li class="dropdown">
 								<a ng-hide="$currentPageName == 'Default'" class="dropdown-toggle navbar-brand" data-toggle="dropdown"><span class="branding-img"></span>&nbsp;&nbsp;<i class="fa fa-caret-down"></i> Campusplan</a>
-								
+
 								<span ng-show="$currentPageName == 'Default'" class="navbar-brand"><span class="branding-img"></span> &nbsp; Campusplan</a></span>
 
 								<ul id="dropdown-tile-navigation" class="dropdown-menu" role="menu">
@@ -59,12 +68,12 @@
 	<script src="bower_components/angular/angular.min.js"></script>
 	<script src="bower_components/angular-route/angular-route.min.js"></script>
 	<script src="bower_components/angular-i18n/angular-locale_de-de.js"></script>
-	<script src="bower_components/leaflet/dist/leaflet.js"></script> 
-	<script src="bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.js"></script> 
+	<script src="bower_components/leaflet/dist/leaflet.js"></script>
+	<script src="bower_components/angular-leaflet-directive/dist/angular-leaflet-directive.js"></script>
 	<script src="bower_components/angular-local-storage/dist/angular-local-storage.min.js"></script>
-	<script src="bower_components/angular-busy/dist/angular-busy.min.js"></script> 
-	<script src="bower_components/angulartics/dist/angulartics.min.js"></script> 
-	<script src="bower_components/angulartics/dist/angulartics-piwik.min.js"></script> 
+	<script src="bower_components/angular-busy/dist/angular-busy.min.js"></script>
+	<script src="bower_components/angulartics/dist/angulartics.min.js"></script>
+	<script src="bower_components/angulartics/dist/angulartics-piwik.min.js"></script>
 	<script src="bower_components/Wicket/wicket.js"></script>
 	<script src="bower_components/leaflet.locatecontrol/dist/L.Control.Locate.min.js"></script>
 	<script src="js/campusplan.js"></script>
