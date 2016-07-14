@@ -13,6 +13,9 @@ campusplanApp.value('cgBusyDefaults',{
 	minDuration: 0
 });
 
+// set mapbox token here
+var mapboxToken = '###INSERTTOKENHERE###';
+
 // set default variables
 campusplanApp.run(function($rootScope, $http, $interval) {
 	$rootScope.$navbarBgCol = '#009dd1';
@@ -27,11 +30,11 @@ campusplanApp.run(function($rootScope, $http, $interval) {
 		mapDefaults: {
 			scrollWheelZoom: true, 
 			minZoom: 10,
-			// Mapquest Open proxied & cached through app server
-			tileLayer: '//app.uni-muenster.de/tiles/1.0.0/map/{z}/{x}/{y}.jpeg', 
+			// Mapbox tiles
+			tileLayer: "https://api.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token="+mapboxToken, 
 			tileLayerOptions: {
-				subdomains: '1234',
-				attribution: '© <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> | Tiles Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="/img/mq_logo.png">'
+				subdomains: "1234",
+				attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a>"
 			},
 		},
 		icons: { 
