@@ -173,53 +173,6 @@ SELECT DISTINCT ?orga ?name WHERE {
 }
 
 /*
-	Query all Mensaplan for whole week, all Mensas
-*/
-function getMensaplan($identifier = "") {
-	if(date('l') == "Saturday" || date('l') == "Sunday") {
-		$timeStart = strtotime('monday next week');
-	} else {
-		$timeStart = strtotime('monday this week');
-	}
-	$timeEnd = $timeStart + 7*24*60*60;
-	$dateStart = date('Y-m-d', $timeStart);
-	$dateEnd = date('Y-m-d', $timeEnd);
-	$datetimeStart = $dateStart.'T00:00:00Z';
-	$datetimeEnd = $dateEnd.'T00:00:00Z';
-
-	$specificMensa = "";
-	if($identifier != "") $specificMensa = '<http://data.uni-muenster.de/context/'.$identifier.'> gr:offers ?menu.';
-
-	$food = sparql_get('
-prefix xsd: <http://www.w3.org/2001/XMLSchema#>
-prefix gr: <http://purl.org/goodrelations/v1#>
-prefix foaf: <http://xmlns.com/foaf/0.1/>
-
-SELECT DISTINCT ?name ?start ?minPrice ?maxPrice ?mensa ?mensaname WHERE {
-  '.$specificMensa.'
-  ?menu a gr:Offering ;
-        gr:availabilityStarts ?start ;
-        gr:name ?name ;
-        gr:hasPriceSpecification ?priceSpec .
-  ?priceSpec gr:hasMinCurrencyValue ?minPrice ;
-             gr:hasMaxCurrencyValue ?maxPrice .
-  ?mensa gr:offers ?menu ;
-         foaf:name ?mensaname .
-  FILTER (xsd:dateTime(?start) > "'.$datetimeStart.'"^^xsd:dateTime
-  	&& xsd:dateTime(?start) < "'.$datetimeEnd.'"^^xsd:dateTime
-  	) .
-} ORDER BY MONTH(?start) DAY(?start) LCASE(?mensaname)
-');
-	return $food;
-}
-/* Fetch mensa data from different source, implementation see https://github.com/chk1/mensaparser */
-function getMensaplan2($identifier = "") {
-	if($identifier!="") { $identifier = "/".$identifier; }
-	return file_get_contents_cached('http://app.uni-muenster.de:9000/menu'.$identifier, 24*3600);
-}
-
-
-/*
 	Query all buildings for display on map
 	Includes point location data
 */

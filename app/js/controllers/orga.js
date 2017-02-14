@@ -114,15 +114,6 @@ campusplanApp.controller('OrgaController',
 				}
 			});
 
-			// load mensaplan for mensa organizations
-			$scope.orgaLoading = $http.post('api/mensen.php', { data: $scope.params.identifier.split('/').pop() })
-			.success(function(data, status) {
-				if(Object.keys(data).length > 0) {
-					$scope.orgaHasMensa = true;
-					$scope.mensaData = data;
-				}
-			});
-
 			// query user's Geolocation
 			// if successful call routing API
 			// save the position info in variable

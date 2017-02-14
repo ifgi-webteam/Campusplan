@@ -65,24 +65,6 @@
 		<span class="pull-right" style="font-weight:normal; font-size:smaller">Directions Courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="/img/mq_logo.png"></span>
 	</div>
 
-	<div class="col-xs-12" ng-show="orgaHasMensa">
-		<h3>Mensaplan für die Woche vom {{ mensaData[1].meta.date | date:'dd. MMMM yyyy' }}</h3>
-		<div class="row">
-		<div ng-repeat="day in mensaData" id="table{{ day.meta.dayOfWeek }}" class="col-md-6">
-		<table ng-repeat="mensa in day.fooddata" class="table table-bordered table-striped">
-			<thead>
-				<tr><th>{{ day.meta.dayOfWeekNameGer }}</a></th></tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="food in mensa.food">
-					<td>{{ food.name }}<span style="float:right" ng-hide="food.closed==1">{{ food.minPrice }}&euro; | {{ food.maxPrice }}&euro;</span></td>
-				</tr>
-			</tbody>
-		</table>
-		</div>
-		</div>
-	</div>
-
 	<div class="col-xs-12" ng-show="orgaHasSubOrga">
 		<h3>Untergeordnete Einrichtungen</h3>
 		<table class="table table-bordered table-striped">
