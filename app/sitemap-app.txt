@@ -4,7 +4,7 @@ https://app.uni-muenster.de/Karte/
 https://app.uni-muenster.de/UniA-
 https://app.uni-muenster.de/Info/
 https://app.uni-muenster.de/Fachbereiche/
-https://app.uni-muenster.de/Hörsäle/
+https://app.uni-muenster.de/Hoersaele/
 https://app.uni-muenster.de/Wohnheime/
 https://app.uni-muenster.de/Favoriten/
 https://app.uni-muenster.de/ULB-Katalog/

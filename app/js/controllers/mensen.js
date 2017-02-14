@@ -42,4 +42,14 @@ campusplanApp.controller('MensenController',
 	$('#content').on('hide.bs.collapse', 'div.mensa-table', function(e){
 		$(this).find('.fa.fa-angle-down').removeClass('fa-angle-down').addClass('fa-angle-right');
 	});
+}).controller('MensenFrameController', 
+	function($scope, $routeParams, $http, $rootScope) {
+
+	$scope.name = "MensenFrameController";
+	$scope.params = $routeParams;
+	$rootScope.$currentPageName = "Mensen";
+	$rootScope.pageTitle = "Mensaplan";
+	
+	var url = "http://muenster.my-mensa.de/index.php?v=4894167&hyp=1#" + $scope.params.name + "_tage";
+	$('#mensa_frame').attr('src', url);
 })

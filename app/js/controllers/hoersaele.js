@@ -7,7 +7,7 @@ campusplanApp.controller('HoersaeleController',
 	function($scope, $rootScope, $http) {
 
 	$rootScope.$currentPageName = 'Hoersaele';
-	$rootScope.pageTitle = 'Hörsaele';
+	$rootScope.pageTitle = 'Hörsäle';
 
 	$scope.HoersaeleLoading = $http.get('api/hoersaele.php')
 	.success(function(data, status) {

@@ -1,10 +1,10 @@
 <div>
 	<div class="container-fluid" cg-busy="mensaLoading">
-		<div class="col-md-12">
+		<div class="col-md-12" ng-show="mensenQuerySuccess">
 			<h1>Mensaplan für die Woche vom {{ mensaData[1].meta.date | date:'dd. MMMM yyyy' }}</h1>
 		</div>
 
-		<div ng-repeat="day in mensaData" class="col-md-12 mensa-table">
+		<div ng-repeat="day in mensaData" class="col-md-12 mensa-table" ng-show="mensenQuerySuccess">
 			<a href="" data-toggle="collapse" data-target="#table{{ day.meta.dayOfWeek }}">
 			<h3 class="colMensen" style="color:#fff;padding:10px" id="{{ day.meta.dayOfWeek }}">
 				<i class="fa fa-fw" ng-class="(day.meta.dayOfWeek==dayOfWeek || (day.meta.dayOfWeek == 1 && expandMonday)) ? 'fa-angle-down':'fa-angle-right' "></i> {{ day.meta.dayOfWeekNameGer }}
@@ -23,23 +23,46 @@
 			</table>
 			</div>
 		</div>
-		<div class="footnote col-md-12">
+		<div class="footnote col-md-12" ng-show="mensenQuerySuccess">
 			Alle Angaben ohne Gewähr, Änderungen vorbehalten
 		</div>
 
+		<div class="col-md-12" ng-show="mensenQueryFailed">
+			<h1>Mensaplan</h1>
+		</div>
 		<div class="col-xs-12 apiFailed" ng-show="mensenQueryFailed">
-			<p class="bg-danger">Beim Abfragen des Mensaplans ist ein Fehler aufgetreten.</p>
-			
-			Informiere dich über das aktuelle Menü direkt auf den Seiten des Studentenwerks:
-			
-			<ul>
-			<li><a href="http://www.studentenwerk-muenster.de/de/essen-a-trinken/mensen/mensa-am-aasee" target="_blank">Mensa am Aasee</a></li>
-			<li><a href="http://www.studentenwerk-muenster.de/de/essen-a-trinken/mensen/mensa-am-ring" target="_blank">Mensa am Ring</a></li>
-			<li><a href="http://www.studentenwerk-muenster.de/de/essen-a-trinken/mensen/da-vinci" target="_blank">Mensa Da Vinci</a></li>
-			<li><a href="http://www.studentenwerk-muenster.de/de/essen-a-trinken/bistros-a-cafes/denkpause" target="_blank">Bistro Denkpause</a></li>
-			<li><a href="http://www.studentenwerk-muenster.de/essen-a-trinken/mensen/bispinghof" target="_blank">Mensa Bispinghof</a></li>
-			</ul>
-			
+				Informiere dich über das aktuelle Menü direkt auf den Seiten des Studentenwerks:<br /><br />
+				<table class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th>Mensen</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr><td><a href="Mensen/aasee">Mensa am Aasee</a></td></tr>
+						<tr><td><a href="Mensen/ring">Mensa am Ring</a></td></tr>
+						<tr><td><a href="Mensen/bispinghof">Mensa Bispinghof</a></td></tr>
+						<tr><td><a href="Mensen/davinci">Mensa Da Vinci</a></td></tr>
+						<tr><td><a href="Mensen/steinfurt">Mensa Steinfurt</a></td></tr>
+					</tbody>
+				</table>
+				<table class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th>Bistros</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr><td><a href="Mensen/coerdehof">Bistro Coerdehof</a></td></tr>
+						<tr><td><a href="Mensen/denkpause">Bistro Denkpause</a></td></tr>
+						<tr><td><a href="Mensen/durchblick">Bistro Durchblick</a></td></tr>
+						<tr><td><a href="Mensen/frieden">Bistro Frieden</a></td></tr>
+						<tr><td><a href="Mensen/huefferstift">Bistro Hüfferstift</a></td></tr>
+						<tr><td><a href="Mensen/kabu">Bistro KaBu</a></td></tr>
+						<tr><td><a href="Mensen/katho">Bistro Katholische Hochschule</a></td></tr>
+						<tr><td><a href="Mensen/oeconomicum">Bistro Oeconomicum</a></td></tr>
+					</tbody>
+				</table>
 		</div>
 
 	</div>

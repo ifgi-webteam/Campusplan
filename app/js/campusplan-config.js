@@ -17,6 +17,10 @@ campusplanApp.config(function($routeProvider, $locationProvider, localStorageSer
 			templateUrl: 'templates/mensen.html',
 			controller: 'MensenController',
 		})
+		.when('/Mensen/:name', {
+			templateUrl: 'templates/mensen-frame.html',
+			controller: 'MensenFrameController',
+		})
 		.when('/Karte/', {
 			templateUrl: 'templates/karte.html',
 			controller: 'KarteController'
@@ -37,7 +41,7 @@ campusplanApp.config(function($routeProvider, $locationProvider, localStorageSer
 			templateUrl: 'templates/fachbereiche.html',
 			controller: 'FachbereicheController'
 		})
-		.when('/Hörsäle/', {
+		.when('/Hoersaele/', {
 			templateUrl: 'templates/hoersaele.html',
 			controller: 'HoersaeleController'
 		})
