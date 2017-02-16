@@ -50,6 +50,6 @@ campusplanApp.controller('MensenController',
 	$rootScope.$currentPageName = "Mensen";
 	$rootScope.pageTitle = "Mensaplan";
 	
-	var url = "http://muenster.my-mensa.de/index.php?v=4894167&hyp=1#" + $scope.params.name + "_tage";  // TODO: Change to https for iPhones
+	var url = "https://muenster.my-mensa.de/index.php?v=4894167&hyp=1#" + $scope.params.name + "_tage";  // TODO: Change to https for iPhones
 	$('#mensa_frame').attr('src', url);
 })
